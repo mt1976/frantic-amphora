@@ -1,0 +1,116 @@
+2026/01/20 09:28:12 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:12 main.go:102: [31mERROR[0m P_1 Test Duration: 4.928792ms Start: 2026-01-20T09:28:12Z Stop: 2026-01-20T09:28:12Z
+2026/01/20 09:28:12 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:12 main.go:102: [31mERROR[0m P_2 Test Duration: 774.083µs Start: 2026-01-20T09:28:12Z Stop: 2026-01-20T09:28:12Z
+2026/01/20 09:28:22 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:22 main.go:102: [31mERROR[0m P_1 Test Duration: 5.412417ms Start: 2026-01-20T09:28:22Z Stop: 2026-01-20T09:28:22Z
+2026/01/20 09:28:22 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:22 main.go:102: [31mERROR[0m P_2 Test Duration: 968.375µs Start: 2026-01-20T09:28:22Z Stop: 2026-01-20T09:28:22Z
+2026/01/20 09:28:23 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:23 main.go:102: [31mERROR[0m P_1 Test Duration: 2.375542ms Start: 2026-01-20T09:28:23Z Stop: 2026-01-20T09:28:23Z
+2026/01/20 09:28:23 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:23 main.go:102: [31mERROR[0m P_2 Test Duration: 1.151ms Start: 2026-01-20T09:28:23Z Stop: 2026-01-20T09:28:23Z
+2026/01/20 09:28:24 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:24 main.go:102: [31mERROR[0m P_1 Test Duration: 2.612417ms Start: 2026-01-20T09:28:24Z Stop: 2026-01-20T09:28:24Z
+2026/01/20 09:28:24 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:24 main.go:102: [31mERROR[0m P_2 Test Duration: 825.917µs Start: 2026-01-20T09:28:24Z Stop: 2026-01-20T09:28:24Z
+2026/01/20 09:28:25 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:25 main.go:102: [31mERROR[0m P_1 Test Duration: 2.532458ms Start: 2026-01-20T09:28:25Z Stop: 2026-01-20T09:28:25Z
+2026/01/20 09:28:25 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:25 main.go:102: [31mERROR[0m P_2 Test Duration: 1.070625ms Start: 2026-01-20T09:28:25Z Stop: 2026-01-20T09:28:25Z
+2026/01/20 09:28:25 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:25 main.go:102: [31mERROR[0m P_1 Test Duration: 2.43325ms Start: 2026-01-20T09:28:25Z Stop: 2026-01-20T09:28:25Z
+2026/01/20 09:28:25 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:25 main.go:102: [31mERROR[0m P_2 Test Duration: 1.017791ms Start: 2026-01-20T09:28:25Z Stop: 2026-01-20T09:28:25Z
+2026/01/20 09:28:26 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:26 main.go:102: [31mERROR[0m P_1 Test Duration: 3.221292ms Start: 2026-01-20T09:28:26Z Stop: 2026-01-20T09:28:26Z
+2026/01/20 09:28:26 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:26 main.go:102: [31mERROR[0m P_2 Test Duration: 1.039833ms Start: 2026-01-20T09:28:26Z Stop: 2026-01-20T09:28:26Z
+2026/01/20 09:28:26 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:26 main.go:102: [31mERROR[0m P_1 Test Duration: 2.611792ms Start: 2026-01-20T09:28:26Z Stop: 2026-01-20T09:28:26Z
+2026/01/20 09:28:26 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:26 main.go:102: [31mERROR[0m P_2 Test Duration: 983.25µs Start: 2026-01-20T09:28:26Z Stop: 2026-01-20T09:28:26Z
+2026/01/20 09:28:27 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:27 main.go:102: [31mERROR[0m P_1 Test Duration: 3.099583ms Start: 2026-01-20T09:28:27Z Stop: 2026-01-20T09:28:27Z
+2026/01/20 09:28:27 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:27 main.go:102: [31mERROR[0m P_2 Test Duration: 814µs Start: 2026-01-20T09:28:27Z Stop: 2026-01-20T09:28:27Z
+2026/01/20 09:28:27 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:27 main.go:102: [31mERROR[0m P_1 Test Duration: 2.906417ms Start: 2026-01-20T09:28:27Z Stop: 2026-01-20T09:28:27Z
+2026/01/20 09:28:27 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:27 main.go:102: [31mERROR[0m P_2 Test Duration: 1.0125ms Start: 2026-01-20T09:28:27Z Stop: 2026-01-20T09:28:27Z
+2026/01/20 09:28:28 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:28 main.go:102: [31mERROR[0m P_1 Test Duration: 2.59875ms Start: 2026-01-20T09:28:28Z Stop: 2026-01-20T09:28:28Z
+2026/01/20 09:28:28 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:28 main.go:102: [31mERROR[0m P_2 Test Duration: 727.833µs Start: 2026-01-20T09:28:28Z Stop: 2026-01-20T09:28:28Z
+2026/01/20 09:28:28 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:28 main.go:102: [31mERROR[0m P_1 Test Duration: 2.5805ms Start: 2026-01-20T09:28:28Z Stop: 2026-01-20T09:28:28Z
+2026/01/20 09:28:28 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:28 main.go:102: [31mERROR[0m P_2 Test Duration: 998.291µs Start: 2026-01-20T09:28:28Z Stop: 2026-01-20T09:28:28Z
+2026/01/20 09:28:29 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:29 main.go:102: [31mERROR[0m P_1 Test Duration: 2.426834ms Start: 2026-01-20T09:28:29Z Stop: 2026-01-20T09:28:29Z
+2026/01/20 09:28:29 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:29 main.go:102: [31mERROR[0m P_2 Test Duration: 1.144292ms Start: 2026-01-20T09:28:29Z Stop: 2026-01-20T09:28:29Z
+2026/01/20 09:28:29 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:29 main.go:102: [31mERROR[0m P_1 Test Duration: 2.761458ms Start: 2026-01-20T09:28:29Z Stop: 2026-01-20T09:28:29Z
+2026/01/20 09:28:29 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:29 main.go:102: [31mERROR[0m P_2 Test Duration: 1.138417ms Start: 2026-01-20T09:28:29Z Stop: 2026-01-20T09:28:29Z
+2026/01/20 09:28:30 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:30 main.go:102: [31mERROR[0m P_1 Test Duration: 2.583167ms Start: 2026-01-20T09:28:30Z Stop: 2026-01-20T09:28:30Z
+2026/01/20 09:28:30 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:30 main.go:102: [31mERROR[0m P_2 Test Duration: 1.269ms Start: 2026-01-20T09:28:30Z Stop: 2026-01-20T09:28:30Z
+2026/01/20 09:28:30 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:30 main.go:102: [31mERROR[0m P_1 Test Duration: 2.51725ms Start: 2026-01-20T09:28:30Z Stop: 2026-01-20T09:28:30Z
+2026/01/20 09:28:30 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:30 main.go:102: [31mERROR[0m P_2 Test Duration: 1.142167ms Start: 2026-01-20T09:28:30Z Stop: 2026-01-20T09:28:30Z
+2026/01/20 09:28:31 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:31 main.go:102: [31mERROR[0m P_1 Test Duration: 2.793542ms Start: 2026-01-20T09:28:31Z Stop: 2026-01-20T09:28:31Z
+2026/01/20 09:28:31 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:31 main.go:102: [31mERROR[0m P_2 Test Duration: 1.045375ms Start: 2026-01-20T09:28:31Z Stop: 2026-01-20T09:28:31Z
+2026/01/20 09:28:31 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:31 main.go:102: [31mERROR[0m P_1 Test Duration: 2.404208ms Start: 2026-01-20T09:28:31Z Stop: 2026-01-20T09:28:31Z
+2026/01/20 09:28:31 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:31 main.go:102: [31mERROR[0m P_2 Test Duration: 1.045792ms Start: 2026-01-20T09:28:31Z Stop: 2026-01-20T09:28:31Z
+2026/01/20 09:28:32 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:32 main.go:102: [31mERROR[0m P_1 Test Duration: 2.77575ms Start: 2026-01-20T09:28:32Z Stop: 2026-01-20T09:28:32Z
+2026/01/20 09:28:32 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:32 main.go:102: [31mERROR[0m P_2 Test Duration: 716.792µs Start: 2026-01-20T09:28:32Z Stop: 2026-01-20T09:28:32Z
+2026/01/20 09:28:32 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:32 main.go:102: [31mERROR[0m P_1 Test Duration: 2.765666ms Start: 2026-01-20T09:28:32Z Stop: 2026-01-20T09:28:32Z
+2026/01/20 09:28:32 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:32 main.go:102: [31mERROR[0m P_2 Test Duration: 1.37975ms Start: 2026-01-20T09:28:32Z Stop: 2026-01-20T09:28:32Z
+2026/01/20 09:28:33 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:33 main.go:102: [31mERROR[0m P_1 Test Duration: 2.514417ms Start: 2026-01-20T09:28:33Z Stop: 2026-01-20T09:28:33Z
+2026/01/20 09:28:33 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:33 main.go:102: [31mERROR[0m P_2 Test Duration: 918.583µs Start: 2026-01-20T09:28:33Z Stop: 2026-01-20T09:28:33Z
+2026/01/20 09:28:33 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:33 main.go:102: [31mERROR[0m P_1 Test Duration: 2.440208ms Start: 2026-01-20T09:28:33Z Stop: 2026-01-20T09:28:33Z
+2026/01/20 09:28:33 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:33 main.go:102: [31mERROR[0m P_2 Test Duration: 989.375µs Start: 2026-01-20T09:28:33Z Stop: 2026-01-20T09:28:33Z
+2026/01/20 09:28:34 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:34 main.go:102: [31mERROR[0m P_1 Test Duration: 2.840125ms Start: 2026-01-20T09:28:34Z Stop: 2026-01-20T09:28:34Z
+2026/01/20 09:28:34 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:34 main.go:102: [31mERROR[0m P_2 Test Duration: 1.024083ms Start: 2026-01-20T09:28:34Z Stop: 2026-01-20T09:28:34Z
+2026/01/20 09:28:34 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:34 main.go:102: [31mERROR[0m P_1 Test Duration: 2.970209ms Start: 2026-01-20T09:28:34Z Stop: 2026-01-20T09:28:34Z
+2026/01/20 09:28:34 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:34 main.go:102: [31mERROR[0m P_2 Test Duration: 769.125µs Start: 2026-01-20T09:28:34Z Stop: 2026-01-20T09:28:34Z
+2026/01/20 09:28:35 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:35 main.go:102: [31mERROR[0m P_1 Test Duration: 2.845291ms Start: 2026-01-20T09:28:35Z Stop: 2026-01-20T09:28:35Z
+2026/01/20 09:28:35 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:35 main.go:102: [31mERROR[0m P_2 Test Duration: 1.173375ms Start: 2026-01-20T09:28:35Z Stop: 2026-01-20T09:28:35Z
+2026/01/20 09:28:35 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:35 main.go:102: [31mERROR[0m P_1 Test Duration: 2.440167ms Start: 2026-01-20T09:28:35Z Stop: 2026-01-20T09:28:35Z
+2026/01/20 09:28:35 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:35 main.go:102: [31mERROR[0m P_2 Test Duration: 750.459µs Start: 2026-01-20T09:28:35Z Stop: 2026-01-20T09:28:35Z
+2026/01/20 09:28:36 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:36 main.go:102: [31mERROR[0m P_1 Test Duration: 2.744125ms Start: 2026-01-20T09:28:36Z Stop: 2026-01-20T09:28:36Z
+2026/01/20 09:28:36 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:36 main.go:102: [31mERROR[0m P_2 Test Duration: 953.584µs Start: 2026-01-20T09:28:36Z Stop: 2026-01-20T09:28:36Z
+2026/01/20 09:28:36 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:36 main.go:102: [31mERROR[0m P_1 Test Duration: 2.64775ms Start: 2026-01-20T09:28:36Z Stop: 2026-01-20T09:28:36Z
+2026/01/20 09:28:36 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:36 main.go:102: [31mERROR[0m P_2 Test Duration: 1.1175ms Start: 2026-01-20T09:28:36Z Stop: 2026-01-20T09:28:36Z
+2026/01/20 09:28:37 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
+2026/01/20 09:28:37 main.go:102: [31mERROR[0m P_1 Test Duration: 2.436541ms Start: 2026-01-20T09:28:37Z Stop: 2026-01-20T09:28:37Z
+2026/01/20 09:28:37 main.go:301: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
+2026/01/20 09:28:37 main.go:102: [31mERROR[0m P_2 Test Duration: 1.079708ms Start: 2026-01-20T09:28:37Z Stop: 2026-01-20T09:28:37Z

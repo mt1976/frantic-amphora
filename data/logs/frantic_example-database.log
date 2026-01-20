@@ -1,0 +1,130 @@
+2026/01/19 16:14:07 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
+2026/01/19 16:14:07 databaseOptions.go:42: [32mDATABASE[0m [CON]{OPTION} WithVerbose set to false
+2026/01/19 16:14:07 databaseOptions.go:26: [32mDATABASE[0m [CON]{OPTION} WithCaching set to false
+2026/01/19 16:14:07 databaseOptions.go:34: [32mDATABASE[0m [CON]{OPTION} WithCacheKey set to Key
+2026/01/19 16:14:07 databaseOptions.go:66: [32mDATABASE[0m [CON]{OPTION} WithNameSpace set to cheeseOnToast
+2026/01/19 16:14:07 databaseConnect.go:145: [32mDATABASE[0m [CON] 4 Options 
+2026/01/19 16:14:07 databaseConnect.go:39: [32mDATABASE[0m [CON]{CONNECT} Configuration for cheeseOnToast.db: caching: false, cacheKey: Key, verbose: false, timeout: 30, poolSize: 10, nameSpace: cheeseOnToast, encryption: false, indices: []
+2026/01/19 16:14:07 databaseConnect.go:49: [32mDATABASE[0m [CON]{CONNECT} Opening Connection to [...cheeseontoast.db] data (0)
+2026/01/19 16:14:07 databaseConnect.go:73: [32mDATABASE[0m [CON]{CONNECT} (re)Opening [...cheeseontoast.db] data connection
+2026/01/19 16:14:07 databasePool.go:7: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Adding [cheeseontoast] to connection pool (/Volumes/External HD/Dev/GitHub/frantic-core/data/database/frantic_example-cheeseontoast.db)
+2026/01/19 16:14:07 databasePool.go:13: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Connection pool [size=1]
+2026/01/19 16:14:07 databaseConnect.go:111: [32mDATABASE[0m [CON]{CONNECT} Opened [.../Volumes/External HD/Dev/GitHub/frantic-core/data/database/frantic_example-cheeseontoast.db.db] data connection [codec=json] false
+2026/01/19 16:14:07 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/19 16:14:07 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010000⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/19 16:14:07 database.go:353: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Start
+2026/01/19 16:14:07 database.go:359: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - End
+2026/01/19 16:14:08 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=f22c8c930568714d009a96d2e280ac55547ca4aee9b465bf02d753b7711f8362 [...cheeseontoast.db] - From Cache
+2026/01/19 16:14:08 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:389: [32mDATABASE[0m [COUNT] TemplateStore [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:411: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:430: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db] - Result: 0
+2026/01/19 16:14:08 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=f22c8c930568714d009a96d2e280ac55547ca4aee9b465bf02d753b7711f8362 [...cheeseontoast.db] - From Cache
+2026/01/19 16:14:08 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserName=matttownsend) ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010000⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010001⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:353: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Start
+2026/01/19 16:14:08 database.go:359: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - End
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=f22c8c930568714d009a96d2e280ac55547ca4aee9b465bf02d753b7711f8362 [...cheeseontoast.db] - From Cache
+2026/01/19 16:14:08 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - Start
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:389: [32mDATABASE[0m [COUNT] TemplateStore [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - End
+2026/01/19 16:14:08 database.go:411: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:430: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db] - Result: 0
+2026/01/19 16:14:08 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=f22c8c930568714d009a96d2e280ac55547ca4aee9b465bf02d753b7711f8362 [...cheeseontoast.db] - From Cache
+2026/01/19 16:14:08 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserName=matttownsend) ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserName=matttownsend) ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - End
+2026/01/19 16:14:08 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - Start
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - End
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - End
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/19 16:14:08 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Start
+2026/01/19 16:14:08 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - End
+2026/01/20 09:27:16 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
+2026/01/20 09:27:16 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
+2026/01/20 09:27:16 databaseOptions.go:42: [32mDATABASE[0m [CON]{OPTION} WithVerbose set to false
+2026/01/20 09:27:16 databaseOptions.go:26: [32mDATABASE[0m [CON]{OPTION} WithCaching set to false
+2026/01/20 09:27:16 databaseOptions.go:34: [32mDATABASE[0m [CON]{OPTION} WithCacheKey set to Key
+2026/01/20 09:27:16 databaseOptions.go:66: [32mDATABASE[0m [CON]{OPTION} WithNameSpace set to cheeseOnToast
+2026/01/20 09:27:16 databaseConnect.go:145: [32mDATABASE[0m [CON] 4 Options 
+2026/01/20 09:27:16 databaseConnect.go:39: [32mDATABASE[0m [CON]{CONNECT} Configuration for cheeseOnToast.db: caching: false, cacheKey: Key, verbose: false, timeout: 30, poolSize: 10, nameSpace: cheeseOnToast, encryption: false, indices: []
+2026/01/20 09:27:16 databaseConnect.go:49: [32mDATABASE[0m [CON]{CONNECT} Opening Connection to [...cheeseontoast.db] data (0)
+2026/01/20 09:27:16 databaseConnect.go:73: [32mDATABASE[0m [CON]{CONNECT} (re)Opening [...cheeseontoast.db] data connection
+2026/01/20 09:27:16 databasePool.go:7: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Adding [cheeseontoast] to connection pool (/Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_example-cheeseontoast.db)
+2026/01/20 09:27:16 databasePool.go:13: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Connection pool [size=1]
+2026/01/20 09:27:16 databaseConnect.go:111: [32mDATABASE[0m [CON]{CONNECT} Opened [.../Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_example-cheeseontoast.db.db] data connection [codec=json] false
+2026/01/20 09:27:16 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/20 09:27:16 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStore WHERE ID=100 [...cheeseontoast.db]
+2026/01/20 09:27:16 database.go:262: [32mDATABASE[0m [DELETE] TemplateStore [...cheeseontoast.db] (&{ID:100 K)
+2026/01/20 09:27:16 database.go:277: [32mDATABASE[0m [DELETE] TemplateStore [...cheeseontoast.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/20 09:27:16 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStore WHERE ID=101 [...cheeseontoast.db]
+2026/01/20 09:27:16 database.go:262: [32mDATABASE[0m [DELETE] TemplateStore [...cheeseontoast.db] (&{ID:101 K)
+2026/01/20 09:27:16 database.go:277: [32mDATABASE[0m [DELETE] TemplateStore [...cheeseontoast.db] (&{ID:101 K) - Caching Disabled or Not Initialised
+2026/01/20 09:27:16 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010000⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/20 09:27:16 database.go:353: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Start
+2026/01/20 09:27:16 database.go:359: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - End
+2026/01/20 09:27:16 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/20 09:27:16 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=c2020431b5f18b10ccdbc248d4f5e1424973865da2ab4b9ee927eb3ff693b02c [...cheeseontoast.db] - From Cache
+2026/01/20 09:27:16 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/20 09:27:16 database.go:394: [32mDATABASE[0m [COUNT] TemplateStore [...cheeseontoast.db]
+2026/01/20 09:27:17 database.go:416: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db]
+2026/01/20 09:27:17 database.go:435: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db] - Result: 0
+2026/01/20 09:27:17 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=c2020431b5f18b10ccdbc248d4f5e1424973865da2ab4b9ee927eb3ff693b02c [...cheeseontoast.db] - From Cache
+2026/01/20 09:27:17 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010000⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/20 09:27:17 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:102 K) - Start
+2026/01/20 09:27:17 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:102 K) - End
+2026/01/20 09:27:17 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010001⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/20 09:27:29 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
+2026/01/20 09:27:29 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
+2026/01/20 09:27:29 databaseOptions.go:42: [32mDATABASE[0m [CON]{OPTION} WithVerbose set to false
+2026/01/20 09:27:29 databaseOptions.go:26: [32mDATABASE[0m [CON]{OPTION} WithCaching set to false
+2026/01/20 09:27:29 databaseOptions.go:34: [32mDATABASE[0m [CON]{OPTION} WithCacheKey set to Key
+2026/01/20 09:27:29 databaseOptions.go:66: [32mDATABASE[0m [CON]{OPTION} WithNameSpace set to cheeseOnToast
+2026/01/20 09:27:29 databaseConnect.go:145: [32mDATABASE[0m [CON] 4 Options 
+2026/01/20 09:27:29 databaseConnect.go:39: [32mDATABASE[0m [CON]{CONNECT} Configuration for cheeseOnToast.db: caching: false, cacheKey: Key, verbose: false, timeout: 30, poolSize: 10, nameSpace: cheeseOnToast, encryption: false, indices: []
+2026/01/20 09:27:29 databaseConnect.go:49: [32mDATABASE[0m [CON]{CONNECT} Opening Connection to [...cheeseontoast.db] data (0)
+2026/01/20 09:27:29 databaseConnect.go:73: [32mDATABASE[0m [CON]{CONNECT} (re)Opening [...cheeseontoast.db] data connection
+2026/01/20 09:27:29 databasePool.go:7: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Adding [cheeseontoast] to connection pool (/Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_example-cheeseontoast.db)
+2026/01/20 09:27:29 databasePool.go:13: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Connection pool [size=1]
+2026/01/20 09:27:29 databaseConnect.go:111: [32mDATABASE[0m [CON]{CONNECT} Opened [.../Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_example-cheeseontoast.db.db] data connection [codec=json] false
+2026/01/20 09:27:29 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/20 09:27:29 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStore WHERE ID=102 [...cheeseontoast.db]
+2026/01/20 09:27:29 database.go:262: [32mDATABASE[0m [DELETE] TemplateStore [...cheeseontoast.db] (&{ID:102 K)
+2026/01/20 09:27:29 database.go:277: [32mDATABASE[0m [DELETE] TemplateStore [...cheeseontoast.db] (&{ID:102 K) - Caching Disabled or Not Initialised
+2026/01/20 09:27:30 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010000⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/20 09:27:30 database.go:353: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Start
+2026/01/20 09:27:30 database.go:359: [32mDATABASE[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - End
+2026/01/20 09:27:30 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/20 09:27:30 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=76e02e0f3ac43c1ddd5b370e6011515218c8128cf70282325426d6945773a0ea [...cheeseontoast.db] - From Cache
+2026/01/20 09:27:30 databaseGenerics.go:57: [32mDATABASE[0m [GET] TemplateStore ALL [...cheeseontoast.db]
+2026/01/20 09:27:30 database.go:394: [32mDATABASE[0m [COUNT] TemplateStore [...cheeseontoast.db]
+2026/01/20 09:27:30 database.go:416: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db]
+2026/01/20 09:27:30 database.go:435: [32mDATABASE[0m [COUNT] TemplateStore WHERE LastHost=orion [...cheeseontoast.db] - Result: 0
+2026/01/20 09:27:30 databaseGenerics.go:35: [32mDATABASE[0m [GET] TemplateStore WHERE Key=76e02e0f3ac43c1ddd5b370e6011515218c8128cf70282325426d6945773a0ea [...cheeseontoast.db] - From Cache
+2026/01/20 09:27:30 databaseGenerics.go:81: [32mDATABASE[0m [GET] TemplateStore WHERE (UserCode=5010000⋮matttownsend) ALL [...cheeseontoast.db]
+2026/01/20 09:27:30 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:103 K) - Start
+2026/01/20 09:27:30 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStore [...cheeseontoast.db] (&{ID:103 K) - End
