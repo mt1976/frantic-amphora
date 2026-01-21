@@ -96,21 +96,46 @@ go generate ./...
 
 If you want to use the generator from a different repo, you can run it directly from this module without copying any files.
 
-Important: the generated code imports `database` and `cache` from frantic-core:
+Important: the generated code imports `database` and `cache` from frantic-amphora:
 
-- `github.com/mt1976/frantic-core/dao/database`
-- `github.com/mt1976/frantic-core/dao/cache`
+- `github.com/mt1976/frantic-amphora/dao/database`
+- `github.com/mt1976/frantic-amphora/dao/cache`
 
-So the project you generate into must also depend on frantic-core (it will compile against those packages).
+So the project you generate into must also depend on frantic-amphora (it will compile against those packages).
 
 ### One-off usage
 
 From your other project:
 
 ```bash
-go get github.com/mt1976/frantic-core@latest
-go run github.com/mt1976/frantic-core/cmd/dao-gen@latest -out .app/dao/fred -pkg fred -type Fred -table Fred -namespace main -force
+go get github.com/mt1976/frantic-amphora@latest
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/destinationStore -pkg destinationStore -type DestinationStore -table DestinationStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/itemStore -pkg itemStore -type ItemStore -table ItemStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/lockStore -pkg lockStore -type LockStore -table LockStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/profileStore -pkg profileStore -type ProfileStore -table ProfileStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/sequenceStore -pkg sequenceStore -type SequenceStore -table SequenceStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/settingsStore -pkg settingsStore -type SettingsStore -table SettingsStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/statusStore -pkg statusStore -type StatusStore -table StatusStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/templateStore -pkg templateStore -type TemplateStore -table TemplateStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/tripStore -pkg tripStore -type TripStore -table TripStore -namespace main -force
+
+go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/userStore -pkg userStore -type UserStore -table UserStore -namespace main -force
+
 ```
+
+
+
+
+ 0 drwxr-xr-x 12 matttownsend staff   384 Jan 19 18:00  userStore
 
 In the example above replace fred/Fred with the name of the DAO, for example userStore/UserStore and the namespace used by the db instance, normally this will be "main"
 
@@ -123,7 +148,7 @@ In your other project’s package, you can use a directive like:
 ```go
 package fred
 
-//go:generate go run github.com/mt1976/frantic-core/cmd/dao-gen@latest -out . -pkg fred -type Fred -table Fred -namespace main -force
+//go:generate go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out . -pkg fred -type Fred -table Fred -namespace main -force
 ```
 
 If you prefer to pin the generator version, replace `@latest` with a tag/commit (and keep your project’s `go.mod` aligned).

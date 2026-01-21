@@ -701,7 +701,21 @@ func SynchroniseEntry(data any) error {
 	}
 
 	// Get the key value, by using reflection to get the field value
-	key := reflect.ValueOf(data).FieldByName(keyField.String()).Interface()
+	rv := reflect.ValueOf(data)
+	if rv.Kind() == reflect.Ptr {
+		if rv.IsNil() {
+			return ce.ErrCacheNilDataWrapper("synchronise")
+		}
+		rv = rv.Elem()
+	}
+	if rv.Kind() != reflect.Struct {
+		return fmt.Errorf("cannot synchronise non-struct cache entry for table %v: got %T", table.String(), data)
+	}
+	fv := rv.FieldByName(keyField.String())
+	if !fv.IsValid() {
+		return fmt.Errorf("cannot synchronise cache entry for table %v: key field %q not found on %T", table.String(), keyField.String(), data)
+	}
+	key := fv.Interface()
 
 	record, exists := inMemoryCacheEntry[key]
 	if !exists {
