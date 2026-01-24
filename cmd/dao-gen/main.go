@@ -121,18 +121,7 @@ func main() {
 		}
 		outPath := filepath.Join(cfg.OutDir, f.outName)
 
-		// For key files where developers often add custom logic (model/new/helpers),
-		// never overwrite in-place. Instead rotate the existing file to .OLD and warn.
-		if shouldRotateExisting(outPath) {
-			if _, err := os.Stat(outPath); err == nil {
-				backupPath, backupErr := rotateToOld(outPath)
-				if backupErr != nil {
-					exitf("failed to rotate existing file %s: %v", outPath, backupErr)
-				}
-				fmt.Fprintf(os.Stderr, "WARNING: existing file renamed to %s\n", backupPath)
-				fmt.Fprintf(os.Stderr, "WARNING: you must manually migrate any custom code from %s into the regenerated file\n", backupPath)
-			}
-		} else if !cfg.Force {
+		if !cfg.Force {
 			if _, err := os.Stat(outPath); err == nil {
 				exitf("refusing to overwrite existing file: %s (use -force)", outPath)
 			}
@@ -142,27 +131,6 @@ func main() {
 			exitf("generating %s: %v", outPath, err)
 		}
 	}
-}
-
-func shouldRotateExisting(outPath string) bool {
-	lower := strings.ToLower(outPath)
-	return strings.HasSuffix(lower, "model.go") || strings.HasSuffix(lower, "helpers.go")
-}
-
-func rotateToOld(outPath string) (string, error) {
-	// Requested behaviour: rename from .go to .OLD.
-	backupBase := strings.TrimSuffix(outPath, filepath.Ext(outPath)) + ".OLD"
-	backupPath := backupBase
-	for i := 1; ; i++ {
-		if _, err := os.Stat(backupPath); os.IsNotExist(err) {
-			break
-		}
-		backupPath = fmt.Sprintf("%s%d", backupBase, i)
-	}
-	if err := os.Rename(outPath, backupPath); err != nil {
-		return "", err
-	}
-	return backupPath, nil
 }
 
 func readDefinitionFile(outDir, typeName string) (fields, fieldNames, fieldInits string, fieldDefs []FieldDefinition) {
@@ -220,33 +188,33 @@ func readDefinitionFile(outDir, typeName string) (fields, fieldNames, fieldInits
 		fieldName := ""
 		fieldType := ""
 		fieldTags := ""
-		
+
 		// Find tags (backtick-enclosed string)
 		tagStart := strings.Index(line, "`")
 		tagEnd := strings.LastIndex(line, "`")
 		if tagStart >= 0 && tagEnd > tagStart {
-			fieldTags = line[tagStart+1:tagEnd]
+			fieldTags = line[tagStart+1 : tagEnd]
 		}
-		
+
 		// Parse field name and type (before tags)
 		fieldDef := line
 		if tagStart >= 0 {
 			fieldDef = strings.TrimSpace(line[:tagStart])
 		}
-		
+
 		parts := strings.Fields(fieldDef)
 		if len(parts) >= 2 {
 			fieldName = strings.TrimSpace(parts[0])
 			// Type could be multiple parts (e.g., "time.Time")
 			fieldType = strings.TrimSpace(strings.Join(parts[1:], " "))
-			
+
 			if fieldName != "" && !strings.HasPrefix(fieldName, "//") {
 				namesList = append(namesList, fieldName)
 				initsList = append(initsList, fmt.Sprintf("\t%s: \"%s\",", fieldName, fieldName))
-				
+
 				// Build purpose from comment buffer
 				purpose := strings.Join(commentBuffer, " ")
-				
+
 				// Add to field definitions
 				fieldDefs = append(fieldDefs, FieldDefinition{
 					Name:    fieldName,
@@ -254,7 +222,7 @@ func readDefinitionFile(outDir, typeName string) (fields, fieldNames, fieldInits
 					Tags:    fieldTags,
 					Purpose: purpose,
 				})
-				
+
 				// Reset comment buffer after processing field
 				commentBuffer = nil
 			}
@@ -270,7 +238,7 @@ func readDefinitionFile(outDir, typeName string) (fields, fieldNames, fieldInits
 
 	// Build the strings
 	fields = strings.Join(fieldLines, "\n")
-	
+
 	if len(namesList) > 0 {
 		var namesBuilder strings.Builder
 		for _, name := range namesList {

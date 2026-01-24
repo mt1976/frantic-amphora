@@ -136,4 +136,3 @@ The `TemplateStore` struct includes examples of all entity types available in th
 ### Debug
 
 - `func (record *TemplateStore) Spew()`
-

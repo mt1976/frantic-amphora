@@ -54,7 +54,7 @@ All flags supported by `dao-gen`:
   - Defaults to `cheeseOnToast` if omitted.
 - `-force` (bool, default `false`)
   - Allows overwriting existing generated files.
-  - Safety rule: for `*Model.go`, `*Helpers.go`, and `*New.go`, the generator will **rename the existing file** to `.OLD` first (and warn), rather than overwriting in place.
+  - Without `-force`, the generator will refuse to overwrite any existing files.
 - `-with-worker` (bool, default `true`)
   - Generate the worker file (`*Worker.go`).
 - `-with-impex` (bool, default `true`)
@@ -62,19 +62,36 @@ All flags supported by `dao-gen`:
 - `-with-debug` (bool, default `true`)
   - Generate the debug file (`*Debug.go`).
 
-## Safety behaviour (important)
+## Custom field definitions
 
-When regenerating into an existing package:
+You can customize the generated model by creating a `.definition` file in the output directory with the same name as your type. For example, for `Fred`, create `Fred.definition`:
 
-- If the destination `*Model.go`, `*Helpers.go`, or `*New.go` already exists:
+```go
+// Domain specific fields, starts.
 
-  - The generator renames it from `.go` to `.OLD` (or `.OLD1`, `.OLD2`, etc.).
-  - It prints a warning telling you to manually migrate any custom code.
-- For all other generated files:
-  - Without `-force`, generation will refuse to overwrite existing files.
-  - With `-force`, it will overwrite those files.
+// User's display name
+Name string `storm:"index"`
 
-This is intended to protect the files where people commonly add custom domain logic.
+// User's email address
+Email string `storm:"index,unique"`
+
+// Whether the user is active
+IsActive entities.Bool
+
+// User's age
+Age entities.Int
+
+// Account balance
+Balance entities.Money
+```
+
+The generator will:
+
+1. Inject these fields into the generated `*Model.go` struct
+2. Generate corresponding `Fields` entries for type-safe queries
+3. Create a field definitions table in the generated `README.md`
+
+All lines before "Domain specific fields, starts." are ignored. Comments immediately before a field are used as documentation in the README.
 
 ## Using with `go generate`
 
@@ -132,11 +149,6 @@ go run github.com/mt1976/frantic-amphora/cmd/dao-gen@latest -out ./app/dao/userS
 
 ```
 
-
-
-
- 0 drwxr-xr-x 12 matttownsend staff   384 Jan 19 18:00  userStore
-
 In the example above replace fred/Fred with the name of the DAO, for example userStore/UserStore and the namespace used by the db instance, normally this will be "main"
 
 For repeatable builds, pin a specific version instead of `@latest`.
@@ -157,11 +169,11 @@ If you prefer to pin the generator version, replace `@latest` with a tag/commit 
 
 `dao-gen` writes a set of `.go` files similar to TemplateStoreV2, including:
 
-- `*Model.go` (type + Fields + TableName)
-- `*DB.go` (initialise/close)
-- `*Cache.go` (cache hooks)
-- `*.go` (DAO CRUD/query functions)
-- `*New.go` (constructor/create)
-- `*Internals.go`, `*Helpers.go`
+- `*Model.go` (type + Fields + TableName, can be customized via `.definition` file)
+- `*DB.go` (database lifecycle management)
+- `*Cache.go` (cache hydrator and synchronizer)
+- `*.go` (main DAO CRUD/query functions)
+- `*Internals.go` (internal validation and processing)
+- `*Helpers.go` (function registration system for custom hooks)
 - Optional: `*Worker.go`, `*Impex.go`, `*Debug.go`
-- `README.md`
+- `README.md` (package documentation with field definitions table)
