@@ -1,12 +1,8 @@
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum], expiry [2026-01-24T15:48:29.116321Z] 30 minutes from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum2], expiry [2026-01-24T15:48:29.11646Z] 30 minutes from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum3], expiry [2026-01-24T15:48:29.116496Z] 30 minutes from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum4], expiry [2026-01-24T15:48:29.116524Z] 30 minutes from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [Supper] added with Key [Foo], expiry [2125-12-31T15:18:14.116692Z] a long while from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [dd8014743268440c7cc712460ef4a2a49752aad132cfcb5431d4d8008b1c0477], expiry [2026-01-24T15:18:15.358422Z] now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [870ad0df2ec3afdffce4e57fc46df2b576e35e0c2692b3fc3d88b96704b5ceed], expiry [2026-01-24T15:18:16.497063Z] 1 second from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [50128da37b156d36b8bad25794da1909e06935d344ae7f55dc16525f166e55f9], expiry [2026-01-24T15:18:16.520773Z] 1 second from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [a9fe67f56fb7959f4bd56999b1ca8a344903a1dc5e6b2c09ff7f25d3362cca13], expiry [2026-01-24T15:18:15.523392Z] now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [89c261f335f8dad66000a91b5b2513e28cb192388579fc07f8c7d90427d99505], expiry [2026-01-24T15:18:16.524519Z] 1 second from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [0c8bc7798ecd558eb6f36cbce57792c3e57fc579e619f8eb2bcd88f0da2dd03f], expiry [2026-01-24T15:18:16.572643Z] 1 second from now
-2026/01/24 15:18:14 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [dd8014743268440c7cc712460ef4a2a49752aad132cfcb5431d4d8008b1c0477], expiry [2026-01-24T15:18:16.572755Z] 1 second from now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum], expiry [2026-01-24T16:04:10.864764Z] 30 minutes from now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum2], expiry [2026-01-24T16:04:10.864889Z] 30 minutes from now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum3], expiry [2026-01-24T16:04:10.864919Z] 30 minutes from now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [Sausage] added with Key [Bum4], expiry [2026-01-24T16:04:10.86494Z] 30 minutes from now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [Supper] added with Key [Foo], expiry [2125-12-31T15:33:55.865113Z] a long while from now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [a403e242ee53e9f85b2ce52ad860148b4e1d3bda6e88f039b06192b9e00aa7bb], expiry [2026-01-24T15:33:56.985043Z] now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [ed03c10523c9b661f0d4268e253415c4649e919479a087f7405ad6f1b1e6cb42], expiry [2026-01-24T15:33:57.986002Z] 1 second from now
+2026/01/24 15:33:55 cache.go:210: [32mCACHE[0m Cache Entry for Table [TemplateStore] added with Key [413286b8d87d2c59b4de2a536c9427583db1fe20368205e9f17d326fcffa86bc], expiry [2026-01-24T15:33:57.986233Z] 1 second from now

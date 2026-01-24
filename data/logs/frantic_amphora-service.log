@@ -1,4 +1,4 @@
-2026/01/24 15:18:14 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-24T15:18:14.359072Z
-2026/01/24 15:18:14 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-24T15:18:14.359072Z
-2026/01/24 15:18:14 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-24T15:18:14.521274Z
-2026/01/24 15:18:14 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-24T15:18:14.521274Z
+2026/01/24 15:33:55 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-24T15:33:55.985386Z
+2026/01/24 15:33:55 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-24T15:33:55.985386Z
+2026/01/24 15:33:55 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-24T15:33:55.986443Z
+2026/01/24 15:33:55 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-24T15:33:55.986443Z

@@ -6,7 +6,7 @@ package templateStoreV2
 
 import (
 	"github.com/mt1976/frantic-amphora/dao/database"
-	"github.com/mt1976/frantic-core/jobs"
+	"github.com/mt1976/frantic-amphora/jobs"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
 )

@@ -87,7 +87,6 @@ func main() {
 	templateStoreV2.RegisterCreator(tmpllogic.Creator)
 	templateStoreV2.RegisterDuplicateCheck(tmpllogic.DuplicateCheck)
 	templateStoreV2.RegisterWorker(tmpllogic.JobProcessor)
-	defer templateStoreV2.Close()
 
 	logHandler.InfoLogger.Println("Clear Down User Store")
 	templateStoreV2.ClearDown(ctx)
@@ -107,8 +106,8 @@ func main() {
 		cache.PurgeExpiredEntries()
 
 	}
-	stop := time.Now()
-	recs, _ := templateStoreV2.GetAll()
+	// stop := time.Now()
+	// recs, _ := templateStoreV2.GetAll()
 	// for _, r := range recs {
 	// 	logHandler.InfoLogger.Printf("P1 User: %v - %v", r.ID, r.RealName)
 	// }
@@ -116,36 +115,12 @@ func main() {
 	//templateStoreV2.Close()
 
 	cache.Spew()
-	logHandler.InfoLogger.Printf("P1 Total Users after Phase 1: %v", len(recs))
 
-	//os.Exit(0)
-	//os.Exit(0)
-	logHandler.InfoBanner("INFO", "START", "Starting DAO Test Application - Phase 2")
+	cache.SynchroniseAll()
+	cache.Disable(templateStoreV2.TemplateStore{})
+	logHandler.InfoLogger.Printf("Total Test Duration: %v", totalElapsed)
 
-	logHandler.InfoLogger.Println("P2 Re-Initialise User Store")
-	templateStoreV2.Initialise(ctx, true)
-	logHandler.InfoLogger.Println("P2 Clear Down User Store")
-
-	templateStoreV2.ClearDown(ctx)
-	logHandler.InfoLogger.Println("P2 PreLoad User Store")
-
-	start2 := time.Now()
-	for i := 0; i < 10; i++ {
-		msg2 := test(ctx, "2", i+1)
-		logHandler.InfoLogger.Printf("Phase 2 Test Message: %v", msg2)
-	}
-	stop2 := time.Now()
-	elapsed2 := stop2.Sub(start2)
-	//templateStoreV2.CacheSpew()
-	logHandler.InfoLogger.Printf("P1 Test Duration: %v", totalElapsed)
-	logHandler.InfoLogger.Printf("P1 Test Duration: %v Start: %v Stop: %v", totalElapsed, start.Format(time.RFC3339Nano), stop.Format(time.RFC3339Nano))
-	logHandler.InfoLogger.Printf("P2 Test Duration: %v", elapsed2)
-	logHandler.InfoLogger.Printf("P2 Test Duration: %v Start: %v Stop: %v", elapsed2, start2.Format(time.RFC3339Nano), stop2.Format(time.RFC3339Nano))
-	logHandler.InfoLogger.Println("P2 Closing User Store")
-	diff := stop2.Sub(start2) - stop.Sub(start)
-	logHandler.InfoLogger.Printf("P2 Diff Duration vs P1: %v", diff.Abs())
-
-	templateStoreV2.Close()
+	logHandler.InfoBanner("INFO", "STOP", "Stopping DAO Test Application - Phase 1")
 	// templateStoreV2.ExportAllAsCSV("AllUsers")
 
 	// templateStoreV2.ExportAllAsJSON("AllUsers")
@@ -184,7 +159,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 		logHandler.ErrorLogger.Printf("Phase %v Error getting all users: %v", phase, err)
 	}
 
-	//templateStoreV2.CacheSpew()
+	cache.SpewForType(templateStoreV2.TemplateStore{})
 
 	logHandler.InfoLogger.Printf("Phase %v Setup Templates Loaded: %v", phase, len(setupTemplates))
 	if len(setupTemplates) != baselineUsers {
@@ -284,62 +259,62 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 		logHandler.WarningLogger.Printf("Phase %v Cache fetch overall: no successful samples", phase)
 	}
 
-	users, err := templateStoreV2.GetAll()
-	if err != nil {
-		logHandler.ErrorLogger.Printf("Phase %v Error getting all users: %v", phase, err)
-	}
-	logHandler.InfoLogger.Printf("Phase %v Total Users: %v", phase, len(users))
-	// for _, u := range users {
-	// 	logHandler.InfoLogger.Printf("Phase %v User: %v", phase, u.RealName)
-	// }
-	logHandler.InfoLogger.Printf("Phase %v Counting all users", phase)
-	count, err := templateStoreV2.Count()
-	if err != nil {
-		logHandler.ErrorLogger.Printf("Phase %v Error counting users: %v", phase, err)
-	} else {
-		logHandler.InfoLogger.Printf("Phase %v User count: %d", phase, count)
-	}
-	if count != baselineUsers {
-		logHandler.ErrorLogger.Printf("Phase %v User count mismatch: expected %d, got %d", phase, baselineUsers, count)
-	}
-
-	logHandler.InfoLogger.Printf("Phase %v Counting active users with LastHost='orion'", phase)
-	countw, err := templateStoreV2.CountWhere(templateStoreV2.Fields.LastHost, "orion")
-	if err != nil {
-		logHandler.ErrorLogger.Printf("Phase %v Error counting active users: %v", phase, err)
-	} else {
-		logHandler.InfoLogger.Printf("Phase %v Active user count: %d", phase, countw)
-	}
-	if countw > baselineUsers {
-		logHandler.ErrorLogger.Printf("Phase %v Active user count exceeds baseline: %d > %d", phase, countw, baselineUsers)
-	}
-	if countw < 0 {
-		logHandler.ErrorLogger.Printf("Phase %v Active user count is negative: %d", phase, countw)
-	}
-	logHandler.InfoLogger.Printf("Phase %v Get %v", phase, uKey)
-	rec, err := templateStoreV2.GetBy(templateStoreV2.Fields.Key, uKey)
-	if err != nil {
-		logHandler.ErrorLogger.Printf("Phase %v Error getting user by key: %v", phase, err)
-	} else {
-		logHandler.InfoLogger.Printf("Phase %v User by key: %v", phase, rec.RealName)
-	}
-	logHandler.InfoLogger.Printf("Phase %v Repeated user load %v", phase, len(users))
-	for _, u := range users {
-		_, err := templateStoreV2.GetAllWhere(templateStoreV2.Fields.UserName, u.UserName)
-		if err != nil {
-			logHandler.ErrorLogger.Printf("Phase %v Error getting users by LastHost: %v", phase, err)
-		} else {
-			//			logHandler.InfoLogger.Printf("Phase %v Users by LastHost: %v/%v (%v) %v", phase, x+1, len(users), len(dum), u.UserName)
-		}
-	}
-
-	// logHandler.InfoLogger.Printf("Phase %v Flushing Cache", phase)
-	// err = cache.SynchroniseForType(templateStoreV2.TemplateStore{})
+	// users, err := templateStoreV2.GetAll()
 	// if err != nil {
-	// 	logHandler.ErrorLogger.Printf("Phase %v Error flushing cache: %v", phase, err)
-	// } else {
-	// 	logHandler.InfoLogger.Printf("Phase %v Cache flushed successfully", phase)
+	// 	logHandler.ErrorLogger.Printf("Phase %v Error getting all users: %v", phase, err)
 	// }
+	// logHandler.InfoLogger.Printf("Phase %v Total Users: %v", phase, len(users))
+	// // for _, u := range users {
+	// // 	logHandler.InfoLogger.Printf("Phase %v User: %v", phase, u.RealName)
+	// // }
+	// logHandler.InfoLogger.Printf("Phase %v Counting all users", phase)
+	// count, err := templateStoreV2.Count()
+	// if err != nil {
+	// 	logHandler.ErrorLogger.Printf("Phase %v Error counting users: %v", phase, err)
+	// } else {
+	// 	logHandler.InfoLogger.Printf("Phase %v User count: %d", phase, count)
+	// }
+	// if count != baselineUsers {
+	// 	logHandler.ErrorLogger.Printf("Phase %v User count mismatch: expected %d, got %d", phase, baselineUsers, count)
+	// }
+
+	// logHandler.InfoLogger.Printf("Phase %v Counting active users with LastHost='orion'", phase)
+	// countw, err := templateStoreV2.CountWhere(templateStoreV2.Fields.LastHost, "orion")
+	// if err != nil {
+	// 	logHandler.ErrorLogger.Printf("Phase %v Error counting active users: %v", phase, err)
+	// } else {
+	// 	logHandler.InfoLogger.Printf("Phase %v Active user count: %d", phase, countw)
+	// }
+	// if countw > baselineUsers {
+	// 	logHandler.ErrorLogger.Printf("Phase %v Active user count exceeds baseline: %d > %d", phase, countw, baselineUsers)
+	// }
+	// if countw < 0 {
+	// 	logHandler.ErrorLogger.Printf("Phase %v Active user count is negative: %d", phase, countw)
+	// }
+	// logHandler.InfoLogger.Printf("Phase %v Get %v", phase, uKey)
+	// rec, err := templateStoreV2.GetBy(templateStoreV2.Fields.Key, uKey)
+	// if err != nil {
+	// 	logHandler.ErrorLogger.Printf("Phase %v Error getting user by key: %v", phase, err)
+	// } else {
+	// 	logHandler.InfoLogger.Printf("Phase %v User by key: %v", phase, rec.RealName)
+	// }
+	// logHandler.InfoLogger.Printf("Phase %v Repeated user load %v", phase, len(users))
+	// for _, u := range users {
+	// 	_, err := templateStoreV2.GetAllWhere(templateStoreV2.Fields.UserName, u.UserName)
+	// 	if err != nil {
+	// 		logHandler.ErrorLogger.Printf("Phase %v Error getting users by LastHost: %v", phase, err)
+	// 	} else {
+	// 		//			logHandler.InfoLogger.Printf("Phase %v Users by LastHost: %v/%v (%v) %v", phase, x+1, len(users), len(dum), u.UserName)
+	// 	}
+	// }
+
+	// // logHandler.InfoLogger.Printf("Phase %v Flushing Cache", phase)
+	// // err = cache.SynchroniseForType(templateStoreV2.TemplateStore{})
+	// // if err != nil {
+	// // 	logHandler.ErrorLogger.Printf("Phase %v Error flushing cache: %v", phase, err)
+	// // } else {
+	// // 	logHandler.InfoLogger.Printf("Phase %v Cache flushed successfully", phase)
+	// // }
 	logHandler.InfoLogger.Printf("Phase %v Completed", phase)
 
 	created, updated, noTables, noCacheEntries := cache.Stats()

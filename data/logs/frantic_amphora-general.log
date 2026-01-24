@@ -1,228 +1,164 @@
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 cacheDebug.go:19: [97mINFO[0m No tables are currently cached
-2026/01/24 15:18:14 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:18:14.115786Z
-2026/01/24 15:18:14 cacheDebug.go:23: [97mINFO[0m Cache updated at: 0001-01-01T00:00:00Z
-2026/01/24 15:18:14 cacheDebug.go:24: [97mINFO[0m Cache Age: now
-2026/01/24 15:18:14 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: a long while ago
-2026/01/24 15:18:14 cacheDebug.go:26: [97mINFO[0m 
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 cache.go:53: [97mINFO[0m Activating Cache for Table [Sausage]
-2026/01/24 15:18:14 cache.go:63: [97mINFO[0m Cache for Table [Sausage] Activated
-2026/01/24 15:18:14 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [Sausage] to 30m15s
-2026/01/24 15:18:14 cache.go:91: [97mINFO[0m Cache Expiry for Table [Sausage] set to 30m15s
-2026/01/24 15:18:14 cache.go:104: [97mINFO[0m Adding Cache Key [Field1] for Table [Sausage]
-2026/01/24 15:18:14 cache.go:111: [97mINFO[0m Cache Key [Field1] added for Table [Sausage]
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:18:14.115786Z
-2026/01/24 15:18:14 cacheDebug.go:23: [97mINFO[0m Cache updated at: 0001-01-01T00:00:00Z
-2026/01/24 15:18:14 cacheDebug.go:24: [97mINFO[0m Cache Age: now
-2026/01/24 15:18:14 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: a long while ago
-2026/01/24 15:18:14 cacheDebug.go:26: [97mINFO[0m 
-2026/01/24 15:18:14 cacheDebug.go:36: [97mINFO[0m . Cached Tables: Sausage 
-2026/01/24 15:18:14 cacheDebug.go:38: [97mINFO[0m . Cached Keys Summary
-2026/01/24 15:18:14 cacheDebug.go:40: [97mINFO[0m . 	Table [Sausage] has Key Field [Field1]
-2026/01/24 15:18:14 cacheDebug.go:44: [97mINFO[0m . Cached Records Summary
-2026/01/24 15:18:14 cacheDebug.go:92: [97mINFO[0m . 	Table [Sausage] has [0] cached records and expiry set to [30m15s]
-2026/01/24 15:18:14 cacheDebug.go:49: [97mINFO[0m 
-2026/01/24 15:18:14 cacheDebug.go:50: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:18:14.115786Z, Updated: 0001-01-01T00:00:00Z, Tables: 1, Entries: 0
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum]
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum2]
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum3]
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum4]
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:18:14.115786Z
-2026/01/24 15:18:14 cacheDebug.go:23: [97mINFO[0m Cache updated at: 2026-01-24T15:18:14.116524Z
-2026/01/24 15:18:14 cacheDebug.go:24: [97mINFO[0m Cache Age: now
-2026/01/24 15:18:14 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: now
-2026/01/24 15:18:14 cacheDebug.go:26: [97mINFO[0m 
-2026/01/24 15:18:14 cacheDebug.go:36: [97mINFO[0m . Cached Tables: Sausage 
-2026/01/24 15:18:14 cacheDebug.go:38: [97mINFO[0m . Cached Keys Summary
-2026/01/24 15:18:14 cacheDebug.go:40: [97mINFO[0m . 	Table [Sausage] has Key Field [Field1]
-2026/01/24 15:18:14 cacheDebug.go:44: [97mINFO[0m . Cached Records Summary
-2026/01/24 15:18:14 cacheDebug.go:92: [97mINFO[0m . 	Table [Sausage] has [4] cached records and expiry set to [30m15s]
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum4 - expires: 2026-01-24T15:48:29.116524Z(30 minutes from now)
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum - expires: 2026-01-24T15:48:29.116321Z(30 minutes from now)
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum2 - expires: 2026-01-24T15:48:29.11646Z(30 minutes from now)
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum3 - expires: 2026-01-24T15:48:29.116496Z(30 minutes from now)
-2026/01/24 15:18:14 cacheDebug.go:49: [97mINFO[0m 
-2026/01/24 15:18:14 cacheDebug.go:50: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:18:14.115786Z, Updated: 2026-01-24T15:18:14.116524Z, Tables: 1, Entries: 4
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 cache.go:53: [97mINFO[0m Activating Cache for Table [Supper]
-2026/01/24 15:18:14 cache.go:63: [97mINFO[0m Cache for Table [Supper] Activated
-2026/01/24 15:18:14 cache.go:104: [97mINFO[0m Adding Cache Key [FieldA] for Table [Supper]
-2026/01/24 15:18:14 cache.go:111: [97mINFO[0m Cache Key [FieldA] added for Table [Supper]
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Supper] with Key Field [FieldA]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Supper] with Key [Foo]
-2026/01/24 15:18:14 main.go:74: [97mINFO[0m Found Entry: {Field1:Bum2 Field2:{Value:456} When:2026-01-24 15:18:14.116301 +0000 GMT m=+0.004597543}
-2026/01/24 15:18:14 main.go:80: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:18:14.115786Z, Updated: 2026-01-24T15:18:14.116735Z, Tables: 2, Entries: 3
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 main.go:85: [97mINFO[0m Initialize User Store
-2026/01/24 15:18:14 main.go:92: [97mINFO[0m Clear Down User Store
-2026/01/24 15:18:14 main.go:157: [97mINFO[0m Phase ONE Creating 1 Baseline Users
-2026/01/24 15:18:14 cache.go:53: [97mINFO[0m Activating Cache for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:63: [97mINFO[0m Cache for Table [TemplateStore] Activated
-2026/01/24 15:18:14 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [TemplateStore] to 1s
-2026/01/24 15:18:14 cache.go:91: [97mINFO[0m Cache Expiry for Table [TemplateStore] set to 1s
-2026/01/24 15:18:14 cache.go:104: [97mINFO[0m Adding Cache Key [Key] for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:111: [97mINFO[0m Cache Key [Key] added for Table [TemplateStore]
-2026/01/24 15:18:14 templateStoreV2Cache.go:32: [97mINFO[0m Defining Sync function for TemplateStore
-2026/01/24 15:18:14 main.go:164: [97mINFO[0m Phase ONE Adding Baseline Users to Store
-2026/01/24 15:18:14 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [dd8014743268440c7cc712460ef4a2a49752aad132cfcb5431d4d8008b1c0477]
-2026/01/24 15:18:14 main.go:177: [97mINFO[0m Phase ONE Baseline 1 Users Added to Store
-2026/01/24 15:18:14 main.go:178: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/24 15:18:14 cache.go:641: [97mINFO[0m Cache for Table [TemplateStore] hydrated (0/1)
-2026/01/24 15:18:14 main.go:189: [97mINFO[0m Phase ONE Setup Templates Loaded: 1
-2026/01/24 15:18:14 main.go:207: [97mINFO[0m Phase ONE Selected User Key: dd8014743268440c7cc712460ef4a2a49752aad132cfcb5431d4d8008b1c0477
-2026/01/24 15:18:14 main.go:271: [97mINFO[0m Phase ONE Cache fetch iteration 1: avg=26.083µs min=26.083µs max=26.083µs samples=1
-2026/01/24 15:18:14 main.go:279: [97mINFO[0m Phase ONE Cache fetch overall: avg=26.083µs min=26.083µs max=26.083µs samples=1
-2026/01/24 15:18:14 main.go:291: [97mINFO[0m Phase ONE Total Users: 0
-2026/01/24 15:18:14 main.go:295: [97mINFO[0m Phase ONE Counting all users
-2026/01/24 15:18:14 main.go:300: [97mINFO[0m Phase ONE User count: 0
-2026/01/24 15:18:14 main.go:306: [97mINFO[0m Phase ONE Counting active users with LastHost='orion'
-2026/01/24 15:18:14 main.go:311: [97mINFO[0m Phase ONE Active user count: 0
-2026/01/24 15:18:14 main.go:319: [97mINFO[0m Phase ONE Get dd8014743268440c7cc712460ef4a2a49752aad132cfcb5431d4d8008b1c0477
-2026/01/24 15:18:14 main.go:324: [97mINFO[0m Phase ONE User by key: Matt Townsend
-2026/01/24 15:18:14 main.go:326: [97mINFO[0m Phase ONE Repeated user load 0
-2026/01/24 15:18:14 main.go:343: [97mINFO[0m Phase ONE Completed
-2026/01/24 15:18:14 main.go:346: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:18:14.115786Z, Updated: 2026-01-24T15:18:14.358423Z, Tables: 3, Entries: 4
-2026/01/24 15:18:14 main.go:101: [97mINFO[0m Phase 2 Test Message: dd8014743268440c7cc712460ef4a2a49752aad132cfcb5431d4d8008b1c0477
-2026/01/24 15:18:14 main.go:157: [97mINFO[0m Phase ONE Creating 2 Baseline Users
-2026/01/24 15:18:14 cache.go:53: [97mINFO[0m Activating Cache for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:63: [97mINFO[0m Cache for Table [TemplateStore] Activated
-2026/01/24 15:18:14 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [TemplateStore] to 2s
-2026/01/24 15:18:14 cache.go:91: [97mINFO[0m Cache Expiry for Table [TemplateStore] set to 2s
-2026/01/24 15:18:14 cache.go:104: [97mINFO[0m Adding Cache Key [Key] for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:111: [97mINFO[0m Cache Key [Key] added for Table [TemplateStore]
-2026/01/24 15:18:14 templateStoreV2Cache.go:32: [97mINFO[0m Defining Sync function for TemplateStore
-2026/01/24 15:18:14 main.go:164: [97mINFO[0m Phase ONE Adding Baseline Users to Store
-2026/01/24 15:18:14 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [870ad0df2ec3afdffce4e57fc46df2b576e35e0c2692b3fc3d88b96704b5ceed]
-2026/01/24 15:18:14 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [50128da37b156d36b8bad25794da1909e06935d344ae7f55dc16525f166e55f9]
-2026/01/24 15:18:14 main.go:177: [97mINFO[0m Phase ONE Baseline 2 Users Added to Store
-2026/01/24 15:18:14 main.go:178: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/24 15:18:14 cache.go:641: [97mINFO[0m Cache for Table [TemplateStore] hydrated (0/2)
-2026/01/24 15:18:14 main.go:189: [97mINFO[0m Phase ONE Setup Templates Loaded: 2
-2026/01/24 15:18:14 main.go:199: [97mINFO[0m Phase ONE User: (0/2) Matt Townsend 870ad0df2ec3afdffce4e57fc46df2b576e35e0c2692b3fc3d88b96704b5ceed
-2026/01/24 15:18:14 main.go:207: [97mINFO[0m Phase ONE Selected User Key: 870ad0df2ec3afdffce4e57fc46df2b576e35e0c2692b3fc3d88b96704b5ceed
-2026/01/24 15:18:14 main.go:271: [97mINFO[0m Phase ONE Cache fetch iteration 1: avg=73.5µs min=73.5µs max=73.5µs samples=1
-2026/01/24 15:18:14 main.go:279: [97mINFO[0m Phase ONE Cache fetch overall: avg=73.5µs min=73.5µs max=73.5µs samples=1
-2026/01/24 15:18:14 main.go:291: [97mINFO[0m Phase ONE Total Users: 0
-2026/01/24 15:18:14 main.go:295: [97mINFO[0m Phase ONE Counting all users
-2026/01/24 15:18:14 main.go:300: [97mINFO[0m Phase ONE User count: 0
-2026/01/24 15:18:14 main.go:306: [97mINFO[0m Phase ONE Counting active users with LastHost='orion'
-2026/01/24 15:18:14 main.go:311: [97mINFO[0m Phase ONE Active user count: 0
-2026/01/24 15:18:14 main.go:319: [97mINFO[0m Phase ONE Get 870ad0df2ec3afdffce4e57fc46df2b576e35e0c2692b3fc3d88b96704b5ceed
-2026/01/24 15:18:14 main.go:324: [97mINFO[0m Phase ONE User by key: Matt Townsend
-2026/01/24 15:18:14 main.go:326: [97mINFO[0m Phase ONE Repeated user load 0
-2026/01/24 15:18:14 main.go:343: [97mINFO[0m Phase ONE Completed
-2026/01/24 15:18:14 main.go:346: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:18:14.115786Z, Updated: 2026-01-24T15:18:14.520774Z, Tables: 3, Entries: 5
-2026/01/24 15:18:14 main.go:101: [97mINFO[0m Phase 2 Test Message: 870ad0df2ec3afdffce4e57fc46df2b576e35e0c2692b3fc3d88b96704b5ceed
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:18:14.115786Z
-2026/01/24 15:18:14 cacheDebug.go:23: [97mINFO[0m Cache updated at: 2026-01-24T15:18:14.520774Z
-2026/01/24 15:18:14 cacheDebug.go:24: [97mINFO[0m Cache Age: now
-2026/01/24 15:18:14 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: now
-2026/01/24 15:18:14 cacheDebug.go:26: [97mINFO[0m 
-2026/01/24 15:18:14 cacheDebug.go:36: [97mINFO[0m . Cached Tables: TemplateStore Sausage Supper 
-2026/01/24 15:18:14 cacheDebug.go:38: [97mINFO[0m . Cached Keys Summary
-2026/01/24 15:18:14 cacheDebug.go:40: [97mINFO[0m . 	Table [Sausage] has Key Field [Field1]
-2026/01/24 15:18:14 cacheDebug.go:40: [97mINFO[0m . 	Table [Supper] has Key Field [FieldA]
-2026/01/24 15:18:14 cacheDebug.go:40: [97mINFO[0m . 	Table [TemplateStore] has Key Field [Key]
-2026/01/24 15:18:14 cacheDebug.go:44: [97mINFO[0m . Cached Records Summary
-2026/01/24 15:18:14 cacheDebug.go:92: [97mINFO[0m . 	Table [Sausage] has [2] cached records and expiry set to [30m15s]
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum4 - expires: 2026-01-24T15:48:29.116524Z(30 minutes from now)
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum - expires: 2026-01-24T15:48:29.116321Z(30 minutes from now)
-2026/01/24 15:18:14 cacheDebug.go:92: [97mINFO[0m . 	Table [Supper] has [1] cached records and expiry set to [876000h0m0s]
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       Supper>FieldA: Foo - expires: 2125-12-31T15:18:14.116692Z(a long while from now)
-2026/01/24 15:18:14 cacheDebug.go:92: [97mINFO[0m . 	Table [TemplateStore] has [2] cached records and expiry set to [2s]
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       TemplateStore>Key: 870ad0df2ec3afdffce4e57fc46df2b576e35e0c2692b3fc3d88b96704b5ceed - expires: 2026-01-24T15:18:16.497063Z(1 second from now)
-2026/01/24 15:18:14 cacheDebug.go:96: [97mINFO[0m .       TemplateStore>Key: 50128da37b156d36b8bad25794da1909e06935d344ae7f55dc16525f166e55f9 - expires: 2026-01-24T15:18:16.520773Z(1 second from now)
-2026/01/24 15:18:14 cacheDebug.go:49: [97mINFO[0m 
-2026/01/24 15:18:14 cacheDebug.go:50: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:18:14.115786Z, Updated: 2026-01-24T15:18:14.520774Z, Tables: 3, Entries: 5
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 main.go:119: [97mINFO[0m P1 Total Users after Phase 1: 0
-2026/01/24 15:18:14 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 2
-2026/01/24 15:18:14 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/24 15:18:14 main.go:125: [97mINFO[0m P2 Re-Initialise User Store
-2026/01/24 15:18:14 main.go:127: [97mINFO[0m P2 Clear Down User Store
-2026/01/24 15:18:14 main.go:130: [97mINFO[0m P2 PreLoad User Store
-2026/01/24 15:18:14 main.go:157: [97mINFO[0m Phase 2 Creating 1 Baseline Users
-2026/01/24 15:18:14 cache.go:53: [97mINFO[0m Activating Cache for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:63: [97mINFO[0m Cache for Table [TemplateStore] Activated
-2026/01/24 15:18:14 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [TemplateStore] to 1s
-2026/01/24 15:18:14 cache.go:91: [97mINFO[0m Cache Expiry for Table [TemplateStore] set to 1s
-2026/01/24 15:18:14 cache.go:104: [97mINFO[0m Adding Cache Key [Key] for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:111: [97mINFO[0m Cache Key [Key] added for Table [TemplateStore]
-2026/01/24 15:18:14 templateStoreV2Cache.go:32: [97mINFO[0m Defining Sync function for TemplateStore
-2026/01/24 15:18:14 main.go:164: [97mINFO[0m Phase 2 Adding Baseline Users to Store
-2026/01/24 15:18:14 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [a9fe67f56fb7959f4bd56999b1ca8a344903a1dc5e6b2c09ff7f25d3362cca13]
-2026/01/24 15:18:14 main.go:177: [97mINFO[0m Phase 2 Baseline 1 Users Added to Store
-2026/01/24 15:18:14 main.go:178: [97mINFO[0m Phase 2 Hydrating Cache for Users
-2026/01/24 15:18:14 cache.go:641: [97mINFO[0m Cache for Table [TemplateStore] hydrated (0/1)
-2026/01/24 15:18:14 main.go:189: [97mINFO[0m Phase 2 Setup Templates Loaded: 1
-2026/01/24 15:18:14 main.go:207: [97mINFO[0m Phase 2 Selected User Key: a9fe67f56fb7959f4bd56999b1ca8a344903a1dc5e6b2c09ff7f25d3362cca13
-2026/01/24 15:18:14 main.go:271: [97mINFO[0m Phase 2 Cache fetch iteration 1: avg=41.459µs min=41.459µs max=41.459µs samples=1
-2026/01/24 15:18:14 main.go:279: [97mINFO[0m Phase 2 Cache fetch overall: avg=41.459µs min=41.459µs max=41.459µs samples=1
-2026/01/24 15:18:14 main.go:291: [97mINFO[0m Phase 2 Total Users: 0
-2026/01/24 15:18:14 main.go:295: [97mINFO[0m Phase 2 Counting all users
-2026/01/24 15:18:14 main.go:300: [97mINFO[0m Phase 2 User count: 0
-2026/01/24 15:18:14 main.go:306: [97mINFO[0m Phase 2 Counting active users with LastHost='orion'
-2026/01/24 15:18:14 main.go:311: [97mINFO[0m Phase 2 Active user count: 0
-2026/01/24 15:18:14 main.go:319: [97mINFO[0m Phase 2 Get a9fe67f56fb7959f4bd56999b1ca8a344903a1dc5e6b2c09ff7f25d3362cca13
-2026/01/24 15:18:14 main.go:324: [97mINFO[0m Phase 2 User by key: Matt Townsend
-2026/01/24 15:18:14 main.go:326: [97mINFO[0m Phase 2 Repeated user load 0
-2026/01/24 15:18:14 main.go:343: [97mINFO[0m Phase 2 Completed
-2026/01/24 15:18:14 main.go:346: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:18:14.115786Z, Updated: 2026-01-24T15:18:14.523392Z, Tables: 3, Entries: 4
-2026/01/24 15:18:14 main.go:135: [97mINFO[0m Phase 2 Test Message: a9fe67f56fb7959f4bd56999b1ca8a344903a1dc5e6b2c09ff7f25d3362cca13
-2026/01/24 15:18:14 main.go:157: [97mINFO[0m Phase 2 Creating 2 Baseline Users
-2026/01/24 15:18:14 cache.go:53: [97mINFO[0m Activating Cache for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:63: [97mINFO[0m Cache for Table [TemplateStore] Activated
-2026/01/24 15:18:14 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [TemplateStore] to 2s
-2026/01/24 15:18:14 cache.go:91: [97mINFO[0m Cache Expiry for Table [TemplateStore] set to 2s
-2026/01/24 15:18:14 cache.go:104: [97mINFO[0m Adding Cache Key [Key] for Table [TemplateStore]
-2026/01/24 15:18:14 cache.go:111: [97mINFO[0m Cache Key [Key] added for Table [TemplateStore]
-2026/01/24 15:18:14 templateStoreV2Cache.go:32: [97mINFO[0m Defining Sync function for TemplateStore
-2026/01/24 15:18:14 main.go:164: [97mINFO[0m Phase 2 Adding Baseline Users to Store
-2026/01/24 15:18:14 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [89c261f335f8dad66000a91b5b2513e28cb192388579fc07f8c7d90427d99505]
-2026/01/24 15:18:14 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [0c8bc7798ecd558eb6f36cbce57792c3e57fc579e619f8eb2bcd88f0da2dd03f]
-2026/01/24 15:18:14 main.go:177: [97mINFO[0m Phase 2 Baseline 2 Users Added to Store
-2026/01/24 15:18:14 main.go:178: [97mINFO[0m Phase 2 Hydrating Cache for Users
-2026/01/24 15:18:14 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
-2026/01/24 15:18:14 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [dd8014743268440c7cc712460ef4a2a49752aad132cfcb5431d4d8008b1c0477]
-2026/01/24 15:18:14 cache.go:641: [97mINFO[0m Cache for Table [TemplateStore] hydrated (1/2)
-2026/01/24 15:18:14 main.go:189: [97mINFO[0m Phase 2 Setup Templates Loaded: 3
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 cacheDebug.go:19: [97mINFO[0m No tables are currently cached
+2026/01/24 15:33:55 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:33:55.864066Z
+2026/01/24 15:33:55 cacheDebug.go:23: [97mINFO[0m Cache updated at: 0001-01-01T00:00:00Z
+2026/01/24 15:33:55 cacheDebug.go:24: [97mINFO[0m Cache Age: now
+2026/01/24 15:33:55 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: a long while ago
+2026/01/24 15:33:55 cacheDebug.go:26: [97mINFO[0m 
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 cache.go:53: [97mINFO[0m Activating Cache for Table [Sausage]
+2026/01/24 15:33:55 cache.go:63: [97mINFO[0m Cache for Table [Sausage] Activated
+2026/01/24 15:33:55 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [Sausage] to 30m15s
+2026/01/24 15:33:55 cache.go:91: [97mINFO[0m Cache Expiry for Table [Sausage] set to 30m15s
+2026/01/24 15:33:55 cache.go:104: [97mINFO[0m Adding Cache Key [Field1] for Table [Sausage]
+2026/01/24 15:33:55 cache.go:111: [97mINFO[0m Cache Key [Field1] added for Table [Sausage]
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:33:55.864066Z
+2026/01/24 15:33:55 cacheDebug.go:23: [97mINFO[0m Cache updated at: 0001-01-01T00:00:00Z
+2026/01/24 15:33:55 cacheDebug.go:24: [97mINFO[0m Cache Age: now
+2026/01/24 15:33:55 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: a long while ago
+2026/01/24 15:33:55 cacheDebug.go:26: [97mINFO[0m 
+2026/01/24 15:33:55 cacheDebug.go:36: [97mINFO[0m . Cached Tables: Sausage 
+2026/01/24 15:33:55 cacheDebug.go:38: [97mINFO[0m . Cached Keys Summary
+2026/01/24 15:33:55 cacheDebug.go:40: [97mINFO[0m . 	Table [Sausage] has Key Field [Field1]
+2026/01/24 15:33:55 cacheDebug.go:44: [97mINFO[0m . Cached Records Summary
+2026/01/24 15:33:55 cacheDebug.go:92: [97mINFO[0m . 	Table [Sausage] has [0] cached records and expiry set to [30m15s]
+2026/01/24 15:33:55 cacheDebug.go:49: [97mINFO[0m 
+2026/01/24 15:33:55 cacheDebug.go:50: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:33:55.864066Z, Updated: 0001-01-01T00:00:00Z, Tables: 1, Entries: 0
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum]
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum2]
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum3]
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key Field [Field1]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Sausage] with Key [Bum4]
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:33:55.864066Z
+2026/01/24 15:33:55 cacheDebug.go:23: [97mINFO[0m Cache updated at: 2026-01-24T15:33:55.864941Z
+2026/01/24 15:33:55 cacheDebug.go:24: [97mINFO[0m Cache Age: now
+2026/01/24 15:33:55 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: now
+2026/01/24 15:33:55 cacheDebug.go:26: [97mINFO[0m 
+2026/01/24 15:33:55 cacheDebug.go:36: [97mINFO[0m . Cached Tables: Sausage 
+2026/01/24 15:33:55 cacheDebug.go:38: [97mINFO[0m . Cached Keys Summary
+2026/01/24 15:33:55 cacheDebug.go:40: [97mINFO[0m . 	Table [Sausage] has Key Field [Field1]
+2026/01/24 15:33:55 cacheDebug.go:44: [97mINFO[0m . Cached Records Summary
+2026/01/24 15:33:55 cacheDebug.go:92: [97mINFO[0m . 	Table [Sausage] has [4] cached records and expiry set to [30m15s]
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum2 - expires: 2026-01-24T16:04:10.864889Z(30 minutes from now)
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum3 - expires: 2026-01-24T16:04:10.864919Z(30 minutes from now)
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum4 - expires: 2026-01-24T16:04:10.86494Z(30 minutes from now)
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum - expires: 2026-01-24T16:04:10.864764Z(30 minutes from now)
+2026/01/24 15:33:55 cacheDebug.go:49: [97mINFO[0m 
+2026/01/24 15:33:55 cacheDebug.go:50: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:33:55.864066Z, Updated: 2026-01-24T15:33:55.864941Z, Tables: 1, Entries: 4
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 cache.go:53: [97mINFO[0m Activating Cache for Table [Supper]
+2026/01/24 15:33:55 cache.go:63: [97mINFO[0m Cache for Table [Supper] Activated
+2026/01/24 15:33:55 cache.go:104: [97mINFO[0m Adding Cache Key [FieldA] for Table [Supper]
+2026/01/24 15:33:55 cache.go:111: [97mINFO[0m Cache Key [FieldA] added for Table [Supper]
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [Supper] with Key Field [FieldA]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [Supper] with Key [Foo]
+2026/01/24 15:33:55 main.go:74: [97mINFO[0m Found Entry: {Field1:Bum2 Field2:{Value:456} When:2026-01-24 15:33:55.864731 +0000 GMT m=+0.004667418}
+2026/01/24 15:33:55 main.go:80: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:33:55.864066Z, Updated: 2026-01-24T15:33:55.865191Z, Tables: 2, Entries: 3
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 main.go:85: [97mINFO[0m Initialize User Store
+2026/01/24 15:33:55 main.go:91: [97mINFO[0m Clear Down User Store
+2026/01/24 15:33:55 main.go:132: [97mINFO[0m Phase ONE Creating 1 Baseline Users
+2026/01/24 15:33:55 cache.go:53: [97mINFO[0m Activating Cache for Table [TemplateStore]
+2026/01/24 15:33:55 cache.go:63: [97mINFO[0m Cache for Table [TemplateStore] Activated
+2026/01/24 15:33:55 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [TemplateStore] to 1s
+2026/01/24 15:33:55 cache.go:91: [97mINFO[0m Cache Expiry for Table [TemplateStore] set to 1s
+2026/01/24 15:33:55 cache.go:104: [97mINFO[0m Adding Cache Key [Key] for Table [TemplateStore]
+2026/01/24 15:33:55 cache.go:111: [97mINFO[0m Cache Key [Key] added for Table [TemplateStore]
+2026/01/24 15:33:55 templateStoreV2Cache.go:32: [97mINFO[0m Defining Sync function for TemplateStore
+2026/01/24 15:33:55 main.go:139: [97mINFO[0m Phase ONE Adding Baseline Users to Store
+2026/01/24 15:33:55 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [a403e242ee53e9f85b2ce52ad860148b4e1d3bda6e88f039b06192b9e00aa7bb]
+2026/01/24 15:33:55 main.go:152: [97mINFO[0m Phase ONE Baseline 1 Users Added to Store
+2026/01/24 15:33:55 main.go:153: [97mINFO[0m Phase ONE Hydrating Cache for Users
+2026/01/24 15:33:55 cache.go:641: [97mINFO[0m Cache for Table [TemplateStore] hydrated (0/1)
+2026/01/24 15:33:55 cacheDebug.go:92: [97mINFO[0m . 	Table [TemplateStore] has [1] cached records and expiry set to [1s]
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       TemplateStore>Key: a403e242ee53e9f85b2ce52ad860148b4e1d3bda6e88f039b06192b9e00aa7bb - expires: 2026-01-24T15:33:56.985043Z(now)
+2026/01/24 15:33:55 main.go:164: [97mINFO[0m Phase ONE Setup Templates Loaded: 1
+2026/01/24 15:33:55 main.go:174: [97mINFO[0m Phase ONE User: (0/1) Matt Townsend a403e242ee53e9f85b2ce52ad860148b4e1d3bda6e88f039b06192b9e00aa7bb
+2026/01/24 15:33:55 main.go:182: [97mINFO[0m Phase ONE Selected User Key: a403e242ee53e9f85b2ce52ad860148b4e1d3bda6e88f039b06192b9e00aa7bb
+2026/01/24 15:33:55 main.go:246: [97mINFO[0m Phase ONE Cache fetch iteration 1: avg=33.542µs min=33.542µs max=33.542µs samples=1
+2026/01/24 15:33:55 main.go:254: [97mINFO[0m Phase ONE Cache fetch overall: avg=33.542µs min=33.542µs max=33.542µs samples=1
+2026/01/24 15:33:55 main.go:318: [97mINFO[0m Phase ONE Completed
+2026/01/24 15:33:55 main.go:321: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:33:55.864066Z, Updated: 2026-01-24T15:33:55.985044Z, Tables: 3, Entries: 4
+2026/01/24 15:33:55 main.go:100: [97mINFO[0m Phase 2 Test Message: a403e242ee53e9f85b2ce52ad860148b4e1d3bda6e88f039b06192b9e00aa7bb
+2026/01/24 15:33:55 main.go:132: [97mINFO[0m Phase ONE Creating 2 Baseline Users
+2026/01/24 15:33:55 cache.go:53: [97mINFO[0m Activating Cache for Table [TemplateStore]
+2026/01/24 15:33:55 cache.go:63: [97mINFO[0m Cache for Table [TemplateStore] Activated
+2026/01/24 15:33:55 cache.go:85: [97mINFO[0m Setting Cache Expiry for Table [TemplateStore] to 2s
+2026/01/24 15:33:55 cache.go:91: [97mINFO[0m Cache Expiry for Table [TemplateStore] set to 2s
+2026/01/24 15:33:55 cache.go:104: [97mINFO[0m Adding Cache Key [Key] for Table [TemplateStore]
+2026/01/24 15:33:55 cache.go:111: [97mINFO[0m Cache Key [Key] added for Table [TemplateStore]
+2026/01/24 15:33:55 templateStoreV2Cache.go:32: [97mINFO[0m Defining Sync function for TemplateStore
+2026/01/24 15:33:55 main.go:139: [97mINFO[0m Phase ONE Adding Baseline Users to Store
+2026/01/24 15:33:55 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [ed03c10523c9b661f0d4268e253415c4649e919479a087f7405ad6f1b1e6cb42]
+2026/01/24 15:33:55 database.go:362: [97mINFO[0m [CREATE] TemplateStore [...cheeseontoast.db] (&{ID:0 Key) - Adding to Cache
+2026/01/24 15:33:55 cache.go:169: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key Field [Key]
+2026/01/24 15:33:55 cache.go:188: [97mINFO[0m Adding Cache Entry for Table [TemplateStore] with Key [413286b8d87d2c59b4de2a536c9427583db1fe20368205e9f17d326fcffa86bc]
+2026/01/24 15:33:55 main.go:152: [97mINFO[0m Phase ONE Baseline 2 Users Added to Store
+2026/01/24 15:33:55 main.go:153: [97mINFO[0m Phase ONE Hydrating Cache for Users
+2026/01/24 15:33:55 cache.go:641: [97mINFO[0m Cache for Table [TemplateStore] hydrated (0/2)
+2026/01/24 15:33:55 cacheDebug.go:92: [97mINFO[0m . 	Table [TemplateStore] has [2] cached records and expiry set to [2s]
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       TemplateStore>Key: 413286b8d87d2c59b4de2a536c9427583db1fe20368205e9f17d326fcffa86bc - expires: 2026-01-24T15:33:57.986233Z(1 second from now)
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       TemplateStore>Key: ed03c10523c9b661f0d4268e253415c4649e919479a087f7405ad6f1b1e6cb42 - expires: 2026-01-24T15:33:57.986002Z(1 second from now)
+2026/01/24 15:33:55 main.go:164: [97mINFO[0m Phase ONE Setup Templates Loaded: 2
+2026/01/24 15:33:55 main.go:174: [97mINFO[0m Phase ONE User: (1/2) Matt Townsend 413286b8d87d2c59b4de2a536c9427583db1fe20368205e9f17d326fcffa86bc
+2026/01/24 15:33:55 main.go:182: [97mINFO[0m Phase ONE Selected User Key: 413286b8d87d2c59b4de2a536c9427583db1fe20368205e9f17d326fcffa86bc
+2026/01/24 15:33:55 main.go:246: [97mINFO[0m Phase ONE Cache fetch iteration 1: avg=23.167µs min=23.167µs max=23.167µs samples=1
+2026/01/24 15:33:55 main.go:254: [97mINFO[0m Phase ONE Cache fetch overall: avg=23.167µs min=23.167µs max=23.167µs samples=1
+2026/01/24 15:33:55 main.go:318: [97mINFO[0m Phase ONE Completed
+2026/01/24 15:33:55 main.go:321: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:33:55.864066Z, Updated: 2026-01-24T15:33:55.986234Z, Tables: 3, Entries: 5
+2026/01/24 15:33:55 main.go:100: [97mINFO[0m Phase 2 Test Message: 413286b8d87d2c59b4de2a536c9427583db1fe20368205e9f17d326fcffa86bc
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - Starting Cache Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 cacheDebug.go:22: [97mINFO[0m Cache created at: 2026-01-24T15:33:55.864066Z
+2026/01/24 15:33:55 cacheDebug.go:23: [97mINFO[0m Cache updated at: 2026-01-24T15:33:55.986234Z
+2026/01/24 15:33:55 cacheDebug.go:24: [97mINFO[0m Cache Age: now
+2026/01/24 15:33:55 cacheDebug.go:25: [97mINFO[0m Cache Last Updated: now
+2026/01/24 15:33:55 cacheDebug.go:26: [97mINFO[0m 
+2026/01/24 15:33:55 cacheDebug.go:36: [97mINFO[0m . Cached Tables: Sausage Supper TemplateStore 
+2026/01/24 15:33:55 cacheDebug.go:38: [97mINFO[0m . Cached Keys Summary
+2026/01/24 15:33:55 cacheDebug.go:40: [97mINFO[0m . 	Table [Sausage] has Key Field [Field1]
+2026/01/24 15:33:55 cacheDebug.go:40: [97mINFO[0m . 	Table [Supper] has Key Field [FieldA]
+2026/01/24 15:33:55 cacheDebug.go:40: [97mINFO[0m . 	Table [TemplateStore] has Key Field [Key]
+2026/01/24 15:33:55 cacheDebug.go:44: [97mINFO[0m . Cached Records Summary
+2026/01/24 15:33:55 cacheDebug.go:92: [97mINFO[0m . 	Table [Supper] has [1] cached records and expiry set to [876000h0m0s]
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       Supper>FieldA: Foo - expires: 2125-12-31T15:33:55.865113Z(a long while from now)
+2026/01/24 15:33:55 cacheDebug.go:92: [97mINFO[0m . 	Table [TemplateStore] has [2] cached records and expiry set to [2s]
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       TemplateStore>Key: ed03c10523c9b661f0d4268e253415c4649e919479a087f7405ad6f1b1e6cb42 - expires: 2026-01-24T15:33:57.986002Z(1 second from now)
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       TemplateStore>Key: 413286b8d87d2c59b4de2a536c9427583db1fe20368205e9f17d326fcffa86bc - expires: 2026-01-24T15:33:57.986233Z(1 second from now)
+2026/01/24 15:33:55 cacheDebug.go:92: [97mINFO[0m . 	Table [Sausage] has [2] cached records and expiry set to [30m15s]
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum - expires: 2026-01-24T16:04:10.864764Z(30 minutes from now)
+2026/01/24 15:33:55 cacheDebug.go:96: [97mINFO[0m .       Sausage>Field1: Bum4 - expires: 2026-01-24T16:04:10.86494Z(30 minutes from now)
+2026/01/24 15:33:55 cacheDebug.go:49: [97mINFO[0m 
+2026/01/24 15:33:55 cacheDebug.go:50: [97mINFO[0m Cache Stats - Created: 2026-01-24T15:33:55.864066Z, Updated: 2026-01-24T15:33:55.986234Z, Tables: 3, Entries: 5
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [CACHE] Activity=[Report] - End Report
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 main.go:121: [97mINFO[0m Total Test Duration: 3.379084ms
+2026/01/24 15:33:55 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/24 15:33:55 logHandler.go:201: [97mINFO[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
+2026/01/24 15:33:55 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*

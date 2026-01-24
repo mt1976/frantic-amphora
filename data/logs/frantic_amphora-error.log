@@ -1,7 +1,2 @@
-2026/01/24 15:18:14 main.go:303: [31mERROR[0m Phase ONE User count mismatch: expected 1, got 0
-2026/01/24 15:18:14 main.go:106: [31mERROR[0m P_1 Test Duration: 3.431625ms Start: 2026-01-24T15:18:14Z Stop: 2026-01-24T15:18:14Z
-2026/01/24 15:18:14 main.go:303: [31mERROR[0m Phase ONE User count mismatch: expected 2, got 0
-2026/01/24 15:18:14 main.go:106: [31mERROR[0m P_2 Test Duration: 24.769583ms Start: 2026-01-24T15:18:14Z Stop: 2026-01-24T15:18:14Z
-2026/01/24 15:18:14 main.go:303: [31mERROR[0m Phase 2 User count mismatch: expected 1, got 0
-2026/01/24 15:18:14 main.go:191: [31mERROR[0m Phase 2 Setup Template count mismatch: expected 2, got 3
-2026/01/24 15:18:14 main.go:192: [31mERROR[0m Phase 2 Setup Template count mismatch: expected 2, got 3
+2026/01/24 15:33:55 main.go:105: [31mERROR[0m P_1 Test Duration: 2.576ms Start: 2026-01-24T15:33:55Z Stop: 2026-01-24T15:33:55Z
+2026/01/24 15:33:55 main.go:105: [31mERROR[0m P_2 Test Duration: 803.084µs Start: 2026-01-24T15:33:55Z Stop: 2026-01-24T15:33:55Z

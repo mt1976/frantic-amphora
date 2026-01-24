@@ -1,21 +1,22 @@
 module github.com/mt1976/frantic-amphora
 
-go 1.25.5
+go 1.25
 
 require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/goforj/godump v1.9.0
-	github.com/mt1976/frantic-core v1.7.0
+	github.com/mt1976/frantic-core v1.8.0
 )
 
 require (
-	github.com/DataDog/zstd v1.4.1 // indirect
-	github.com/Sereal/Sereal v0.0.0-20190618215532-0b8ac451a863 // indirect
-	github.com/golang/protobuf v1.3.2 // indirect
-	github.com/golang/snappy v0.0.1 // indirect
+	github.com/DataDog/zstd v1.5.7 // indirect
+	github.com/Sereal/Sereal v0.0.0-20250307140414-035be09f1bc8 // indirect
+	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/golang/snappy v1.0.0 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	golang.org/x/net v0.49.0 // indirect
-	google.golang.org/appengine v1.6.5 // indirect
+	google.golang.org/appengine v1.6.8 // indirect
+	google.golang.org/protobuf v1.33.0 // indirect
 )
 
 require (
