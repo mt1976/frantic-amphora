@@ -1,43 +1,49 @@
+// Data Access Object template
+// Version: 0.5.0
+// Updated on: 2026-01-24
+
 package {{.PackageName}}
 
 import (
 	"context"
 
-	"github.com/mt1976/frantic-core/commonConfig"
 	"github.com/mt1976/frantic-amphora/dao/cache"
 	"github.com/mt1976/frantic-amphora/dao/database"
+	"github.com/mt1976/frantic-core/commonConfig"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
 )
 
-var activeDB *database.DB
-var dbIsReady bool
+var activeDBConnection *database.DB
+var databaseConnectionActive bool
 var cfg *commonConfig.Settings
 
-// Initialise opens the database connection for this DAO and optionally enables caching.
+// Initialise opens the database connection for {{.TypeName}} and optionally enables caching.
 func Initialise(ctx context.Context, cached bool) {
-	logHandler.DatabaseLogger.Printf("Opening connection to %v", tableName)
+	//logHandler.DatabaseLogger.Printf("Opening connection to %v", tableName)
 	logHandler.TraceLogger.Printf("Initialising %v DAO Caching: %t", tableName, cached)
 
 	clock := timing.Start(tableName, "Initialise", "Initialise")
 	cfg = commonConfig.Get()
 	_ = cfg
 
-	activeDB = database.Connect({{.TypeName}}{}, database.WithVerbose(false), database.WithCaching(cached), database.WithCacheKey({{.FieldsVar}}.Key), database.WithNameSpace("{{.Namespace}}"))
-	dbIsReady = true
+	activeDBConnection = database.Connect({{.TypeName}}{}, database.WithVerbose(false), database.WithCaching(cached), database.WithCacheKey({{.FieldsVar}}.Key), database.WithNameSpace("{{.Namespace}}"))
+	databaseConnectionActive = true
 
 	clock.Stop(1)
-	logHandler.DatabaseLogger.Printf("Opened connection to %v", tableName)
+	//logHandler.DatabaseLogger.Printf("Opened connection to %v", tableName)
 }
 
 // IsInitialised reports whether the DAO has an active database connection.
 func IsInitialised() bool {
-	return dbIsReady
+	return databaseConnectionActive
 }
 
 // Close flushes the cache (if enabled) and closes the active database connection.
 func Close() {
-	logHandler.DatabaseLogger.Printf("Closing connection to %v", tableName)
+	//logHandler.DatabaseLogger.Printf("Closing connection to %v", tableName)
+	logHandler.TraceLogger.Printf("Closing %v DAO", tableName)
+	clock := timing.Start(tableName, "Close", "Close")
 
 	flusherr2 := cache.SynchroniseForType({{.TypeName}}{})
 	if flusherr2 != nil {
@@ -46,14 +52,20 @@ func Close() {
 		logHandler.InfoLogger.Printf("Cache flushed successfully")
 	}
 
-	if activeDB != nil {
-		activeDB.Disconnect()
+	if activeDBConnection != nil {
+		activeDBConnection.Disconnect()
 	}
-	dbIsReady = false
-	logHandler.DatabaseLogger.Printf("Closed connection to %v", tableName)
+	databaseConnectionActive = false
+	logHandler.TraceLogger.Printf("Closed connection to %v", tableName)
+	clock.Stop(1)
 }
 
 // GetDatabaseConnections returns a function that supplies the database connections used by this DAO.
+func GetDatabaseConnections() func() ([]*database.DB, error) {
+	return func() ([]*database.DB, error) {
+		return []*database.DB{activeDBConnection}, nil
+	}
+}
 func GetDatabaseConnections() func() ([]*database.DB, error) {
 	return func() ([]*database.DB, error) {
 		return []*database.DB{activeDB}, nil
