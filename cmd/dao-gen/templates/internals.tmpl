@@ -62,10 +62,10 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note, activity 
 	var actionError error
 	if isCreateOperation {
 		logHandler.TraceLogger.Printf("Creating %v record %v %v", tableName, record.Key, record.ID)
-		actionError = activeDB.Create(record)
+		actionError = activeDBConnection.Create(record)
 	} else {
 		logHandler.TraceLogger.Printf("Updating %v record %v %v", tableName, record.Key, record.ID)
-		actionError = activeDB.Update(record)
+		actionError = activeDBConnection.Update(record)
 	}
 	if actionError != nil {
 		godump.Dump(record)
@@ -110,16 +110,19 @@ func (record *{{.TypeName}}) postGet() error {
 
 // checkForDuplicate checks whether the record key already exists.
 func (record *{{.TypeName}}) checkForDuplicate() error {
-	dao.CheckDAOReadyState(tableName, audit.PROCESS, dbIsReady)
+	dao.CheckDAOReadyState(tableName, audit.PROCESS, databaseConnectionActive)
 
-	responseRecord, err := GetBy({{.FieldsVar}}.Key, record.Key)
-	if err != nil {
+	if duplicateCheck != nil {
+		found, err := duplicateCheck(record)
+		if err != nil {
+			return err
+		}
+		if found {
+			logHandler.WarningLogger.Printf("Duplicate %v, %v already in use", tableName, record.Key)
+			return ce.ErrDuplicate
+		}
 		return nil
 	}
-	if responseRecord.Audit.DeletedBy != "" {
-		return nil
-	}
 
-	logHandler.WarningLogger.Printf("Duplicate %v, %v already in use", tableName, record.ID)
-	return ce.ErrDuplicate
+	return nil
 }

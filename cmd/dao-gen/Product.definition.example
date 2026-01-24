@@ -1,0 +1,44 @@
+// Product.definition
+//
+// Product entity definition for an e-commerce system.
+// Demonstrates various entity types and Storm indexing.
+
+// Domain specific fields, starts.
+//
+// Product identification
+SKU         string `storm:"index,unique" validate:"required,min=3,max=50"`
+Name        string `validate:"required,min=3,max=200"`
+Description string `validate:"max=1000"`
+Slug        string `storm:"index,unique"`
+
+// Pricing and inventory
+Price       entities.Decimal `validate:"required,gte=0"`
+Currency    string           `validate:"required,len=3"`
+CostPrice   entities.Decimal
+StockLevel  entities.Int
+LowStockThreshold entities.Int
+IsAvailable entities.Bool
+
+// Categorization
+CategoryID    string   `storm:"index"`
+BrandID       string   `storm:"index"`
+Tags          string   // JSON array of tags
+Attributes    string   // JSON object of additional attributes
+
+// Sales metrics
+ViewCount     entities.Int
+SalesCount    entities.Int
+AverageRating entities.Float
+ReviewCount   entities.Int
+
+// Timestamps and tracking
+CreatedAt     time.Time
+UpdatedAt     time.Time
+PublishedAt   time.Time
+DiscountedUntil time.Time
+
+// Management
+CreatedBy     string `storm:"index"`
+UpdatedBy     string `storm:"index"`
+IsDeleted     entities.Bool
+DeletedAt     time.Time

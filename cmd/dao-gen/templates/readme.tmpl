@@ -62,6 +62,36 @@ The `{{.TypeName}}` struct includes examples of all entity types available in th
 - `ExampleField` - Field name type (entities.Field)
 - `ExampleTable` - Table name type (entities.Table)
 
+## Field Definitions
+
+The `{{.TypeName}}` struct contains the following fields:
+
+| Field Name | Field Reference | Type | Tags | Purpose |
+|------------|----------------|------|------|---------|
+| **ID** (required) | `{{.FieldsVar}}.ID` | `int` | `storm:"id,increment=100"` | Primary key with auto-increment |
+| **Key** (required) | `{{.FieldsVar}}.Key` | `string` | `storm:"index,unique"` | Encoded unique identifier |
+| **Raw** (required) | `{{.FieldsVar}}.Raw` | `string` | `storm:"index,unique"` | Raw unique identifier |
+| **Audit** (required) | `{{.FieldsVar}}.Audit` | `audit.Audit` | `csv:"-"` | Audit trail information |
+{{if .DomainFields}}{{range .FieldDefinitions}}| {{.Name}} | `{{$.FieldsVar}}.{{.Name}}` | `{{.Type}}` | {{.Tags}} | {{.Purpose}} |
+{{end}}{{end}}
+
+**Note:** Fields marked as **(required)** are mandatory framework fields and must not be modified or removed.
+
+### Using Field References
+
+Field references enable type-safe queries throughout the DAO:
+
+```go
+// Get a record by a specific field
+user, err := GetBy({{.FieldsVar}}.UserName, "john.doe")
+
+// Query with WHERE conditions
+activeUsers, err := GetAllWhere({{.FieldsVar}}.Active, true)
+
+// Count records matching criteria
+count, err := CountWhere({{.FieldsVar}}.GID, "admin-group")
+```
+
 ## Public API
 
 ### Exported types/vars

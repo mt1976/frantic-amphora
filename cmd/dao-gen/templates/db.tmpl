@@ -66,8 +66,3 @@ func GetDatabaseConnections() func() ([]*database.DB, error) {
 		return []*database.DB{activeDBConnection}, nil
 	}
 }
-func GetDatabaseConnections() func() ([]*database.DB, error) {
-	return func() ([]*database.DB, error) {
-		return []*database.DB{activeDB}, nil
-	}
-}

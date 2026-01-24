@@ -8,40 +8,125 @@ import (
 	"context"
 	"fmt"
 
-	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-amphora/dao/entities"
+	ce "github.com/mt1976/frantic-core/commonErrors"
 )
+
+type creatorFunc func({{.TypeName}}) (string, {{.TypeName}}, error)
+type upgraderFunc func({{.TypeName}}) ({{.TypeName}}, error)
+type defaulterFunc func(*{{.TypeName}}) error
+type validatorFunc func(*{{.TypeName}}) error
+type preDeleteFunc func(*{{.TypeName}}) error
+type postGetFunc func(*{{.TypeName}}) error
+type clonerFunc func(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, error)
+type duplicateCheckFunc func(*{{.TypeName}}) (bool, error)
+type workerFunc func(string, string)
+
+var creator creatorFunc
+var upgrader upgraderFunc
+var defaulter defaulterFunc
+var validator validatorFunc
+var preDelete preDeleteFunc
+var postGet postGetFunc
+var cloner clonerFunc
+var duplicateCheck duplicateCheckFunc
+var worker workerFunc
+
+// RegisterCreator registers a creator function for {{.TypeName}}.
+func RegisterCreator(fn creatorFunc) {
+	creator = fn
+}
+
+// RegisterUpgrader registers an upgrader function for {{.TypeName}}.
+func RegisterUpgrader(fn upgraderFunc) {
+	upgrader = fn
+}
+
+// RegisterDefaulter registers a defaulter function for {{.TypeName}}.
+func RegisterDefaulter(fn defaulterFunc) {
+	defaulter = fn
+}
+
+// RegisterValidator registers a validator function for {{.TypeName}}.
+func RegisterValidator(fn validatorFunc) {
+	validator = fn
+}
+
+// RegisterPreDelete registers a pre-delete function for {{.TypeName}}.
+func RegisterPreDelete(fn preDeleteFunc) {
+	preDelete = fn
+}
+
+// RegisterPostGet registers a post-get function for {{.TypeName}}.
+func RegisterPostGet(fn postGetFunc) {
+	postGet = fn
+}
+
+// RegisterCloner registers a cloner function for {{.TypeName}}.
+func RegisterCloner(fn clonerFunc) {
+	cloner = fn
+}
+
+// RegisterDuplicateCheck registers a duplicate check function for {{.TypeName}}.
+func RegisterDuplicateCheck(fn duplicateCheckFunc) {
+	duplicateCheck = fn
+}
+
+// RegisterWorker registers a worker function for {{.TypeName}}.
+func RegisterWorker(fn workerFunc) {
+	worker = fn
+}
 
 // upgradeProcessing performs any one-time upgrade or migration logic on the record.
 func (record *{{.TypeName}}) upgradeProcessing() error {
+	if upgrader != nil {
+		updatedRecord, err := upgrader(*record)
+		if err != nil {
+			return err
+		}
+		*record = updatedRecord
+	}
 	return nil
 }
 
 // defaultProcessing applies any default values prior to validation and persistence.
 func (record *{{.TypeName}}) defaultProcessing() error {
+	if defaulter != nil {
+		return defaulter(record)
+	}
 	return nil
 }
 
 // validationProcessing validates the record and returns an error if it is invalid.
 func (record *{{.TypeName}}) validationProcessing() error {
+	if validator != nil {
+		return validator(record)
+	}
 	return nil
 }
 
 // postGetProcessing runs any post-load processing after a record is retrieved.
 func (h *{{.TypeName}}) postGetProcessing() error {
+	if postGet != nil {
+		return postGet(h)
+	}
 	return nil
 }
 
 // preDeleteProcessing runs any checks or actions required before delete.
 func (record *{{.TypeName}}) preDeleteProcessing() error {
+	if preDelete != nil {
+		return preDelete(record)
+	}
 	return nil
 }
 
 // templateClone contains the package's clone logic.
 func templateClone(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, error) {
-	_ = ctx
-	_ = source
-	panic("Not Implemented")
+	if cloner != nil {
+		return cloner(ctx, source)
+	}
+	return New(), nil
 }
 
 // assert{{.TypeName}} asserts that an `any` returned by lower layers is a *{{.TypeName}}.

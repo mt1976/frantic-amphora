@@ -1,0 +1,15 @@
+// SimpleEntity.definition
+//
+// A minimal example showing how to define custom entity fields.
+// This file demonstrates a simple user-like entity.
+
+// Domain specific fields, starts.
+//
+// Basic user information
+UserName  string        `storm:"index,unique" validate:"required,min=3,max=50"`
+Email     string        `storm:"index,unique" validate:"required,email"`
+FirstName string        `validate:"required"`
+LastName  string        `validate:"required"`
+IsActive  entities.Bool
+CreatedAt time.Time
+UpdatedAt time.Time

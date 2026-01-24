@@ -1,0 +1,39 @@
+	// TemplateStore.definition
+    // Add your entity fields here, these will be used in the generated DAO code.
+    // This is a sample structure to illustrate various data types.
+    // Modify as needed for your specific entity.
+
+    // Domain specific fields, starts.
+    //
+    // Example fields grouped by type
+	// String types
+	ExampleString string
+	// Boolean types
+	ExampleBool      entities.Bool
+	ExampleStormBool entities.StormBool
+	// Integer types
+	ExampleInt    entities.Int
+	ExampleInt32  entities.Int32
+	ExampleInt64  entities.Int64
+	ExampleUint   entities.UInt
+	ExampleUint32 entities.UInt32
+	ExampleUint64 entities.UInt64
+	// Float types
+	ExampleFloat   entities.Float
+	ExampleFloat32 entities.Float32
+	ExampleFloat64 entities.Float64
+	// Specialized numeric types
+	ExampleDecimal    entities.Decimal
+	ExamplePercentage entities.Percentage
+	ExampleRate       entities.Rate
+	// Money types
+	ExampleMoney    entities.Money
+	ExampleCurrency entities.Currency
+	// Date/Time types
+	ExampleDate time.Time
+	// Entity framework types
+	ExampleField entities.Field
+	ExampleTable entities.Table
+    // Additional fields for demonstration
+	LastLogin time.Time
+	LastHost  string `storm:"index"`

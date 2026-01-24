@@ -1,0 +1,56 @@
+	// TemplateStore.definition
+	// 
+	// This file defines the domain-specific fields for your entity.
+	// Fields defined here will be automatically injected into the generated model file.
+	//
+	// IMPORTANT: 
+	// - The fields between "Domain specific fields, starts" and the end of file
+	//   will be inserted into the generated struct.
+	// - Each field will automatically get a corresponding entry in the fieldNames struct
+	//   and Fields variable for type-safe queries.
+	// - The ID, Key, Raw, and Audit fields are mandatory framework fields and should
+	//   NOT be included in this file.
+	//
+	// USAGE:
+	// 1. Define your entity fields below the "Domain specific fields, starts" comment
+	// 2. Use standard Go struct field syntax: FieldName Type `tags`
+	// 3. Run: go generate or dao-gen -pkg yourpkg -type YourType -out ./path
+	//
+	// EXAMPLE FIELDS:
+	// The following examples demonstrate all available entity types from the framework.
+	// Replace these with your actual domain fields.
+
+	// Domain specific fields, starts.
+	//
+	// Example fields grouped by type
+	// String types
+	ExampleString string
+	// Boolean types
+	ExampleBool      entities.Bool
+	ExampleStormBool entities.StormBool
+	// Integer types
+	ExampleInt    entities.Int
+	ExampleInt32  entities.Int32
+	ExampleInt64  entities.Int64
+	ExampleUint   entities.UInt
+	ExampleUint32 entities.UInt32
+	ExampleUint64 entities.UInt64
+	// Float types
+	ExampleFloat   entities.Float
+	ExampleFloat32 entities.Float32
+	ExampleFloat64 entities.Float64
+	// Specialized numeric types
+	ExampleDecimal    entities.Decimal
+	ExamplePercentage entities.Percentage
+	ExampleRate       entities.Rate
+	// Money types
+	ExampleMoney    entities.Money
+	ExampleCurrency entities.Currency
+	// Date/Time types
+	ExampleDate time.Time
+	// Entity framework types
+	ExampleField entities.Field
+	ExampleTable entities.Table
+	// Additional fields for demonstration
+	LastLogin time.Time
+	LastHost  string `storm:"index"`
