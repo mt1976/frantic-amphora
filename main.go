@@ -118,7 +118,7 @@ func main() {
 	cache.Spew()
 	logHandler.InfoLogger.Printf("P1 Total Users after Phase 1: %v", len(recs))
 
-	os.Exit(0)
+	//os.Exit(0)
 	//os.Exit(0)
 	logHandler.InfoBanner("INFO", "START", "Starting DAO Test Application - Phase 2")
 

@@ -9,7 +9,18 @@ require (
 )
 
 require (
+	github.com/DataDog/zstd v1.4.1 // indirect
+	github.com/Sereal/Sereal v0.0.0-20190618215532-0b8ac451a863 // indirect
+	github.com/golang/protobuf v1.3.2 // indirect
+	github.com/golang/snappy v0.0.1 // indirect
+	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
+	golang.org/x/net v0.49.0 // indirect
+	google.golang.org/appengine v1.6.5 // indirect
+)
+
+require (
 	github.com/BurntSushi/toml v1.6.0 // indirect
+	github.com/asdine/storm v2.1.2+incompatible
 	github.com/asdine/storm/v3 v3.2.1 // indirect
 	github.com/beorn7/floats v1.0.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
