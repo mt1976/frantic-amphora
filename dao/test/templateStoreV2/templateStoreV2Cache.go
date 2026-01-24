@@ -1,3 +1,7 @@
+// Data Access Object template
+// Version: 0.5.0
+// Updated on: 2026-01-24
+
 package templateStoreV2
 
 import (
