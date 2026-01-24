@@ -4,24 +4,8 @@ import (
 	"context"
 
 	"github.com/mt1976/frantic-amphora/dao/audit"
-	"github.com/mt1976/frantic-amphora/dao/cache"
 	"github.com/mt1976/frantic-core/logHandler"
 )
-
-// CacheSpew writes the current cache state for this table to the logs.
-func CacheSpew() {
-	logHandler.CacheLogger.Printf("CacheSpew [%+v]", tableName)
-	cache.SpewFor(TableName)
-	logHandler.CacheLogger.Printf("CacheSpew [%+v] complete", tableName)
-}
-
-// FlushCache synchronises cached records back to the underlying database.
-func FlushCache() error {
-	logHandler.CacheLogger.Printf("FlushCache [%+v]", tableName)
-	err := cache.SynchroniseForType(TemplateStore{})
-	logHandler.CacheLogger.Printf("FlushCache [%+v] complete", tableName)
-	return err
-}
 
 // CacheHydrator returns the cache hydrator function for this table.
 func CacheHydrator(ctx context.Context) func() ([]any, error) {
