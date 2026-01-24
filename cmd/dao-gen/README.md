@@ -49,7 +49,7 @@ The generator supports `.definition` files to customize the domain fields of you
 2. Define your fields after the "Domain specific fields, starts" marker
 3. Use standard Go struct syntax
 
-**Example: User.definition**
+#### Example: User.definition
 
 ```go
 // User.definition
