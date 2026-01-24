@@ -13,8 +13,8 @@ import (
 	"github.com/mt1976/frantic-core/timing"
 )
 
-// ExportRecordAsJSON exports the TemplateStore record as a JSON file.
-func (record *TemplateStore) ExportRecordAsJSON(name string) {
+// ExportRecordToJSON exports the TemplateStore record as a JSON file.
+func (record *TemplateStore) ExportRecordToJSON(name string) {
 	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
 	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
 
@@ -26,8 +26,8 @@ func (record *TemplateStore) ExportRecordAsJSON(name string) {
 	clock.Stop(1)
 }
 
-// ExportAllAsJSON exports all TemplateStore records as JSON files.
-func ExportAllAsJSON(message string) {
+// ExportAllToJSON exports all TemplateStore records as JSON files.
+func ExportAllToJSON(message string) {
 	dao.CheckDAOReadyState(tableName, audit.EXPORT, databaseConnectionActive)
 
 	clock := timing.Start(tableName, "Export", "ALL")
@@ -45,8 +45,8 @@ func ExportAllAsJSON(message string) {
 	clock.Stop(len(recordList))
 }
 
-// ExportRecordAsCSV exports the TemplateStore record as a CSV file.
-func (record *TemplateStore) ExportRecordAsCSV(name string) error {
+// ExportRecordToCSV exports the TemplateStore record as a CSV file.
+func (record *TemplateStore) ExportRecordToCSV(name string) error {
 	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
 	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
 
@@ -61,8 +61,8 @@ func (record *TemplateStore) ExportRecordAsCSV(name string) error {
 	return nil
 }
 
-// ExportAllAsCSV exports all TemplateStore records as a CSV file.
-func ExportAllAsCSV(msg string) error {
+// ExportAllToCSV exports all TemplateStore records as a CSV file.
+func ExportAllToCSV(msg string) error {
 	exportListData, err := GetAll()
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
@@ -80,7 +80,7 @@ func templateImportProcessor(inOriginal **TemplateStore) (string, error) {
 	importedData := **inOriginal
 	stringField1 := strconv.Itoa(importedData.ID)
 
-	_, err := Create(context.TODO(), importedData.UserName, importedData.UID, importedData.RealName, importedData.Email, importedData.GID)
+	_, err := Create(context.TODO(), importedData)
 	if err != nil {
 		logHandler.ImportLogger.Panicf("Error importing %v: %v", tableName, err.Error())
 		return stringField1, err

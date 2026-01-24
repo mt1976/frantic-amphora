@@ -9,6 +9,7 @@ import (
 	"github.com/mt1976/frantic-amphora/dao/cache"
 	"github.com/mt1976/frantic-amphora/dao/entities"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV2"
+	tmpllogic "github.com/mt1976/frantic-amphora/dao/test/tmplLogic"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/mathHelpers"
 )
@@ -83,6 +84,9 @@ func main() {
 
 	logHandler.InfoLogger.Println("Initialize User Store")
 	templateStoreV2.Initialise(ctx, false)
+	templateStoreV2.RegisterCreator(tmpllogic.Creator)
+	templateStoreV2.RegisterDuplicateCheck(tmpllogic.DuplicateCheck)
+	templateStoreV2.RegisterWorker(tmpllogic.JobProcessor)
 	defer templateStoreV2.Close()
 
 	logHandler.InfoLogger.Println("Clear Down User Store")
@@ -125,8 +129,6 @@ func main() {
 	templateStoreV2.ClearDown(ctx)
 	logHandler.InfoLogger.Println("P2 PreLoad User Store")
 
-	templateStoreV2.PreLoad(ctx)
-
 	start2 := time.Now()
 	for i := 0; i < 10; i++ {
 		msg2 := test(ctx, "2", i+1)
@@ -163,7 +165,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 
 	for i := 0; i < baselineUsers; i++ {
 		//logHandler.WarningLogger.Printf("Phase %v Creating Baseline User %v", phase, i+1)
-		_, info := templateStoreV2.Login(ctx, fmt.Sprintf("%04v", i))
+		_, info := tmpllogic.Login(ctx, fmt.Sprintf("%04v", i))
 		if info != nil {
 			logHandler.ErrorLogger.Printf("Phase %v Error creating Baseline User %v: %v", phase, i+1, info)
 		}

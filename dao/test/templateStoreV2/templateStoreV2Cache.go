@@ -8,14 +8,6 @@ import (
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
-// PreLoad performs any pre-load work required before the cache is hydrated.
-func PreLoad(ctx context.Context) error {
-	logHandler.CacheLogger.Printf("PreLoad [%+v]", tableName)
-	_ = ctx
-	logHandler.CacheLogger.Printf("PreLoad [%+v] complete", tableName)
-	return nil
-}
-
 // CacheSpew writes the current cache state for this table to the logs.
 func CacheSpew() {
 	logHandler.CacheLogger.Printf("CacheSpew [%+v]", tableName)
@@ -28,14 +20,6 @@ func FlushCache() error {
 	logHandler.CacheLogger.Printf("FlushCache [%+v]", tableName)
 	err := cache.SynchroniseForType(TemplateStore{})
 	logHandler.CacheLogger.Printf("FlushCache [%+v] complete", tableName)
-	return err
-}
-
-// HydrateCache loads all records into cache.
-func HydrateCache() error {
-	logHandler.CacheLogger.Printf("HydrateCache [%+v]", tableName)
-	err := cache.HydrateForType(TemplateStore{})
-	logHandler.CacheLogger.Printf("HydrateCache [%+v] complete", tableName)
 	return err
 }
 

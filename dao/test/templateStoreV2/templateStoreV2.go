@@ -11,6 +11,7 @@ import (
 	"github.com/mt1976/frantic-amphora/dao/entities"
 	"github.com/mt1976/frantic-amphora/dao/lookup"
 	ce "github.com/mt1976/frantic-core/commonErrors"
+	"github.com/mt1976/frantic-core/idHelpers"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
 )
@@ -101,6 +102,39 @@ func GetAllWhere(field entities.Field, value any) ([]TemplateStore, error) {
 	return result, nil
 }
 
+// New returns an empty TemplateStore record.
+func New() TemplateStore {
+	return TemplateStore{}
+}
+
+// Create constructs and inserts a new TemplateStore record.
+func Create(ctx context.Context, basis TemplateStore) (TemplateStore, error) {
+	dao.CheckDAOReadyState(tableName, audit.CREATE, databaseConnectionActive)
+
+	clock := timing.Start(tableName, "Create", "Inserting new record")
+
+	id, record, err := creator(basis)
+	if err != nil {
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", basis), err))
+	}
+
+	record.Key = idHelpers.Encode(id)
+	record.Raw = id
+
+	auditErr := record.Audit.Action(ctx, audit.CREATE.WithMessage(fmt.Sprintf("New %v created %v", tableName, basis)))
+	if auditErr != nil {
+		logHandler.ErrorLogger.Panic(ce.ErrDAOUpdateAuditWrapper(tableName, record.ID, auditErr))
+	}
+
+	writeErr := activeDBConnection.Create(&record)
+	if writeErr != nil {
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, writeErr))
+	}
+
+	clock.Stop(1)
+	return record, nil
+}
+
 // Delete deletes a record by ID.
 func Delete(ctx context.Context, id int, note string) error {
 	return DeleteBy(ctx, Fields.ID, id, note)
@@ -160,7 +194,7 @@ func (record *TemplateStore) Create(ctx context.Context, note string) error {
 
 // Clone returns a copy of the record using templateClone.
 func (record *TemplateStore) Clone(ctx context.Context) (TemplateStore, error) {
-	logHandler.DatabaseLogger.Printf("CLONE %v ID=%v", tableName, record.Key)
+	logHandler.DatabaseLogger.Printf("Clone %v id: %v", tableName, record.Key)
 	return templateClone(ctx, *record)
 }
 
@@ -198,13 +232,13 @@ func GetLookup(field, value entities.Field) (lookup.Lookup, error) {
 
 // Drop drops the underlying database bucket/table for this entity.
 func Drop() error {
-	logHandler.TraceLogger.Printf("DROP %v", tableName)
+	logHandler.TraceLogger.Printf("Drop %v", tableName)
 	return activeDBConnection.Drop(TemplateStore{})
 }
 
 // ClearDown deletes all records from this table.
 func ClearDown(ctx context.Context) error {
-	//	logHandler.DatabaseLogger.Printf("CLEARFILE %v", tableName)
+	logHandler.TraceLogger.Printf("ClearDown %v", tableName)
 
 	dao.CheckDAOReadyState(tableName, audit.PROCESS, databaseConnectionActive)
 

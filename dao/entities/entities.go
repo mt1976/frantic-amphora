@@ -3,52 +3,77 @@ package entities
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
+	"github.com/beorn7/floats"
 	"github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
+	"github.com/shopspring/decimal"
 )
 
 // Field represents a database field used for queries
 type field string
 type Field field
+
+// Table represents a database table
 type table string
 type Table table
 
-// StormBool is a boolean type that can be marshalled to and from a string, this has been created as Storm does not support boolean types properly
-type StormBool struct {
-	State string
-}
-
+// Int is an integer type that can be marshalled to and from a string
 type Int struct {
 	Value string
 }
+type Int64 Int
+type UInt64 Int
+type UInt Int
+type Int32 Int
+type UInt32 Int
 
+// Float is a float type that can be marshalled to and from a string
 type Float struct {
 	Value string
 }
 
+type Float32 Float
+type Float64 Float
+type Decimal Float
+type Currency struct {
+	Value Float
+	CCY   string
+}
+type Money Float
+type Percentage Float
+type Rate Float
+
+// Bool is a boolean type that can be marshalled to and from a string, this has been created as Storm does not support boolean types properly
 type Bool struct {
 	Value string
 }
+
+// StormBool is a boolean type that can be marshalled to and from a string, this has been created as Storm does not support boolean types properly
+type StormBool Bool
 
 func (f Field) String() string {
 	return string(f)
 }
 
+const constTrue = "true"
+const constFalse = "false"
+
 func (sb *StormBool) Set(b bool) {
 	if b {
-		sb.State = "true"
+		sb.Value = constTrue
 	} else {
-		sb.State = "false"
+		sb.Value = constFalse
 	}
 }
 
 func (sb *StormBool) Bool() bool {
-	return sb.State == "true"
+	return sb.Value == constTrue
 }
 
 func (sb *StormBool) String() string {
-	return sb.State
+	return sb.Value
 }
 
 func (sb *StormBool) IsTrue() bool {
@@ -65,14 +90,35 @@ func (i *Int) Set(in int) Int {
 }
 
 func (i *Int) Int() int {
-	val, err := strconv.Atoi(i.Value)
 	if i.Value == "" {
 		return 0
 	}
+	val, err := strconv.Atoi(i.Value)
 	if err != nil {
 		logHandler.ErrorLogger.Panic(commonErrors.ErrInvalidTypeWrapper("Int", i.Value, "int"))
 	}
+	//logHandler.InfoLogger.Printf("val: '%v' int: '%d'", i.Value, val)
 	return val
+}
+
+func (i *Int) Int64() int64 {
+	return int64(i.Int())
+}
+
+func (i *Int) UInt64() uint64 {
+	return uint64(i.Int())
+}
+
+func (i *Int) UInt() uint {
+	return uint(i.Int())
+}
+
+func (i *Int) Int32() int32 {
+	return int32(i.Int())
+}
+
+func (i *Int) UInt32() uint32 {
+	return uint32(i.Int())
 }
 
 func (i *Int) Get() int {
@@ -127,7 +173,7 @@ func (i *Int) DivideBy(other Int) Int {
 	return i.Set(quot)
 }
 
-func (i *Int) IncrumentBy(other Int) Int {
+func (i *Int) IncrementBy(other Int) Int {
 	sum := i.Int() + other.Int()
 	return i.Set(sum)
 }
@@ -171,19 +217,63 @@ func (f *Float) String() string {
 	return f.Value
 }
 
+func (f *Float) Float32() float32 {
+	return float32(f.Float())
+}
+
+func (f *Float) Float64() float64 {
+	return f.Float()
+}
+
+func (f *Float) Decimal() decimal.Decimal {
+	return decimal.NewFromFloat(f.Float())
+}
+
+func (f *Float) Currency() decimal.Decimal {
+	return decimal.NewFromFloat(f.Float())
+}
+
+func (f *Float) Money() decimal.Decimal {
+	return decimal.NewFromFloat(f.Float())
+}
+
+func (f *Float) Percentage() decimal.Decimal {
+	return decimal.NewFromFloat(f.Float())
+}
+
+func (f *Float) Equals(other Float) bool {
+	return floats.AlmostEqual(f.Float64(), other.Float64(), floats.MinNormal)
+}
+
+func (f *Float) LessThan(other Float) bool {
+	return f.Float64() < other.Float64()
+}
+
+func (f *Float) LessThanOrEqual(other Float) bool {
+	return f.Float64() <= other.Float64()
+}
+
+func (f *Float) GreaterThan(other Float) bool {
+	return f.Float64() > other.Float64()
+}
+func (f *Float) GreaterThanOrEqual(other Float) bool {
+	return f.Float64() >= other.Float64()
+}
+
 func (b *Bool) Set(in bool) Bool {
-	if in {
-		return Bool{Value: "true"}
+	if in == true {
+		return Bool{Value: constTrue}
 	} else {
-		return Bool{Value: "false"}
+		return Bool{Value: constFalse}
 	}
 }
 
 func (b *Bool) Bool() bool {
 	if b.Value == "" {
+		// Needs reversing based on current implementation
 		return false
 	}
-	return b.Value == "true"
+	return b.Value == constTrue
 }
 
 func (b *Bool) Get() bool {
@@ -203,5 +293,73 @@ func (b *Bool) IsFalse() bool {
 }
 
 func (t *Table) String() string {
-	return string(*t)
+	return fmt.Sprintf("%v", *t)
+}
+
+func (c *Currency) Set(code string, value float64) Currency {
+	c.SetValue(value)
+	c.SetCode(code)
+	return *c
+}
+
+func (c *Currency) SetValue(value float64) {
+	c.Value.Set(value)
+}
+
+func (c *Currency) GetCode() string {
+	return c.CCY
+}
+
+func (c *Currency) SetCode(code string) {
+	if code == "" {
+		// That is, no currency specified, so we default to GBP
+		// That will teach Trump!
+		// (Just kidding, of course. :-) )
+		code = "GBP"
+	}
+	if len(code) != 3 {
+		logHandler.ErrorLogger.Panic(commonErrors.ErrInvalidTypeWrapper("Currency Code", code, "3-letter ISO currency code"))
+	}
+	code = strings.ToUpper(code)
+	c.CCY = code
+}
+
+func (c *Currency) New() Currency {
+	x := Currency{}
+	x.SetValue(0.0)
+	x.SetCode("")
+	return x
+}
+
+func (c *Currency) NewCurrency(code string) Currency {
+	x := Currency{}
+	x.SetValue(0.0)
+	x.SetCode(code)
+	return x
+}
+
+func (c *Currency) NewAmount(value float64) Currency {
+	x := Currency{}
+	x.SetValue(value)
+	x.SetCode("")
+	return x
+}
+
+func (c *Currency) Code() string {
+	return c.GetCode()
+}
+func (c *Currency) GetValue() float64 {
+	return c.Value.Float()
+}
+
+func (c *Currency) Amount() float64 {
+	return c.GetValue()
+}
+
+func (c *Currency) String() string {
+	return fmt.Sprintf("%s %.2f", c.CCY, c.Value.Float())
+}
+
+func (c *Currency) Get() (string, float64) {
+	return c.CCY, c.Value.Float()
 }

@@ -108,14 +108,17 @@ func (record *TemplateStore) postGet() error {
 func (record *TemplateStore) checkForDuplicate() error {
 	dao.CheckDAOReadyState(tableName, audit.PROCESS, databaseConnectionActive)
 
-	responseRecord, err := GetBy(Fields.Key, record.Key)
-	if err != nil {
-		return nil
-	}
-	if responseRecord.Audit.DeletedBy != "" {
+	if duplicateCheck != nil {
+		found, err := duplicateCheck(record)
+		if err != nil {
+			return err
+		}
+		if found {
+			logHandler.WarningLogger.Printf("Duplicate %v, %v already in use", tableName, record.Key)
+			return ce.ErrDuplicate
+		}
 		return nil
 	}
 
-	logHandler.WarningLogger.Printf("Duplicate %v, %v already in use", tableName, record.ID)
-	return ce.ErrDuplicate
+	return nil
 }
