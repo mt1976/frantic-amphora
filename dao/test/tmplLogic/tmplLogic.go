@@ -12,7 +12,7 @@ import (
 	"github.com/mt1976/frantic-core/timing"
 )
 
-func Creator(basics templateStoreV2.TemplateStore) (string, templateStoreV2.TemplateStore, error) {
+func Creator(ctx context.Context, basics templateStoreV2.TemplateStore) (string, templateStoreV2.TemplateStore, error) {
 	// Custom creation logic can be added here
 
 	id := idHelpers.GetUUID()
@@ -76,10 +76,12 @@ func JobProcessor(name, desc string) {
 	clock.Stop(count)
 }
 
-func PostCreate(ctx context.Context, record *templateStoreV2.TemplateStore) error {
+func PostCreate(ctx context.Context, record *templateStoreV2.TemplateStore) (error, bool, string) {
 	// Custom post-create logic can be added here
 	logHandler.ServiceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
-	return nil
+	update := false
+	message := ""
+	return nil, update, message
 }
 
 func PostUpdate(ctx context.Context, record *templateStoreV2.TemplateStore) error {

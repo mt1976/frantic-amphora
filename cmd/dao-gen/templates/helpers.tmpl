@@ -6,21 +6,24 @@ package {{.PackageName}}
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/mt1976/frantic-amphora/dao"
+	"github.com/mt1976/frantic-amphora/dao/audit"
+	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
-type creatorFunc func({{.TypeName}}) (string, {{.TypeName}}, error)
+type creatorFunc func(ctx context.Context, source {{.TypeName}}) (string, {{.TypeName}}, error)
 type upgraderFunc func({{.TypeName}}) ({{.TypeName}}, error)
 type defaulterFunc func(*{{.TypeName}}) error
 type validatorFunc func(*{{.TypeName}}) error
-type preDeleteFunc func(*{{.TypeName}}) error
-type postGetFunc func(*{{.TypeName}}) error
+type preDeleteFunc func(ctx context.Context, record *{{.TypeName}}) error
+type postGetFunc func(ctx context.Context, record *{{.TypeName}}) error
 type clonerFunc func(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, error)
 type duplicateCheckFunc func(*{{.TypeName}}) (bool, error)
 type workerFunc func(string, string)
-type postCreateFunc func(ctx context.Context, record *{{.TypeName}}) error
+type postCreateFunc func(ctx context.Context, record *{{.TypeName}}) (error, bool, string)
 type postUpdateFunc func(ctx context.Context, record *{{.TypeName}}) error
 type postDeleteFunc func(ctx context.Context, record *{{.TypeName}}) error
 type postCloneFunc func(ctx context.Context, record *{{.TypeName}}) error
@@ -161,17 +164,17 @@ func (record *{{.TypeName}}) validationProcessing() error {
 }
 
 // postGetProcessing runs any post-load processing after a record is retrieved.
-func (h *{{.TypeName}}) postGetProcessing() error {
+func (h *{{.TypeName}}) postGetProcessing(ctx context.Context) error {
 	if postGet != nil {
-		return postGet(h)
+		return postGet(ctx, h)
 	}
 	return nil
 }
 
 // preDeleteProcessing runs any checks or actions required before delete.
-func (record *{{.TypeName}}) preDeleteProcessing() error {
+func (record *{{.TypeName}}) preDeleteProcessing(ctx context.Context) error {
 	if preDelete != nil {
-		return preDelete(record)
+		return preDelete(ctx, record)
 	}
 	return nil
 }
@@ -195,24 +198,41 @@ func templateClone(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, er
 // }
 
 // PostCreate runs any post-create processing after a record is created.
-func (record *{{.TypeName}}) postCreateProcessing() error {
+func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
 	if postCreate != nil {
-		return postCreate(context.Background(), record)
+		err, updatedRecord, feedbackMessage := postCreate(ctx, record)
+		if err != nil {
+			return err
+		}
+		if !updatedRecord {
+			return nil
+		}
+		if feedbackMessage == "" {
+			feedbackMessage = "Post Create Update"
+		}
+		if len(feedbackMessage) > 35 {
+			feedbackMessage = feedbackMessage[:35] + "..."
+		}
+		// Update the trip with the new profile and notes
+		err = record.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
+		if err != nil {
+			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed"))
+		}
 	}
 	return nil
 }
 
-func (record *{{.TypeName}}) postUpdateProcessing() error {
+func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) error {
 	if postUpdate != nil {
-		return postUpdate(context.Background(), record)
+		return postUpdate(ctx, record)
 	}
 	return nil
 }
 
 // postDeleteProcessing runs any post-delete processing after a record is deleted.
-func (record *{{.TypeName}}) postDeleteProcessing() error {
+func (record *{{.TypeName}}) postDeleteProcessing(ctx context.Context) error {
 	if postDelete != nil {
-		return postDelete(context.Background(), record)
+		return postDelete(ctx, record)
 	}
 	return nil
 }

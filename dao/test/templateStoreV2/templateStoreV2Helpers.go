@@ -6,21 +6,24 @@ package templateStoreV2
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/mt1976/frantic-amphora/dao"
+	"github.com/mt1976/frantic-amphora/dao/audit"
+	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
-type creatorFunc func(TemplateStore) (string, TemplateStore, error)
+type creatorFunc func(ctx context.Context, source TemplateStore) (string, TemplateStore, error)
 type upgraderFunc func(TemplateStore) (TemplateStore, error)
 type defaulterFunc func(*TemplateStore) error
 type validatorFunc func(*TemplateStore) error
-type preDeleteFunc func(*TemplateStore) error
-type postGetFunc func(*TemplateStore) error
+type preDeleteFunc func(ctx context.Context, record *TemplateStore) error
+type postGetFunc func(ctx context.Context, record *TemplateStore) error
 type clonerFunc func(ctx context.Context, source TemplateStore) (TemplateStore, error)
 type duplicateCheckFunc func(*TemplateStore) (bool, error)
 type workerFunc func(string, string)
-type postCreateFunc func(ctx context.Context, record *TemplateStore) error
+type postCreateFunc func(ctx context.Context, record *TemplateStore) (error, bool, string)
 type postUpdateFunc func(ctx context.Context, record *TemplateStore) error
 type postDeleteFunc func(ctx context.Context, record *TemplateStore) error
 type postCloneFunc func(ctx context.Context, record *TemplateStore) error
@@ -161,17 +164,17 @@ func (record *TemplateStore) validationProcessing() error {
 }
 
 // postGetProcessing runs any post-load processing after a record is retrieved.
-func (h *TemplateStore) postGetProcessing() error {
+func (h *TemplateStore) postGetProcessing(ctx context.Context) error {
 	if postGet != nil {
-		return postGet(h)
+		return postGet(ctx, h)
 	}
 	return nil
 }
 
 // preDeleteProcessing runs any checks or actions required before delete.
-func (record *TemplateStore) preDeleteProcessing() error {
+func (record *TemplateStore) preDeleteProcessing(ctx context.Context) error {
 	if preDelete != nil {
-		return preDelete(record)
+		return preDelete(ctx, record)
 	}
 	return nil
 }
@@ -195,24 +198,41 @@ func templateClone(ctx context.Context, source TemplateStore) (TemplateStore, er
 // }
 
 // PostCreate runs any post-create processing after a record is created.
-func (record *TemplateStore) postCreateProcessing() error {
+func (record *TemplateStore) postCreateProcessing(ctx context.Context) error {
 	if postCreate != nil {
-		return postCreate(context.Background(), record)
+		err, updatedRecord, feedbackMessage := postCreate(ctx, record)
+		if err != nil {
+			return err
+		}
+		if !updatedRecord {
+			return nil
+		}
+		if feedbackMessage == "" {
+			feedbackMessage = "Post Create Update"
+		}
+		if len(feedbackMessage) > 35 {
+			feedbackMessage = feedbackMessage[:35] + "..."
+		}
+		// Update the trip with the new profile and notes
+		err = record.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
+		if err != nil {
+			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed"))
+		}
 	}
 	return nil
 }
 
-func (record *TemplateStore) postUpdateProcessing() error {
+func (record *TemplateStore) postUpdateProcessing(ctx context.Context) error {
 	if postUpdate != nil {
-		return postUpdate(context.Background(), record)
+		return postUpdate(ctx, record)
 	}
 	return nil
 }
 
 // postDeleteProcessing runs any post-delete processing after a record is deleted.
-func (record *TemplateStore) postDeleteProcessing() error {
+func (record *TemplateStore) postDeleteProcessing(ctx context.Context) error {
 	if postDelete != nil {
-		return postDelete(context.Background(), record)
+		return postDelete(ctx, record)
 	}
 	return nil
 }

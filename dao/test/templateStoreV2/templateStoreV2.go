@@ -57,7 +57,7 @@ func GetBy(field entities.Field, value any) (TemplateStore, error) {
 		clock.Stop(0)
 		return TemplateStore{}, ce.ErrRecordNotFoundWrapper(tableName, field.String(), fmt.Sprintf("%v", value))
 	}
-	if err := record.postGet(); err != nil {
+	if err := record.postGet(context.Background()); err != nil {
 		clock.Stop(0)
 		return TemplateStore{}, ce.ErrGetWrapper(tableName, field.String(), value, err)
 	}
@@ -77,7 +77,7 @@ func GetAll() ([]TemplateStore, error) {
 		clock.Stop(0)
 		return nil, ce.ErrNotFoundWrapper(tableName, err)
 	}
-	result, err := postGetList(records)
+	result, err := postGetList(context.Background(), records)
 	if err != nil {
 		clock.Stop(0)
 		return nil, err
@@ -97,7 +97,7 @@ func GetAllWhere(field entities.Field, value any) ([]TemplateStore, error) {
 		clock.Stop(0)
 		return nil, err
 	}
-	result, err := postGetList(records)
+	result, err := postGetList(context.Background(), records)
 	if err != nil {
 		clock.Stop(0)
 		return nil, err
@@ -117,7 +117,7 @@ func Create(ctx context.Context, basis TemplateStore) (TemplateStore, error) {
 
 	clock := timing.Start(tableName, "Create", "Inserting new record")
 
-	id, record, err := creator(basis)
+	id, record, err := creator(ctx, basis)
 	if err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", basis), err))
 	}
@@ -135,7 +135,7 @@ func Create(ctx context.Context, basis TemplateStore) (TemplateStore, error) {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, writeErr))
 	}
 
-	if err := record.postCreateProcessing(); err != nil {
+	if err := record.postCreateProcessing(ctx); err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
 	}
 
@@ -166,7 +166,7 @@ func DeleteBy(ctx context.Context, field entities.Field, value any, note string)
 		return ce.ErrDAOUpdateAuditWrapper(tableName, value, err)
 	}
 
-	if err := record.preDeleteProcessing(); err != nil {
+	if err := record.preDeleteProcessing(ctx); err != nil {
 		clock.Stop(0)
 		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
 	}
@@ -176,7 +176,7 @@ func DeleteBy(ctx context.Context, field entities.Field, value any, note string)
 		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
 	}
 
-	if err := record.postDeleteProcessing(); err != nil {
+	if err := record.postDeleteProcessing(ctx); err != nil {
 		clock.Stop(0)
 		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
 	}

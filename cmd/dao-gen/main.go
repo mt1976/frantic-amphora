@@ -68,7 +68,7 @@ func main() {
 		cfg.TableName = cfg.TypeName
 	}
 	if cfg.Namespace == "" {
-		cfg.Namespace = "cheeseOnToast"
+		cfg.Namespace = "main"
 	}
 
 	// Read domain fields from .definition file if it exists

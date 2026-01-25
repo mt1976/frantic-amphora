@@ -76,14 +76,14 @@ func (record *TemplateStore) insertOrUpdate(ctx context.Context, note, activity 
 	}
 
 	if !isCreateOperation {
-		if err := record.postUpdateProcessing(); err != nil {
+		if err := record.postUpdateProcessing(ctx); err != nil {
 			updProcErr := ce.ErrDAOUpdateWrapper(tableName, err)
 			logHandler.ErrorLogger.Print(updProcErr.Error())
 			clock.Stop(0)
 			return updProcErr
 		}
 	} else {
-		if err := record.postCreateProcessing(); err != nil {
+		if err := record.postCreateProcessing(ctx); err != nil {
 			createProcErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
 			logHandler.ErrorLogger.Print(createProcErr.Error())
 			clock.Stop(0)
@@ -96,11 +96,11 @@ func (record *TemplateStore) insertOrUpdate(ctx context.Context, note, activity 
 }
 
 // postGetList runs post-get processing for each record in the list.
-func postGetList(recordList []TemplateStore) ([]TemplateStore, error) {
+func postGetList(ctx context.Context, recordList []TemplateStore) ([]TemplateStore, error) {
 	clock := timing.Start(tableName, "Process", "POSTGET")
 	returnList := []TemplateStore{}
 	for _, record := range recordList {
-		if err := record.postGet(); err != nil {
+		if err := record.postGet(ctx); err != nil {
 			clock.Stop(0)
 			return nil, err
 		}
@@ -111,7 +111,7 @@ func postGetList(recordList []TemplateStore) ([]TemplateStore, error) {
 }
 
 // postGet runs upgrade/default/validation processing after a record is loaded.
-func (record *TemplateStore) postGet() error {
+func (record *TemplateStore) postGet(ctx context.Context) error {
 	if upgradeError := record.upgradeProcessing(); upgradeError != nil {
 		return upgradeError
 	}
@@ -121,7 +121,7 @@ func (record *TemplateStore) postGet() error {
 	if validationError := record.validationProcessing(); validationError != nil {
 		return validationError
 	}
-	return record.postGetProcessing()
+	return record.postGetProcessing(ctx)
 }
 
 // checkForDuplicate checks whether the record key already exists.

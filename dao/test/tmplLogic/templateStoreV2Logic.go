@@ -54,7 +54,7 @@ func Add(ctx context.Context, sq string) (templateStoreV2.TemplateStore, error) 
 
 	newUser := templateStoreV2.New()
 	// use the creator to build the new record
-	id, u, err := Creator(newUser)
+	id, u, err := Creator(ctx, newUser)
 	if err != nil {
 		logHandler.ErrorLogger.Printf("Error: '%v'", err.Error())
 		return templateStoreV2.New(), err

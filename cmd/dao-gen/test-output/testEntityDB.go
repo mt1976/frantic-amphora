@@ -27,7 +27,7 @@ func Initialise(ctx context.Context, cached bool) {
 	cfg = commonConfig.Get()
 	_ = cfg
 
-	activeDBConnection = database.Connect(TestEntity{}, database.WithVerbose(false), database.WithCaching(cached), database.WithCacheKey(Fields.Key), database.WithNameSpace("cheeseOnToast"))
+	activeDBConnection = database.Connect(TestEntity{}, database.WithVerbose(false), database.WithCaching(cached), database.WithCacheKey(Fields.Key), database.WithNameSpace("superDuper"))
 	databaseConnectionActive = true
 
 	clock.Stop(1)
