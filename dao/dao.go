@@ -21,6 +21,7 @@ var DBVersion = 1
 var DB *storm.DB
 var DBName string = "default"
 
+// Initialise sets up the DAO package with the provided configuration.
 func Initialise(cfg *commonConfig.Settings) error {
 	clock := timing.Start(name, "Initialise", "")
 	logHandler.InfoLogger.Printf("[%v] Initialising...", strings.ToUpper(name))
@@ -33,16 +34,18 @@ func Initialise(cfg *commonConfig.Settings) error {
 	return nil
 }
 
+// GetDBNameFromPath extracts the database name from a given file path.
 func GetDBNameFromPath(t string) string {
 	dbName := t
 	// split dbName on "/"
 	dbNameArr := strings.Split(dbName, string(os.PathSeparator))
 	noparts := len(dbNameArr)
 	dbName = dbNameArr[noparts-1]
-	logHandler.InfoLogger.Printf("dbName: %v\n", dbName)
+	logHandler.TraceLogger.Printf("dbName: %v\n", dbName)
 	return dbName
 }
 
+// CheckDAOReadyState verifies that the DAO is initialized before performing any operations.
 func CheckDAOReadyState(table string, action audit.Action, isDaoReady bool) {
 	if !isDaoReady {
 		err := ce.ErrDAONotInitialisedWrapper(table, action.Description())
@@ -50,7 +53,8 @@ func CheckDAOReadyState(table string, action audit.Action, isDaoReady bool) {
 	}
 }
 
+// GetFunctionName returns the name of a function passed as an interface.
 func GetFunctionName(i any) string {
-	// Funtion to get the clean name of a function stored in an interface
+	// Function to get the clean name of a function stored in an interface
 	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 }
