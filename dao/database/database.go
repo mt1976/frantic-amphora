@@ -329,7 +329,7 @@ func (db *DB) Update(data any) error {
 			return err
 		}
 		// Concurrently update the database
-		go cache.SynchroniseEntry(data)
+		go bgUpdate(data, db)
 	} else {
 		logHandler.DatabaseLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		err = db.connection.Update(data)
@@ -340,6 +340,15 @@ func (db *DB) Update(data any) error {
 	}
 
 	return err
+}
+
+func bgUpdate(data any, db *DB) {
+	logHandler.DatabaseLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	err := db.connection.Update(data)
+	if err != nil {
+		logHandler.ErrorLogger.Panicf("[UPDATE] %v [...%v.db] (%.10s) - Error updating DB: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+		return
+	}
 }
 
 // Create adds a new record to the database.

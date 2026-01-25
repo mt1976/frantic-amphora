@@ -1,6 +1,6 @@
 // Data Access Object template
-// Version: 0.5.0
-// Updated on: 2026-01-24
+// Version: 0.5.5
+// Updated on: 2026-01-25
 
 package {{.PackageName}}
 
@@ -72,6 +72,26 @@ func GetAll() ([]{{.TypeName}}, error) {
 	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
 
 	clock := timing.Start(tableName, "GetAll", "ALL")
+	records, err := database.GetAllTyped[{{.TypeName}}](activeDBConnection)
+	if err != nil {
+		clock.Stop(0)
+		return nil, ce.ErrNotFoundWrapper(tableName, err)
+	}
+	result, err := postGetList(context.Background(), records)
+	if err != nil {
+		clock.Stop(0)
+		return nil, err
+	}
+	clock.Stop(len(result))
+	return result, nil
+}
+
+// GetAll returns all {{.TypeName}} records.
+func GetAllUncached() ([]{{.TypeName}}, error) {
+	//	logHandler.DatabaseLogger.Printf("SELECT %v ALL", tableName)
+	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
+
+	clock := timing.Start(tableName, "GetAllUncached", "ALL")
 	records, err := database.GetAllTyped[{{.TypeName}}](activeDBConnection)
 	if err != nil {
 		clock.Stop(0)

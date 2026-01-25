@@ -86,6 +86,26 @@ func GetAll() ([]TemplateStore, error) {
 	return result, nil
 }
 
+// GetAll returns all TemplateStore records.
+func GetAllUncached() ([]TemplateStore, error) {
+	//	logHandler.DatabaseLogger.Printf("SELECT %v ALL", tableName)
+	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
+
+	clock := timing.Start(tableName, "GetAllUncached", "ALL")
+	records, err := database.GetAllTyped[TemplateStore](activeDBConnection)
+	if err != nil {
+		clock.Stop(0)
+		return nil, ce.ErrNotFoundWrapper(tableName, err)
+	}
+	result, err := postGetList(context.Background(), records)
+	if err != nil {
+		clock.Stop(0)
+		return nil, err
+	}
+	clock.Stop(len(result))
+	return result, nil
+}
+
 // GetAllWhere returns all records matching a field/value filter.
 func GetAllWhere(field entities.Field, value any) ([]TemplateStore, error) {
 	//	logHandler.DatabaseLogger.Printf("SELECT %v WHERE (%v=%v)", tableName, field.String(), value)

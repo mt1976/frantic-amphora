@@ -6,10 +6,6 @@ package testentity
 
 import (
 	"context"
-	"fmt"
-
-	"github.com/mt1976/frantic-amphora/dao/entities"
-	ce "github.com/mt1976/frantic-core/commonErrors"
 )
 
 type creatorFunc func(TestEntity) (string, TestEntity, error)
@@ -129,12 +125,12 @@ func templateClone(ctx context.Context, source TestEntity) (TestEntity, error) {
 	return New(), nil
 }
 
-// assertTestEntity asserts that an `any` returned by lower layers is a *TestEntity.
-func assertTestEntity(result any, field entities.Field, value any) (*TestEntity, error) {
-	x, ok := result.(*TestEntity)
-	if !ok {
-		return nil, ce.ErrDAOAssertWrapper(tableName, field.String(), value,
-			ce.ErrInvalidTypeWrapper(field.String(), fmt.Sprintf("%T", result), "*TestEntity"))
-	}
-	return x, nil
-}
+// // assertTestEntity asserts that an `any` returned by lower layers is a *TestEntity.
+// func assertTestEntity(result any, field entities.Field, value any) (*TestEntity, error) {
+// 	x, ok := result.(*TestEntity)
+// 	if !ok {
+// 		return nil, ce.ErrDAOAssertWrapper(tableName, field.String(), value,
+// 			ce.ErrInvalidTypeWrapper(field.String(), fmt.Sprintf("%T", result), "*TestEntity"))
+// 	}
+// 	return x, nil
+// }

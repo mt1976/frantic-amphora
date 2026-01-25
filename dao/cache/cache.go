@@ -48,6 +48,16 @@ func IsDisabled(data any) bool {
 	return !enabled
 }
 
+func turnOffForTable(data entities.Table) error {
+	Cache.tablesActive[data] = false
+	return nil
+}
+
+func turnOnForTable(data entities.Table) error {
+	Cache.tablesActive[data] = true
+	return nil
+}
+
 func Activate(data any) error {
 	table := entities.GetStructType(data)
 	logHandler.InfoLogger.Printf("Activating Cache for Table [%v]", table)
@@ -626,10 +636,14 @@ func hydrateCacheByTable(table entities.Table) error {
 
 	count := len(inMemoryCacheEntry)
 	countIndex := 0
+	// turn off the cache while we hydrate
+	turnOffForTable(table)
 	records, err := hydratorFunc()
 	if err != nil {
 		return err
 	}
+	// turn the cache back on after hydration
+	turnOnForTable(table)
 	for _, record := range records {
 		err := AddEntry(record)
 		if err != nil {
