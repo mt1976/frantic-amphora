@@ -6,9 +6,11 @@ package {{.PackageName}}
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/mt1976/frantic-amphora/dao"
 	"github.com/mt1976/frantic-amphora/dao/audit"
+	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
@@ -198,7 +200,15 @@ func templateClone(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, er
 // PostCreate runs any post-create processing after a record is created.
 func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
 	if postCreate != nil {
-		err, updatedRecord, feedbackMessage := postCreate(ctx, record)
+
+		// Get the record updated by the create function
+		logHandler.TraceLogger.Printf("PostCreate Processing for %v Record: %v", TableName.String(), record.Key)
+		key := record.Key
+		pcr, err := GetBy(Fields.Key, key)
+		if err != nil {
+			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed"))
+		}
+		err, updatedRecord, feedbackMessage := postCreate(ctx, &pcr)
 		if err != nil {
 			return err
 		}
@@ -212,7 +222,7 @@ func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
 			feedbackMessage = feedbackMessage[:35] + "..."
 		}
 		// Update the trip with the new profile and notes
-		err = record.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
+		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
 		if err != nil {
 			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed"))
 		}
