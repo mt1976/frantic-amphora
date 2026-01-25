@@ -135,6 +135,10 @@ func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, writeErr))
 	}
 
+	if err := record.postCreateProcessing(); err != nil {
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
+	}
+
 	clock.Stop(1)
 	return record, nil
 }
@@ -168,6 +172,11 @@ func DeleteBy(ctx context.Context, field entities.Field, value any, note string)
 	}
 
 	if err := activeDBConnection.Delete(&record); err != nil {
+		clock.Stop(0)
+		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
+	}
+
+	if err := record.postDeleteProcessing(); err != nil {
 		clock.Stop(0)
 		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
 	}
@@ -237,7 +246,16 @@ func GetLookup(field, value entities.Field) (lookup.Lookup, error) {
 // Drop drops the underlying database bucket/table for this entity.
 func Drop() error {
 	logHandler.TraceLogger.Printf("Drop %v", tableName)
-	return activeDBConnection.Drop({{.TypeName}}{})
+	err := activeDBConnection.Drop({{.TypeName}}{})
+	if err != nil {
+		return err
+	}
+	if postDrop != nil {
+		if err := postDrop(context.Background()); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // ClearDown deletes all records from this table.
@@ -269,6 +287,13 @@ func ClearDown(ctx context.Context) error {
 		count++
 	}
 
+	if postClearDown != nil {
+		if err := postClearDown(ctx); err != nil {
+			logHandler.ErrorLogger.Print(ce.ErrDAOInitialisationWrapper(tableName, err).Error())
+			clock.Stop(0)
+			return ce.ErrDAOInitialisationWrapper(tableName, err)
+		}
+	}
 	clock.Stop(count)
 	//	logHandler.DatabaseLogger.Printf("Cleared down %v", tableName)
 	return nil

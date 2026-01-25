@@ -1,4 +1,13 @@
-2026/01/24 15:33:55 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-24T15:33:55.985386Z
-2026/01/24 15:33:55 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-24T15:33:55.985386Z
-2026/01/24 15:33:55 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-24T15:33:55.986443Z
-2026/01/24 15:33:55 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-24T15:33:55.986443Z
+2026/01/25 15:49:22 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
+2026/01/25 15:49:22 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
+2026/01/25 15:49:22 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 576a784e46100eaf247c25af67d1fa8f522b47b0ada42d929909d6c2899f7c3c
+2026/01/25 15:49:22 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-25T15:49:22.26019Z
+2026/01/25 15:49:22 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-25T15:49:22.26019Z
+2026/01/25 15:49:22 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
+2026/01/25 15:49:22 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
+2026/01/25 15:49:22 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 4fccb0680fb47ed1e613d7e78d4ac738bf43266a5760f9236c9d472a15804654
+2026/01/25 15:49:22 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010001_matttownsend)
+2026/01/25 15:49:22 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010001_matttownsend)
+2026/01/25 15:49:22 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 748f628737cb49895dc303fa89c743ddc54a89aa581a5947c6d7a5f7f74d1cfb
+2026/01/25 15:49:22 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-25T15:49:22.261897Z
+2026/01/25 15:49:22 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-25T15:49:22.261897Z

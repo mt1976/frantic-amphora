@@ -1,6 +1,10 @@
 package audit
 
-import "time"
+import (
+	"time"
+
+	"github.com/mt1976/frantic-amphora/dao/entities"
+)
 
 // Audit represents the audit information for a data entity
 type Audit struct {
@@ -13,8 +17,8 @@ type Audit struct {
 	DeletedBy        string
 	DeletedOn        string
 	DeletedAtDisplay string
-	AuditSequence    int
-	DBVersion        int
+	AuditSequence    entities.Int
+	DBVersion        entities.Int
 	//Empty     time.Time // Convience Field - Used to avoid erros with dates.
 }
 

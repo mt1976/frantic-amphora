@@ -75,6 +75,22 @@ func (record *TemplateStore) insertOrUpdate(ctx context.Context, note, activity 
 		return updErr
 	}
 
+	if !isCreateOperation {
+		if err := record.postUpdateProcessing(); err != nil {
+			updProcErr := ce.ErrDAOUpdateWrapper(tableName, err)
+			logHandler.ErrorLogger.Print(updProcErr.Error())
+			clock.Stop(0)
+			return updProcErr
+		}
+	} else {
+		if err := record.postCreateProcessing(); err != nil {
+			createProcErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
+			logHandler.ErrorLogger.Print(createProcErr.Error())
+			clock.Stop(0)
+			return createProcErr
+		}
+	}
+
 	clock.Stop(1)
 	return nil
 }

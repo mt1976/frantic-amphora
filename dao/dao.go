@@ -4,6 +4,8 @@ package dao
 
 import (
 	"os"
+	"reflect"
+	"runtime"
 	"strings"
 
 	"github.com/asdine/storm/v3"
@@ -46,4 +48,9 @@ func CheckDAOReadyState(table string, action audit.Action, isDaoReady bool) {
 		err := ce.ErrDAONotInitialisedWrapper(table, action.Description())
 		logHandler.ErrorLogger.Panic(err)
 	}
+}
+
+func GetFunctionName(i any) string {
+	// Funtion to get the clean name of a function stored in an interface
+	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 }

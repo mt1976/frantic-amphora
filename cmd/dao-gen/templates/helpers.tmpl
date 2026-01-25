@@ -6,10 +6,9 @@ package {{.PackageName}}
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/mt1976/frantic-amphora/dao/entities"
-	ce "github.com/mt1976/frantic-core/commonErrors"
+	"github.com/mt1976/frantic-amphora/dao"
+	"github.com/mt1976/frantic-core/logHandler"
 )
 
 type creatorFunc func({{.TypeName}}) (string, {{.TypeName}}, error)
@@ -21,6 +20,11 @@ type postGetFunc func(*{{.TypeName}}) error
 type clonerFunc func(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, error)
 type duplicateCheckFunc func(*{{.TypeName}}) (bool, error)
 type workerFunc func(string, string)
+type postCreateFunc func(ctx context.Context, record *{{.TypeName}}) error
+type postUpdateFunc func(ctx context.Context, record *{{.TypeName}}) error
+type postDeleteFunc func(ctx context.Context, record *{{.TypeName}}) error
+type postCloneFunc func(ctx context.Context, record *{{.TypeName}}) error
+type postDropFunc func(ctx context.Context) error
 
 var creator creatorFunc
 var upgrader upgraderFunc
@@ -31,49 +35,100 @@ var postGet postGetFunc
 var cloner clonerFunc
 var duplicateCheck duplicateCheckFunc
 var worker workerFunc
+var postCreate postCreateFunc
+var postUpdate postUpdateFunc
+var postDelete postDeleteFunc
+var postClone postCloneFunc
+var postDrop postDropFunc
+var postClearDown postDropFunc
 
 // RegisterCreator registers a creator function for {{.TypeName}}.
 func RegisterCreator(fn creatorFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	creator = fn
+}
+
+// RegisterPostCreate registers a post-create function for {{.TypeName}}.
+func RegisterPostCreate(fn postCreateFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postCreate = fn
+}
+
+// RegisterPostUpdate registers a post-update function for {{.TypeName}}.
+func RegisterPostUpdate(fn postUpdateFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postUpdate = fn
+}
+
+// RegisterPostDelete registers a post-delete function for {{.TypeName}}.
+func RegisterPostDelete(fn postDeleteFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postDelete = fn
+}
+
+// RegisterPostClone registers a post-clone function for {{.TypeName}}.
+func RegisterPostClone(fn postCloneFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postClone = fn
+}
+
+// RegisterPostDrop registers a post-drop function for {{.TypeName}}.
+func RegisterPostDrop(fn postDropFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postDrop = fn
+}
+
+// RegisterPostClearDown registers a post-clear-down function for {{.TypeName}}.
+func RegisterPostClearDown(fn postDropFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postClearDown = fn
 }
 
 // RegisterUpgrader registers an upgrader function for {{.TypeName}}.
 func RegisterUpgrader(fn upgraderFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
 	upgrader = fn
 }
 
 // RegisterDefaulter registers a defaulter function for {{.TypeName}}.
 func RegisterDefaulter(fn defaulterFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
 	defaulter = fn
 }
 
 // RegisterValidator registers a validator function for {{.TypeName}}.
 func RegisterValidator(fn validatorFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	validator = fn
 }
 
 // RegisterPreDelete registers a pre-delete function for {{.TypeName}}.
 func RegisterPreDelete(fn preDeleteFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
 	preDelete = fn
 }
 
 // RegisterPostGet registers a post-get function for {{.TypeName}}.
 func RegisterPostGet(fn postGetFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postGet = fn
 }
 
 // RegisterCloner registers a cloner function for {{.TypeName}}.
 func RegisterCloner(fn clonerFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
 	cloner = fn
 }
 
 // RegisterDuplicateCheck registers a duplicate check function for {{.TypeName}}.
 func RegisterDuplicateCheck(fn duplicateCheckFunc) {
+	logHandler.DatabaseLogger.Printf("Registering DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
 	duplicateCheck = fn
 }
 
 // RegisterWorker registers a worker function for {{.TypeName}}.
 func RegisterWorker(fn workerFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
 	worker = fn
 }
 
@@ -129,12 +184,51 @@ func templateClone(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, er
 	return New(), nil
 }
 
-// assert{{.TypeName}} asserts that an `any` returned by lower layers is a *{{.TypeName}}.
-func assert{{.TypeName}}(result any, field entities.Field, value any) (*{{.TypeName}}, error) {
-	x, ok := result.(*{{.TypeName}})
-	if !ok {
-		return nil, ce.ErrDAOAssertWrapper(tableName, field.String(), value,
-			ce.ErrInvalidTypeWrapper(field.String(), fmt.Sprintf("%T", result), "*{{.TypeName}}"))
+// // assert{{.TypeName}} asserts that an `any` returned by lower layers is a *{{.TypeName}}.
+// func assert{{.TypeName}}(result any, field entities.Field, value any) (*{{.TypeName}}, error) {
+// 	x, ok := result.(*{{.TypeName}})
+// 	if !ok {
+// 		return nil, ce.ErrDAOAssertWrapper(tableName, field.String(), value,
+// 			ce.ErrInvalidTypeWrapper(field.String(), fmt.Sprintf("%T", result), "*{{.TypeName}}"))
+// 	}
+// 	return x, nil
+// }
+
+// PostCreate runs any post-create processing after a record is created.
+func (record *{{.TypeName}}) postCreateProcessing() error {
+	if postCreate != nil {
+		return postCreate(context.Background(), record)
 	}
-	return x, nil
+	return nil
 }
+
+func (record *{{.TypeName}}) postUpdateProcessing() error {
+	if postUpdate != nil {
+		return postUpdate(context.Background(), record)
+	}
+	return nil
+}
+
+// postDeleteProcessing runs any post-delete processing after a record is deleted.
+func (record *{{.TypeName}}) postDeleteProcessing() error {
+	if postDelete != nil {
+		return postDelete(context.Background(), record)
+	}
+	return nil
+}
+
+// // postCloneProcessing runs any post-clone processing after a record is cloned.
+// func (record *{{.TypeName}}) postCloneProcessing() error {
+// 	if postClone != nil {
+// 		return postClone(context.Background(), record)
+// 	}
+// 	return nil
+// }
+
+// // postDropProcessing runs any post-drop processing after the table is dropped.
+// func postDropProcessing() error {
+// 	if postDrop != nil {
+// 		return postDrop(context.Background())
+// 	}
+// 	return nil
+// }

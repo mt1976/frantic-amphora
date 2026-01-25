@@ -87,6 +87,8 @@ func main() {
 	templateStoreV2.RegisterCreator(tmpllogic.Creator)
 	templateStoreV2.RegisterDuplicateCheck(tmpllogic.DuplicateCheck)
 	templateStoreV2.RegisterWorker(tmpllogic.JobProcessor)
+	templateStoreV2.RegisterPostCreate(tmpllogic.PostCreate)
+	templateStoreV2.RegisterPostUpdate(tmpllogic.PostUpdate)
 
 	logHandler.InfoLogger.Println("Clear Down User Store")
 	templateStoreV2.ClearDown(ctx)

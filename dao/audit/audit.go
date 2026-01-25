@@ -59,10 +59,10 @@ func (a *Audit) Action(ctx context.Context, action Action) error {
 		a.DeletedAtDisplay = auditDisplay
 	}
 
-	if a.AuditSequence == 0 {
-		a.AuditSequence = 1
+	if a.AuditSequence.Int() == 0 {
+		a.AuditSequence.Set(1)
 	} else {
-		a.AuditSequence++
+		a.AuditSequence.Increment()
 	}
 
 	update := AuditUpdateInfo{}
@@ -72,10 +72,18 @@ func (a *Audit) Action(ctx context.Context, action Action) error {
 	update.UpdatedOn = auditHost
 	update.UpdatedAtDisplay = auditDisplay
 	update.UpdateAction = action.code
-	update.UpdateNotes = message
+	updateMessage := message
+	if updateMessage == "" {
+		updateMessage = fmt.Sprintf("%v action performed", action.ShortName())
+	}
+	// truncate if over 35 characters
+	if len(updateMessage) > 35 {
+		updateMessage = updateMessage[0:35] + "..."
+	}
+	update.UpdateNotes = updateMessage
 	// a.DBVersion = dao.Version
 	dbVersion := getDBVersion()
-	a.DBVersion = dbVersion
+	a.DBVersion.Set(dbVersion)
 	if !(action.Is(SERVICE) || action.Is(SILENT) || action.IsSilent()) {
 		a.Updates = append(a.Updates, update)
 	}
@@ -99,10 +107,10 @@ func (a *Action) NotSilent() Action {
 	return *a
 }
 
-func (a *Action) unSilience() Action {
-	a.silent = false
-	return *a
-}
+// func (a *Action) unSilience() Action {
+// 	a.silent = false
+// 	return *a
+// }
 
 func (a *Action) IsSilent() bool {
 	return a.silent

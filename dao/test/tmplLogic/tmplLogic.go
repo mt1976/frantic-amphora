@@ -75,3 +75,15 @@ func JobProcessor(name, desc string) {
 	}
 	clock.Stop(count)
 }
+
+func PostCreate(ctx context.Context, record *templateStoreV2.TemplateStore) error {
+	// Custom post-create logic can be added here
+	logHandler.ServiceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
+	return nil
+}
+
+func PostUpdate(ctx context.Context, record *templateStoreV2.TemplateStore) error {
+	// Custom post-update logic can be added here
+	logHandler.ServiceLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
+	return nil
+}
