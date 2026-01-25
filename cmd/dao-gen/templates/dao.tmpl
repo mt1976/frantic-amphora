@@ -159,8 +159,12 @@ func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
 	}
 
+	createdRecord, getErr := GetBy(Fields.Key, record.Key)
+	if getErr != nil {
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, getErr))
+	}
 	clock.Stop(1)
-	return record, nil
+	return createdRecord, nil
 }
 
 // Delete deletes a record by ID.
