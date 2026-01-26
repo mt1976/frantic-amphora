@@ -117,9 +117,9 @@ func (record *{{.TypeName}}) postGet(ctx context.Context) error {
 	if upgradeError := record.upgradeProcessing(); upgradeError != nil {
 		return upgradeError
 	}
-	if defaultingError := record.defaultProcessing(); defaultingError != nil {
-		return defaultingError
-	}
+	//if defaultingError := record.defaultProcessing(); defaultingError != nil {
+	//	return defaultingError
+	//}
 	if validationError := record.validationProcessing(); validationError != nil {
 		return validationError
 	}
