@@ -120,9 +120,9 @@ func (record *{{.TypeName}}) postGet(ctx context.Context) error {
 	//if defaultingError := record.defaultProcessing(); defaultingError != nil {
 	//	return defaultingError
 	//}
-	if validationError := record.validationProcessing(); validationError != nil {
-		return validationError
-	}
+	//if validationError := record.validationProcessing(); validationError != nil {
+	//	return validationError
+	//}
 	return record.postGetProcessing(ctx)
 }
 
