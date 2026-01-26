@@ -260,12 +260,66 @@ func (f *Float) GreaterThanOrEqual(other Float) bool {
 	return f.Float64() >= other.Float64()
 }
 
-func (b *Bool) Set(in bool) Bool {
+func (b *Bool) Set(in bool) {
 	if in == true {
-		return Bool{Value: constTrue}
+		b.Value = constTrue
 	} else {
-		return Bool{Value: constFalse}
+		b.Value = constFalse
 	}
+}
+
+func (b *Bool) SetTrue() {
+	b.Value = constTrue
+}
+
+func (b *Bool) SetFalse() {
+	b.Value = constFalse
+}
+
+func (b *Bool) SetFromString(in string) {
+	in = strings.ToLower(strings.TrimSpace(in))
+	if in == "true" || in == "1" || in == "yes" || in == "y" || in == "t" {
+		b.Value = constTrue
+	} else {
+		b.Value = constFalse
+	}
+}
+
+func (b *Bool) Toggle() {
+	if b.Bool() {
+		b.Value = constFalse
+	} else {
+		b.Value = constTrue
+	}
+}
+
+// HtmlChecked returns "checked" if the Bool is true, otherwise it returns an empty string
+func (b *Bool) HtmlChecked() string {
+	if b.Bool() {
+		return "checked" // Checked
+	}
+	return "" // Not Checked
+}
+
+func (b *Bool) HtmlSelected() string {
+	if b.Bool() {
+		return "selected" // Selected
+	}
+	return "" // Not Selected
+}
+
+func (b *Bool) HtmlDisabled() string {
+	if b.Bool() {
+		return "disabled" // Disabled
+	}
+	return "" // Not Disabled
+}
+
+func (b *Bool) HtmlReadOnly() string {
+	if b.Bool() {
+		return "readonly" // ReadOnly
+	}
+	return "" // Not ReadOnly
 }
 
 func (b *Bool) Bool() bool {
