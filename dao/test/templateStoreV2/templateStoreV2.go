@@ -137,9 +137,15 @@ func Create(ctx context.Context, basis TemplateStore) (TemplateStore, error) {
 
 	clock := timing.Start(tableName, "Create", "Inserting new record")
 
-	id, record, err := creator(ctx, basis)
+	id, skip, record, err := creator(ctx, basis)
 	if err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", basis), err))
+	}
+
+	if skip {
+		logHandler.WarningLogger.Printf("Creation of %v record skipped by creator function", tableName)
+		clock.Stop(1)
+		return record, nil
 	}
 
 	record.Key = idHelpers.Encode(id)
@@ -159,8 +165,12 @@ func Create(ctx context.Context, basis TemplateStore) (TemplateStore, error) {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
 	}
 
+	createdRecord, getErr := GetBy(Fields.Key, record.Key)
+	if getErr != nil {
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, getErr))
+	}
 	clock.Stop(1)
-	return record, nil
+	return createdRecord, nil
 }
 
 // Delete deletes a record by ID.

@@ -1,6 +1,8 @@
-// Data Access Object template
-// Version: 0.5.5
-// Updated on: 2026-01-25
+// Data Access Object for the {{.TableName}} table
+// Template Version: 0.5.7 - 2026-01-26
+// Generated 
+// Date: {{.GeneratedDate}}
+// Who : {{.GeneratedBy}}
 
 package {{.PackageName}}
 
@@ -137,9 +139,15 @@ func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 
 	clock := timing.Start(tableName, "Create", "Inserting new record")
 
-	id, record, err := creator(ctx, basis)
+	id, skip, record, err := creator(ctx, basis)
 	if err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", basis), err))
+	}
+
+	if skip {
+		logHandler.WarningLogger.Printf("Creation of %v record skipped by creator function", tableName)
+		clock.Stop(1)
+		return record, nil
 	}
 
 	record.Key = idHelpers.Encode(id)
@@ -159,7 +167,7 @@ func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
 	}
 
-	createdRecord, getErr := GetBy(Fields.Key, record.Key)
+	createdRecord, getErr := GetBy({{.FieldsVar}}.Key, record.Key)
 	if getErr != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, getErr))
 	}

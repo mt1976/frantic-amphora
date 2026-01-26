@@ -7,9 +7,11 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"os/user"
 	"path/filepath"
 	"strings"
 	"text/template"
+	"time"
 )
 
 //go:embed templates/*.tmpl
@@ -36,6 +38,8 @@ type templateData struct {
 	FieldsVar        string
 	DomainFields     string            // Field definitions from .definition file
 	FieldDefinitions []FieldDefinition // Parsed field definitions for documentation
+	GeneratedDate    string            // Date and time when code was generated
+	GeneratedBy      string            // Username and hostname of the generator
 }
 
 type FieldDefinition struct {
@@ -74,6 +78,10 @@ func main() {
 	// Read domain fields from .definition file if it exists
 	domainFields, fieldNames, fieldInits, fieldDefs := readDefinitionFile(cfg.OutDir, cfg.TypeName)
 
+	// Get generation metadata
+	generatedDate := time.Now().Format("02/01/2006 & 15:04")
+	generatedBy := getGeneratedBy()
+
 	data := templateData{
 		PackageName:      cfg.Package,
 		TypeName:         cfg.TypeName,
@@ -83,6 +91,8 @@ func main() {
 		FieldsVar:        "Fields",
 		DomainFields:     domainFields,
 		FieldDefinitions: fieldDefs,
+		GeneratedDate:    generatedDate,
+		GeneratedBy:      generatedBy,
 	}
 
 	// Add custom functions for template
@@ -285,6 +295,22 @@ func lowerFirst(s string) string {
 	r := []rune(s)
 	r[0] = []rune(strings.ToLower(string(r[0])))[0]
 	return string(r)
+}
+
+func getGeneratedBy() string {
+	// Get username
+	username := "unknown"
+	if u, err := user.Current(); err == nil {
+		username = u.Username
+	}
+
+	// Get hostname
+	hostname := "unknown"
+	if h, err := os.Hostname(); err == nil {
+		hostname = h
+	}
+
+	return fmt.Sprintf("%s (%s)", username, hostname)
 }
 
 func exitf(format string, args ...any) {

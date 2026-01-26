@@ -1,13 +1,13 @@
-2026/01/25 16:32:09 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
-2026/01/25 16:32:09 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
-2026/01/25 16:32:09 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: fc92933629621bfe31877481d1c85886fe64985601de733b3720758904e03424
-2026/01/25 16:32:09 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-25T16:32:09.871993Z
-2026/01/25 16:32:09 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-25T16:32:09.871993Z
-2026/01/25 16:32:09 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
-2026/01/25 16:32:09 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
-2026/01/25 16:32:09 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 0016045e4837cbf7c377ff342b366acec9a0c5c8f4023cb978bd37b08aabe94c
-2026/01/25 16:32:09 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010001_matttownsend)
-2026/01/25 16:32:09 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010001_matttownsend)
-2026/01/25 16:32:09 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 6fbb5c1b864d8f8e54fe43b9cf4f92d293a8b6b1c1e46ca4a22a8c9f88d6bb66
-2026/01/25 16:32:09 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-25T16:32:09.873335Z
-2026/01/25 16:32:09 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-25T16:32:09.873335Z
+2026/01/26 09:25:06 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
+2026/01/26 09:25:06 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
+2026/01/26 09:25:06 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: f911738aa813567af8670a7b7284aaa79710ff341848f71d59ddb3438fe15d41
+2026/01/26 09:25:06 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-26T09:25:06.963317Z
+2026/01/26 09:25:06 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-26T09:25:06.963317Z
+2026/01/26 09:25:06 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
+2026/01/26 09:25:06 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
+2026/01/26 09:25:06 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 3224f0b89a77a6b9985791c73511b9b7465e5b05e4056d556304e84e64a7e539
+2026/01/26 09:25:06 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010001_matttownsend)
+2026/01/26 09:25:06 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010001_matttownsend)
+2026/01/26 09:25:06 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 5201800d5f069d406b38a197ae518dd2ef7a2ae6b32403659cf402ae794d07a5
+2026/01/26 09:25:06 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-26T09:25:06.964433Z
+2026/01/26 09:25:06 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-26T09:25:06.964433Z

@@ -1,32 +1,35 @@
+// Data Access Object for the {{.TableName}} table
+// Template Version: 0.5.7 - 2026-01-26
+// Generated 
+// Date: {{.GeneratedDate}}
+// Who : {{.GeneratedBy}}
+
 package {{.PackageName}}
 
 import (
-	"time"
-
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/entities"
 )
 
 // TableName is the canonical DAO table identifier for this package.
-var {{.TableVar}} = entities.Table("{{.TableName}}")
+var (
+	{{.TableVar}} = entities.Table("{{.TableName}}")
+	tableName = {{.TableVar}}.String()
+)
 
-var tableName = {{.TableVar}}.String()
-
-// {{.TypeName}} represents an example entity.
-//
-// This is generated from the TemplateStoreV2 template set. Adjust domain fields and tags as required.
+// The {{.TypeName}} struct defines the data model for the {{.TableName}} table.
+// Adjust domain fields and tags as required in the {{.TableName}}.definitions file.
 type {{.TypeName}} struct {
 	// The primary key field(s), managed by the framework, DO NOT MODIFY
 	ID  int    `storm:"id,increment=100"`
 	Key string `storm:"index,unique"`
 	Raw string `storm:"index,unique"`
-	//
-	// Domain specific fields, starts.
-{{.DomainFields}}
-	// Domain specific fields, ends.	
-	//
 	// Audit information, managed by the framework, DO NOT MODIFY
-	Audit audit.Audit `csv:"-"`	
+	Audit audit.Audit `csv:"-"`
+
+	// Domain specific fields
+{{.DomainFields}}
+	// Add no more fields below this line
 }
 
 type fieldNames struct {
@@ -34,13 +37,11 @@ type fieldNames struct {
 	ID  entities.Field
 	Key entities.Field
 	Raw entities.Field
-	//
-	// Domain specific fields, starts.
-{{domainFieldNames}}	// Domain specific fields, ends.
-	//
 	// The audit information, managed by the framework, DO NOT MODIFY
 	Audit entities.Field
-	
+	// Domain specific fields
+{{domainFieldNames}}
+   // Add no more fields below this line
 }
 
 // {{.FieldsVar}} provides strongly-typed field names for use with GetBy/GetAllWhere/etc.
@@ -53,11 +54,9 @@ var {{.FieldsVar}} = fieldNames{
 	ID:  "ID",
 	Key: "Key",
 	Raw: "Raw",
-	//
-	// Domain specific fields, starts.
-{{domainFieldInits}}
-	// Domain specific fields, ends.
-	//
 	// The audit information, managed by the framework, DO NOT MODIFY
 	Audit: "Audit",
+	// tableName-specific fields, please modify as required
+{{domainFieldInits}}
+   // Add no more fields below this line
 }

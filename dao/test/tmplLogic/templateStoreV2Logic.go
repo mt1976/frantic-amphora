@@ -11,7 +11,6 @@ import (
 	"github.com/goforj/godump"
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV2"
-	"github.com/mt1976/frantic-core/idHelpers"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
@@ -54,21 +53,22 @@ func Add(ctx context.Context, sq string) (templateStoreV2.TemplateStore, error) 
 
 	newUser := templateStoreV2.New()
 	// use the creator to build the new record
-	id, u, err := Creator(ctx, newUser)
-	if err != nil {
-		logHandler.ErrorLogger.Printf("Error: '%v'", err.Error())
-		return templateStoreV2.New(), err
-	}
+	// _, skip, u, err := Creator(ctx, newUser)
+	// if err != nil {
+	// 	logHandler.ErrorLogger.Printf("Error: '%v'", err.Error())
+	// 	return templateStoreV2.New(), err
+	// }
+	// if skip {
+	// 	logHandler.WarningLogger.Printf("Creation of %v record skipped by creator function", templateStoreV2.TableName)
+	// 	return templateStoreV2.New(), nil
+	// }
 
-	u.Key = idHelpers.Encode(id)
-	u.Raw = id
-	u.UserName = testu.UserName
-	u.UID = testu.UID
-	u.RealName = testu.RealName
-	u.Email = testu.Email
-	u.GID = testu.GID
-
-	u, err = templateStoreV2.Create(ctx, u)
+	newUser.UserName = testu.UserName
+	newUser.UID = testu.UID
+	newUser.RealName = testu.RealName
+	newUser.Email = testu.Email
+	newUser.GID = testu.GID
+	u, err := templateStoreV2.Create(ctx, newUser)
 	if err != nil {
 		logHandler.ErrorLogger.Printf("Error: '%v'", err.Error())
 		return templateStoreV2.New(), err

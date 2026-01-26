@@ -1,5 +1,5 @@
 // Data Access Object template
-// Version: 0.5.0
+// Version: 0.5.7
 // Updated on: 2026-01-24
 
 package templateStoreV2
@@ -12,9 +12,10 @@ import (
 )
 
 // TableName is the canonical DAO table identifier for this package.
-var TableName = entities.Table("TemplateStore")
-
-var tableName = TableName.String()
+var (
+	TableName = entities.Table("TemplateStore")
+	tableName = TableName.String()
+)
 
 // TemplateStore represents a sample entity for demonstrating reduced DAO boilerplate.
 // Replace this struct and Fields as needed for your real entity.

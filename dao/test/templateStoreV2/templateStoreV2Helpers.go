@@ -14,7 +14,7 @@ import (
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
-type creatorFunc func(ctx context.Context, source TemplateStore) (string, TemplateStore, error)
+type creatorFunc func(ctx context.Context, source TemplateStore) (string, bool, TemplateStore, error)
 type upgraderFunc func(TemplateStore) (TemplateStore, error)
 type defaulterFunc func(*TemplateStore) error
 type validatorFunc func(*TemplateStore) error

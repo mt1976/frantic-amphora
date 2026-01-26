@@ -12,7 +12,7 @@ import (
 	"github.com/mt1976/frantic-core/timing"
 )
 
-func Creator(ctx context.Context, basics templateStoreV2.TemplateStore) (string, templateStoreV2.TemplateStore, error) {
+func Creator(ctx context.Context, basics templateStoreV2.TemplateStore) (string, bool, templateStoreV2.TemplateStore, error) {
 	// Custom creation logic can be added here
 
 	id := idHelpers.GetUUID()
@@ -30,7 +30,7 @@ func Creator(ctx context.Context, basics templateStoreV2.TemplateStore) (string,
 	record.LastHost = ""
 	record.UserCode = BuildUserCode(record)
 
-	return id, record, nil
+	return id, false, record, nil
 }
 
 // BuildUserCode creates a stable user code string used for lookups.

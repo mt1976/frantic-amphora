@@ -1,4 +1,4 @@
-2026/01/25 16:32:09 cache.go:562: [33mWARNING[0m Registered Function github.com/mt1976/frantic-amphora/dao/test/templateStoreV2.CacheSynchroniser.func1 as Synchroniser for Table [TemplateStore]
-2026/01/25 16:32:09 cache.go:578: [33mWARNING[0m Registered Function main.test.CacheHydrator.func2 as Hydrator for Table [TemplateStore]
-2026/01/25 16:32:09 cache.go:562: [33mWARNING[0m Registered Function github.com/mt1976/frantic-amphora/dao/test/templateStoreV2.CacheSynchroniser.func1 as Synchroniser for Table [TemplateStore]
-2026/01/25 16:32:09 cache.go:578: [33mWARNING[0m Registered Function main.test.CacheHydrator.func2 as Hydrator for Table [TemplateStore]
+2026/01/26 09:25:06 cache.go:572: [33mWARNING[0m Registered Function github.com/mt1976/frantic-amphora/dao/test/templateStoreV2.CacheSynchroniser.func1 as Synchroniser for Table [TemplateStore]
+2026/01/26 09:25:06 cache.go:588: [33mWARNING[0m Registered Function main.test.CacheHydrator.func2 as Hydrator for Table [TemplateStore]
+2026/01/26 09:25:06 cache.go:572: [33mWARNING[0m Registered Function github.com/mt1976/frantic-amphora/dao/test/templateStoreV2.CacheSynchroniser.func1 as Synchroniser for Table [TemplateStore]
+2026/01/26 09:25:06 cache.go:588: [33mWARNING[0m Registered Function main.test.CacheHydrator.func2 as Hydrator for Table [TemplateStore]
