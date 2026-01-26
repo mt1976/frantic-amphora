@@ -185,30 +185,37 @@ func DeleteBy(ctx context.Context, field entities.Field, value any, note string)
 
 	clock := timing.Start(tableName, "Delete", fmt.Sprintf("%v=%v", field.String(), value))
 
-	record, err := GetBy(field, value)
+	recordList, err := GetAllWhere(field, value)
 	if err != nil {
 		clock.Stop(0)
 		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
 	}
 
-	if err := record.Audit.Action(ctx, audit.DELETE.WithMessage(note)); err != nil {
+	if len(recordList) == 0 {
 		clock.Stop(0)
-		return ce.ErrDAOUpdateAuditWrapper(tableName, value, err)
+		return ce.ErrRecordNotFoundWrapper(tableName, field.String(), fmt.Sprintf("%v", value))
 	}
 
-	if err := record.preDeleteProcessing(ctx); err != nil {
-		clock.Stop(0)
-		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
-	}
+	for _, record := range recordList {
+		if err := record.Audit.Action(ctx, audit.DELETE.WithMessage(note)); err != nil {
+			clock.Stop(0)
+			return ce.ErrDAOUpdateAuditWrapper(tableName, value, err)
+		}
 
-	if err := activeDBConnection.Delete(&record); err != nil {
-		clock.Stop(0)
-		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
-	}
+		if err := record.preDeleteProcessing(ctx); err != nil {
+			clock.Stop(0)
+			return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
+		}
 
-	if err := record.postDeleteProcessing(ctx); err != nil {
-		clock.Stop(0)
-		return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
+		if err := activeDBConnection.Delete(&record); err != nil {
+			clock.Stop(0)
+			return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
+		}
+
+		if err := record.postDeleteProcessing(ctx); err != nil {
+			clock.Stop(0)
+			return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
+		}
 	}
 
 	clock.Stop(1)
