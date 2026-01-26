@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.7 - 2026-01-26
+// Template Version: 0.5.8 - 2026-01-26
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -16,7 +16,7 @@ import (
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
-type creatorFunc func(ctx context.Context, source {{.TypeName}}) (string, {{.TypeName}}, error)
+type creatorFunc func(ctx context.Context, source {{.TypeName}}) (string, bool, {{.TypeName}}, error)
 type upgraderFunc func({{.TypeName}}) ({{.TypeName}}, error)
 type defaulterFunc func(*{{.TypeName}}) error
 type validatorFunc func(*{{.TypeName}}) error
