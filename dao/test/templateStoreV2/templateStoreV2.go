@@ -143,7 +143,7 @@ func Create(ctx context.Context, basis TemplateStore) (TemplateStore, error) {
 	}
 
 	if skip {
-		logHandler.WarningLogger.Printf("Creation of %v record skipped by creator function", tableName)
+		logHandler.WarningLogger.Printf("Creation of %v '%v' record skipped by creator function", tableName, id)
 		clock.Stop(1)
 		return record, nil
 	}
