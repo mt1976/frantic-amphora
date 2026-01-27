@@ -1,6 +1,6 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.12 - 2026-01-27
-// Generated 
+// Generated
 // Date: 27/01/2026 & 15:01
 // Who : matttownsend (orion)
 
@@ -26,7 +26,7 @@ type clonerFunc func(ctx context.Context, source TemplateStoreV3) (TemplateStore
 type duplicateCheckFunc func(*TemplateStoreV3) (bool, error)
 type workerFunc func(string, string)
 type postCreateFunc func(ctx context.Context, record *TemplateStoreV3) (error, bool, string)
-type postUpdateFunc func(ctx context.Context, record *TemplateStoreV3) error
+type postUpdateFunc func(ctx context.Context, record *TemplateStoreV3) (error, bool, string)
 type postDeleteFunc func(ctx context.Context, record *TemplateStoreV3) error
 type postCloneFunc func(ctx context.Context, record *TemplateStoreV3) error
 type postDropFunc func(ctx context.Context) error
@@ -250,7 +250,7 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) (error,
 			return nil, false, ""
 		}
 		if feedbackMessage == "" {
-			feedbackMessage = "Post Processing"
+			feedbackMessage = "Post Create Processing"
 		}
 		// Update the trip with the new profile and notes
 		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
@@ -264,14 +264,35 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) (error,
 	return nil, false, ""
 }
 
-func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) error {
+func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) (error, bool, string) {
 	if postUpdate != nil {
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing for %v Record: %v", TableName.String(), record.Key)
-		err := postUpdate(ctx, record)
+		key := record.Key
+		pcr, err := GetBy(Fields.Key, key)
+		if err != nil {
+			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed")), false, ""
+		}
+		err, updatedRecord, feedbackMessage := postUpdate(ctx, &pcr)
+		if err != nil {
+			return err, false, ""
+		}
+		if !updatedRecord {
+			return nil, false, ""
+		}
+		if feedbackMessage == "" {
+			feedbackMessage = "Post Update Processing"
+		}
+		// Update the trip with the new profile and notes
+		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
+		if err != nil {
+			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
+		}
+		record = &pcr
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
-		return err
+		return nil, true, feedbackMessage
+
 	}
-	return nil
+	return nil, false, ""
 }
 
 // postDeleteProcessing runs any post-delete processing after a record is deleted.

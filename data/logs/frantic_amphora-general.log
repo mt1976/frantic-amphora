@@ -1,26 +1,32 @@
-2026/01/27 15:01:18 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/27 15:01:18 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
-2026/01/27 15:01:18 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/27 15:01:18 main.go:84: [97mINFO[0m Initialize User Store
-2026/01/27 15:01:18 main.go:92: [97mINFO[0m Clear Down User Store
-2026/01/27 15:01:18 main.go:133: [97mINFO[0m Phase ONE Creating 1 Baseline Users
-2026/01/27 15:01:18 main.go:140: [97mINFO[0m Phase ONE Adding Baseline Users to Store
-2026/01/27 15:01:18 main.go:153: [97mINFO[0m Phase ONE Baseline 1 Users Added to Store
-2026/01/27 15:01:18 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/27 15:01:18 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 1
-2026/01/27 15:01:18 main.go:187: [97mINFO[0m Phase ONE Selected User Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
-2026/01/27 15:01:18 main.go:323: [97mINFO[0m Phase ONE Completed
-2026/01/27 15:01:18 main.go:101: [97mINFO[0m Phase 2 Test Message: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
-2026/01/27 15:01:18 main.go:133: [97mINFO[0m Phase ONE Creating 2 Baseline Users
-2026/01/27 15:01:18 main.go:140: [97mINFO[0m Phase ONE Adding Baseline Users to Store
-2026/01/27 15:01:18 main.go:153: [97mINFO[0m Phase ONE Baseline 2 Users Added to Store
-2026/01/27 15:01:18 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/27 15:01:18 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 2
-2026/01/27 15:01:18 main.go:179: [97mINFO[0m Phase ONE User: (0/2) Matt Townsend 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
-2026/01/27 15:01:18 main.go:187: [97mINFO[0m Phase ONE Selected User Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
-2026/01/27 15:01:18 main.go:323: [97mINFO[0m Phase ONE Completed
-2026/01/27 15:01:18 main.go:101: [97mINFO[0m Phase 2 Test Message: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
-2026/01/27 15:01:18 main.go:122: [97mINFO[0m Total Test Duration: 200.453708ms
-2026/01/27 15:01:18 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/27 15:01:18 logHandler.go:201: [97mINFO[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
-2026/01/27 15:01:18 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 17:24:21 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 17:24:21 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
+2026/01/27 17:24:21 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 17:24:21 main.go:85: [97mINFO[0m Initialize User Store
+2026/01/27 17:24:22 main.go:93: [97mINFO[0m Clear Down User Store
+2026/01/27 17:24:22 main.go:134: [97mINFO[0m Phase ONE Creating 1 Baseline Users
+2026/01/27 17:24:22 main.go:141: [97mINFO[0m Phase ONE Adding Baseline Users to Store
+2026/01/27 17:24:22 tmplLogic.go:44: [97mINFO[0m Duplicate check failed for TemplateStoreV3 record: Key is empty
+2026/01/27 17:24:22 main.go:154: [97mINFO[0m Phase ONE Baseline 1 Users Added to Store
+2026/01/27 17:24:22 main.go:155: [97mINFO[0m Phase ONE Hydrating Cache for Users
+2026/01/27 17:24:22 main.go:163: [97mINFO[0m Phase ONE Setup Templates Loaded: 1
+2026/01/27 17:24:22 main.go:188: [97mINFO[0m Phase ONE Selected User Key: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 main.go:195: [97mINFO[0m Phase ONE Retrieved User by Key 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e: Matt Townsend
+2026/01/27 17:24:22 main.go:201: [97mINFO[0m Phase ONE Updated User 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e LastHost to orion-172422
+2026/01/27 17:24:22 main.go:339: [97mINFO[0m Phase ONE Completed
+2026/01/27 17:24:22 main.go:102: [97mINFO[0m Phase 2 Test Message: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 main.go:134: [97mINFO[0m Phase ONE Creating 2 Baseline Users
+2026/01/27 17:24:22 main.go:141: [97mINFO[0m Phase ONE Adding Baseline Users to Store
+2026/01/27 17:24:22 tmplLogic.go:44: [97mINFO[0m Duplicate check failed for TemplateStoreV3 record: Key is empty
+2026/01/27 17:24:22 main.go:154: [97mINFO[0m Phase ONE Baseline 2 Users Added to Store
+2026/01/27 17:24:22 main.go:155: [97mINFO[0m Phase ONE Hydrating Cache for Users
+2026/01/27 17:24:22 main.go:163: [97mINFO[0m Phase ONE Setup Templates Loaded: 2
+2026/01/27 17:24:22 main.go:180: [97mINFO[0m Phase ONE User: (0/2) Matt Townsend 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 main.go:188: [97mINFO[0m Phase ONE Selected User Key: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 main.go:195: [97mINFO[0m Phase ONE Retrieved User by Key 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e: Matt Townsend
+2026/01/27 17:24:22 main.go:201: [97mINFO[0m Phase ONE Updated User 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e LastHost to orion-172422
+2026/01/27 17:24:22 main.go:339: [97mINFO[0m Phase ONE Completed
+2026/01/27 17:24:22 main.go:102: [97mINFO[0m Phase 2 Test Message: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 main.go:123: [97mINFO[0m Total Test Duration: 319.180875ms
+2026/01/27 17:24:22 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 17:24:22 logHandler.go:201: [97mINFO[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
+2026/01/27 17:24:22 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*

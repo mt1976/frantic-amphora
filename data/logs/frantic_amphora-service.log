@@ -1,7 +1,9 @@
-2026/01/27 15:01:18 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
-2026/01/27 15:01:18 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T15:01:18.852098Z
-2026/01/27 15:01:18 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T15:01:18.852098Z
-2026/01/27 15:01:18 tmplLogic.go:88: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
-2026/01/27 15:01:18 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 4e2883ae05cdf35a45aeb6dc55fe89fa7dc49a170d430c354157dc3987944f0e
-2026/01/27 15:01:18 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T15:01:18.961269Z
-2026/01/27 15:01:18 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T15:01:18.961269Z
+2026/01/27 17:24:22 tmplLogic.go:85: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 tmplLogic.go:93: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T17:24:22.198392Z
+2026/01/27 17:24:22 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T17:24:22.198392Z
+2026/01/27 17:24:22 tmplLogic.go:93: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 tmplLogic.go:85: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: aa87d66c3fdc29a52cd735725dc13b14337db995c9661dcfff8e291d28e31edb
+2026/01/27 17:24:22 tmplLogic.go:93: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 5d1ecaa8c0be3e12070d157bb8f04360de2cf477d1f190d907abd9b3f860391e
+2026/01/27 17:24:22 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T17:24:22.372051Z
+2026/01/27 17:24:22 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T17:24:22.372051Z

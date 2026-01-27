@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/cache"
 	"github.com/mt1976/frantic-amphora/dao/entities"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV3"
@@ -185,6 +186,21 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 		uKey = setupTemplates[0].Key
 	}
 	logHandler.InfoLogger.Printf("Phase %v Selected User Key: %v", phase, uKey)
+
+	// Read back in the created user with key uKey, and update its LastHost field to "orion+datetime"
+	userRec, getErr := templateStoreV3.GetBy(templateStoreV3.Fields.Key, uKey)
+	if getErr != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error getting user by key %v: %v", phase, uKey, getErr)
+	} else {
+		logHandler.InfoLogger.Printf("Phase %v Retrieved User by Key %v: %v", phase, uKey, userRec.RealName)
+		userRec.LastHost = fmt.Sprintf("orion-%v", time.Now().Format("150405"))
+		updateErr := userRec.UpdateWithAction(ctx, audit.UPDATE, "Test Update of LastHost")
+		if updateErr != nil {
+			logHandler.ErrorLogger.Printf("Phase %v Error updating user %v: %v", phase, uKey, updateErr)
+		} else {
+			logHandler.InfoLogger.Printf("Phase %v Updated User %v LastHost to %v", phase, uKey, userRec.LastHost)
+		}
+	}
 
 	// // Benchmark: retrieve a cached record repeatedly and report timings.
 	// // This is intentionally simple and uses FindByKey which should hit the cache after hydration.

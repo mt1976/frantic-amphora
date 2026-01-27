@@ -1,6 +1,6 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.12 - 2026-01-27
-// Generated 
+// Generated
 // Date: 27/01/2026 & 15:01
 // Who : matttownsend (orion)
 
@@ -17,7 +17,6 @@ import (
 	"github.com/mt1976/frantic-amphora/dao/entities"
 	"github.com/mt1976/frantic-amphora/dao/lookup"
 	ce "github.com/mt1976/frantic-core/commonErrors"
-	"github.com/mt1976/frantic-core/idHelpers"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
 )
@@ -136,67 +135,36 @@ func New() TemplateStoreV3 {
 // Create constructs and inserts a new TemplateStoreV3 record.
 func Create(ctx context.Context, basis TemplateStoreV3) (TemplateStoreV3, error) {
 	dao.CheckDAOReadyState(tableName, audit.CREATE, databaseConnectionActive)
-
-	clock := timing.Start(tableName, "Create", "Inserting new record")
-
-	id, skip, record, err := creator(ctx, basis)
+	logHandler.TraceLogger.Printf("Create %v Record: %v", tableName, basis.Key)
+	err := basis.insertOrUpdate(ctx, fmt.Sprintf("New %v Record", tableName), audit.CREATE, CREATE)
 	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", basis), err))
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
+		return basis, err
 	}
 
-	if skip {
-		logHandler.InfoLogger.Printf("Creation of %v (%v) record has been skipped", tableName, id)
-
-		createdRecord, err := doPostProcessing(ctx, record)
-		if err != nil {
-			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-		}
-
-		clock.Stop(1)
-		return createdRecord, nil
-	}
-
-	record.Key = idHelpers.Encode(id)
-	record.Raw = id
-
-	auditErr := record.Audit.Action(ctx, audit.CREATE.WithMessage(fmt.Sprintf("New %v created %v", tableName, basis)))
-	if auditErr != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOUpdateAuditWrapper(tableName, record.ID, auditErr))
-	}
-
-	writeErr := activeDBConnection.Create(&record)
-	if writeErr != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, writeErr))
-	}
-
-	createdRecord, err := doPostProcessing(ctx, record)
-	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-	}
-	clock.Stop(1)
-	return createdRecord, nil
+	return basis, nil
 }
 
-func doPostProcessing(ctx context.Context, record TemplateStoreV3) (TemplateStoreV3, error) {
+// func doPostProcessing(ctx context.Context, record TemplateStoreV3) (TemplateStoreV3, error) {
 
-	err, update, message := record.postCreateProcessing(ctx)
-	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-		return record, err
-	}
-	if update {
-		if message == "" {
-			message = "Post Processing"
-		}
-		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
-		if err != nil {
-			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-			return record, err
-		}
-	}
+// 	err, update, message := record.postCreateProcessing(ctx)
+// 	if err != nil {
+// 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
+// 		return record, err
+// 	}
+// 	if update {
+// 		if message == "" {
+// 			message = "Post Processing"
+// 		}
+// 		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
+// 		if err != nil {
+// 			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
+// 			return record, err
+// 		}
+// 	}
 
-	return record, nil
-}
+// 	return record, nil
+// }
 
 // Delete deletes a record by ID.
 func Delete(ctx context.Context, id int, note string) error {
@@ -254,18 +222,18 @@ func (record *TemplateStoreV3) Validate() error {
 
 // Update persists changes to an existing record.
 func (record *TemplateStoreV3) Update(ctx context.Context, note string) error {
-	return record.insertOrUpdate(ctx, note, "Update", audit.UPDATE, "Update")
+	return record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE)
 }
 
 // UpdateWithAction persists changes using the provided audit action.
 func (record *TemplateStoreV3) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error {
-	return record.insertOrUpdate(ctx, note, "Update", auditAction, "Update")
+	return record.insertOrUpdate(ctx, note, auditAction, UPDATE)
 }
 
-// Create inserts a new record.
-func (record *TemplateStoreV3) Create(ctx context.Context, note string) error {
-	return record.insertOrUpdate(ctx, note, "Create", audit.CREATE, "Create")
-}
+// // Create inserts a new record.
+// func (record *TemplateStoreV3) Create(ctx context.Context, note string) error {
+// 	return record.insertOrUpdate(ctx, note, "Create", audit.CREATE, "Create")
+// }
 
 // Clone returns a copy of the record using templateClone.
 func (record *TemplateStoreV3) Clone(ctx context.Context) (TemplateStoreV3, error) {

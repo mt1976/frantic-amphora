@@ -39,6 +39,11 @@ func BuildUserCode(u templateStoreV3.TemplateStoreV3) string {
 }
 
 func DuplicateCheck(record *templateStoreV3.TemplateStoreV3) (bool, error) {
+	logHandler.EventLogger.Printf("Performing duplicate check for %v record %v", templateStoreV3.TableName, record.Key)
+	if record.Key == "" {
+		logHandler.InfoLogger.Printf("Duplicate check failed for %v record: Key is empty", templateStoreV3.TableName)
+		return false, nil
+	}
 	responseRecord, err := templateStoreV3.GetBy(templateStoreV3.Fields.Key, record.Key)
 	if err != nil {
 		return false, err
@@ -83,8 +88,10 @@ func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (e
 	return nil, update, message
 }
 
-func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) error {
+func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, string) {
 	// Custom post-update logic can be added here
 	logHandler.ServiceLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
-	return nil
+	update := false
+	message := ""
+	return nil, update, message
 }

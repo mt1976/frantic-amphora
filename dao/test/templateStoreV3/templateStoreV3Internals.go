@@ -1,6 +1,6 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.11 - 2026-01-27
-// Generated 
+// Generated
 // Date: 27/01/2026 & 15:01
 // Who : matttownsend (orion)
 
@@ -12,33 +12,65 @@ import (
 	"strings"
 
 	"github.com/goforj/godump"
-	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-amphora/dao"
 	"github.com/mt1976/frantic-amphora/dao/audit"
+	ce "github.com/mt1976/frantic-core/commonErrors"
+	"github.com/mt1976/frantic-core/idHelpers"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
 )
 
+type op string
+
+const (
+	UPDATE op = "Update"
+	CREATE op = "Create"
+)
+
 // insertOrUpdate performs shared validation/audit and then creates or updates the record.
-func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note, activity string, auditAction audit.Action, operation string) error {
+func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note string, auditAction audit.Action, operation op) error {
 	isCreateOperation := false
-	if strings.EqualFold(operation, "Create") {
+	if operation == CREATE {
 		isCreateOperation = true
 		if !strings.EqualFold(auditAction.Code(), "Create") {
 			return ce.ErrDAOUpdateWrapper(tableName, ce.ErrValidationFailed)
 		}
 	}
 
+	logHandler.TraceLogger.Printf("Starting %v processing for %v record %v isCreate %t", operation, tableName, record.Key, isCreateOperation)
+
 	dao.CheckDAOReadyState(tableName, auditAction, databaseConnectionActive)
 
-	clock := timing.Start(tableName, activity, fmt.Sprintf("%v", record.ID))
+	clock := timing.Start(tableName, string(operation), fmt.Sprintf("%v", record.ID))
 	if isCreateOperation {
+		// Check for duplicates on create
+		logHandler.TraceLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
 		if err := record.checkForDuplicate(); err != nil {
 			clock.Stop(0)
 			return ce.ErrDAOCreateWrapper(tableName, record.ID, err)
 		}
 	}
 
+	logHandler.TraceLogger.Printf("Processing %v record %v", tableName, record.Key)
+	// Invoke custom creator logic if defined
+	if isCreateOperation {
+		if creator != nil {
+			logHandler.TraceLogger.Printf("Invoking custom creator for %v record %v", tableName, record.Key)
+			id, skip, createdRecord, err := creator(ctx, *record)
+			if err != nil {
+				logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", record.Key), err))
+			}
+			if !skip {
+				record = &createdRecord
+				logHandler.TraceLogger.Printf("Custom creator completed for %v record %v", tableName, record.Key)
+			} else {
+				logHandler.TraceLogger.Printf("Custom creator skipped for %v record %v", tableName, record.Key)
+			}
+			record.Raw = id
+			record.Key = idHelpers.Encode(id)
+		}
+	}
+	logHandler.TraceLogger.Printf("Running default/validation processing for %v record %v", tableName, record.Key)
 	if calculationError := record.defaultProcessing(); calculationError != nil {
 		rtnErr := ce.ErrDAOCaclulationWrapper(tableName, calculationError)
 		logHandler.ErrorLogger.Print(rtnErr.Error())
@@ -65,10 +97,12 @@ func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note, activit
 	if isCreateOperation {
 		logHandler.TraceLogger.Printf("Creating %v record %v %v", tableName, record.Key, record.ID)
 		actionError = activeDBConnection.Create(record)
+
 	} else {
 		logHandler.TraceLogger.Printf("Updating %v record %v %v", tableName, record.Key, record.ID)
 		actionError = activeDBConnection.Update(record)
 	}
+	logHandler.TraceLogger.Printf("%v operation completed for %v record %v", operation, tableName, record.Key)
 	if actionError != nil {
 		godump.Dump(record)
 		updErr := ce.ErrDAOUpdateWrapper(tableName, actionError)
@@ -76,33 +110,35 @@ func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note, activit
 		clock.Stop(0)
 		return updErr
 	}
-
+	var err error
+	var update bool = false
+	var message string = ""
 	if !isCreateOperation {
-		if err := record.postUpdateProcessing(ctx); err != nil {
-			updProcErr := ce.ErrDAOUpdateWrapper(tableName, err)
-			logHandler.ErrorLogger.Print(updProcErr.Error())
-			clock.Stop(0)
-			return updProcErr
-		}
+		logHandler.TraceLogger.Printf("Starting post-update processing for %v record %v", tableName, record.Key)
+		err, update, message = record.postUpdateProcessing(ctx)
+		logHandler.TraceLogger.Printf("Post-Update processing completed for %v record %v err %e", tableName, record.Key, err)
 	} else {
-		err, update, message := record.postCreateProcessing(ctx)
-		if err != nil {
-			createProcErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
-			logHandler.ErrorLogger.Print(createProcErr.Error())
-			clock.Stop(0)
-			return createProcErr
+		logHandler.TraceLogger.Printf("Starting post-create processing for %v record %v", tableName, record.Key)
+		err, update, message = record.postCreateProcessing(ctx)
+		logHandler.TraceLogger.Printf("Post-Create processing completed for %v record %v err %e", tableName, record.Key, err)
+	}
+	if err != nil {
+		createProcErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
+		logHandler.ErrorLogger.Print(createProcErr.Error())
+		clock.Stop(0)
+		return createProcErr
+	}
+	if update {
+		if message == "" {
+			message = "Post " + string(operation) + " Processing"
 		}
-		if update {
-			if message == "" {
-				message = "Post Processing"
-			}
-			err = record.UpdateWithAction(ctx, audit.UPDATE, message)
-			if err != nil {
-				updErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
-				logHandler.ErrorLogger.Panic(updErr.Error())
-				clock.Stop(0)
-				return updErr
-			}
+		logHandler.TraceLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.ID)
+		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
+		if err != nil {
+			updErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
+			logHandler.ErrorLogger.Panic(updErr.Error())
+			clock.Stop(0)
+			return updErr
 		}
 	}
 
@@ -142,7 +178,7 @@ func (record *TemplateStoreV3) postGet(ctx context.Context) error {
 // checkForDuplicate checks whether the record key already exists.
 func (record *TemplateStoreV3) checkForDuplicate() error {
 	dao.CheckDAOReadyState(tableName, audit.PROCESS, databaseConnectionActive)
-
+	logHandler.TraceLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
 	if duplicateCheck != nil {
 		found, err := duplicateCheck(record)
 		if err != nil {
@@ -154,6 +190,7 @@ func (record *TemplateStoreV3) checkForDuplicate() error {
 		}
 		return nil
 	}
+	logHandler.TraceLogger.Printf("No duplicate check function defined for %v", tableName)
 
 	return nil
 }
