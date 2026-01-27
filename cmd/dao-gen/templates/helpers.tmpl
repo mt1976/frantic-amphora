@@ -11,7 +11,6 @@ import (
 	"fmt"
 
 	"github.com/mt1976/frantic-amphora/dao"
-	"github.com/mt1976/frantic-amphora/dao/audit"
 	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 )
@@ -250,13 +249,9 @@ func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) (error, b
 			return nil, false, ""
 		}
 		if feedbackMessage == "" {
-			feedbackMessage = "Post Processing"
+			feedbackMessage = "Post Create Processing"
 		}
 		// Update the trip with the new profile and notes
-		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
-		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
-		}
 		record = &pcr
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 		return nil, true, feedbackMessage
@@ -274,24 +269,23 @@ func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) (error, b
 		}
 		err, updatedRecord, feedbackMessage := postUpdate(ctx, &pcr)
 		if err != nil {
+			logHandler.ErrorLogger.Printf("Error during postUpdateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 			return err, false, ""
 		}
 		if !updatedRecord {
+			logHandler.DatabaseLogger.Printf("[POSTUPDATE] No update required for %v Record: %v", TableName.String(), record.Key)
 			return nil, false, ""
 		}
 		if feedbackMessage == "" {
 			feedbackMessage = "Post Update Processing"
 		}
 		// Update the trip with the new profile and notes
-		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
-		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
-		}
 		record = &pcr
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 		return nil, true, feedbackMessage
 
 	}
+	logHandler.DatabaseLogger.Printf("[POSTUPDATE] No post-update function registered for %v Record: %v", TableName.String(), record.Key)
 	return nil, false, ""
 }
 

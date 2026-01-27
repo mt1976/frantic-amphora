@@ -49,6 +49,7 @@ func Login(ctx context.Context, sq string) (templateStoreV3.TemplateStoreV3, err
 
 // Add creates and persists a new user record based on the current OS user.
 func Add(ctx context.Context, sq string) (templateStoreV3.TemplateStoreV3, error) {
+	logHandler.InfoLogger.Printf("Adding new user to TemplateStoreV3: SQ=%v", sq)
 	testu := buildUserStub(sq)
 
 	newUser := templateStoreV3.New()
@@ -73,7 +74,7 @@ func Add(ctx context.Context, sq string) (templateStoreV3.TemplateStoreV3, error
 		logHandler.ErrorLogger.Printf("Error: '%v'", err.Error())
 		return templateStoreV3.New(), err
 	}
-
+	logHandler.InfoLogger.Printf("New user added to TemplateStoreV3: UserName=%v, UID=%v", u.UserName, u.UID)
 	return u, nil
 }
 

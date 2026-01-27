@@ -37,40 +37,40 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 		}
 	}
 
-	logHandler.TraceLogger.Printf("Starting %v processing for %v record %v isCreate %t", operation, tableName, record.Key, isCreateOperation)
+	logHandler.DatabaseLogger.Printf("Starting %v processing for %v record %v isCreate %t", operation, tableName, record.Key, isCreateOperation)
 
 	dao.CheckDAOReadyState(tableName, auditAction, databaseConnectionActive)
 
 	clock := timing.Start(tableName, string(operation), fmt.Sprintf("%v", record.ID))
 	if isCreateOperation {
 		// Check for duplicates on create
-		logHandler.TraceLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
+		logHandler.DatabaseLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
 		if err := record.checkForDuplicate(); err != nil {
 			clock.Stop(0)
 			return ce.ErrDAOCreateWrapper(tableName, record.ID, err)
 		}
 	}
 
-	logHandler.TraceLogger.Printf("Processing %v record %v", tableName, record.Key)
+	logHandler.DatabaseLogger.Printf("Processing %v record %v", tableName, record.Key)
 	// Invoke custom creator logic if defined
 	if isCreateOperation {
 		if creator != nil {
-			logHandler.TraceLogger.Printf("Invoking custom creator for %v record %v", tableName, record.Key)
+			logHandler.DatabaseLogger.Printf("Invoking custom creator for %v record %v", tableName, record.Key)
 			id, skip, createdRecord, err := creator(ctx, *record)
 			if err != nil {
 				logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", record.Key), err))
 			}
 			if !skip {
 				record = &createdRecord
-				logHandler.TraceLogger.Printf("Custom creator completed for %v record %v", tableName, record.Key)
+				logHandler.DatabaseLogger.Printf("Custom creator completed for %v record %v", tableName, record.Key)
 			} else {
-				logHandler.TraceLogger.Printf("Custom creator skipped for %v record %v", tableName, record.Key)
+				logHandler.DatabaseLogger.Printf("Custom creator skipped for %v record %v", tableName, record.Key)
 			}
 			record.Raw = id
 			record.Key = idHelpers.Encode(id)
 		}
 	}
-	logHandler.TraceLogger.Printf("Running default/validation processing for %v record %v", tableName, record.Key)
+	logHandler.DatabaseLogger.Printf("Running default/validation processing for %v record %v", tableName, record.Key)
 	if calculationError := record.defaultProcessing(); calculationError != nil {
 		rtnErr := ce.ErrDAOCaclulationWrapper(tableName, calculationError)
 		logHandler.ErrorLogger.Print(rtnErr.Error())
@@ -95,14 +95,14 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 
 	var actionError error
 	if isCreateOperation {
-		logHandler.TraceLogger.Printf("Creating %v record %v %v", tableName, record.Key, record.ID)
+		logHandler.DatabaseLogger.Printf("Creating %v record %v %v", tableName, record.Key, record.ID)
 		actionError = activeDBConnection.Create(record)
 
 	} else {
-		logHandler.TraceLogger.Printf("Updating %v record %v %v", tableName, record.Key, record.ID)
+		logHandler.DatabaseLogger.Printf("Updating %v record %v %v", tableName, record.Key, record.ID)
 		actionError = activeDBConnection.Update(record)
 	}
-	logHandler.TraceLogger.Printf("%v operation completed for %v record %v", operation, tableName, record.Key)
+	logHandler.DatabaseLogger.Printf("%v operation completed for %v record %v", operation, tableName, record.Key)
 	if actionError != nil {
 		godump.Dump(record)
 		updErr := ce.ErrDAOUpdateWrapper(tableName, actionError)
@@ -114,13 +114,13 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	var update bool = false
 	var message string = ""
 	if !isCreateOperation {
-		logHandler.TraceLogger.Printf("Starting post-update processing for %v record %v", tableName, record.Key)
+		logHandler.DatabaseLogger.Printf("Starting post-update processing for %v record %v", tableName, record.Key)
 		err, update, message = record.postUpdateProcessing(ctx)
-		logHandler.TraceLogger.Printf("Post-Update processing completed for %v record %v err %e", tableName, record.Key, err)
+		logHandler.DatabaseLogger.Printf("Post-Update processing completed for %v record %v err %e", tableName, record.Key, err)
 	} else {
-		logHandler.TraceLogger.Printf("Starting post-create processing for %v record %v", tableName, record.Key)
+		logHandler.DatabaseLogger.Printf("Starting post-create processing for %v record %v", tableName, record.Key)
 		err, update, message = record.postCreateProcessing(ctx)
-		logHandler.TraceLogger.Printf("Post-Create processing completed for %v record %v err %e", tableName, record.Key, err)
+		logHandler.DatabaseLogger.Printf("Post-Create processing completed for %v record %v err %e", tableName, record.Key, err)
 	}
 	if err != nil {
 		createProcErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
@@ -132,10 +132,11 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 		if message == "" {
 			message = "Post " + string(operation) + " Processing"
 		}
-		logHandler.TraceLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.ID)
-		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
-		if err != nil {
-			updErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
+		logHandler.DatabaseLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.ID)
+		actionError = activeDBConnection.Update(record)
+		//err = record.UpdateWithAction(ctx, audit.UPDATE, message)
+		if actionError != nil {
+			updErr := ce.ErrDAOCreateWrapper(tableName, record.ID, actionError)
 			logHandler.ErrorLogger.Panic(updErr.Error())
 			clock.Stop(0)
 			return updErr

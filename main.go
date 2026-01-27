@@ -138,15 +138,15 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// cache.RegisterSynchroniser(templateStoreV2.TemplateStore{}, templateStoreV2.CacheSynchroniser(ctx))
 	// cache.RegisterHydrator(templateStoreV2.TemplateStore{}, templateStoreV2.CacheHydrator(ctx))
 
-	logHandler.InfoLogger.Printf("Phase %v Adding Baseline Users to Store", phase)
+	logHandler.InfoLogger.Printf("Phase %v Adding %d Baseline Users to Store", phase, baselineUsers)
 
 	for i := 0; i < baselineUsers; i++ {
-		//logHandler.WarningLogger.Printf("Phase %v Creating Baseline User %v", phase, i+1)
+		logHandler.WarningLogger.Printf("Phase %v Creating Baseline User %v", phase, i+1)
 		_, info := tmpllogic.Login(ctx, fmt.Sprintf("%04v", i))
 		if info != nil {
 			logHandler.ErrorLogger.Printf("Phase %v Error creating Baseline User %v: %v", phase, i+1, info)
 		}
-		//logHandler.WarningLogger.Printf("Phase %v Created Baseline User %v", phase, i+1)
+		logHandler.WarningLogger.Printf("Phase %v Created Baseline User %v", phase, i+1)
 		//fmt.Print(".")
 		//	cache.AddEntry(usr)
 	}

@@ -11,7 +11,6 @@ import (
 	"fmt"
 
 	"github.com/mt1976/frantic-amphora/dao"
-	"github.com/mt1976/frantic-amphora/dao/audit"
 	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 )
@@ -49,105 +48,105 @@ var postClearDown postDropFunc
 
 // RegisterCreator registers a creator function for TemplateStoreV3.
 func RegisterCreator(fn creatorFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	creator = fn
 }
 
 // RegisterPostCreate registers a post-create function for TemplateStoreV3.
 func RegisterPostCreate(fn postCreateFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postCreate = fn
 }
 
 // RegisterPostUpdate registers a post-update function for TemplateStoreV3.
 func RegisterPostUpdate(fn postUpdateFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postUpdate = fn
 }
 
 // RegisterPostDelete registers a post-delete function for TemplateStoreV3.
 func RegisterPostDelete(fn postDeleteFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postDelete = fn
 }
 
 // RegisterPostClone registers a post-clone function for TemplateStoreV3.
 func RegisterPostClone(fn postCloneFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postClone = fn
 }
 
 // RegisterPostDrop registers a post-drop function for TemplateStoreV3.
 func RegisterPostDrop(fn postDropFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postDrop = fn
 }
 
 // RegisterPostClearDown registers a post-clear-down function for TemplateStoreV3.
 func RegisterPostClearDown(fn postDropFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postClearDown = fn
 }
 
 // RegisterUpgrader registers an upgrader function for TemplateStoreV3.
 func RegisterUpgrader(fn upgraderFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
 	upgrader = fn
 }
 
 // RegisterDefaulter registers a defaulter function for TemplateStoreV3.
 func RegisterDefaulter(fn defaulterFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
 	defaulter = fn
 }
 
 // RegisterValidator registers a validator function for TemplateStoreV3.
 func RegisterValidator(fn validatorFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	validator = fn
 }
 
 // RegisterPreDelete registers a pre-delete function for TemplateStoreV3.
 func RegisterPreDelete(fn preDeleteFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
 	preDelete = fn
 }
 
 // RegisterPostGet registers a post-get function for TemplateStoreV3.
 func RegisterPostGet(fn postGetFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postGet = fn
 }
 
 // RegisterCloner registers a cloner function for TemplateStoreV3.
 func RegisterCloner(fn clonerFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
 	cloner = fn
 }
 
 // RegisterDuplicateCheck registers a duplicate check function for TemplateStoreV3.
 func RegisterDuplicateCheck(fn duplicateCheckFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
 	duplicateCheck = fn
 }
 
 // RegisterWorker registers a worker function for TemplateStoreV3.
 func RegisterWorker(fn workerFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.DatabaseLogger.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.DatabaseLogger.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
 	worker = fn
 }
@@ -253,10 +252,10 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) (error,
 			feedbackMessage = "Post Create Processing"
 		}
 		// Update the trip with the new profile and notes
-		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
-		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
-		}
+		// err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
+		// if err != nil {
+		// 	return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
+		// }
 		record = &pcr
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 		return nil, true, feedbackMessage
@@ -274,24 +273,23 @@ func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) (error,
 		}
 		err, updatedRecord, feedbackMessage := postUpdate(ctx, &pcr)
 		if err != nil {
+			logHandler.ErrorLogger.Printf("Error during postUpdateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 			return err, false, ""
 		}
 		if !updatedRecord {
+			logHandler.DatabaseLogger.Printf("[POSTUPDATE] No update required for %v Record: %v", TableName.String(), record.Key)
 			return nil, false, ""
 		}
 		if feedbackMessage == "" {
 			feedbackMessage = "Post Update Processing"
 		}
 		// Update the trip with the new profile and notes
-		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
-		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
-		}
 		record = &pcr
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 		return nil, true, feedbackMessage
 
 	}
+	logHandler.DatabaseLogger.Printf("[POSTUPDATE] No post-update function registered for %v Record: %v", TableName.String(), record.Key)
 	return nil, false, ""
 }
 

@@ -83,15 +83,15 @@ func JobProcessor(name, desc string) {
 func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, string) {
 	// Custom post-create logic can be added here
 	logHandler.ServiceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
-	update := false
-	message := ""
+	update := true
+	message := "post create processing completed"
 	return nil, update, message
 }
 
 func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, string) {
 	// Custom post-update logic can be added here
 	logHandler.ServiceLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
-	update := false
-	message := ""
+	update := true
+	message := "post update processing completed"
 	return nil, update, message
 }
