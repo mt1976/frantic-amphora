@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.17 - 2026-01-27
+// Template Version: 0.5.18 - 2026-01-27
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -26,7 +26,7 @@ type clonerFunc func(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, 
 type duplicateCheckFunc func(*{{.TypeName}}) (bool, error)
 type workerFunc func(string, string)
 type postCreateFunc func(ctx context.Context, record *{{.TypeName}}) (error, bool, string)
-type postUpdateFunc func(ctx context.Context, record *{{.TypeName}}) error
+type postUpdateFunc func(ctx context.Context, record *{{.TypeName}}) (error, bool, string)
 type postDeleteFunc func(ctx context.Context, record *{{.TypeName}}) error
 type postCloneFunc func(ctx context.Context, record *{{.TypeName}}) error
 type postDropFunc func(ctx context.Context) error
