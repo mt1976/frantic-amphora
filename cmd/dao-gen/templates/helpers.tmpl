@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.11 - 2026-01-27
+// Template Version: 0.5.12 - 2026-01-27
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -232,7 +232,7 @@ func templateClone(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, er
 // }
 
 // PostCreate runs any post-create processing after a record is created.
-func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
+func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) (error, bool, string) {
 	if postCreate != nil {
 
 		// Get the record updated by the create function
@@ -240,14 +240,14 @@ func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
 		key := record.Key
 		pcr, err := GetBy(Fields.Key, key)
 		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed"))
+			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed")), false, ""
 		}
 		err, updatedRecord, feedbackMessage := postCreate(ctx, &pcr)
 		if err != nil {
-			return err
+			return err, false, ""
 		}
 		if !updatedRecord {
-			return nil
+			return nil, false, ""
 		}
 		if feedbackMessage == "" {
 			feedbackMessage = "Post Create Update"
@@ -258,11 +258,11 @@ func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
 		// Update the trip with the new profile and notes
 		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
 		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed"))
+			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
 		}
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 	}
-	return nil
+	return nil, true, ""
 }
 
 func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) error {

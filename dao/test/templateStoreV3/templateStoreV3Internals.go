@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
-// Template Version: 0.5.10 - 2026-01-26
+// Template Version: 0.5.11 - 2026-01-27
 // Generated 
-// Date: 27/01/2026 & 12:22
+// Date: 27/01/2026 & 12:54
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -85,11 +85,24 @@ func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note, activit
 			return updProcErr
 		}
 	} else {
-		if err := record.postCreateProcessing(ctx); err != nil {
+		err, update, message := record.postCreateProcessing(ctx)
+		if err != nil {
 			createProcErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
 			logHandler.ErrorLogger.Print(createProcErr.Error())
 			clock.Stop(0)
 			return createProcErr
+		}
+		if update {
+			if message == "" {
+				message = "Post Create"
+			}
+			err = record.UpdateWithAction(ctx, audit.UPDATE, message)
+			if err != nil {
+				updErr := ce.ErrDAOCreateWrapper(tableName, record.ID, err)
+				logHandler.ErrorLogger.Panic(updErr.Error())
+				clock.Stop(0)
+				return updErr
+			}
 		}
 	}
 

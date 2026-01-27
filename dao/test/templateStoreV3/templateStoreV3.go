@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
-// Template Version: 0.5.11 - 2026-01-27
+// Template Version: 0.5.12 - 2026-01-27
 // Generated 
-// Date: 27/01/2026 & 12:22
+// Date: 27/01/2026 & 12:54
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -178,16 +178,24 @@ func Create(ctx context.Context, basis TemplateStoreV3) (TemplateStoreV3, error)
 }
 
 func doPostProcessing(ctx context.Context, record TemplateStoreV3) (TemplateStoreV3, error) {
-	if err := record.postCreateProcessing(ctx); err != nil {
+
+	err, update, message := record.postCreateProcessing(ctx)
+	if err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
+		return record, err
+	}
+	if update {
+		if message == "" {
+			message = "Post Create"
+		}
+		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
+		if err != nil {
+			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
+			return record, err
+		}
 	}
 
-	createdRecord, getErr := GetBy(Fields.Key, record.Key)
-	if getErr != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, getErr))
-		return record, getErr
-	}
-	return createdRecord, nil
+	return record, nil
 }
 
 // Delete deletes a record by ID.
