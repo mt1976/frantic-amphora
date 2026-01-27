@@ -186,7 +186,7 @@ func doPostProcessing(ctx context.Context, record {{.TypeName}}) ({{.TypeName}},
 	}
 	if update {
 		if message == "" {
-			message = "Post Create"
+			message = "Post Processing"
 		}
 		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
 		if err != nil {

@@ -94,7 +94,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note, activity 
 		}
 		if update {
 			if message == "" {
-				message = "Post Create"
+				message = "Post Processing"
 			}
 			err = record.UpdateWithAction(ctx, audit.UPDATE, message)
 			if err != nil {

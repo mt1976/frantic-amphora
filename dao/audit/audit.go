@@ -76,9 +76,9 @@ func (a *Audit) Action(ctx context.Context, action Action) error {
 	if updateMessage == "" {
 		updateMessage = fmt.Sprintf("%v action performed", action.ShortName())
 	}
-	// truncate if over 35 characters
-	if len(updateMessage) > 35 {
-		updateMessage = updateMessage[0:35] + "..."
+	// truncate if over "messageLengthLimit" characters
+	if len(updateMessage) > messageLengthLimit {
+		updateMessage = updateMessage[0:messageLengthLimit] + "..."
 	}
 	update.UpdateNotes = updateMessage
 	// a.DBVersion = dao.Version

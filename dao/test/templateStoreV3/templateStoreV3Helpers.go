@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.12 - 2026-01-27
 // Generated 
-// Date: 27/01/2026 & 12:54
+// Date: 27/01/2026 & 15:01
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -250,19 +250,18 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) (error,
 			return nil, false, ""
 		}
 		if feedbackMessage == "" {
-			feedbackMessage = "Post Create Update"
-		}
-		if len(feedbackMessage) > 35 {
-			feedbackMessage = feedbackMessage[:35] + "..."
+			feedbackMessage = "Post Processing"
 		}
 		// Update the trip with the new profile and notes
 		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
 		if err != nil {
 			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
 		}
+		record = &pcr
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
+		return nil, true, feedbackMessage
 	}
-	return nil, true, ""
+	return nil, false, ""
 }
 
 func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) error {

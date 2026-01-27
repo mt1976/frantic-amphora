@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.12 - 2026-01-27
 // Generated 
-// Date: 27/01/2026 & 12:54
+// Date: 27/01/2026 & 15:01
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -186,7 +186,7 @@ func doPostProcessing(ctx context.Context, record TemplateStoreV3) (TemplateStor
 	}
 	if update {
 		if message == "" {
-			message = "Post Create"
+			message = "Post Processing"
 		}
 		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
 		if err != nil {

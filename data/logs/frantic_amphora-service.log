@@ -1,7 +1,7 @@
-2026/01/27 12:22:30 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T12:22:30.3653Z
-2026/01/27 12:22:30 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T12:22:30.3653Z
-2026/01/27 12:22:30 tmplLogic.go:88: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 1962ca7ca0ece02be78c6ef1cf575cfbf780df9ba218b2c2bb60a6dca894bb66
-2026/01/27 12:22:30 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T12:22:30.499659Z
-2026/01/27 12:22:30 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T12:22:30.499659Z
+2026/01/27 15:01:18 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T15:01:18.852098Z
+2026/01/27 15:01:18 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T15:01:18.852098Z
+2026/01/27 15:01:18 tmplLogic.go:88: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 4e2883ae05cdf35a45aeb6dc55fe89fa7dc49a170d430c354157dc3987944f0e
+2026/01/27 15:01:18 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T15:01:18.961269Z
+2026/01/27 15:01:18 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T15:01:18.961269Z

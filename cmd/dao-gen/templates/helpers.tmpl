@@ -250,19 +250,18 @@ func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) (error, b
 			return nil, false, ""
 		}
 		if feedbackMessage == "" {
-			feedbackMessage = "Post Create Update"
-		}
-		if len(feedbackMessage) > 35 {
-			feedbackMessage = feedbackMessage[:35] + "..."
+			feedbackMessage = "Post Processing"
 		}
 		// Update the trip with the new profile and notes
 		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
 		if err != nil {
 			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
 		}
+		record = &pcr
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
+		return nil, true, feedbackMessage
 	}
-	return nil, true, ""
+	return nil, false, ""
 }
 
 func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) error {

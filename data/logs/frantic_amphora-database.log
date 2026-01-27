@@ -1,49 +1,47 @@
-2026/01/27 12:22:30 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
-2026/01/27 12:22:30 databaseOptions.go:42: [32mDATABASE[0m [CON]{OPTION} WithVerbose set to false
-2026/01/27 12:22:30 databaseOptions.go:26: [32mDATABASE[0m [CON]{OPTION} WithCaching set to false
-2026/01/27 12:22:30 databaseOptions.go:34: [32mDATABASE[0m [CON]{OPTION} WithCacheKey set to Key
-2026/01/27 12:22:30 databaseOptions.go:66: [32mDATABASE[0m [CON]{OPTION} WithNameSpace set to main
-2026/01/27 12:22:30 databaseConnect.go:145: [32mDATABASE[0m [CON] 4 Options 
-2026/01/27 12:22:30 databaseConnect.go:39: [32mDATABASE[0m [CON]{CONNECT} Configuration for main.db: caching: false, cacheKey: Key, verbose: false, timeout: 30, poolSize: 10, nameSpace: main, encryption: false, indices: []
-2026/01/27 12:22:30 databaseConnect.go:49: [32mDATABASE[0m [CON]{CONNECT} Opening Connection to [...main.db] data (0)
-2026/01/27 12:22:30 databaseConnect.go:73: [32mDATABASE[0m [CON]{CONNECT} (re)Opening [...main.db] data connection
-2026/01/27 12:22:30 databasePool.go:7: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Adding [main] to connection pool (/Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db)
-2026/01/27 12:22:30 databasePool.go:13: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Connection pool [size=1]
-2026/01/27 12:22:30 databaseConnect.go:111: [32mDATABASE[0m [CON]{CONNECT} Opened [.../Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db.db] data connection [codec=json] false
-2026/01/27 12:22:30 templateStoreV3Helpers.go:53: [32mDATABASE[0m [REGISTER] Creator for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.Creator)
-2026/01/27 12:22:30 templateStoreV3Helpers.go:144: [32mDATABASE[0m [REGISTER] DuplicateCheck for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.DuplicateCheck)
-2026/01/27 12:22:30 templateStoreV3Helpers.go:151: [32mDATABASE[0m [REGISTER] Worker for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.JobProcessor)
-2026/01/27 12:22:30 templateStoreV3Helpers.go:60: [32mDATABASE[0m [REGISTER] PostCreate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostCreate)
-2026/01/27 12:22:30 templateStoreV3Helpers.go:67: [32mDATABASE[0m [REGISTER] PostUpdate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostUpdate)
-2026/01/27 12:22:30 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
-2026/01/27 12:22:30 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
-2026/01/27 12:22:30 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:108: [32mDATABASE[0m No records found for TemplateStoreV3 where UserCode=5010000_matttownsend
-2026/01/27 12:22:30 database.go:363: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
-2026/01/27 12:22:30 database.go:369: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
-2026/01/27 12:22:30 database.go:386: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
-2026/01/27 12:22:30 templateStoreV3Helpers.go:239: [32mDATABASE[0m [POSTCREATE] Processing for TemplateStoreV3 Record: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5 [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5 [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
-2026/01/27 12:22:30 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
-2026/01/27 12:22:30 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:114: [32mDATABASE[0m Found 1 records for TemplateStoreV3 where UserCode=5010000_matttownsend
-2026/01/27 12:22:30 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/27 12:22:30 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/27 12:22:30 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
-2026/01/27 12:22:30 templateStoreV3Helpers.go:270: [32mDATABASE[0m [POSTUPDATE] Processing for TemplateStoreV3 Record: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 templateStoreV3Helpers.go:272: [32mDATABASE[0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010001_matttownsend)
-2026/01/27 12:22:30 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010001_matttownsend)
-2026/01/27 12:22:30 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010001_matttownsend) ALL [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:108: [32mDATABASE[0m No records found for TemplateStoreV3 where UserCode=5010001_matttownsend
-2026/01/27 12:22:30 database.go:363: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
-2026/01/27 12:22:30 database.go:369: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
-2026/01/27 12:22:30 database.go:386: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
-2026/01/27 12:22:30 templateStoreV3Helpers.go:239: [32mDATABASE[0m [POSTCREATE] Processing for TemplateStoreV3 Record: 1962ca7ca0ece02be78c6ef1cf575cfbf780df9ba218b2c2bb60a6dca894bb66
-2026/01/27 12:22:30 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=1962ca7ca0ece02be78c6ef1cf575cfbf780df9ba218b2c2bb60a6dca894bb66 [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=1962ca7ca0ece02be78c6ef1cf575cfbf780df9ba218b2c2bb60a6dca894bb66 [...main.db]
-2026/01/27 12:22:30 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
+2026/01/27 15:01:18 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
+2026/01/27 15:01:18 databaseOptions.go:42: [32mDATABASE[0m [CON]{OPTION} WithVerbose set to false
+2026/01/27 15:01:18 databaseOptions.go:26: [32mDATABASE[0m [CON]{OPTION} WithCaching set to false
+2026/01/27 15:01:18 databaseOptions.go:34: [32mDATABASE[0m [CON]{OPTION} WithCacheKey set to Key
+2026/01/27 15:01:18 databaseOptions.go:66: [32mDATABASE[0m [CON]{OPTION} WithNameSpace set to main
+2026/01/27 15:01:18 databaseConnect.go:145: [32mDATABASE[0m [CON] 4 Options 
+2026/01/27 15:01:18 databaseConnect.go:39: [32mDATABASE[0m [CON]{CONNECT} Configuration for main.db: caching: false, cacheKey: Key, verbose: false, timeout: 30, poolSize: 10, nameSpace: main, encryption: false, indices: []
+2026/01/27 15:01:18 databaseConnect.go:49: [32mDATABASE[0m [CON]{CONNECT} Opening Connection to [...main.db] data (0)
+2026/01/27 15:01:18 databaseConnect.go:73: [32mDATABASE[0m [CON]{CONNECT} (re)Opening [...main.db] data connection
+2026/01/27 15:01:18 databasePool.go:7: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Adding [main] to connection pool (/Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db)
+2026/01/27 15:01:18 databasePool.go:13: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Connection pool [size=1]
+2026/01/27 15:01:18 databaseConnect.go:111: [32mDATABASE[0m [CON]{CONNECT} Opened [.../Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db.db] data connection [codec=json] false
+2026/01/27 15:01:18 templateStoreV3Helpers.go:53: [32mDATABASE[0m [REGISTER] Creator for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.Creator)
+2026/01/27 15:01:18 templateStoreV3Helpers.go:144: [32mDATABASE[0m [REGISTER] DuplicateCheck for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.DuplicateCheck)
+2026/01/27 15:01:18 templateStoreV3Helpers.go:151: [32mDATABASE[0m [REGISTER] Worker for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.JobProcessor)
+2026/01/27 15:01:18 templateStoreV3Helpers.go:60: [32mDATABASE[0m [REGISTER] PostCreate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostCreate)
+2026/01/27 15:01:18 templateStoreV3Helpers.go:67: [32mDATABASE[0m [REGISTER] PostUpdate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostUpdate)
+2026/01/27 15:01:18 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
+2026/01/27 15:01:18 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
+2026/01/27 15:01:18 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
+2026/01/27 15:01:18 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
+2026/01/27 15:01:18 databaseGenerics.go:108: [32mDATABASE[0m No records found for TemplateStoreV3 where UserCode=5010000_matttownsend
+2026/01/27 15:01:18 database.go:363: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
+2026/01/27 15:01:18 database.go:369: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
+2026/01/27 15:01:18 database.go:386: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
+2026/01/27 15:01:18 templateStoreV3Helpers.go:239: [32mDATABASE[0m [POSTCREATE] Processing for TemplateStoreV3 Record: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6 [...main.db]
+2026/01/27 15:01:18 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
+2026/01/27 15:01:18 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
+2026/01/27 15:01:18 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
+2026/01/27 15:01:18 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
+2026/01/27 15:01:18 databaseGenerics.go:114: [32mDATABASE[0m Found 1 records for TemplateStoreV3 where UserCode=5010000_matttownsend
+2026/01/27 15:01:18 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/27 15:01:18 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/27 15:01:18 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/27 15:01:18 templateStoreV3Helpers.go:269: [32mDATABASE[0m [POSTUPDATE] Processing for TemplateStoreV3 Record: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 templateStoreV3Helpers.go:271: [32mDATABASE[0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010001_matttownsend)
+2026/01/27 15:01:18 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010001_matttownsend)
+2026/01/27 15:01:18 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010001_matttownsend) ALL [...main.db]
+2026/01/27 15:01:18 databaseGenerics.go:108: [32mDATABASE[0m No records found for TemplateStoreV3 where UserCode=5010001_matttownsend
+2026/01/27 15:01:18 database.go:363: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
+2026/01/27 15:01:18 database.go:369: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
+2026/01/27 15:01:18 database.go:386: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
+2026/01/27 15:01:18 templateStoreV3Helpers.go:239: [32mDATABASE[0m [POSTCREATE] Processing for TemplateStoreV3 Record: 4e2883ae05cdf35a45aeb6dc55fe89fa7dc49a170d430c354157dc3987944f0e
+2026/01/27 15:01:18 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=4e2883ae05cdf35a45aeb6dc55fe89fa7dc49a170d430c354157dc3987944f0e [...main.db]
+2026/01/27 15:01:18 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]

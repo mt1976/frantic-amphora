@@ -1,26 +1,26 @@
-2026/01/27 12:22:30 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/27 12:22:30 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
-2026/01/27 12:22:30 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/27 12:22:30 main.go:84: [97mINFO[0m Initialize User Store
-2026/01/27 12:22:30 main.go:92: [97mINFO[0m Clear Down User Store
-2026/01/27 12:22:30 main.go:133: [97mINFO[0m Phase ONE Creating 1 Baseline Users
-2026/01/27 12:22:30 main.go:140: [97mINFO[0m Phase ONE Adding Baseline Users to Store
-2026/01/27 12:22:30 main.go:153: [97mINFO[0m Phase ONE Baseline 1 Users Added to Store
-2026/01/27 12:22:30 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/27 12:22:30 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 1
-2026/01/27 12:22:30 main.go:187: [97mINFO[0m Phase ONE Selected User Key: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 main.go:323: [97mINFO[0m Phase ONE Completed
-2026/01/27 12:22:30 main.go:101: [97mINFO[0m Phase 2 Test Message: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 main.go:133: [97mINFO[0m Phase ONE Creating 2 Baseline Users
-2026/01/27 12:22:30 main.go:140: [97mINFO[0m Phase ONE Adding Baseline Users to Store
-2026/01/27 12:22:30 main.go:153: [97mINFO[0m Phase ONE Baseline 2 Users Added to Store
-2026/01/27 12:22:30 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/27 12:22:30 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 2
-2026/01/27 12:22:30 main.go:179: [97mINFO[0m Phase ONE User: (0/2) Matt Townsend 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 main.go:187: [97mINFO[0m Phase ONE Selected User Key: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 main.go:323: [97mINFO[0m Phase ONE Completed
-2026/01/27 12:22:30 main.go:101: [97mINFO[0m Phase 2 Test Message: 0e83b1d1fb154d55dfb4569cb50dc728295efefdadc01ac81df1b8f20c1e9ac5
-2026/01/27 12:22:30 main.go:122: [97mINFO[0m Total Test Duration: 249.341959ms
-2026/01/27 12:22:30 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/27 12:22:30 logHandler.go:201: [97mINFO[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
-2026/01/27 12:22:30 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 15:01:18 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 15:01:18 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
+2026/01/27 15:01:18 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 15:01:18 main.go:84: [97mINFO[0m Initialize User Store
+2026/01/27 15:01:18 main.go:92: [97mINFO[0m Clear Down User Store
+2026/01/27 15:01:18 main.go:133: [97mINFO[0m Phase ONE Creating 1 Baseline Users
+2026/01/27 15:01:18 main.go:140: [97mINFO[0m Phase ONE Adding Baseline Users to Store
+2026/01/27 15:01:18 main.go:153: [97mINFO[0m Phase ONE Baseline 1 Users Added to Store
+2026/01/27 15:01:18 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
+2026/01/27 15:01:18 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 1
+2026/01/27 15:01:18 main.go:187: [97mINFO[0m Phase ONE Selected User Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 main.go:323: [97mINFO[0m Phase ONE Completed
+2026/01/27 15:01:18 main.go:101: [97mINFO[0m Phase 2 Test Message: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 main.go:133: [97mINFO[0m Phase ONE Creating 2 Baseline Users
+2026/01/27 15:01:18 main.go:140: [97mINFO[0m Phase ONE Adding Baseline Users to Store
+2026/01/27 15:01:18 main.go:153: [97mINFO[0m Phase ONE Baseline 2 Users Added to Store
+2026/01/27 15:01:18 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
+2026/01/27 15:01:18 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 2
+2026/01/27 15:01:18 main.go:179: [97mINFO[0m Phase ONE User: (0/2) Matt Townsend 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 main.go:187: [97mINFO[0m Phase ONE Selected User Key: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 main.go:323: [97mINFO[0m Phase ONE Completed
+2026/01/27 15:01:18 main.go:101: [97mINFO[0m Phase 2 Test Message: 2f4d2ddca00fd048fc4cd1802d89ce55ba1f3d916f47cdbe1a94194ed77a9aa6
+2026/01/27 15:01:18 main.go:122: [97mINFO[0m Total Test Duration: 200.453708ms
+2026/01/27 15:01:18 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/27 15:01:18 logHandler.go:201: [97mINFO[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
+2026/01/27 15:01:18 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
