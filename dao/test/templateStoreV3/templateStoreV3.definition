@@ -1,0 +1,48 @@
+	// TemplateStore.definition
+    // Add your entity fields here, these will be used in the generated DAO code.
+    // This is a sample structure to illustrate various data types.
+    // Modify as needed for your specific entity.
+
+	// Domain specific fields, starts.
+	//
+	// Example fields grouped by type
+	// String types
+	ExampleString string // Example string field
+	// Boolean types
+	ExampleBool      entities.Bool // Example boolean field
+	ExampleStormBool entities.StormBool // Example storm boolean field
+	// Integer types
+	ExampleInt    entities.Int // Example integer field
+	ExampleInt32  entities.Int32 // Example int32 field
+	ExampleInt64  entities.Int64 // Example int64 field
+	ExampleUint   entities.UInt // Example unsigned integer field
+	ExampleUint32 entities.UInt32 // Example unsigned int32 field
+	ExampleUint64 entities.UInt64 // Example unsigned int64 field
+	// Float types
+	ExampleFloat   entities.Float // Example float field
+	ExampleFloat32 entities.Float32 // Example float32 field
+	ExampleFloat64 entities.Float64 // Example float64 field
+	// Specialized numeric types
+	ExampleDecimal    entities.Decimal // Example decimal field
+	ExamplePercentage entities.Percentage // Example percentage field
+	ExampleRate       entities.Rate // Example rate field
+	// Money types
+	ExampleMoney    entities.Money // Example money field
+	ExampleCurrency entities.Currency // Example currency field
+	// Date/Time types
+	ExampleDate time.Time // Example date field
+	// Entity framework types
+	ExampleField entities.Field // Example field type1
+	ExampleTable entities.Table // Example table type1
+    // User Management fields
+	UID      string `validate:"required"`
+	GID      string `storm:"index" validate:"required"`
+	RealName string `validate:"required,min=5"`
+	UserName string `validate:"required,min=5"`
+	UserCode string `storm:"index" validate:"required,min=5"`
+	Email    string
+	Notes    string `validate:"max=75"`
+	Active   entities.Bool
+
+	LastLogin time.Time // Last login time
+    LastHost  string    `storm:"index"` // Last host with index

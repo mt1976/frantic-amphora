@@ -1,13 +1,16 @@
-2026/01/26 09:25:06 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
-2026/01/26 09:25:06 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
-2026/01/26 09:25:06 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: f911738aa813567af8670a7b7284aaa79710ff341848f71d59ddb3438fe15d41
-2026/01/26 09:25:06 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-26T09:25:06.963317Z
-2026/01/26 09:25:06 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-26T09:25:06.963317Z
-2026/01/26 09:25:06 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010000_matttownsend)
-2026/01/26 09:25:06 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010000_matttownsend)
-2026/01/26 09:25:06 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 3224f0b89a77a6b9985791c73511b9b7465e5b05e4056d556304e84e64a7e539
-2026/01/26 09:25:06 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStore where UserCode=string(5010001_matttownsend)
-2026/01/26 09:25:06 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStore.UserCode=string(5010001_matttownsend)
-2026/01/26 09:25:06 tmplLogic.go:81: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 5201800d5f069d406b38a197ae518dd2ef7a2ae6b32403659cf402ae794d07a5
-2026/01/26 09:25:06 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-26T09:25:06.964433Z
-2026/01/26 09:25:06 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-26T09:25:06.964433Z
+2026/01/27 10:25:56 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
+2026/01/27 10:25:56 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
+2026/01/27 10:25:56 databaseGenerics.go:108: [32mSERVICE[0m No records found for TemplateStoreV3 where UserCode=5010000_matttownsend
+2026/01/27 10:25:57 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 7f233f66118520f0a4fe271642c3271c05e9c9b37ffbc2b7d0ac29200bdbbadf
+2026/01/27 10:25:57 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T10:25:57.037534Z
+2026/01/27 10:25:57 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T10:25:57.037534Z
+2026/01/27 10:25:57 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
+2026/01/27 10:25:57 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
+2026/01/27 10:25:57 databaseGenerics.go:114: [32mSERVICE[0m Found 1 records for TemplateStoreV3 where UserCode=5010000_matttownsend
+2026/01/27 10:25:57 tmplLogic.go:88: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 7f233f66118520f0a4fe271642c3271c05e9c9b37ffbc2b7d0ac29200bdbbadf
+2026/01/27 10:25:57 databaseGenerics.go:79: [32mSERVICE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010001_matttownsend)
+2026/01/27 10:25:57 databaseGenerics.go:91: [32mSERVICE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010001_matttownsend)
+2026/01/27 10:25:57 databaseGenerics.go:108: [32mSERVICE[0m No records found for TemplateStoreV3 where UserCode=5010001_matttownsend
+2026/01/27 10:25:57 tmplLogic.go:80: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 80cb7ce924bc9062e712dcc7b6d103f4e157ae54a6b199909f805dfcecec2895
+2026/01/27 10:25:57 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T10:25:57.16047Z
+2026/01/27 10:25:57 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T10:25:57.16047Z

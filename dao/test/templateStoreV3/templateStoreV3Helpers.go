@@ -1,0 +1,264 @@
+// Data Access Object for the TemplateStoreV3 table
+// Template Version: 0.5.10 - 2026-01-26
+// Generated 
+// Date: 27/01/2026 & 10:17
+// Who : matttownsend (orion)
+
+package templateStoreV3
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/mt1976/frantic-amphora/dao"
+	"github.com/mt1976/frantic-amphora/dao/audit"
+	ce "github.com/mt1976/frantic-core/commonErrors"
+	"github.com/mt1976/frantic-core/logHandler"
+)
+
+type creatorFunc func(ctx context.Context, source TemplateStoreV3) (string, bool, TemplateStoreV3, error)
+type upgraderFunc func(TemplateStoreV3) (TemplateStoreV3, error)
+type defaulterFunc func(*TemplateStoreV3) error
+type validatorFunc func(*TemplateStoreV3) error
+type preDeleteFunc func(ctx context.Context, record *TemplateStoreV3) error
+type postGetFunc func(ctx context.Context, record *TemplateStoreV3) error
+type clonerFunc func(ctx context.Context, source TemplateStoreV3) (TemplateStoreV3, error)
+type duplicateCheckFunc func(*TemplateStoreV3) (bool, error)
+type workerFunc func(string, string)
+type postCreateFunc func(ctx context.Context, record *TemplateStoreV3) (error, bool, string)
+type postUpdateFunc func(ctx context.Context, record *TemplateStoreV3) error
+type postDeleteFunc func(ctx context.Context, record *TemplateStoreV3) error
+type postCloneFunc func(ctx context.Context, record *TemplateStoreV3) error
+type postDropFunc func(ctx context.Context) error
+
+var creator creatorFunc
+var upgrader upgraderFunc
+var defaulter defaulterFunc
+var validator validatorFunc
+var preDelete preDeleteFunc
+var postGet postGetFunc
+var cloner clonerFunc
+var duplicateCheck duplicateCheckFunc
+var worker workerFunc
+var postCreate postCreateFunc
+var postUpdate postUpdateFunc
+var postDelete postDeleteFunc
+var postClone postCloneFunc
+var postDrop postDropFunc
+var postClearDown postDropFunc
+
+// RegisterCreator registers a creator function for TemplateStoreV3.
+func RegisterCreator(fn creatorFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	creator = fn
+}
+
+// RegisterPostCreate registers a post-create function for TemplateStoreV3.
+func RegisterPostCreate(fn postCreateFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postCreate = fn
+}
+
+// RegisterPostUpdate registers a post-update function for TemplateStoreV3.
+func RegisterPostUpdate(fn postUpdateFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postUpdate = fn
+}
+
+// RegisterPostDelete registers a post-delete function for TemplateStoreV3.
+func RegisterPostDelete(fn postDeleteFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postDelete = fn
+}
+
+// RegisterPostClone registers a post-clone function for TemplateStoreV3.
+func RegisterPostClone(fn postCloneFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postClone = fn
+}
+
+// RegisterPostDrop registers a post-drop function for TemplateStoreV3.
+func RegisterPostDrop(fn postDropFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postDrop = fn
+}
+
+// RegisterPostClearDown registers a post-clear-down function for TemplateStoreV3.
+func RegisterPostClearDown(fn postDropFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postClearDown = fn
+}
+
+// RegisterUpgrader registers an upgrader function for TemplateStoreV3.
+func RegisterUpgrader(fn upgraderFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
+	upgrader = fn
+}
+
+// RegisterDefaulter registers a defaulter function for TemplateStoreV3.
+func RegisterDefaulter(fn defaulterFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
+	defaulter = fn
+}
+
+// RegisterValidator registers a validator function for TemplateStoreV3.
+func RegisterValidator(fn validatorFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	validator = fn
+}
+
+// RegisterPreDelete registers a pre-delete function for TemplateStoreV3.
+func RegisterPreDelete(fn preDeleteFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	preDelete = fn
+}
+
+// RegisterPostGet registers a post-get function for TemplateStoreV3.
+func RegisterPostGet(fn postGetFunc) {
+	logHandler.DatabaseLogger.Printf("Registering PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
+	postGet = fn
+}
+
+// RegisterCloner registers a cloner function for TemplateStoreV3.
+func RegisterCloner(fn clonerFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
+	cloner = fn
+}
+
+// RegisterDuplicateCheck registers a duplicate check function for TemplateStoreV3.
+func RegisterDuplicateCheck(fn duplicateCheckFunc) {
+	logHandler.DatabaseLogger.Printf("Registering DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
+	duplicateCheck = fn
+}
+
+// RegisterWorker registers a worker function for TemplateStoreV3.
+func RegisterWorker(fn workerFunc) {
+	logHandler.DatabaseLogger.Printf("Registering Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
+	worker = fn
+}
+
+// upgradeProcessing performs any one-time upgrade or migration logic on the record.
+func (record *TemplateStoreV3) upgradeProcessing() error {
+	if upgrader != nil {
+		updatedRecord, err := upgrader(*record)
+		if err != nil {
+			return err
+		}
+		*record = updatedRecord
+	}
+	return nil
+}
+
+// defaultProcessing applies any default values prior to validation and persistence.
+func (record *TemplateStoreV3) defaultProcessing() error {
+	if defaulter != nil {
+		return defaulter(record)
+	}
+	return nil
+}
+
+// validationProcessing validates the record and returns an error if it is invalid.
+func (record *TemplateStoreV3) validationProcessing() error {
+	if validator != nil {
+		return validator(record)
+	}
+	return nil
+}
+
+// postGetProcessing runs any post-load processing after a record is retrieved.
+func (h *TemplateStoreV3) postGetProcessing(ctx context.Context) error {
+	if postGet != nil {
+		return postGet(ctx, h)
+	}
+	return nil
+}
+
+// preDeleteProcessing runs any checks or actions required before delete.
+func (record *TemplateStoreV3) preDeleteProcessing(ctx context.Context) error {
+	if preDelete != nil {
+		return preDelete(ctx, record)
+	}
+	return nil
+}
+
+// templateClone contains the package's clone logic.
+func templateClone(ctx context.Context, source TemplateStoreV3) (TemplateStoreV3, error) {
+	if cloner != nil {
+		return cloner(ctx, source)
+	}
+	return New(), nil
+}
+
+// // assertTemplateStoreV3 asserts that an `any` returned by lower layers is a *TemplateStoreV3.
+// func assertTemplateStoreV3(result any, field entities.Field, value any) (*TemplateStoreV3, error) {
+// 	x, ok := result.(*TemplateStoreV3)
+// 	if !ok {
+// 		return nil, ce.ErrDAOAssertWrapper(tableName, field.String(), value,
+// 			ce.ErrInvalidTypeWrapper(field.String(), fmt.Sprintf("%T", result), "*TemplateStoreV3"))
+// 	}
+// 	return x, nil
+// }
+
+// PostCreate runs any post-create processing after a record is created.
+func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) error {
+	if postCreate != nil {
+
+		// Get the record updated by the create function
+		logHandler.TraceLogger.Printf("PostCreate Processing for %v Record: %v", TableName.String(), record.Key)
+		key := record.Key
+		pcr, err := GetBy(Fields.Key, key)
+		if err != nil {
+			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed"))
+		}
+		err, updatedRecord, feedbackMessage := postCreate(ctx, &pcr)
+		if err != nil {
+			return err
+		}
+		if !updatedRecord {
+			return nil
+		}
+		if feedbackMessage == "" {
+			feedbackMessage = "Post Create Update"
+		}
+		if len(feedbackMessage) > 35 {
+			feedbackMessage = feedbackMessage[:35] + "..."
+		}
+		// Update the trip with the new profile and notes
+		err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
+		if err != nil {
+			return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed"))
+		}
+	}
+	return nil
+}
+
+func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) error {
+	if postUpdate != nil {
+		return postUpdate(ctx, record)
+	}
+	return nil
+}
+
+// postDeleteProcessing runs any post-delete processing after a record is deleted.
+func (record *TemplateStoreV3) postDeleteProcessing(ctx context.Context) error {
+	if postDelete != nil {
+		return postDelete(ctx, record)
+	}
+	return nil
+}
+
+// // postCloneProcessing runs any post-clone processing after a record is cloned.
+// func (record *TemplateStoreV3) postCloneProcessing() error {
+// 	if postClone != nil {
+// 		return postClone(context.Background(), record)
+// 	}
+// 	return nil
+// }
+
+// // postDropProcessing runs any post-drop processing after the table is dropped.
+// func postDropProcessing() error {
+// 	if postDrop != nil {
+// 		return postDrop(context.Background())
+// 	}
+// 	return nil
+// }

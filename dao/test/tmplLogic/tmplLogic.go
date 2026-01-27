@@ -6,18 +6,18 @@ import (
 	"time"
 
 	"github.com/mt1976/frantic-amphora/dao/audit"
-	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV2"
+	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV3"
 	"github.com/mt1976/frantic-core/idHelpers"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
 )
 
-func Creator(ctx context.Context, basics templateStoreV2.TemplateStore) (string, bool, templateStoreV2.TemplateStore, error) {
+func Creator(ctx context.Context, basics templateStoreV3.TemplateStoreV3) (string, bool, templateStoreV3.TemplateStoreV3, error) {
 	// Custom creation logic can be added here
 
 	id := idHelpers.GetUUID()
 
-	record := templateStoreV2.New()
+	record := templateStoreV3.New()
 	// record.Key = idHelpers.Encode(sessionID)
 	// record.Raw = sessionID
 	record.UserName = basics.UserName
@@ -34,13 +34,12 @@ func Creator(ctx context.Context, basics templateStoreV2.TemplateStore) (string,
 }
 
 // BuildUserCode creates a stable user code string used for lookups.
-func BuildUserCode(u templateStoreV2.TemplateStore) string {
+func BuildUserCode(u templateStoreV3.TemplateStoreV3) string {
 	return fmt.Sprintf("%v%v%v", u.UID, "_", u.UserName)
 }
 
-func DuplicateCheck(record *templateStoreV2.TemplateStore) (bool, error) {
-
-	responseRecord, err := templateStoreV2.GetBy(templateStoreV2.Fields.Key, record.Key)
+func DuplicateCheck(record *templateStoreV3.TemplateStoreV3) (bool, error) {
+	responseRecord, err := templateStoreV3.GetBy(templateStoreV3.Fields.Key, record.Key)
 	if err != nil {
 		return false, err
 	}
@@ -55,7 +54,7 @@ func JobProcessor(name, desc string) {
 	clock := timing.Start(name, "Process", desc)
 	count := 0
 
-	templateEntries, err := templateStoreV2.GetAll()
+	templateEntries, err := templateStoreV3.GetAll()
 	if err != nil {
 		logHandler.ErrorLogger.Printf("[%v] Error: '%v'", name, err.Error())
 		return
@@ -63,20 +62,20 @@ func JobProcessor(name, desc string) {
 
 	notemplateEntries := len(templateEntries)
 	if notemplateEntries == 0 {
-		logHandler.ServiceLogger.Printf("[%v] No %vs to process", name, templateStoreV2.TableName)
+		logHandler.ServiceLogger.Printf("[%v] No %vs to process", name, templateStoreV3.TableName)
 		clock.Stop(0)
 		return
 	}
 
 	for templateEntryIndex, templateRecord := range templateEntries {
-		logHandler.ServiceLogger.Printf("[%v] %v(%v/%v) %v", name, templateStoreV2.TableName, templateEntryIndex+1, notemplateEntries, templateRecord.Raw)
+		logHandler.ServiceLogger.Printf("[%v] %v(%v/%v) %v", name, templateStoreV3.TableName, templateEntryIndex+1, notemplateEntries, templateRecord.Raw)
 		_ = templateRecord.UpdateWithAction(context.Background(), audit.SERVICE, "Job Processing "+desc)
 		count++
 	}
 	clock.Stop(count)
 }
 
-func PostCreate(ctx context.Context, record *templateStoreV2.TemplateStore) (error, bool, string) {
+func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, string) {
 	// Custom post-create logic can be added here
 	logHandler.ServiceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
 	update := false
@@ -84,7 +83,7 @@ func PostCreate(ctx context.Context, record *templateStoreV2.TemplateStore) (err
 	return nil, update, message
 }
 
-func PostUpdate(ctx context.Context, record *templateStoreV2.TemplateStore) error {
+func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) error {
 	// Custom post-update logic can be added here
 	logHandler.ServiceLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
 	return nil
