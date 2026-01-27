@@ -569,7 +569,8 @@ func RegisterSynchroniser(data any, synchroniser func(any) error) {
 	Cache.synchroniser[table] = synchroniser
 	// Get the name of the function passed in
 	funcname := runtime.FuncForPC(reflect.ValueOf(synchroniser).Pointer()).Name()
-	logHandler.WarningLogger.Printf("Registered Function %v as Synchroniser for Table [%v]", funcname, table)
+	logHandler.EventLogger.Printf("[REGISTER] Registered Function %v as Synchroniser for Table [%v]", funcname, table)
+	logHandler.CacheLogger.Printf("[REGISTER] Registered Function %v as Synchroniser for Table [%v]", funcname, table)
 	//
 }
 
@@ -585,7 +586,8 @@ func RegisterHydrator(data any, hydrator func() ([]any, error)) {
 	Cache.hydrator[table] = hydrator
 	// Get the name of the function passed in
 	funcname := runtime.FuncForPC(reflect.ValueOf(hydrator).Pointer()).Name()
-	logHandler.WarningLogger.Printf("Registered Function %v as Hydrator for Table [%v]", funcname, table)
+	logHandler.EventLogger.Printf("[REGISTER] Registered Function %v as Hydrator for Table [%v]", funcname, table)
+	logHandler.CacheLogger.Printf("[REGISTER] Registered Function %v as Hydrator for Table [%v]", funcname, table)
 }
 
 func HydrateForType(data any) error {

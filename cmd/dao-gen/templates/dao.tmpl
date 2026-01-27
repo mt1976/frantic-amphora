@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.10 - 2026-01-26
+// Template Version: 0.5.11 - 2026-01-27
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -145,9 +145,15 @@ func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 	}
 
 	if skip {
-		logHandler.WarningLogger.Printf("Creation of %v (%v) record has been skipped", tableName, id)
+		logHandler.InfoLogger.Printf("Creation of %v (%v) record has been skipped", tableName, id)
+
+		createdRecord, err := doPostProcessing(ctx, record)
+		if err != nil {
+			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
+		}
+
 		clock.Stop(1)
-		return record, nil
+		return createdRecord, nil
 	}
 
 	record.Key = idHelpers.Encode(id)
@@ -163,6 +169,15 @@ func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, writeErr))
 	}
 
+	createdRecord, err := doPostProcessing(ctx, record)
+	if err != nil {
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
+	}
+	clock.Stop(1)
+	return createdRecord, nil
+}
+
+func doPostProcessing(ctx context.Context, record {{.TypeName}}) ({{.TypeName}}, error) {
 	if err := record.postCreateProcessing(ctx); err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
 	}
@@ -170,8 +185,8 @@ func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 	createdRecord, getErr := GetBy({{.FieldsVar}}.Key, record.Key)
 	if getErr != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, getErr))
+		return record, getErr
 	}
-	clock.Stop(1)
 	return createdRecord, nil
 }
 

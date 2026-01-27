@@ -76,7 +76,7 @@ func GetAllTyped[T any](db *DB, options ...func(*index.Options)) ([]T, error) {
 //
 // NOTE: T is expected to be a struct type (not a pointer).
 func GetAllWhereTyped[T any](db *DB, field entities.Field, value any) ([]T, error) {
-	logHandler.ServiceLogger.Printf("GetAllWhereTyped called for %v where %v=%T(%v)", entities.GetStructType(new(T)), field.String(), value, value)
+	logHandler.DatabaseLogger.Printf("GetAllWhereTyped called for %v where %v=%T(%v)", entities.GetStructType(new(T)), field.String(), value, value)
 	var record T
 	if reflect.TypeOf(record) != nil && reflect.TypeOf(record).Kind() == reflect.Ptr {
 		return nil, commonErrors.ErrInvalidTypeWrapper("GetAllWhereTyped", fmt.Sprintf("%T", record), "non-pointer struct")
@@ -88,7 +88,7 @@ func GetAllWhereTyped[T any](db *DB, field entities.Field, value any) ([]T, erro
 	if err := entities.IsValidTypeForField(field, value, record); err != nil {
 		return nil, err
 	}
-	logHandler.ServiceLogger.Printf("Valid field/type check passed for %v.%v=%T(%v)", entities.GetStructType(record), field.String(), value, value)
+	logHandler.DatabaseLogger.Printf("Valid field/type check passed for %v.%v=%T(%v)", entities.GetStructType(record), field.String(), value, value)
 
 	// Check if cache is enabled and retrieve from cache if available
 	if cache.IsEnabled(record) {
@@ -105,12 +105,12 @@ func GetAllWhereTyped[T any](db *DB, field entities.Field, value any) ([]T, erro
 	query := db.connection.Select(q.Eq(field.String(), value))
 	if err := query.Find(&result); err != nil {
 		if err == storm.ErrNotFound {
-			logHandler.ServiceLogger.Printf("No records found for %v where %v=%v", entities.GetStructType(record), field.String(), value)
+			logHandler.DatabaseLogger.Printf("No records found for %v where %v=%v", entities.GetStructType(record), field.String(), value)
 			return []T{}, nil
 		}
 		logHandler.ErrorLogger.Printf("Error in GetAllWhereTyped for %v where %v=%v: %v", entities.GetStructType(record), field.String(), value, err)
 		return nil, err
 	}
-	logHandler.ServiceLogger.Printf("Found %d records for %v where %v=%v", len(result), entities.GetStructType(record), field.String(), value)
+	logHandler.DatabaseLogger.Printf("Found %d records for %v where %v=%v", len(result), entities.GetStructType(record), field.String(), value)
 	return result, nil
 }
