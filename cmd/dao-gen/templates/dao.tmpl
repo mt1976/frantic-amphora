@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.17 - 2026-01-27
+// Template Version: 0.5.21 - 2026-01-27
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -254,17 +254,17 @@ func (record *{{.TypeName}}) Validate() error {
 
 // Update persists changes to an existing record.
 func (record *{{.TypeName}}) Update(ctx context.Context, note string) error {
-	return record.insertOrUpdate(ctx, note, "Update", audit.UPDATE, "Update")
+	return record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE)
 }
 
 // UpdateWithAction persists changes using the provided audit action.
 func (record *{{.TypeName}}) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error {
-	return record.insertOrUpdate(ctx, note, "Update", auditAction, "Update")
+	return record.insertOrUpdate(ctx, note, auditAction, UPDATE)
 }
 
 // Create inserts a new record.
 func (record *{{.TypeName}}) Create(ctx context.Context, note string) error {
-	return record.insertOrUpdate(ctx, note, "Create", audit.CREATE, "Create")
+	return record.insertOrUpdate(ctx, note, audit.CREATE, CREATE)
 }
 
 // Clone returns a copy of the record using templateClone.
