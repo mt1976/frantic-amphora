@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.23 - 2026-01-28
+// Template Version: 0.5.24 - 2026-01-28
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -136,66 +136,14 @@ func New() {{.TypeName}} {
 // Create constructs and inserts a new {{.TypeName}} record.
 func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error) {
 	dao.CheckDAOReadyState(tableName, audit.CREATE, databaseConnectionActive)
-
-	clock := timing.Start(tableName, "Create", "Inserting new record")
-
-	id, skip, record, err := creator(ctx, basis)
+	logHandler.TraceLogger.Printf("Create %v Record: %v", tableName, basis.Key)
+	err := basis.insertOrUpdate(ctx, fmt.Sprintf("New %v Record", tableName), audit.CREATE, CREATE)
 	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", basis), err))
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
+		return basis, err
 	}
 
-	if skip {
-		logHandler.InfoLogger.Printf("Creation of %v (%v) record has been skipped", tableName, id)
-
-		createdRecord, err := doPostProcessing(ctx, record)
-		if err != nil {
-			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-		}
-
-		clock.Stop(1)
-		return createdRecord, nil
-	}
-
-	record.Key = idHelpers.Encode(id)
-	record.Raw = id
-
-	auditErr := record.Audit.Action(ctx, audit.CREATE.WithMessage(fmt.Sprintf("New %v created %v", tableName, basis)))
-	if auditErr != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOUpdateAuditWrapper(tableName, record.ID, auditErr))
-	}
-
-	writeErr := activeDBConnection.Create(&record)
-	if writeErr != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, writeErr))
-	}
-
-	createdRecord, err := doPostProcessing(ctx, record)
-	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-	}
-	clock.Stop(1)
-	return createdRecord, nil
-}
-
-func doPostProcessing(ctx context.Context, record {{.TypeName}}) ({{.TypeName}}, error) {
-
-	err, update, message := record.postCreateProcessing(ctx)
-	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-		return record, err
-	}
-	if update {
-		if message == "" {
-			message = "Post Processing"
-		}
-		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
-		if err != nil {
-			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-			return record, err
-		}
-	}
-
-	return record, nil
+	return basis, nil
 }
 
 // Delete deletes a record by ID.

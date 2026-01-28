@@ -145,27 +145,6 @@ func Create(ctx context.Context, basis TemplateStoreV3) (TemplateStoreV3, error)
 	return basis, nil
 }
 
-// func doPostProcessing(ctx context.Context, record TemplateStoreV3) (TemplateStoreV3, error) {
-
-// 	err, update, message := record.postCreateProcessing(ctx)
-// 	if err != nil {
-// 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-// 		return record, err
-// 	}
-// 	if update {
-// 		if message == "" {
-// 			message = "Post Processing"
-// 		}
-// 		err = record.UpdateWithAction(ctx, audit.UPDATE, message)
-// 		if err != nil {
-// 			logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-// 			return record, err
-// 		}
-// 	}
-
-// 	return record, nil
-// }
-
 // Delete deletes a record by ID.
 func Delete(ctx context.Context, id int, note string) error {
 	return DeleteBy(ctx, Fields.ID, id, note)
