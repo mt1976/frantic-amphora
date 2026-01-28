@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.21 - 2026-01-27
+// Template Version: 0.5.23 - 2026-01-28
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -8,10 +8,8 @@ package {{.PackageName}}
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/mt1976/frantic-amphora/dao"
-	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
@@ -24,8 +22,8 @@ type postGetFunc func(ctx context.Context, record *{{.TypeName}}) error
 type clonerFunc func(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, error)
 type duplicateCheckFunc func(*{{.TypeName}}) (bool, error)
 type workerFunc func(string, string)
-type postCreateFunc func(ctx context.Context, record *{{.TypeName}}) (error, bool, string)
-type postUpdateFunc func(ctx context.Context, record *{{.TypeName}}) (error, bool, string)
+type postCreateFunc func(ctx context.Context, record *{{.TypeName}}) (error, bool, {{.TypeName}}, string)
+type postUpdateFunc func(ctx context.Context, record *{{.TypeName}}) (error, bool, {{.TypeName}}, string)
 type postDeleteFunc func(ctx context.Context, record *{{.TypeName}}) error
 type postCloneFunc func(ctx context.Context, record *{{.TypeName}}) error
 type postDropFunc func(ctx context.Context) error
@@ -231,62 +229,51 @@ func templateClone(ctx context.Context, source {{.TypeName}}) ({{.TypeName}}, er
 // }
 
 // PostCreate runs any post-create processing after a record is created.
-func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) (error, bool, string) {
+func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) (error, bool, {{.TypeName}}, string) {
 	if postCreate != nil {
 
-		// Get the record updated by the create function
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing for %v Record: %v", TableName.String(), record.Key)
-		key := record.Key
-		pcr, err := GetBy(Fields.Key, key)
+
+		err, recordUpdated, updatedRecord, feedbackMessage := postCreate(ctx, record)
 		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed")), false, ""
+			return err, false, New(), ""
 		}
-		err, updatedRecord, feedbackMessage := postCreate(ctx, &pcr)
-		if err != nil {
-			return err, false, ""
-		}
-		if !updatedRecord {
-			return nil, false, ""
+		if !recordUpdated {
+			return nil, false, New(), ""
 		}
 		if feedbackMessage == "" {
 			feedbackMessage = "Post Create Processing"
 		}
-		// Update the trip with the new profile and notes
-		record = &pcr
+		// Return the {{.TypeName}} record with the new profile and notes
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
-		return nil, true, feedbackMessage
+		return nil, true, updatedRecord, feedbackMessage
 	}
-	return nil, false, ""
+	return nil, false, New(), ""
 }
 
-func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) (error, bool, string) {
+func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) (error, bool, {{.TypeName}}, string) {
 	if postUpdate != nil {
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing for %v Record: %v", TableName.String(), record.Key)
-		key := record.Key
-		pcr, err := GetBy(Fields.Key, key)
-		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed")), false, ""
-		}
-		err, updatedRecord, feedbackMessage := postUpdate(ctx, &pcr)
+
+		err, recordUpdated, updatedRecord, feedbackMessage := postUpdate(ctx, record)
 		if err != nil {
 			logHandler.ErrorLogger.Printf("Error during postUpdateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
-			return err, false, ""
+			return err, false, New(), ""
 		}
-		if !updatedRecord {
+		if !recordUpdated {
 			logHandler.DatabaseLogger.Printf("[POSTUPDATE] No update required for %v Record: %v", TableName.String(), record.Key)
-			return nil, false, ""
+			return nil, false, New(), ""
 		}
 		if feedbackMessage == "" {
 			feedbackMessage = "Post Update Processing"
 		}
-		// Update the trip with the new profile and notes
-		record = &pcr
+		// Return the {{.TypeName}} record with the new profile and notes
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
-		return nil, true, feedbackMessage
+		return nil, true, updatedRecord, feedbackMessage
 
 	}
 	logHandler.DatabaseLogger.Printf("[POSTUPDATE] No post-update function registered for %v Record: %v", TableName.String(), record.Key)
-	return nil, false, ""
+	return nil, false, New(), ""
 }
 
 // postDeleteProcessing runs any post-delete processing after a record is deleted.

@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/mt1976/frantic-amphora/dao/audit"
-	"github.com/mt1976/frantic-amphora/dao/cache"
 	"github.com/mt1976/frantic-amphora/dao/entities"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV3"
 	tmpllogic "github.com/mt1976/frantic-amphora/dao/test/tmplLogic"
@@ -36,47 +35,47 @@ func main() {
 	// SampleKey = entities.Field("Field1")
 	// Sample2Key = entities.Field("FieldA")
 
-	// cache.Initialise()
-	// cache.Spew()
-	// cache.Activate(Sausage{})
-	// cache.RegisterExpiry(Sausage{}, 30*time.Minute+15*time.Second)
-	// cache.RegisterKey(Sausage{}, SampleKey)
-	// cache.Spew()
+	// //Cache.Initialise()
+	// //Cache.Spew()
+	// //Cache.Activate(Sausage{})
+	// //Cache.RegisterExpiry(Sausage{}, 30*time.Minute+15*time.Second)
+	// //Cache.RegisterKey(Sausage{}, SampleKey)
+	// //Cache.Spew()
 	// xx := Sausage{}
 	// xx.Field1 = "Bum"
 	// xx.Field2.Set(123)
 	// xx.When = time.Now()
-	// cache.AddEntry(xx)
+	// //Cache.AddEntry(xx)
 	// xx.Field1 = "Bum2"
 	// xx.Field2.Set(456)
 	// zz := xx
-	// cache.AddEntry(xx)
+	// //Cache.AddEntry(xx)
 	// xx.Field1 = "Bum3"
 	// xx.Field2.Set(789)
 	// xx.When = time.Now().Add(10 * time.Minute)
-	// cache.AddEntry(xx)
+	// //Cache.AddEntry(xx)
 	// xx.Field1 = "Bum4"
 	// xx.Field2.Set(101112)
-	// cache.AddEntry(xx)
-	// cache.Spew()
+	// //Cache.AddEntry(xx)
+	// //Cache.Spew()
 	// yy := Supper{}
 	// yy.FieldA = "Foo"
 	// yy.FieldB = 789
 	// yy.FieldC = 12.34
-	// cache.Activate(Supper{})
-	// cache.RegisterKey(Supper{}, Sample2Key)
+	// //Cache.Activate(Supper{})
+	// //Cache.RegisterKey(Supper{}, Sample2Key)
 
-	// cache.AddEntry(yy)
-	// rtn, err := cache.FindByKey(Sausage{}, "Bum2")
+	// //Cache.AddEntry(yy)
+	// rtn, err := //Cache.FindByKey(Sausage{}, "Bum2")
 	// if err != nil {
 	// 	logHandler.ErrorLogger.Printf("Error Finding Entry: %v", err)
 	// } else {
 	// 	logHandler.InfoLogger.Printf("Found Entry: %+v", rtn)
 	// }
-	// cache.RemoveEntry(zz)
-	// cache.RemoveByKey(Sausage{}, "Bum3")
-	// //cache.Spew()
-	// created, updated, noTables, noCacheEntries := cache.Stats()
+	// //Cache.RemoveEntry(zz)
+	// //Cache.RemoveByKey(Sausage{}, "Bum3")
+	// ////Cache.Spew()
+	// created, updated, noTables, noCacheEntries := //Cache.Stats()
 	// logHandler.InfoLogger.Printf("Cache Stats - Created: %v, Updated: %v, Tables: %v, Entries: %v", created.Format(time.RFC3339Nano), updated.Format(time.RFC3339Nano), noTables, noCacheEntries)
 	// //os.Exit(0)
 	// Placeholder main function
@@ -94,18 +93,18 @@ func main() {
 	templateStoreV3.ClearDown(ctx)
 
 	totalElapsed := time.Duration(0)
-	start := time.Now()
+	//start := time.Now()
 	for i := 0; i < 2; i++ {
 		in_start := time.Now()
 
 		msg2 := test(ctx, "ONE", i+1)
-		logHandler.InfoLogger.Printf("Phase 2 Test Message: %v", msg2)
+		logHandler.ServiceLogger.Printf("Phase 2 Test Message: %v", msg2)
 
 		stop := time.Now()
 		in_elapsed := stop.Sub(in_start)
 		totalElapsed += in_elapsed
-		logHandler.ErrorLogger.Printf("P_%v Test Duration: %v Start: %v Stop: %v", i+1, in_elapsed, start.Format(time.RFC3339), stop.Format(time.RFC3339))
-		cache.PurgeExpiredEntries()
+		//		logHandler.ErrorLogger.Printf("P_%v Test Duration: %v Start: %v Stop: %v", i+1, in_elapsed, start.Format(time.RFC3339), stop.Format(time.RFC3339))
+		//Cache.PurgeExpiredEntries()
 
 	}
 	// stop := time.Now()
@@ -116,10 +115,10 @@ func main() {
 
 	//templateStoreV2.Close()
 
-	// cache.Spew()
+	// //Cache.Spew()
 
-	// cache.SynchroniseAll()
-	// cache.Disable(templateStoreV2.TemplateStore{})
+	// //Cache.SynchroniseAll()
+	// //Cache.Disable(templateStoreV2.TemplateStore{})
 	logHandler.InfoLogger.Printf("Total Test Duration: %v", totalElapsed)
 
 	logHandler.InfoBanner("INFO", "STOP", "Stopping DAO Test Application - Phase 1")
@@ -132,11 +131,11 @@ func main() {
 func test(ctx context.Context, phase string, baselineUsers int) string {
 
 	logHandler.InfoLogger.Printf("Phase %v Creating %v Baseline Users", phase, baselineUsers)
-	// cache.Activate(templateStoreV2.TemplateStore{})
-	// cache.RegisterExpiry(templateStoreV2.TemplateStore{}, time.Duration(baselineUsers)*time.Second)
-	// cache.RegisterKey(templateStoreV2.TemplateStore{}, templateStoreV2.Fields.Key)
-	// cache.RegisterSynchroniser(templateStoreV2.TemplateStore{}, templateStoreV2.CacheSynchroniser(ctx))
-	// cache.RegisterHydrator(templateStoreV2.TemplateStore{}, templateStoreV2.CacheHydrator(ctx))
+	// //Cache.Activate(templateStoreV2.TemplateStore{})
+	// //Cache.RegisterExpiry(templateStoreV2.TemplateStore{}, time.Duration(baselineUsers)*time.Second)
+	// //Cache.RegisterKey(templateStoreV2.TemplateStore{}, templateStoreV2.Fields.Key)
+	// //Cache.RegisterSynchroniser(templateStoreV2.TemplateStore{}, templateStoreV2.CacheSynchroniser(ctx))
+	// //Cache.RegisterHydrator(templateStoreV2.TemplateStore{}, templateStoreV2.CacheHydrator(ctx))
 
 	logHandler.InfoLogger.Printf("Phase %v Adding %d Baseline Users to Store", phase, baselineUsers)
 
@@ -148,13 +147,13 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 		}
 		logHandler.WarningLogger.Printf("Phase %v Created Baseline User %v", phase, i+1)
 		//fmt.Print(".")
-		//	cache.AddEntry(usr)
+		//	//Cache.AddEntry(usr)
 	}
 
 	logHandler.InfoLogger.Printf("Phase %v Baseline %v Users Added to Store", phase, baselineUsers)
 	logHandler.InfoLogger.Printf("Phase %v Hydrating Cache for Users", phase)
 
-	//cache.HydrateForType(templateStoreV2.TemplateStore{})
+	////Cache.HydrateForType(templateStoreV2.TemplateStore{})
 
 	setupTemplates, err := templateStoreV3.GetAll()
 	if err != nil {
@@ -165,7 +164,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// 	logHandler.ErrorLogger.Printf("Phase %v Error getting all users: %v", phase, err)
 	// }
 
-	// cache.SpewForType(templateStoreV2.TemplateStore{})
+	// //Cache.SpewForType(templateStoreV2.TemplateStore{})
 
 	// logHandler.InfoLogger.Printf("Phase %v Setup Templates Loaded: %v", phase, len(setupTemplates))
 	// if len(setupTemplates) != baselineUsers {
@@ -181,6 +180,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 			uKey = u.Key
 			break
 		}
+		logHandler.ErrorLogger.Printf("PostTest: %+v", u.PostTest)
 	}
 	if uKey == "" && len(setupTemplates) > 0 {
 		uKey = setupTemplates[0].Key
@@ -330,7 +330,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// }
 
 	// // logHandler.InfoLogger.Printf("Phase %v Flushing Cache", phase)
-	// // err = cache.SynchroniseForType(templateStoreV2.TemplateStore{})
+	// // err = //Cache.SynchroniseForType(templateStoreV2.TemplateStore{})
 	// // if err != nil {
 	// // 	logHandler.ErrorLogger.Printf("Phase %v Error flushing cache: %v", phase, err)
 	// // } else {
@@ -338,7 +338,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// // }
 	logHandler.InfoLogger.Printf("Phase %v Completed", phase)
 
-	// created, updated, noTables, noCacheEntries := cache.Stats()
+	// created, updated, noTables, noCacheEntries := //Cache.Stats()
 	// logHandler.InfoLogger.Printf("Cache Stats - Created: %v, Updated: %v, Tables: %v, Entries: %v", created.Format(time.RFC3339Nano), updated.Format(time.RFC3339Nano), noTables, noCacheEntries)
 
 	return uKey

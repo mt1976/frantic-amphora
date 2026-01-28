@@ -73,6 +73,7 @@ type TemplateStoreV3 struct {
 	LastLogin time.Time // Last login time
 	LastHost  string    `storm:"index"` // Last host with index
 	// Add no more fields below this line
+	PostTest []string
 }
 
 type fieldNames struct {

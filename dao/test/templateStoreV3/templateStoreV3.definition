@@ -42,7 +42,7 @@
 	UserCode string `storm:"index" validate:"required,min=5"`
 	Email    string
 	Notes    string `validate:"max=75"`
-	Active   entities.Bool
-
+	Active   entities.Boo
 	LastLogin time.Time // Last login time
     LastHost  string    `storm:"index"` // Last host with index
+	PostTest []string  // For testing post processing hooks	

@@ -8,10 +8,8 @@ package templateStoreV3
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/mt1976/frantic-amphora/dao"
-	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
@@ -24,8 +22,8 @@ type postGetFunc func(ctx context.Context, record *TemplateStoreV3) error
 type clonerFunc func(ctx context.Context, source TemplateStoreV3) (TemplateStoreV3, error)
 type duplicateCheckFunc func(*TemplateStoreV3) (bool, error)
 type workerFunc func(string, string)
-type postCreateFunc func(ctx context.Context, record *TemplateStoreV3) (error, bool, string)
-type postUpdateFunc func(ctx context.Context, record *TemplateStoreV3) (error, bool, string)
+type postCreateFunc func(ctx context.Context, record *TemplateStoreV3) (error, bool, TemplateStoreV3, string)
+type postUpdateFunc func(ctx context.Context, record *TemplateStoreV3) (error, bool, TemplateStoreV3, string)
 type postDeleteFunc func(ctx context.Context, record *TemplateStoreV3) error
 type postCloneFunc func(ctx context.Context, record *TemplateStoreV3) error
 type postDropFunc func(ctx context.Context) error
@@ -220,77 +218,52 @@ func templateClone(ctx context.Context, source TemplateStoreV3) (TemplateStoreV3
 	return New(), nil
 }
 
-// // assertTemplateStoreV3 asserts that an `any` returned by lower layers is a *TemplateStoreV3.
-// func assertTemplateStoreV3(result any, field entities.Field, value any) (*TemplateStoreV3, error) {
-// 	x, ok := result.(*TemplateStoreV3)
-// 	if !ok {
-// 		return nil, ce.ErrDAOAssertWrapper(tableName, field.String(), value,
-// 			ce.ErrInvalidTypeWrapper(field.String(), fmt.Sprintf("%T", result), "*TemplateStoreV3"))
-// 	}
-// 	return x, nil
-// }
-
 // PostCreate runs any post-create processing after a record is created.
-func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) (error, bool, string) {
+func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) (error, bool, TemplateStoreV3, string) {
 	if postCreate != nil {
 
-		// Get the record updated by the create function
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing for %v Record: %v", TableName.String(), record.Key)
-		key := record.Key
-		pcr, err := GetBy(Fields.Key, key)
+
+		err, recordUpdated, updatedRecord, feedbackMessage := postCreate(ctx, record)
 		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed")), false, ""
+			return err, false, New(), ""
 		}
-		err, updatedRecord, feedbackMessage := postCreate(ctx, &pcr)
-		if err != nil {
-			return err, false, ""
-		}
-		if !updatedRecord {
-			return nil, false, ""
+		if !recordUpdated {
+			return nil, false, New(), ""
 		}
 		if feedbackMessage == "" {
 			feedbackMessage = "Post Create Processing"
 		}
-		// Update the trip with the new profile and notes
-		// err = pcr.UpdateWithAction(ctx, audit.PROCESS, feedbackMessage)
-		// if err != nil {
-		// 	return ce.ErrDAOCreateWrapper(TableName.String(), record.Key, fmt.Errorf("Update Failed")), false, ""
-		// }
-		record = &pcr
+		// Return the TemplateStoreV3 record with the new profile and notes
 		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
-		return nil, true, feedbackMessage
+		return nil, true, updatedRecord, feedbackMessage
 	}
-	return nil, false, ""
+	return nil, false, New(), ""
 }
 
-func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) (error, bool, string) {
+func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) (error, bool, TemplateStoreV3, string) {
 	if postUpdate != nil {
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing for %v Record: %v", TableName.String(), record.Key)
-		key := record.Key
-		pcr, err := GetBy(Fields.Key, key)
-		if err != nil {
-			return ce.ErrDAOCreateWrapper(TableName.String(), key, fmt.Errorf("Retrieval Failed")), false, ""
-		}
-		err, updatedRecord, feedbackMessage := postUpdate(ctx, &pcr)
+
+		err, recordUpdated, updatedRecord, feedbackMessage := postUpdate(ctx, record)
 		if err != nil {
 			logHandler.ErrorLogger.Printf("Error during postUpdateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
-			return err, false, ""
+			return err, false, New(), ""
 		}
-		if !updatedRecord {
+		if !recordUpdated {
 			logHandler.DatabaseLogger.Printf("[POSTUPDATE] No update required for %v Record: %v", TableName.String(), record.Key)
-			return nil, false, ""
+			return nil, false, New(), ""
 		}
 		if feedbackMessage == "" {
 			feedbackMessage = "Post Update Processing"
 		}
-		// Update the trip with the new profile and notes
-		record = &pcr
+		// Return the TemplateStoreV3 record with the new profile and notes
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
-		return nil, true, feedbackMessage
+		return nil, true, updatedRecord, feedbackMessage
 
 	}
 	logHandler.DatabaseLogger.Printf("[POSTUPDATE] No post-update function registered for %v Record: %v", TableName.String(), record.Key)
-	return nil, false, ""
+	return nil, false, New(), ""
 }
 
 // postDeleteProcessing runs any post-delete processing after a record is deleted.
@@ -303,19 +276,3 @@ func (record *TemplateStoreV3) postDeleteProcessing(ctx context.Context) error {
 	}
 	return nil
 }
-
-// // postCloneProcessing runs any post-clone processing after a record is cloned.
-// func (record *TemplateStoreV3) postCloneProcessing() error {
-// 	if postClone != nil {
-// 		return postClone(context.Background(), record)
-// 	}
-// 	return nil
-// }
-
-// // postDropProcessing runs any post-drop processing after the table is dropped.
-// func postDropProcessing() error {
-// 	if postDrop != nil {
-// 		return postDrop(context.Background())
-// 	}
-// 	return nil
-// }

@@ -7,6 +7,7 @@ import (
 
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV3"
+	"github.com/mt1976/frantic-core/dateHelpers"
 	"github.com/mt1976/frantic-core/idHelpers"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
@@ -80,18 +81,24 @@ func JobProcessor(name, desc string) {
 	clock.Stop(count)
 }
 
-func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, string) {
+func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, templateStoreV3.TemplateStoreV3, string) {
 	// Custom post-create logic can be added here
 	logHandler.ServiceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
 	update := true
 	message := "post create processing completed"
-	return nil, update, message
+	logHandler.InfoLogger.Printf("PostTest before create: %+v", record.PostTest)
+	record.PostTest = append(record.PostTest, "CREATE@"+time.Now().Format(dateHelpers.Format.DMY))
+	logHandler.InfoLogger.Printf("PostTest after create: %+v", record.PostTest)
+	return nil, update, *record, message
 }
 
-func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, string) {
+func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, templateStoreV3.TemplateStoreV3, string) {
 	// Custom post-update logic can be added here
 	logHandler.ServiceLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
 	update := true
 	message := "post update processing completed"
-	return nil, update, message
+	logHandler.InfoLogger.Printf("PostTest before update: %+v", record.PostTest)
+	record.PostTest = append(record.PostTest, "UPDATE@"+time.Now().Format(dateHelpers.Format.DMY))
+	logHandler.InfoLogger.Printf("PostTest after update: %+v", record.PostTest)
+	return nil, update, *record, message
 }

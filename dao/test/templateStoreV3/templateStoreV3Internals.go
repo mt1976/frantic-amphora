@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/goforj/godump"
 	"github.com/mt1976/frantic-amphora/dao"
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	ce "github.com/mt1976/frantic-core/commonErrors"
@@ -97,14 +96,17 @@ func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note string, 
 	if isCreateOperation {
 		logHandler.DatabaseLogger.Printf("Creating %v record %v %v", tableName, record.Key, record.ID)
 		actionError = activeDBConnection.Create(record)
+		logHandler.DatabaseLogger.Printf("Created %v record %v %v", tableName, record.Key, record.ID)
 
 	} else {
 		logHandler.DatabaseLogger.Printf("Updating %v record %v %v", tableName, record.Key, record.ID)
 		actionError = activeDBConnection.Update(record)
+		logHandler.DatabaseLogger.Printf("Updated %v record %v %v", tableName, record.Key, record.ID)
 	}
+
 	logHandler.DatabaseLogger.Printf("%v operation completed for %v record %v", operation, tableName, record.Key)
 	if actionError != nil {
-		godump.Dump(record)
+		//godump.Dump(record)
 		updErr := ce.ErrDAOUpdateWrapper(tableName, actionError)
 		logHandler.ErrorLogger.Panic(updErr.Error(), actionError)
 		clock.Stop(0)
@@ -113,13 +115,14 @@ func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note string, 
 	var err error
 	var update bool = false
 	var message string = ""
+	var newRec TemplateStoreV3 = *record
 	if !isCreateOperation {
 		logHandler.DatabaseLogger.Printf("Starting post-update processing for %v record %v", tableName, record.Key)
-		err, update, message = record.postUpdateProcessing(ctx)
+		err, update, newRec, message = record.postUpdateProcessing(ctx)
 		logHandler.DatabaseLogger.Printf("Post-Update processing completed for %v record %v err %e", tableName, record.Key, err)
 	} else {
 		logHandler.DatabaseLogger.Printf("Starting post-create processing for %v record %v", tableName, record.Key)
-		err, update, message = record.postCreateProcessing(ctx)
+		err, update, newRec, message = record.postCreateProcessing(ctx)
 		logHandler.DatabaseLogger.Printf("Post-Create processing completed for %v record %v err %e", tableName, record.Key, err)
 	}
 	if err != nil {
@@ -133,7 +136,7 @@ func (record *TemplateStoreV3) insertOrUpdate(ctx context.Context, note string, 
 			message = "Post " + string(operation) + " Processing"
 		}
 		logHandler.DatabaseLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.ID)
-		actionError = activeDBConnection.Update(record)
+		actionError = activeDBConnection.Update(&newRec)
 		//err = record.UpdateWithAction(ctx, audit.UPDATE, message)
 		if actionError != nil {
 			updErr := ce.ErrDAOCreateWrapper(tableName, record.ID, actionError)

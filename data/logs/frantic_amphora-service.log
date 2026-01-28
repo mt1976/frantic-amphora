@@ -1,9 +1,7 @@
-2026/01/27 18:13:06 tmplLogic.go:85: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 17eebf57d765013c59ade6c6b405c60646012f889a4dd0249b6639a0caf25089
-2026/01/27 18:13:06 tmplLogic.go:93: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 17eebf57d765013c59ade6c6b405c60646012f889a4dd0249b6639a0caf25089
-2026/01/27 18:13:06 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T18:13:06.911384Z
-2026/01/27 18:13:06 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T18:13:06.911384Z
-2026/01/27 18:13:06 tmplLogic.go:93: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 17eebf57d765013c59ade6c6b405c60646012f889a4dd0249b6639a0caf25089
-2026/01/27 18:13:07 tmplLogic.go:85: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: 1e31970f20c945eace78f89f5f22bafbfeb965803ff042e129292ed1157d33af
-2026/01/27 18:13:07 tmplLogic.go:93: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: 17eebf57d765013c59ade6c6b405c60646012f889a4dd0249b6639a0caf25089
-2026/01/27 18:13:07 cacheHealth.go:14: [32mSERVICE[0m Cache Purge Started at 2026-01-27T18:13:07.242722Z
-2026/01/27 18:13:07 cacheHealth.go:27: [32mSERVICE[0m Cache Purge Completed at 2026-01-27T18:13:07.242722Z
+2026/01/28 07:48:24 tmplLogic.go:86: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
+2026/01/28 07:48:24 tmplLogic.go:97: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
+2026/01/28 07:48:24 main.go:101: [32mSERVICE[0m Phase 2 Test Message: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
+2026/01/28 07:48:24 tmplLogic.go:97: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
+2026/01/28 07:48:24 tmplLogic.go:86: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4
+2026/01/28 07:48:24 tmplLogic.go:97: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
+2026/01/28 07:48:24 main.go:101: [32mSERVICE[0m Phase 2 Test Message: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
