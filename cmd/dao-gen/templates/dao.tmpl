@@ -171,12 +171,16 @@ func Create(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
 // Delete deletes a record by ID.
 func Delete(ctx context.Context, id int, note string) error {
 	logHandler.DatabaseLogger.Printf("DELETE %v WHERE %v=%v (%v)", tableName, Fields.ID, id, note)
-	var value any = id
-	return DeleteBy(ctx, Fields.ID, &value, note)
+	
+	err := DeleteBy(ctx, Fields.ID, id, note)
+	if err != nil {
+		return ce.ErrDAODeleteWrapper(tableName, Fields.ID.String(), id, err)
+	}
+	return err
 }
 
 // DeleteBy deletes a record by field/value.
-func DeleteBy(ctx context.Context, field entities.Field, value *any, note string) error {
+func DeleteBy(ctx context.Context, field entities.Field, value any, note string) error {
 	logHandler.DatabaseLogger.Printf("DELETE %v WHERE %v=%v (%v)", tableName, field, value, note)
 	dao.CheckDAOReadyState(tableName, audit.DELETE, databaseConnectionActive)
 
