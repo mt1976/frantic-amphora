@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.23 - 2026-01-28
+// Template Version: 0.5.24 - 2026-01-31
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -28,7 +28,7 @@ func Initialise(ctx context.Context, cached bool) {
 	cfg = commonConfig.Get()
 	_ = cfg
 
-	activeDBConnection = database.Connect({{.TypeName}}{}, database.WithVerbose(false), database.WithCaching(cached), database.WithCacheKey({{.FieldsVar}}.Key), database.WithNameSpace("{{.Namespace}}"))
+	activeDBConnection = database.Connect({{.TypeName}}{}, database.WithVerbose(false), database.WithCaching(cached), database.WithCacheKey(Fields.Key), database.WithNameSpace("{{.Namespace}}"))
 	databaseConnectionActive = true
 
 	clock.Stop(1)

@@ -13,7 +13,7 @@ import (
 	"github.com/mt1976/frantic-core/timing"
 )
 
-func Creator(ctx context.Context, basics templateStoreV3.TemplateStoreV3) (string, bool, templateStoreV3.TemplateStoreV3, error) {
+func Creator(ctx context.Context, basics *templateStoreV3.TemplateStoreV3) (string, bool, *templateStoreV3.TemplateStoreV3, error) {
 	// Custom creation logic can be added here
 
 	id := idHelpers.GetUUID()
@@ -35,23 +35,28 @@ func Creator(ctx context.Context, basics templateStoreV3.TemplateStoreV3) (strin
 }
 
 // BuildUserCode creates a stable user code string used for lookups.
-func BuildUserCode(u templateStoreV3.TemplateStoreV3) string {
+func BuildUserCode(u *templateStoreV3.TemplateStoreV3) string {
 	return fmt.Sprintf("%v%v%v", u.UID, "_", u.UserName)
 }
 
 func DuplicateCheck(record *templateStoreV3.TemplateStoreV3) (bool, error) {
-	logHandler.EventLogger.Printf("Performing duplicate check for %v record %v", templateStoreV3.TableName, record.Key)
+	logHandler.InfoLogger.Printf("Performing duplicate check for %v record %v", templateStoreV3.TableName, record.Key)
+
 	if record.Key == "" {
 		logHandler.InfoLogger.Printf("Duplicate check failed for %v record: Key is empty", templateStoreV3.TableName)
+
 		return false, nil
 	}
 	responseRecord, err := templateStoreV3.GetBy(templateStoreV3.Fields.Key, record.Key)
 	if err != nil {
-		return false, err
-	}
-	if responseRecord.Audit.DeletedBy != "" {
+		logHandler.InfoLogger.Printf("Duplicate check failed for %v record: %v - NO RECORD EXISTS, DONT SKIP CREATE", templateStoreV3.TableName, err)
 		return false, nil
 	}
+	if responseRecord.Audit.DeletedBy != "" {
+		logHandler.InfoLogger.Printf("Duplicate check passed for %v record %v: Existing record is deleted, DONT SKIP CREATE", templateStoreV3.TableName, record.Key)
+		return false, nil
+	}
+	logHandler.InfoLogger.Printf("Duplicate check found existing %v record %v: SKIP CREATE", templateStoreV3.TableName, record.Key)
 	return true, nil
 }
 
@@ -81,24 +86,24 @@ func JobProcessor(name, desc string) {
 	clock.Stop(count)
 }
 
-func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, templateStoreV3.TemplateStoreV3, string) {
+func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, *templateStoreV3.TemplateStoreV3, string) {
 	// Custom post-create logic can be added here
-	logHandler.ServiceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
+	logHandler.InfoLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
 	update := true
 	message := "post create processing completed"
 	logHandler.InfoLogger.Printf("PostTest before create: %+v", record.PostTest)
 	record.PostTest = append(record.PostTest, "CREATE@"+time.Now().Format(dateHelpers.Format.DMY))
 	logHandler.InfoLogger.Printf("PostTest after create: %+v", record.PostTest)
-	return nil, update, *record, message
+	return nil, update, record, message
 }
 
-func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, templateStoreV3.TemplateStoreV3, string) {
+func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, *templateStoreV3.TemplateStoreV3, string) {
 	// Custom post-update logic can be added here
-	logHandler.ServiceLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
+	logHandler.InfoLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
 	update := true
 	message := "post update processing completed"
 	logHandler.InfoLogger.Printf("PostTest before update: %+v", record.PostTest)
 	record.PostTest = append(record.PostTest, "UPDATE@"+time.Now().Format(dateHelpers.Format.DMY))
 	logHandler.InfoLogger.Printf("PostTest after update: %+v", record.PostTest)
-	return nil, update, *record, message
+	return nil, update, record, message
 }

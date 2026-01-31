@@ -10,9 +10,9 @@ import (
 	"strings"
 
 	"github.com/goforj/godump"
-	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-amphora/dao"
 	"github.com/mt1976/frantic-amphora/dao/audit"
+	ce "github.com/mt1976/frantic-core/commonErrors"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/timing"
 )
@@ -80,9 +80,9 @@ func (record *TestEntity) insertOrUpdate(ctx context.Context, note, activity str
 }
 
 // postGetList runs post-get processing for each record in the list.
-func postGetList(recordList []TestEntity) ([]TestEntity, error) {
+func postGetList(recordList []*TestEntity) ([]*TestEntity, error) {
 	clock := timing.Start(tableName, "Process", "POSTGET")
-	returnList := []TestEntity{}
+	returnList := []*TestEntity{}
 	for _, record := range recordList {
 		if err := record.postGet(); err != nil {
 			clock.Stop(0)

@@ -1,130 +1,113 @@
-2026/01/28 07:48:24 databaseInitialise.go:20: [32mDATABASE[0m [CON] Database Connection Pool Size [10]
-2026/01/28 07:48:24 databaseOptions.go:42: [32mDATABASE[0m [CON]{OPTION} WithVerbose set to false
-2026/01/28 07:48:24 databaseOptions.go:26: [32mDATABASE[0m [CON]{OPTION} WithCaching set to false
-2026/01/28 07:48:24 databaseOptions.go:34: [32mDATABASE[0m [CON]{OPTION} WithCacheKey set to Key
-2026/01/28 07:48:24 databaseOptions.go:66: [32mDATABASE[0m [CON]{OPTION} WithNameSpace set to main
-2026/01/28 07:48:24 databaseConnect.go:145: [32mDATABASE[0m [CON] 4 Options 
-2026/01/28 07:48:24 databaseConnect.go:39: [32mDATABASE[0m [CON]{CONNECT} Configuration for main.db: caching: false, cacheKey: Key, verbose: false, timeout: 30, poolSize: 10, nameSpace: main, encryption: false, indices: []
-2026/01/28 07:48:24 databaseConnect.go:49: [32mDATABASE[0m [CON]{CONNECT} Opening Connection to [...main.db] data (0)
-2026/01/28 07:48:24 databaseConnect.go:73: [32mDATABASE[0m [CON]{CONNECT} (re)Opening [...main.db] data connection
-2026/01/28 07:48:24 databasePool.go:7: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Adding [main] to connection pool (/Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db)
-2026/01/28 07:48:24 databasePool.go:13: [32mDATABASE[0m [CON]{CONNECTION}{POOL} Connection pool [size=1]
-2026/01/28 07:48:24 databaseConnect.go:111: [32mDATABASE[0m [CON]{CONNECT} Opened [.../Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db.db] data connection [codec=json] false
-2026/01/28 07:48:24 templateStoreV3Helpers.go:49: [32mDATABASE[0m [REGISTER] Creator for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.Creator)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:50: [32mDATABASE[0m [REGISTER] Creator for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.Creator)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:140: [32mDATABASE[0m [REGISTER] DuplicateCheck for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.DuplicateCheck)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:141: [32mDATABASE[0m [REGISTER] DuplicateCheck for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.DuplicateCheck)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:147: [32mDATABASE[0m [REGISTER] Worker for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.JobProcessor)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:148: [32mDATABASE[0m [REGISTER] Worker for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.JobProcessor)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:56: [32mDATABASE[0m [REGISTER] PostCreate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostCreate)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:57: [32mDATABASE[0m [REGISTER] PostCreate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostCreate)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:63: [32mDATABASE[0m [REGISTER] PostUpdate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostUpdate)
-2026/01/28 07:48:24 templateStoreV3Helpers.go:64: [32mDATABASE[0m [REGISTER] PostUpdate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostUpdate)
-2026/01/28 07:48:24 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
-2026/01/28 07:48:24 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
-2026/01/28 07:48:24 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
-2026/01/28 07:48:24 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
-2026/01/28 07:48:24 databaseGenerics.go:108: [32mDATABASE[0m No records found for TemplateStoreV3 where UserCode=5010000_matttownsend
-2026/01/28 07:48:24 templateStoreV3Internals.go:39: [32mDATABASE[0m Starting Create processing for TemplateStoreV3 record  isCreate true
-2026/01/28 07:48:24 templateStoreV3Internals.go:46: [32mDATABASE[0m Checking for duplicate TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:53: [32mDATABASE[0m Processing TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:57: [32mDATABASE[0m Invoking custom creator for TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:64: [32mDATABASE[0m Custom creator completed for TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:72: [32mDATABASE[0m Running default/validation processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:97: [32mDATABASE[0m Creating TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 0
-2026/01/28 07:48:24 database.go:363: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
-2026/01/28 07:48:24 database.go:369: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
-2026/01/28 07:48:24 database.go:386: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 templateStoreV3Internals.go:99: [32mDATABASE[0m Created TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 templateStoreV3Internals.go:107: [32mDATABASE[0m Create operation completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:124: [32mDATABASE[0m Starting post-create processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:225: [32mDATABASE[0m [POSTCREATE] Processing for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:238: [32mDATABASE[0m [POSTCREATE] Processing complete for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:126: [32mDATABASE[0m Post-Create processing completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 err %!e(<nil>)
-2026/01/28 07:48:24 templateStoreV3Internals.go:138: [32mDATABASE[0m Post Create processing requires update for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
-2026/01/28 07:48:24 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 [...main.db]
-2026/01/28 07:48:24 templateStoreV3Internals.go:39: [32mDATABASE[0m Starting Update processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 isCreate false
-2026/01/28 07:48:24 templateStoreV3Internals.go:53: [32mDATABASE[0m Processing TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:72: [32mDATABASE[0m Running default/validation processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:102: [32mDATABASE[0m Updating TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 templateStoreV3Internals.go:104: [32mDATABASE[0m Updated TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 templateStoreV3Internals.go:107: [32mDATABASE[0m Update operation completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:120: [32mDATABASE[0m Starting post-update processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:246: [32mDATABASE[0m [POSTUPDATE] Processing for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:261: [32mDATABASE[0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:122: [32mDATABASE[0m Post-Update processing completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 err %!e(<nil>)
-2026/01/28 07:48:24 templateStoreV3Internals.go:138: [32mDATABASE[0m Post Update processing requires update for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
-2026/01/28 07:48:24 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
-2026/01/28 07:48:24 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
-2026/01/28 07:48:24 databaseGenerics.go:114: [32mDATABASE[0m Found 1 records for TemplateStoreV3 where UserCode=5010000_matttownsend
-2026/01/28 07:48:24 templateStoreV3Internals.go:39: [32mDATABASE[0m Starting Update processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 isCreate false
-2026/01/28 07:48:24 templateStoreV3Internals.go:53: [32mDATABASE[0m Processing TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:72: [32mDATABASE[0m Running default/validation processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:102: [32mDATABASE[0m Updating TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 templateStoreV3Internals.go:104: [32mDATABASE[0m Updated TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 templateStoreV3Internals.go:107: [32mDATABASE[0m Update operation completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:120: [32mDATABASE[0m Starting post-update processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:246: [32mDATABASE[0m [POSTUPDATE] Processing for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:261: [32mDATABASE[0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:122: [32mDATABASE[0m Post-Update processing completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 err %!e(<nil>)
-2026/01/28 07:48:24 templateStoreV3Internals.go:138: [32mDATABASE[0m Post Update processing requires update for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 databaseGenerics.go:79: [32mDATABASE[0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010001_matttownsend)
-2026/01/28 07:48:24 databaseGenerics.go:91: [32mDATABASE[0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010001_matttownsend)
-2026/01/28 07:48:24 databaseGenerics.go:103: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE (UserCode=5010001_matttownsend) ALL [...main.db]
-2026/01/28 07:48:24 databaseGenerics.go:108: [32mDATABASE[0m No records found for TemplateStoreV3 where UserCode=5010001_matttownsend
-2026/01/28 07:48:24 templateStoreV3Internals.go:39: [32mDATABASE[0m Starting Create processing for TemplateStoreV3 record  isCreate true
-2026/01/28 07:48:24 templateStoreV3Internals.go:46: [32mDATABASE[0m Checking for duplicate TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:53: [32mDATABASE[0m Processing TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:57: [32mDATABASE[0m Invoking custom creator for TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:64: [32mDATABASE[0m Custom creator completed for TemplateStoreV3 record 
-2026/01/28 07:48:24 templateStoreV3Internals.go:72: [32mDATABASE[0m Running default/validation processing for TemplateStoreV3 record f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4
-2026/01/28 07:48:24 templateStoreV3Internals.go:97: [32mDATABASE[0m Creating TemplateStoreV3 record f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4 0
-2026/01/28 07:48:24 database.go:363: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
-2026/01/28 07:48:24 database.go:369: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
-2026/01/28 07:48:24 database.go:386: [32mDATABASE[0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 templateStoreV3Internals.go:99: [32mDATABASE[0m Created TemplateStoreV3 record f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4 101
-2026/01/28 07:48:24 templateStoreV3Internals.go:107: [32mDATABASE[0m Create operation completed for TemplateStoreV3 record f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4
-2026/01/28 07:48:24 templateStoreV3Internals.go:124: [32mDATABASE[0m Starting post-create processing for TemplateStoreV3 record f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4
-2026/01/28 07:48:24 templateStoreV3Helpers.go:225: [32mDATABASE[0m [POSTCREATE] Processing for TemplateStoreV3 Record: f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4
-2026/01/28 07:48:24 templateStoreV3Helpers.go:238: [32mDATABASE[0m [POSTCREATE] Processing complete for TemplateStoreV3 Record: f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4
-2026/01/28 07:48:24 templateStoreV3Internals.go:126: [32mDATABASE[0m Post-Create processing completed for TemplateStoreV3 record f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4 err %!e(<nil>)
-2026/01/28 07:48:24 templateStoreV3Internals.go:138: [32mDATABASE[0m Post Create processing requires update for TemplateStoreV3 record f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4 101
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:101 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:101 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:101 K) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 databaseGenerics.go:67: [32mDATABASE[0m [GET] TemplateStoreV3 ALL [...main.db]
-2026/01/28 07:48:24 databaseGenerics.go:41: [32mDATABASE[0m [GET] TemplateStoreV3 WHERE Key=bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 [...main.db]
-2026/01/28 07:48:24 templateStoreV3Internals.go:39: [32mDATABASE[0m Starting Update processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 isCreate false
-2026/01/28 07:48:24 templateStoreV3Internals.go:53: [32mDATABASE[0m Processing TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:72: [32mDATABASE[0m Running default/validation processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:102: [32mDATABASE[0m Updating TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
-2026/01/28 07:48:24 templateStoreV3Internals.go:104: [32mDATABASE[0m Updated TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 templateStoreV3Internals.go:107: [32mDATABASE[0m Update operation completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:120: [32mDATABASE[0m Starting post-update processing for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:246: [32mDATABASE[0m [POSTUPDATE] Processing for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Helpers.go:261: [32mDATABASE[0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 templateStoreV3Internals.go:122: [32mDATABASE[0m Post-Update processing completed for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 err %!e(<nil>)
-2026/01/28 07:48:24 templateStoreV3Internals.go:138: [32mDATABASE[0m Post Update processing requires update for TemplateStoreV3 record bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 100
-2026/01/28 07:48:24 database.go:315: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
-2026/01/28 07:48:24 database.go:321: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
-2026/01/28 07:48:24 database.go:335: [32mDATABASE[0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:05 databaseInitialise.go:20: [34m[DBAS][0m [CON] Database Connection Pool Size [10]
+2026/01/31 12:54:05 databaseOptions.go:42: [34m[DBAS][0m [CON]{OPTION} WithVerbose set to false
+2026/01/31 12:54:05 databaseOptions.go:26: [34m[DBAS][0m [CON]{OPTION} WithCaching set to false
+2026/01/31 12:54:05 databaseOptions.go:34: [34m[DBAS][0m [CON]{OPTION} WithCacheKey set to Key
+2026/01/31 12:54:05 databaseOptions.go:66: [34m[DBAS][0m [CON]{OPTION} WithNameSpace set to main
+2026/01/31 12:54:05 databaseConnect.go:145: [34m[DBAS][0m [CON] 4 Options 
+2026/01/31 12:54:05 databaseConnect.go:39: [34m[DBAS][0m [CON]{CONNECT} Configuration for main.db: caching: false, cacheKey: Key, verbose: false, timeout: 30, poolSize: 10, nameSpace: main, encryption: false, indices: []
+2026/01/31 12:54:05 databaseConnect.go:49: [34m[DBAS][0m [CON]{CONNECT} Opening Connection to [...main.db] data (0)
+2026/01/31 12:54:05 databaseConnect.go:73: [34m[DBAS][0m [CON]{CONNECT} (re)Opening [...main.db] data connection
+2026/01/31 12:54:05 databasePool.go:7: [34m[DBAS][0m [CON]{CONNECTION}{POOL} Adding [main] to connection pool (/Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db)
+2026/01/31 12:54:05 databasePool.go:13: [34m[DBAS][0m [CON]{CONNECTION}{POOL} Connection pool [size=1]
+2026/01/31 12:54:05 databaseConnect.go:111: [34m[DBAS][0m [CON]{CONNECT} Opened [.../Volumes/External HD/Dev/GitHub/frantic-amphora/data/database/frantic_amphora-main.db.db] data connection [codec=json] false
+2026/01/31 12:54:05 templateStoreV3Helpers.go:54: [34m[DBAS][0m [REGISTER] Creator for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.Creator)
+2026/01/31 12:54:05 templateStoreV3Helpers.go:145: [34m[DBAS][0m [REGISTER] DuplicateCheck for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.DuplicateCheck)
+2026/01/31 12:54:05 templateStoreV3Helpers.go:152: [34m[DBAS][0m [REGISTER] Worker for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.JobProcessor)
+2026/01/31 12:54:05 templateStoreV3Helpers.go:61: [34m[DBAS][0m [REGISTER] PostCreate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostCreate)
+2026/01/31 12:54:05 templateStoreV3Helpers.go:68: [34m[DBAS][0m [REGISTER] PostUpdate for TemplateStoreV3 (github.com/mt1976/frantic-amphora/dao/test/tmplLogic.PostUpdate)
+2026/01/31 12:54:05 templateStoreV3.go:314: [34m[DBAS][0m ClearDown TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:84: [34m[DBAS][0m SELECT TemplateStoreV3 ALL
+2026/01/31 12:54:05 databaseGenerics.go:50: [34m[DBAS][0m GetAllTyped called for TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:132: [34m[DBAS][0m SELECT TemplateStoreV3 WHERE (UserCode=5010000_matttownsend)
+2026/01/31 12:54:05 databaseGenerics.go:88: [34m[DBAS][0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
+2026/01/31 12:54:05 databaseGenerics.go:101: [34m[DBAS][0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
+2026/01/31 12:54:05 databaseGenerics.go:113: [34m[DBAS][0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
+2026/01/31 12:54:05 databaseGenerics.go:118: [34m[DBAS][0m No records found for TemplateStoreV3 where UserCode=5010000_matttownsend
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:158: [34m[DBAS][0m CREATE TemplateStoreV3 ...
+2026/01/31 12:54:05 templateStoreV3Internals.go:33: [34m[DBAS][0m INSERTORUPDATE called for TemplateStoreV3 record  operation Create action CREATE
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:45: [34m[DBAS][0m SELECT TemplateStoreV3 WHERE (Key=e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695)
+2026/01/31 12:54:05 databaseGenerics.go:24: [34m[DBAS][0m GetTyped called for TemplateStoreV3 where Key=string(e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695)
+2026/01/31 12:54:05 templateStoreV3.go:64: [34m[DBAS][0m Record not found for TemplateStoreV3 where Key=e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695: not found
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 database.go:370: [34m[DBAS][0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
+2026/01/31 12:54:05 database.go:376: [34m[DBAS][0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
+2026/01/31 12:54:05 database.go:393: [34m[DBAS][0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
+2026/01/31 12:54:05 templateStoreV3Helpers.go:229: [34m[DBAS][0m [POSTCREATE] Processing for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 templateStoreV3Helpers.go:242: [34m[DBAS][0m [POSTCREATE] Processing complete for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/31 12:54:05 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/31 12:54:05 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:05 templateStoreV3.go:84: [34m[DBAS][0m SELECT TemplateStoreV3 ALL
+2026/01/31 12:54:05 databaseGenerics.go:50: [34m[DBAS][0m GetAllTyped called for TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:45: [34m[DBAS][0m SELECT TemplateStoreV3 WHERE (Key=e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695)
+2026/01/31 12:54:05 databaseGenerics.go:24: [34m[DBAS][0m GetTyped called for TemplateStoreV3 where Key=string(e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695)
+2026/01/31 12:54:05 templateStoreV3.go:241: [34m[DBAS][0m Updateing TemplateStoreV3 record e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 with action UPDATE (Test Update of LastHost)
+2026/01/31 12:54:05 templateStoreV3Internals.go:33: [34m[DBAS][0m INSERTORUPDATE called for TemplateStoreV3 record e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 operation Update action UPDATE
+2026/01/31 12:54:05 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/31 12:54:05 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/31 12:54:05 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:05 templateStoreV3Helpers.go:250: [34m[DBAS][0m [POSTUPDATE] Processing for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 templateStoreV3Helpers.go:265: [34m[DBAS][0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/31 12:54:05 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/31 12:54:05 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:05 templateStoreV3.go:132: [34m[DBAS][0m SELECT TemplateStoreV3 WHERE (UserCode=5010000_matttownsend)
+2026/01/31 12:54:05 databaseGenerics.go:88: [34m[DBAS][0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010000_matttownsend)
+2026/01/31 12:54:05 databaseGenerics.go:101: [34m[DBAS][0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010000_matttownsend)
+2026/01/31 12:54:05 databaseGenerics.go:113: [34m[DBAS][0m [GET] TemplateStoreV3 WHERE (UserCode=5010000_matttownsend) ALL [...main.db]
+2026/01/31 12:54:05 databaseGenerics.go:124: [34m[DBAS][0m Found 1 records for TemplateStoreV3 where UserCode=5010000_matttownsend
+2026/01/31 12:54:05 templateStoreV3.go:241: [34m[DBAS][0m Updateing TemplateStoreV3 record e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 with action LOGIN (User matttownsend logged in)
+2026/01/31 12:54:05 templateStoreV3Internals.go:33: [34m[DBAS][0m INSERTORUPDATE called for TemplateStoreV3 record e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 operation Update action LOGIN
+2026/01/31 12:54:05 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/31 12:54:05 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/31 12:54:05 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:06 templateStoreV3Helpers.go:250: [34m[DBAS][0m [POSTUPDATE] Processing for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 templateStoreV3Helpers.go:265: [34m[DBAS][0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/31 12:54:06 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/31 12:54:06 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:06 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:06 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:06 templateStoreV3.go:132: [34m[DBAS][0m SELECT TemplateStoreV3 WHERE (UserCode=5010001_matttownsend)
+2026/01/31 12:54:06 databaseGenerics.go:88: [34m[DBAS][0m GetAllWhereTyped called for TemplateStoreV3 where UserCode=string(5010001_matttownsend)
+2026/01/31 12:54:06 databaseGenerics.go:101: [34m[DBAS][0m Valid field/type check passed for TemplateStoreV3.UserCode=string(5010001_matttownsend)
+2026/01/31 12:54:06 databaseGenerics.go:113: [34m[DBAS][0m [GET] TemplateStoreV3 WHERE (UserCode=5010001_matttownsend) ALL [...main.db]
+2026/01/31 12:54:06 databaseGenerics.go:118: [34m[DBAS][0m No records found for TemplateStoreV3 where UserCode=5010001_matttownsend
+2026/01/31 12:54:06 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:06 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:06 templateStoreV3.go:158: [34m[DBAS][0m CREATE TemplateStoreV3 ...
+2026/01/31 12:54:06 templateStoreV3Internals.go:33: [34m[DBAS][0m INSERTORUPDATE called for TemplateStoreV3 record  operation Create action CREATE
+2026/01/31 12:54:06 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:06 templateStoreV3.go:45: [34m[DBAS][0m SELECT TemplateStoreV3 WHERE (Key=ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778)
+2026/01/31 12:54:06 databaseGenerics.go:24: [34m[DBAS][0m GetTyped called for TemplateStoreV3 where Key=string(ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778)
+2026/01/31 12:54:06 templateStoreV3.go:64: [34m[DBAS][0m Record not found for TemplateStoreV3 where Key=ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778: not found
+2026/01/31 12:54:06 templateStoreV3.go:152: [34m[DBAS][0m NEW TemplateStoreV3
+2026/01/31 12:54:06 database.go:370: [34m[DBAS][0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Start
+2026/01/31 12:54:06 database.go:376: [34m[DBAS][0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - End
+2026/01/31 12:54:06 database.go:393: [34m[DBAS][0m [CREATE] TemplateStoreV3 [...main.db] (&{ID:0 Key) - Caching Disabled or Not Initialised
+2026/01/31 12:54:06 templateStoreV3Helpers.go:229: [34m[DBAS][0m [POSTCREATE] Processing for TemplateStoreV3 Record: ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778
+2026/01/31 12:54:06 templateStoreV3Helpers.go:242: [34m[DBAS][0m [POSTCREATE] Processing complete for TemplateStoreV3 Record: ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778
+2026/01/31 12:54:06 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:101 K) - Start
+2026/01/31 12:54:06 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:101 K) - End
+2026/01/31 12:54:06 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:101 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:06 templateStoreV3.go:84: [34m[DBAS][0m SELECT TemplateStoreV3 ALL
+2026/01/31 12:54:06 databaseGenerics.go:50: [34m[DBAS][0m GetAllTyped called for TemplateStoreV3
+2026/01/31 12:54:06 templateStoreV3.go:45: [34m[DBAS][0m SELECT TemplateStoreV3 WHERE (Key=e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695)
+2026/01/31 12:54:06 databaseGenerics.go:24: [34m[DBAS][0m GetTyped called for TemplateStoreV3 where Key=string(e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695)
+2026/01/31 12:54:06 templateStoreV3.go:241: [34m[DBAS][0m Updateing TemplateStoreV3 record e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 with action UPDATE (Test Update of LastHost)
+2026/01/31 12:54:06 templateStoreV3Internals.go:33: [34m[DBAS][0m INSERTORUPDATE called for TemplateStoreV3 record e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 operation Update action UPDATE
+2026/01/31 12:54:06 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/31 12:54:06 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/31 12:54:06 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised
+2026/01/31 12:54:06 templateStoreV3Helpers.go:250: [34m[DBAS][0m [POSTUPDATE] Processing for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 templateStoreV3Helpers.go:265: [34m[DBAS][0m [POSTUPDATE] Processing complete for TemplateStoreV3 Record: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 database.go:322: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Start
+2026/01/31 12:54:06 database.go:328: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - End
+2026/01/31 12:54:06 database.go:342: [34m[DBAS][0m [UPDATE] TemplateStoreV3 [...main.db] (&{ID:100 K) - Caching Disabled or Not Initialised

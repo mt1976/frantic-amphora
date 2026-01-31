@@ -1,10 +1,10 @@
 # {{.PackageName}}
 
-`{{.PackageName}}` is a comprehensive example DAO package demonstrating the frantic-amphora framework's capabilities. It serves as a modernized template showcasing typed database operations, cache integration, background workers, import/export functionality, and comprehensive entity type examples.
+`{{.PackageName}}` is a DAO package for the {{.TableName}} table in the frantic-amphora framework.
 
 ## Overview
 
-This package provides a complete reference implementation for building DAO layers with:
+This package provides:
 
 - **Type-safe database operations** using strongly-typed field queries
 - **Audit trail integration** for all CRUD operations
@@ -12,55 +12,10 @@ This package provides a complete reference implementation for building DAO layer
 - **Background worker** support for async operations
 - **Import/Export** capabilities (JSON and CSV formats)
 - **Validation** using struct tags
-- **Comprehensive entity type examples** demonstrating all available framework types
 
-## Entity Type Examples
+## Entity Definition
 
-The `{{.TypeName}}` struct includes examples of all entity types available in the framework, organized by category:
-
-### String Types
-
-- `ExampleString` - Standard Go string
-
-### Boolean Types
-
-- `ExampleBool` - Framework boolean type (entities.Bool)
-- `ExampleStormBool` - Storm-compatible boolean type (entities.StormBool)
-
-### Integer Types
-
-- `ExampleInt` - Framework integer (entities.Int)
-- `ExampleInt32` - 32-bit integer (entities.Int32)
-- `ExampleInt64` - 64-bit integer (entities.Int64)
-- `ExampleUint` - Unsigned integer (entities.UInt)
-- `ExampleUint32` - Unsigned 32-bit integer (entities.UInt32)
-- `ExampleUint64` - Unsigned 64-bit integer (entities.UInt64)
-
-### Float Types
-
-- `ExampleFloat` - Framework float (entities.Float)
-- `ExampleFloat32` - 32-bit float (entities.Float32)
-- `ExampleFloat64` - 64-bit float (entities.Float64)
-
-### Specialized Numeric Types
-
-- `ExampleDecimal` - High-precision decimal (entities.Decimal)
-- `ExamplePercentage` - Percentage values (entities.Percentage)
-- `ExampleRate` - Rate values (entities.Rate)
-
-### Money Types
-
-- `ExampleMoney` - Monetary amount (entities.Money)
-- `ExampleCurrency` - Currency with code and amount (entities.Currency)
-
-### Date/Time Types
-
-- `ExampleDate` - Standard Go time.Time
-
-### Entity Framework Types
-
-- `ExampleField` - Field name type (entities.Field)
-- `ExampleTable` - Table name type (entities.Table)
+The `{{.TypeName}}` struct represents records in the {{.TableName}} table.
 
 ## Field Definitions
 
@@ -68,12 +23,12 @@ The `{{.TypeName}}` struct contains the following fields:
 
 | Field Name | Field Reference | Type | Tags | Purpose |
 |------------|----------------|------|------|---------|
-| **ID** (required) | `{{.FieldsVar}}.ID` | `int` | `storm:"id,increment=100"` | Primary key with auto-increment |
-| **Key** (required) | `{{.FieldsVar}}.Key` | `string` | `storm:"index,unique"` | Encoded unique identifier |
-| **Raw** (required) | `{{.FieldsVar}}.Raw` | `string` | `storm:"index,unique"` | Raw unique identifier |
-| **Audit** (required) | `{{.FieldsVar}}.Audit` | `audit.Audit` | `csv:"-"` | Audit trail information |
-{{if .DomainFields}}{{range .FieldDefinitions}}| {{.Name}} | `{{$.FieldsVar}}.{{.Name}}` | `{{.Type}}` | {{.Tags}} | {{.Purpose}} |
-{{end}}{{end}}
+| **ID** (required) | `Fields.ID` | `int` | `storm:"id,increment=100"` | Primary key with auto-increment |
+| **Key** (required) | `Fields.Key` | `string` | `storm:"index,unique"` | Encoded unique identifier |
+| **Raw** (required) | `Fields.Raw` | `string` | `storm:"index,unique"` | Raw unique identifier |
+| **Audit** (required) | `Fields.Audit` | `audit.Audit` | `csv:"-"` | Audit trail information |
+{{range .FieldDefinitions}}| {{.Name}} | `Fields.{{.Name}}` | `{{.Type}}` | {{if .Tags}}`{{.Tags}}`{{end}} | {{.Purpose}} |
+{{end}}
 
 **Note:** Fields marked as **(required)** are mandatory framework fields and must not be modified or removed.
 
@@ -83,13 +38,13 @@ Field references enable type-safe queries throughout the DAO:
 
 ```go
 // Get a record by a specific field
-user, err := GetBy({{.FieldsVar}}.UserName, "john.doe")
+record, err := {{.PackageName}}.GetBy({{.PackageName}}.Fields.Key, "abc123")
 
 // Query with WHERE conditions
-activeUsers, err := GetAllWhere({{.FieldsVar}}.Active, true)
+records, err := {{.PackageName}}.GetAllWhere({{.PackageName}}.Fields.SomeField, value)
 
 // Count records matching criteria
-count, err := CountWhere({{.FieldsVar}}.GID, "admin-group")
+count, err := {{.PackageName}}.CountWhere({{.PackageName}}.Fields.Active, true)
 ```
 
 ## Public API
@@ -97,8 +52,8 @@ count, err := CountWhere({{.FieldsVar}}.GID, "admin-group")
 ### Exported types/vars
 
 - `type {{.TypeName}} struct { ... }`
-- `var {{.TableVar}} entities.Table`
-- `var {{.FieldsVar}} fieldNames`
+- `var TableName entities.Table`
+- `var Fields fieldNames`
 
 ### Database lifecycle
 
@@ -111,7 +66,7 @@ count, err := CountWhere({{.FieldsVar}}.GID, "admin-group")
 
 - `func Count() (int, error)`
 - `func CountWhere(field entities.Field, value any) (int, error)`
-- `func GetBy(field entities.Field, value any) ({{.TypeName}}, error)`
+- `func GetBy(field entities.Field, value any) (*{{.TypeName}}, error)`
 - `func GetAll() ([]{{.TypeName}}, error)`
 - `func GetAllWhere(field entities.Field, value any) ([]{{.TypeName}}, error)`
 
@@ -125,10 +80,9 @@ count, err := CountWhere({{.FieldsVar}}.GID, "admin-group")
 ### Record methods
 
 - `func (record *{{.TypeName}}) Validate() error`
-- `func (record *{{.TypeName}}) Update(ctx context.Context, note string) error`
-- `func (record *{{.TypeName}}) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error`
-- `func (record *{{.TypeName}}) Create(ctx context.Context, note string) error`
-- `func (record *{{.TypeName}}) Clone(ctx context.Context) ({{.TypeName}}, error)`
+- `func (record *{{.TypeName}}) Update(ctx context.Context, note string) (*{{.TypeName}}, error)`
+- `func (record *{{.TypeName}}) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) (*{{.TypeName}}, error)`
+- `func (record *{{.TypeName}}) Clone(ctx context.Context) (*{{.TypeName}}, error)`
 
 ### Lookups
 
@@ -142,15 +96,15 @@ count, err := CountWhere({{.FieldsVar}}.GID, "admin-group")
 
 ### Construction
 
-- `func New() {{.TypeName}}`
-- `func Create(ctx context.Context, basis {{.TypeName}}) ({{.TypeName}}, error)`
+- `func New() *{{.TypeName}}`
+- `func Create(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error)`
 
 ### Import / Export
 
-- `func (record *{{.TypeName}}) ExportRecordAsJSON(name string)`
-- `func ExportAllAsJSON(message string)`
-- `func (record *{{.TypeName}}) ExportRecordAsCSV(name string) error`
-- `func ExportAllAsCSV(msg string) error`
+- `func (record *{{.TypeName}}) ExportRecordToJSON(name string)`
+- `func ExportAllToJSON(message string)`
+- `func (record *{{.TypeName}}) ExportRecordToCSV(name string) error`
+- `func ExportAllToCSV(msg string) error`
 - `func ImportAllFromCSV() error`
 
 ### Worker
@@ -176,5 +130,5 @@ count, err := CountWhere({{.FieldsVar}}.GID, "admin-group")
 ## Generation Information
 
 **Generated Date:** {{.GeneratedDate}}  
-**Generated By:** {{.GeneratedBy}}
-**Generated From Template Version:** 0.5.23 - 2026-01-28
+**Generated By:** {{.GeneratedBy}}  
+**Generated From Template Version:** 0.5.24 - 2026-01-31

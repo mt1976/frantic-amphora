@@ -12,6 +12,8 @@ import (
 	"strings"
 	"text/template"
 	"time"
+
+	"github.com/mt1976/frantic-core/logHandler"
 )
 
 //go:embed templates/*.tmpl
@@ -74,6 +76,8 @@ func main() {
 	if cfg.Namespace == "" {
 		cfg.Namespace = "main"
 	}
+
+	logHandler.ServiceLogger.Printf("Generating %v as package %s in %s", cfg.TypeName, cfg.Package, cfg.OutDir)
 
 	// Read domain fields from .definition file if it exists
 	domainFields, fieldNames, fieldInits, fieldDefs := readDefinitionFile(cfg.OutDir, cfg.TypeName)

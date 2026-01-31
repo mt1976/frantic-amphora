@@ -5,7 +5,7 @@ go 1.25
 require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/goforj/godump v1.9.0
-	github.com/mt1976/frantic-core v1.8.0
+	github.com/mt1976/frantic-core v1.10.0
 )
 
 require (

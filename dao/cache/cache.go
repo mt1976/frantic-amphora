@@ -123,7 +123,6 @@ func RegisterKey(data any, key entities.Field) error {
 }
 
 func RegisterIndex(data any, key entities.Field) error {
-
 	if !IsEnabled(data) {
 		return ce.ErrCacheNotEnabledWrapper("add index", key.String(), string(entities.GetStructType(data)))
 	}
@@ -170,7 +169,7 @@ func AddEntry(data any) error {
 		logHandler.WarningLogger.Printf("No Key registered for Table [%v]", table)
 		return ce.ErrCacheNoKeyDefinedWrapper("add", table.String())
 	}
-	//logHandler.InfoLogger.Printf("Adding Cache Entry for Table [%v]", table)
+	// logHandler.InfoLogger.Printf("Adding Cache Entry for Table [%v]", table)
 	keyField, exists := Cache.key[table]
 	if !exists || keyField.String() == "" {
 		return ce.ErrCacheNoKeyDefinedWrapper("add", table.String())
@@ -221,7 +220,7 @@ func AddEntry(data any) error {
 	return nil
 }
 
-func AddEntries(data []any) error {
+func AddEntries(data []*any) error {
 	// Range through the data and add each record to the cache
 	for _, record := range data {
 		err := AddEntry(record)
@@ -294,9 +293,9 @@ func Update(data any) error {
 	return AddEntry(data)
 }
 
-func Get[T any](data T, key any) (T, error) {
+func Get[T any](data T, key any) (*T, error) {
 	// Find and return the record from the cache
-	var zero T
+	var zero *T
 	table := entities.GetStructType(data)
 	inMemoryCacheEntry, exists := Cache.cache[table]
 	if !exists {
@@ -322,7 +321,7 @@ func Get[T any](data T, key any) (T, error) {
 	return converted, nil
 }
 
-func GetAll[T any](data T) ([]T, error) {
+func GetAll[T any](data T) ([]*T, error) {
 	// Get all records from the cache
 	table := entities.GetStructType(data)
 	inMemoryCacheEntry, exists := Cache.cache[table]
@@ -336,8 +335,8 @@ func GetAll[T any](data T) ([]T, error) {
 	}
 
 	// Range through the cache and build a strongly-typed return slice.
-	targetType := reflect.TypeFor[T]()
-	rtn := make([]T, 0, len(inMemoryCacheEntry))
+	targetType := reflect.TypeFor[*T]()
+	rtn := make([]*T, 0, len(inMemoryCacheEntry))
 	for _, record := range inMemoryCacheEntry {
 		converted, ok := coerceCacheValue[T](record.dataRecord, targetType)
 		if !ok {
@@ -349,11 +348,11 @@ func GetAll[T any](data T) ([]T, error) {
 	return rtn, nil
 }
 
-func GetWhere[T any](data T, index entities.Field, value any) (T, error) {
+func GetWhere[T any](data T, index entities.Field, value any) (*T, error) {
 	// Get records from the cache by index
 	table := entities.GetStructType(data)
 	inMemoryCacheEntry, exists := Cache.cache[table]
-	zero := *new(T)
+	var zero *T
 
 	if !exists {
 		return zero, ce.ErrCacheDoesNotExistWrapper(table.String())
@@ -363,7 +362,7 @@ func GetWhere[T any](data T, index entities.Field, value any) (T, error) {
 		return zero, ce.ErrCacheNoKeyDefinedWrapper("getwhere", table.String())
 	}
 	targetType := reflect.TypeOf((*T)(nil)).Elem()
-	rtn := *new(T)
+	var rtn *T
 	matchCount := 0
 	for _, record := range inMemoryCacheEntry {
 		rv := reflect.ValueOf(record.dataRecord)
@@ -405,7 +404,7 @@ func GetWhere[T any](data T, index entities.Field, value any) (T, error) {
 	return rtn, nil
 }
 
-func GetAllWhere[T any](data T, index entities.Field, value any) ([]T, error) {
+func GetAllWhere[T any](data T, index entities.Field, value any) ([]*T, error) {
 	// Get records from the cache by index
 	table := entities.GetStructType(data)
 	inMemoryCacheEntry, exists := Cache.cache[table]
@@ -417,7 +416,7 @@ func GetAllWhere[T any](data T, index entities.Field, value any) ([]T, error) {
 		return nil, ce.ErrCacheNoKeyDefinedWrapper("getwhere", table.String())
 	}
 	targetType := reflect.TypeOf((*T)(nil)).Elem()
-	rtn := make([]T, 0)
+	rtn := make([]*T, 0)
 	for _, record := range inMemoryCacheEntry {
 		rv := reflect.ValueOf(record.dataRecord)
 		if !rv.IsValid() {
@@ -449,13 +448,13 @@ func GetAllWhere[T any](data T, index entities.Field, value any) ([]T, error) {
 	return rtn, nil
 }
 
-func coerceCacheValue[T any](value any, targetType reflect.Type) (T, bool) {
-	var zero T
+func coerceCacheValue[T any](value any, targetType reflect.Type) (*T, bool) {
+	var zero *T
 	if value == nil {
 		return zero, false
 	}
 	if v, ok := value.(T); ok {
-		return v, true
+		return &v, true
 	}
 
 	rv := reflect.ValueOf(value)
@@ -466,12 +465,12 @@ func coerceCacheValue[T any](value any, targetType reflect.Type) (T, bool) {
 	// Direct assign/convert.
 	if rv.Type().AssignableTo(targetType) {
 		v, ok := rv.Interface().(T)
-		return v, ok
+		return &v, ok
 	}
 	if rv.Type().ConvertibleTo(targetType) {
 		converted := rv.Convert(targetType).Interface()
 		v, ok := converted.(T)
-		return v, ok
+		return &v, ok
 	}
 
 	// Pointer/value bridging.
@@ -480,12 +479,12 @@ func coerceCacheValue[T any](value any, targetType reflect.Type) (T, bool) {
 		if ev.IsValid() {
 			if ev.Type().AssignableTo(targetType) {
 				v, ok := ev.Interface().(T)
-				return v, ok
+				return &v, ok
 			}
 			if ev.Type().ConvertibleTo(targetType) {
 				converted := ev.Convert(targetType).Interface()
 				v, ok := converted.(T)
-				return v, ok
+				return &v, ok
 			}
 		}
 	}
@@ -494,7 +493,7 @@ func coerceCacheValue[T any](value any, targetType reflect.Type) (T, bool) {
 		pv.Elem().Set(rv)
 		converted := pv.Interface()
 		v, ok := converted.(T)
-		return v, ok
+		return &v, ok
 	}
 
 	return zero, false
@@ -511,12 +510,12 @@ func Count(data any) (int64, error) {
 	return Cache.count[table], nil
 }
 
-func FindByKey[T any](data T, key any) (T, error) {
+func FindByKey[T any](data T, key any) (*T, error) {
 	// Find and return the record from the cache
 	return Get(data, key)
 }
 
-func FindByIndex[T any](data T, index entities.Field, value any) ([]T, error) {
+func FindByIndex[T any](data T, index entities.Field, value any) ([]*T, error) {
 	// Find and return the record(s) from the cache by index
 	table := entities.GetStructType(data)
 	inMemoryCacheEntry, exists := Cache.cache[table]
@@ -530,7 +529,7 @@ func FindByIndex[T any](data T, index entities.Field, value any) ([]T, error) {
 	}
 
 	targetType := reflect.TypeOf((*T)(nil)).Elem()
-	rtn := make([]T, 0)
+	rtn := make([]*T, 0)
 	for _, record := range inMemoryCacheEntry {
 		rv := reflect.ValueOf(record.dataRecord)
 		if !rv.IsValid() {

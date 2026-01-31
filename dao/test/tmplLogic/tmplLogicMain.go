@@ -15,9 +15,9 @@ import (
 )
 
 // Login logs a user in (creating a record if needed) and updates last login metadata.
-func Login(ctx context.Context, sq string) (templateStoreV3.TemplateStoreV3, error) {
+func Login(ctx context.Context, sq string) (*templateStoreV3.TemplateStoreV3, error) {
 	temp := buildUserStub(sq)
-	var usr templateStoreV3.TemplateStoreV3
+	usr := templateStoreV3.New()
 
 	logHandler.TraceLogger.Printf("%v", godump.DumpStr(temp))
 
@@ -48,7 +48,7 @@ func Login(ctx context.Context, sq string) (templateStoreV3.TemplateStoreV3, err
 }
 
 // Add creates and persists a new user record based on the current OS user.
-func Add(ctx context.Context, sq string) (templateStoreV3.TemplateStoreV3, error) {
+func Add(ctx context.Context, sq string) (*templateStoreV3.TemplateStoreV3, error) {
 	logHandler.InfoLogger.Printf("Adding new user to TemplateStoreV3: SQ=%v", sq)
 	testu := buildUserStub(sq)
 
@@ -79,7 +79,7 @@ func Add(ctx context.Context, sq string) (templateStoreV3.TemplateStoreV3, error
 }
 
 // buildUserStub builds a record stub for the current OS user.
-func buildUserStub(sq string) templateStoreV3.TemplateStoreV3 {
+func buildUserStub(sq string) *templateStoreV3.TemplateStoreV3 {
 	currentUser, _ := user.Current()
 	hostname, _ := os.Hostname()
 

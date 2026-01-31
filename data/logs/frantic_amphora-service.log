@@ -1,7 +1,0 @@
-2026/01/28 07:48:24 tmplLogic.go:86: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 tmplLogic.go:97: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 main.go:101: [32mSERVICE[0m Phase 2 Test Message: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 tmplLogic.go:97: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 tmplLogic.go:86: [32mSERVICE[0m PostCreate logic executed for TemplateStore Key: f84c096b5802fc9cd5ef77052197cce1ac97cb36054e960b0c02a453e290f3e4
-2026/01/28 07:48:24 tmplLogic.go:97: [32mSERVICE[0m PostUpdate logic executed for TemplateStore Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 main.go:101: [32mSERVICE[0m Phase 2 Test Message: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23

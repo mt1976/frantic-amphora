@@ -26,11 +26,12 @@ type Supper struct {
 	FieldC float64
 }
 
-var SampleKey entities.Field
-var Sample2Key entities.Field
+var (
+	SampleKey  entities.Field
+	Sample2Key entities.Field
+)
 
 func main() {
-
 	ctx := context.Background()
 	// SampleKey = entities.Field("Field1")
 	// Sample2Key = entities.Field("FieldA")
@@ -89,23 +90,36 @@ func main() {
 	templateStoreV3.RegisterPostCreate(tmpllogic.PostCreate)
 	templateStoreV3.RegisterPostUpdate(tmpllogic.PostUpdate)
 
+	// tripStore.Initialise(ctx, false)
+
 	logHandler.InfoLogger.Println("Clear Down User Store")
 	templateStoreV3.ClearDown(ctx)
 
 	totalElapsed := time.Duration(0)
-	//start := time.Now()
+	// start := time.Now()
 	for i := 0; i < 2; i++ {
 		in_start := time.Now()
 
 		msg2 := test(ctx, "ONE", i+1)
-		logHandler.ServiceLogger.Printf("Phase 2 Test Message: %v", msg2)
+		logHandler.InfoLogger.Printf("Phase 2 Test Message: %v", msg2)
 
 		stop := time.Now()
 		in_elapsed := stop.Sub(in_start)
 		totalElapsed += in_elapsed
 		//		logHandler.ErrorLogger.Printf("P_%v Test Duration: %v Start: %v Stop: %v", i+1, in_elapsed, start.Format(time.RFC3339), stop.Format(time.RFC3339))
-		//Cache.PurgeExpiredEntries()
+		// Cache.PurgeExpiredEntries()
+		// xx := tripStore.New()
+		// xx.Name = "Test Trip"
+		// xx.Destination = "Somewhere"
+		// xx.StartDate = time.Now().Add(48 * time.Hour)
+		// xx.EndDate = time.Now().Add(120 * time.Hour)
 
+		// newTrip, err := tripStore.Create(ctx, xx)
+		// if err != nil {
+		// 	logHandler.ErrorLogger.Printf("Error creating trip: %v", err)
+		// } else {
+		// 	logHandler.InfoLogger.Printf("Created Trip: %v (%v to %v)", newTrip.Name, newTrip.StartDate.Format("2006-01-02"), newTrip.EndDate.Format("2006-01-02"))
+		// }
 	}
 	// stop := time.Now()
 	// recs, _ := templateStoreV2.GetAll()
@@ -113,7 +127,7 @@ func main() {
 	// 	logHandler.InfoLogger.Printf("P1 User: %v - %v", r.ID, r.RealName)
 	// }
 
-	//templateStoreV2.Close()
+	// templateStoreV2.Close()
 
 	// //Cache.Spew()
 
@@ -125,11 +139,9 @@ func main() {
 	// templateStoreV2.ExportAllAsCSV("AllUsers")
 
 	// templateStoreV2.ExportAllAsJSON("AllUsers")
-
 }
 
 func test(ctx context.Context, phase string, baselineUsers int) string {
-
 	logHandler.InfoLogger.Printf("Phase %v Creating %v Baseline Users", phase, baselineUsers)
 	// //Cache.Activate(templateStoreV2.TemplateStore{})
 	// //Cache.RegisterExpiry(templateStoreV2.TemplateStore{}, time.Duration(baselineUsers)*time.Second)
@@ -138,20 +150,21 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// //Cache.RegisterHydrator(templateStoreV2.TemplateStore{}, templateStoreV2.CacheHydrator(ctx))
 
 	logHandler.InfoLogger.Printf("Phase %v Adding %d Baseline Users to Store", phase, baselineUsers)
-
+	var newRecords []*templateStoreV3.TemplateStoreV3
 	for i := 0; i < baselineUsers; i++ {
-		logHandler.WarningLogger.Printf("Phase %v Creating Baseline User %v", phase, i+1)
-		_, info := tmpllogic.Login(ctx, fmt.Sprintf("%04v", i))
+		logHandler.InfoLogger.Printf("Phase %v Creating Baseline User %v", phase, i+1)
+		newRecord, info := tmpllogic.Login(ctx, fmt.Sprintf("%04v", i))
 		if info != nil {
 			logHandler.ErrorLogger.Printf("Phase %v Error creating Baseline User %v: %v", phase, i+1, info)
 		}
-		logHandler.WarningLogger.Printf("Phase %v Created Baseline User %v", phase, i+1)
-		//fmt.Print(".")
+		logHandler.InfoLogger.Printf("Phase %v Created Baseline User %v", phase, i+1)
+		// fmt.Print(".")
 		//	//Cache.AddEntry(usr)
+		newRecords = append(newRecords, newRecord)
 	}
 
-	logHandler.InfoLogger.Printf("Phase %v Baseline %v Users Added to Store", phase, baselineUsers)
-	logHandler.InfoLogger.Printf("Phase %v Hydrating Cache for Users", phase)
+	logHandler.InfoLogger.Printf("Phase %v Baseline %v Users Added to Store %d", phase, baselineUsers, len(newRecords))
+	//	logHandler.InfoLogger.Printf("Phase %v Hydrating Cache for Users", phase)
 
 	////Cache.HydrateForType(templateStoreV2.TemplateStore{})
 
@@ -174,16 +187,17 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// 	return fmt.Sprintf("Phase %v Setup Template count mismatch: expected %v, got %v", phase, baselineUsers, len(setupTemplates))
 	// }
 	uKey := ""
-	for x, u := range setupTemplates {
+	for x, u := range newRecords {
+		logHandler.InfoLogger.Printf("Phase %v Evaluating User: (%v/%v) %v %v", phase, x, baselineUsers, u.RealName, u.Key)
 		if mathHelpers.CoinToss() {
 			logHandler.InfoLogger.Printf("Phase %v User: (%v/%v) %v %v", phase, x, baselineUsers, u.RealName, u.Key)
 			uKey = u.Key
 			break
 		}
-		logHandler.ErrorLogger.Printf("PostTest: %+v", u.PostTest)
+		logHandler.InfoLogger.Printf("PostTest: %+v", u.PostTest)
 	}
-	if uKey == "" && len(setupTemplates) > 0 {
-		uKey = setupTemplates[0].Key
+	if uKey == "" && len(newRecords) > 0 {
+		uKey = newRecords[0].Key
 	}
 	logHandler.InfoLogger.Printf("Phase %v Selected User Key: %v", phase, uKey)
 
@@ -342,5 +356,4 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// logHandler.InfoLogger.Printf("Cache Stats - Created: %v, Updated: %v, Tables: %v, Entries: %v", created.Format(time.RFC3339Nano), updated.Format(time.RFC3339Nano), noTables, noCacheEntries)
 
 	return uKey
-
 }

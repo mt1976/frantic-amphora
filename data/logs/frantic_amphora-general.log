@@ -1,45 +1,62 @@
-2026/01/28 07:48:24 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/28 07:48:24 logHandler.go:201: [97mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
-2026/01/28 07:48:24 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/28 07:48:24 main.go:84: [97mINFO[0m Initialize User Store
-2026/01/28 07:48:24 main.go:92: [97mINFO[0m Clear Down User Store
-2026/01/28 07:48:24 main.go:133: [97mINFO[0m Phase ONE Creating 1 Baseline Users
-2026/01/28 07:48:24 main.go:140: [97mINFO[0m Phase ONE Adding 1 Baseline Users to Store
-2026/01/28 07:48:24 tmplLogicMain.go:52: [97mINFO[0m Adding new user to TemplateStoreV3: SQ=0000
-2026/01/28 07:48:24 tmplLogic.go:45: [97mINFO[0m Duplicate check failed for TemplateStoreV3 record: Key is empty
-2026/01/28 07:48:24 tmplLogic.go:89: [97mINFO[0m PostTest before create: []
-2026/01/28 07:48:24 tmplLogic.go:91: [97mINFO[0m PostTest after create: [CREATE@28/01/26]
-2026/01/28 07:48:24 tmplLogicMain.go:77: [97mINFO[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010000
-2026/01/28 07:48:24 main.go:153: [97mINFO[0m Phase ONE Baseline 1 Users Added to Store
-2026/01/28 07:48:24 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/28 07:48:24 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 1
-2026/01/28 07:48:24 main.go:179: [97mINFO[0m Phase ONE User: (0/1) Matt Townsend bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 main.go:188: [97mINFO[0m Phase ONE Selected User Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 main.go:195: [97mINFO[0m Phase ONE Retrieved User by Key bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23: Matt Townsend
-2026/01/28 07:48:24 tmplLogic.go:100: [97mINFO[0m PostTest before update: [CREATE@28/01/26]
-2026/01/28 07:48:24 tmplLogic.go:102: [97mINFO[0m PostTest after update: [CREATE@28/01/26 UPDATE@28/01/26]
-2026/01/28 07:48:24 main.go:201: [97mINFO[0m Phase ONE Updated User bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 LastHost to orion-074824
-2026/01/28 07:48:24 main.go:339: [97mINFO[0m Phase ONE Completed
-2026/01/28 07:48:24 main.go:133: [97mINFO[0m Phase ONE Creating 2 Baseline Users
-2026/01/28 07:48:24 main.go:140: [97mINFO[0m Phase ONE Adding 2 Baseline Users to Store
-2026/01/28 07:48:24 tmplLogic.go:100: [97mINFO[0m PostTest before update: [CREATE@28/01/26 UPDATE@28/01/26]
-2026/01/28 07:48:24 tmplLogic.go:102: [97mINFO[0m PostTest after update: [CREATE@28/01/26 UPDATE@28/01/26 UPDATE@28/01/26]
-2026/01/28 07:48:24 tmplLogicMain.go:52: [97mINFO[0m Adding new user to TemplateStoreV3: SQ=0001
-2026/01/28 07:48:24 tmplLogic.go:45: [97mINFO[0m Duplicate check failed for TemplateStoreV3 record: Key is empty
-2026/01/28 07:48:24 tmplLogic.go:89: [97mINFO[0m PostTest before create: []
-2026/01/28 07:48:24 tmplLogic.go:91: [97mINFO[0m PostTest after create: [CREATE@28/01/26]
-2026/01/28 07:48:24 tmplLogicMain.go:77: [97mINFO[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010001
-2026/01/28 07:48:24 main.go:153: [97mINFO[0m Phase ONE Baseline 2 Users Added to Store
-2026/01/28 07:48:24 main.go:154: [97mINFO[0m Phase ONE Hydrating Cache for Users
-2026/01/28 07:48:24 main.go:162: [97mINFO[0m Phase ONE Setup Templates Loaded: 2
-2026/01/28 07:48:24 main.go:179: [97mINFO[0m Phase ONE User: (0/2) Matt Townsend bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 main.go:188: [97mINFO[0m Phase ONE Selected User Key: bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23
-2026/01/28 07:48:24 main.go:195: [97mINFO[0m Phase ONE Retrieved User by Key bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23: Matt Townsend
-2026/01/28 07:48:24 tmplLogic.go:100: [97mINFO[0m PostTest before update: [CREATE@28/01/26 UPDATE@28/01/26 UPDATE@28/01/26]
-2026/01/28 07:48:24 tmplLogic.go:102: [97mINFO[0m PostTest after update: [CREATE@28/01/26 UPDATE@28/01/26 UPDATE@28/01/26 UPDATE@28/01/26]
-2026/01/28 07:48:24 main.go:201: [97mINFO[0m Phase ONE Updated User bd00a199a619c60eb75f877453609bf2c5676d3945e07777f6ba61ef25139d23 LastHost to orion-074824
-2026/01/28 07:48:24 main.go:339: [97mINFO[0m Phase ONE Completed
-2026/01/28 07:48:24 main.go:122: [97mINFO[0m Total Test Duration: 563.157584ms
-2026/01/28 07:48:24 logHandler.go:200: [97mINFO[0m *------------------------------------------------------------------------*
-2026/01/28 07:48:24 logHandler.go:201: [97mINFO[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
-2026/01/28 07:48:24 logHandler.go:202: [97mINFO[0m *------------------------------------------------------------------------*
+2026/01/31 12:54:05 logHandler.go:202: [32m[INFO][0m *------------------------------------------------------------------------*
+2026/01/31 12:54:05 logHandler.go:203: [32m[INFO][0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
+2026/01/31 12:54:05 logHandler.go:204: [32m[INFO][0m *------------------------------------------------------------------------*
+2026/01/31 12:54:05 main.go:85: [32m[INFO][0m Initialize User Store
+2026/01/31 12:54:05 main.go:95: [32m[INFO][0m Clear Down User Store
+2026/01/31 12:54:05 main.go:145: [32m[INFO][0m Phase ONE Creating 1 Baseline Users
+2026/01/31 12:54:05 main.go:152: [32m[INFO][0m Phase ONE Adding 1 Baseline Users to Store
+2026/01/31 12:54:05 main.go:155: [32m[INFO][0m Phase ONE Creating Baseline User 1
+2026/01/31 12:54:05 tmplLogicMain.go:52: [32m[INFO][0m Adding new user to TemplateStoreV3: SQ=0000
+2026/01/31 12:54:05 tmplLogic.go:43: [32m[INFO][0m Performing duplicate check for TemplateStoreV3 record e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 tmplLogic.go:52: [32m[INFO][0m Duplicate check failed for TemplateStoreV3 record: TemplateStoreV3 not found where (Key=e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695) - NO RECORD EXISTS, DONT SKIP CREATE
+2026/01/31 12:54:05 tmplLogic.go:91: [32m[INFO][0m PostCreate logic executed for TemplateStore Key: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 tmplLogic.go:94: [32m[INFO][0m PostTest before create: []
+2026/01/31 12:54:05 tmplLogic.go:96: [32m[INFO][0m PostTest after create: [CREATE@31/01/26]
+2026/01/31 12:54:05 tmplLogicMain.go:77: [32m[INFO][0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010000
+2026/01/31 12:54:05 main.go:160: [32m[INFO][0m Phase ONE Created Baseline User 1
+2026/01/31 12:54:05 main.go:166: [32m[INFO][0m Phase ONE Baseline 1 Users Added to Store 1
+2026/01/31 12:54:05 main.go:175: [32m[INFO][0m Phase ONE Setup Templates Loaded: 1
+2026/01/31 12:54:05 main.go:191: [32m[INFO][0m Phase ONE Evaluating User: (0/1) Matt Townsend e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 main.go:197: [32m[INFO][0m PostTest: [CREATE@31/01/26]
+2026/01/31 12:54:05 main.go:202: [32m[INFO][0m Phase ONE Selected User Key: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 main.go:209: [32m[INFO][0m Phase ONE Retrieved User by Key e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695: Matt Townsend
+2026/01/31 12:54:05 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@31/01/26]
+2026/01/31 12:54:05 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@31/01/26 UPDATE@31/01/26]
+2026/01/31 12:54:05 main.go:215: [32m[INFO][0m Phase ONE Updated User e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 LastHost to orion-125405
+2026/01/31 12:54:05 main.go:353: [32m[INFO][0m Phase ONE Completed
+2026/01/31 12:54:05 main.go:104: [32m[INFO][0m Phase 2 Test Message: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:05 main.go:145: [32m[INFO][0m Phase ONE Creating 2 Baseline Users
+2026/01/31 12:54:05 main.go:152: [32m[INFO][0m Phase ONE Adding 2 Baseline Users to Store
+2026/01/31 12:54:05 main.go:155: [32m[INFO][0m Phase ONE Creating Baseline User 1
+2026/01/31 12:54:06 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@31/01/26 UPDATE@31/01/26]
+2026/01/31 12:54:06 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@31/01/26 UPDATE@31/01/26 UPDATE@31/01/26]
+2026/01/31 12:54:06 main.go:160: [32m[INFO][0m Phase ONE Created Baseline User 1
+2026/01/31 12:54:06 main.go:155: [32m[INFO][0m Phase ONE Creating Baseline User 2
+2026/01/31 12:54:06 tmplLogicMain.go:52: [32m[INFO][0m Adding new user to TemplateStoreV3: SQ=0001
+2026/01/31 12:54:06 tmplLogic.go:43: [32m[INFO][0m Performing duplicate check for TemplateStoreV3 record ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778
+2026/01/31 12:54:06 tmplLogic.go:52: [32m[INFO][0m Duplicate check failed for TemplateStoreV3 record: TemplateStoreV3 not found where (Key=ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778) - NO RECORD EXISTS, DONT SKIP CREATE
+2026/01/31 12:54:06 tmplLogic.go:91: [32m[INFO][0m PostCreate logic executed for TemplateStore Key: ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778
+2026/01/31 12:54:06 tmplLogic.go:94: [32m[INFO][0m PostTest before create: []
+2026/01/31 12:54:06 tmplLogic.go:96: [32m[INFO][0m PostTest after create: [CREATE@31/01/26]
+2026/01/31 12:54:06 tmplLogicMain.go:77: [32m[INFO][0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010001
+2026/01/31 12:54:06 main.go:160: [32m[INFO][0m Phase ONE Created Baseline User 2
+2026/01/31 12:54:06 main.go:166: [32m[INFO][0m Phase ONE Baseline 2 Users Added to Store 2
+2026/01/31 12:54:06 main.go:175: [32m[INFO][0m Phase ONE Setup Templates Loaded: 2
+2026/01/31 12:54:06 main.go:191: [32m[INFO][0m Phase ONE Evaluating User: (0/2) Matt Townsend e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 main.go:197: [32m[INFO][0m PostTest: [CREATE@31/01/26 UPDATE@31/01/26 UPDATE@31/01/26]
+2026/01/31 12:54:06 main.go:191: [32m[INFO][0m Phase ONE Evaluating User: (1/2) Matt Townsend ff5abbd9553f1fbbc96e601e087f55735b6e791d4b361ef4055a989a8e55f778
+2026/01/31 12:54:06 main.go:197: [32m[INFO][0m PostTest: [CREATE@31/01/26]
+2026/01/31 12:54:06 main.go:202: [32m[INFO][0m Phase ONE Selected User Key: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 main.go:209: [32m[INFO][0m Phase ONE Retrieved User by Key e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695: Matt Townsend
+2026/01/31 12:54:06 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@31/01/26 UPDATE@31/01/26 UPDATE@31/01/26]
+2026/01/31 12:54:06 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@31/01/26 UPDATE@31/01/26 UPDATE@31/01/26 UPDATE@31/01/26]
+2026/01/31 12:54:06 main.go:215: [32m[INFO][0m Phase ONE Updated User e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695 LastHost to orion-125406
+2026/01/31 12:54:06 main.go:353: [32m[INFO][0m Phase ONE Completed
+2026/01/31 12:54:06 main.go:104: [32m[INFO][0m Phase 2 Test Message: e5c5b5b72daae6e1e5ff7ac479ce2ac682a0b8798f63129c9ea7986f076cd695
+2026/01/31 12:54:06 main.go:136: [32m[INFO][0m Total Test Duration: 615.730125ms
+2026/01/31 12:54:06 logHandler.go:202: [32m[INFO][0m *------------------------------------------------------------------------*
+2026/01/31 12:54:06 logHandler.go:203: [32m[INFO][0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
+2026/01/31 12:54:06 logHandler.go:204: [32m[INFO][0m *------------------------------------------------------------------------*

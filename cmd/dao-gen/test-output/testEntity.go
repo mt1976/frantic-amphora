@@ -22,13 +22,13 @@ import (
 
 // Count returns the total number of records in the table.
 func Count() (int, error) {
-	//logHandler.DatabaseLogger.Printf("COUNT %v", tableName)
+	// logHandler.DatabaseLogger.Printf("COUNT %v", tableName)
 	return activeDBConnection.Count(&TestEntity{})
 }
 
 // CountWhere returns the number of records matching a field/value filter.
 func CountWhere(field entities.Field, value any) (int, error) {
-	//logHandler.DatabaseLogger.Printf("COUNT %v WHERE (%v=%v)", tableName, field.String(), value)
+	// logHandler.DatabaseLogger.Printf("COUNT %v WHERE (%v=%v)", tableName, field.String(), value)
 	clock := timing.Start(tableName, "Count", fmt.Sprintf("%v=%v", field.String(), value))
 	count, err := activeDBConnection.CountWhere(field, value, &TestEntity{})
 	if err != nil {
@@ -40,7 +40,7 @@ func CountWhere(field entities.Field, value any) (int, error) {
 }
 
 // GetBy returns a single record matching the given field/value.
-func GetBy(field entities.Field, value any) (TestEntity, error) {
+func GetBy(field entities.Field, value any) (*TestEntity, error) {
 	//	logHandler.DatabaseLogger.Printf("SELECT %v WHERE (%v=%v)", tableName, field.String(), value)
 	clock := timing.Start(tableName, "Get", fmt.Sprintf("%v=%v", field, value))
 
@@ -49,17 +49,17 @@ func GetBy(field entities.Field, value any) (TestEntity, error) {
 	if field == Fields.ID && reflect.TypeOf(value).Name() != "int" {
 		msg := "invalid data type. Expected type of %v is int"
 		clock.Stop(0)
-		return TestEntity{}, ce.ErrGetWrapper(tableName, field.String(), value, fmt.Errorf(msg, value))
+		return nil, ce.ErrGetWrapper(tableName, field.String(), value, fmt.Errorf(msg, value))
 	}
 
 	record, err := database.GetTyped[TestEntity](activeDBConnection, field, value)
 	if err != nil {
 		clock.Stop(0)
-		return TestEntity{}, ce.ErrRecordNotFoundWrapper(tableName, field.String(), fmt.Sprintf("%v", value))
+		return nil, ce.ErrRecordNotFoundWrapper(tableName, field.String(), fmt.Sprintf("%v", value))
 	}
 	if err := record.postGet(); err != nil {
 		clock.Stop(0)
-		return TestEntity{}, ce.ErrGetWrapper(tableName, field.String(), value, err)
+		return nil, ce.ErrGetWrapper(tableName, field.String(), value, err)
 	}
 
 	clock.Stop(1)
@@ -67,7 +67,7 @@ func GetBy(field entities.Field, value any) (TestEntity, error) {
 }
 
 // GetAll returns all TestEntity records.
-func GetAll() ([]TestEntity, error) {
+func GetAll() ([]*TestEntity, error) {
 	//	logHandler.DatabaseLogger.Printf("SELECT %v ALL", tableName)
 	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
 
@@ -87,7 +87,7 @@ func GetAll() ([]TestEntity, error) {
 }
 
 // GetAllWhere returns all records matching a field/value filter.
-func GetAllWhere(field entities.Field, value any) ([]TestEntity, error) {
+func GetAllWhere(field entities.Field, value any) ([]*TestEntity, error) {
 	//	logHandler.DatabaseLogger.Printf("SELECT %v WHERE (%v=%v)", tableName, field.String(), value)
 	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
 

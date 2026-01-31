@@ -1,6 +1,6 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.10 - 2026-01-26
-// Generated 
+// Generated
 // Date: 27/01/2026 & 15:01
 // Who : matttownsend (orion)
 
@@ -86,9 +86,9 @@ func templateImportProcessor(inOriginal **TemplateStoreV3) (string, error) {
 	importedData := **inOriginal
 	stringField1 := strconv.Itoa(importedData.ID)
 
-	_, err := Create(context.TODO(), importedData)
+	_, err := Create(context.TODO(), &importedData)
 	if err != nil {
-		logHandler.ImportLogger.Panicf("Error importing %v: %v", tableName, err.Error())
+		logHandler.ErrorLogger.Panicf("Error importing %v: %v", tableName, err.Error())
 		return stringField1, err
 	}
 

@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.23 - 2026-01-28
+// Template Version: 0.5.24 - 2026-01-31
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -7,18 +7,20 @@
 package {{.PackageName}}
 
 import (
+	"time"
+
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/entities"
 )
 
 // TableName is the canonical DAO table identifier for this package.
 var (
-	{{.TableVar}} = entities.Table("{{.TableName}}")
-	tableName = {{.TableVar}}.String()
+	TableName = entities.Table("{{.TypeName}}")
+	tableName = TableName.String()
 )
 
 // The {{.TypeName}} struct defines the data model for the {{.TableName}} table.
-// Adjust domain fields and tags as required in the {{.TableName}}.definitions file.
+// Adjust domain fields and tags as required in the {{.TypeName}}.definitions file.
 type {{.TypeName}} struct {
 	// The primary key field(s), managed by the framework, DO NOT MODIFY
 	ID  int    `storm:"id,increment=100"`
@@ -41,15 +43,15 @@ type fieldNames struct {
 	Audit entities.Field
 	// Domain specific fields
 {{domainFieldNames}}
-   // Add no more fields below this line
+	// Add no more fields below this line
 }
 
-// {{.FieldsVar}} provides strongly-typed field names for use with GetBy/GetAllWhere/etc.
+// Fields provides strongly-typed field names for use with GetBy/GetAllWhere/etc.
 //
-// Example: GetBy({{.FieldsVar}}.Key, "abc")
+// Example: GetBy(Fields.Key, "abc")
 //
 // Note: the values are the struct field names as stored in Storm.
-var {{.FieldsVar}} = fieldNames{
+var Fields = fieldNames{
 	// The primary key field(s), managed by the framework, DO NOT MODIFY
 	ID:  "ID",
 	Key: "Key",
@@ -58,5 +60,5 @@ var {{.FieldsVar}} = fieldNames{
 	Audit: "Audit",
 	// tableName-specific fields, please modify as required
 {{domainFieldInits}}
-   // Add no more fields below this line
+	// Add no more fields below this line
 }
