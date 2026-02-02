@@ -287,9 +287,9 @@ func GetLookup(field, value entities.Field) (lookup.Lookup, error) {
 	var rtnLookup lookup.Lookup
 	rtnLookup.Data = make([]lookup.LookupData, 0)
 
-	for _, a := range recordList {
-		key := reflect.ValueOf(a).FieldByName(field.String()).Interface().(string)
-		val := reflect.ValueOf(a).FieldByName(value.String()).Interface().(string)
+	for _, record := range recordList {
+		key := reflect.ValueOf(record).Elem().FieldByName(field.String()).Interface().(string)
+		val := reflect.ValueOf(record).Elem().FieldByName(value.String()).Interface().(string)
 		rtnLookup.Data = append(rtnLookup.Data, lookup.LookupData{Key: key, Value: val})
 	}
 

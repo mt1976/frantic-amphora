@@ -24,7 +24,7 @@ require (
 	github.com/BurntSushi/toml v1.6.0 // indirect
 	github.com/asdine/storm/v3 v3.2.1
 	github.com/beorn7/floats v1.0.0
-	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.13 // indirect
 	github.com/galsondor/go-ascii v0.0.0-20151210013816-e2eb5175fb10 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect

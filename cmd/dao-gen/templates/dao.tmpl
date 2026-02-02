@@ -212,7 +212,7 @@ func DeleteBy(ctx context.Context, field entities.Field, value any, note string)
 		}
 
 		logHandler.TraceLogger.Printf("Deleting %v record %v", tableName, record.Key)
-		if err := activeDBConnection.Delete(&record); err != nil {
+		if err := activeDBConnection.Delete(record); err != nil {
 			clock.Stop(0)
 			return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
 		}
@@ -288,9 +288,9 @@ func GetLookup(field, value entities.Field) (lookup.Lookup, error) {
 	var rtnLookup lookup.Lookup
 	rtnLookup.Data = make([]lookup.LookupData, 0)
 
-	for _, a := range recordList {
-		key := reflect.ValueOf(a).FieldByName(field.String()).Interface().(string)
-		val := reflect.ValueOf(a).FieldByName(value.String()).Interface().(string)
+	for _, record := range recordList {
+		key := reflect.ValueOf(record).Elem().FieldByName(field.String()).Interface().(string)
+		val := reflect.ValueOf(record).Elem().FieldByName(value.String()).Interface().(string)
 		rtnLookup.Data = append(rtnLookup.Data, lookup.LookupData{Key: key, Value: val})
 	}
 
