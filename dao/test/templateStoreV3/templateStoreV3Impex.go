@@ -10,7 +10,6 @@ import (
 	"context"
 	"fmt"
 	"reflect"
-	"strconv"
 
 	"github.com/mt1976/frantic-amphora/dao"
 	"github.com/mt1976/frantic-amphora/dao/audit"
@@ -24,7 +23,7 @@ func (record *TemplateStoreV3) ExportRecordToJSON(name string) {
 	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
 	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
 
-	err := importExportHelper.ExportJSON(name, []TemplateStoreV3{*record}, Fields.ID)
+	err := importExportHelper.ExportJSON(name, []*TemplateStoreV3{record}, Fields.ID)
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error exporting %v record %v: %v", tableName, ID, err.Error())
 	}
@@ -56,7 +55,7 @@ func (record *TemplateStoreV3) ExportRecordToCSV(name string) error {
 	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
 	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
 
-	err := importExportHelper.ExportCSV(name, []TemplateStoreV3{*record}, Fields.ID)
+	err := importExportHelper.ExportCSV(name, []*TemplateStoreV3{record}, Fields.Key, importExportHelper.SINGLE)
 	if err != nil {
 		logHandler.ExportLogger.Printf("Error exporting %v record %v: %v", tableName, ID, err.Error())
 		clock.Stop(0)
@@ -73,18 +72,27 @@ func ExportAllToCSV(msg string) error {
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
 	}
-	return importExportHelper.ExportCSV(msg, exportListData, Fields.ID)
+	return importExportHelper.ExportCSV(msg, exportListData, Fields.Key, importExportHelper.BULK)
 }
 
-// ImportAllFromCSV imports records for this table from a CSV file.
-func ImportAllFromCSV() error {
+// ExportDefaults exports all records as a CSV file to the Defaults path.
+func ExportDefaults() error {
+	exportListData, err := GetAll()
+	if err != nil {
+		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
+	}
+	return importExportHelper.ExportDefaults(exportListData, Fields.Key)
+}
+
+// ImportDefaults imports records for this table from a CSV file.
+func ImportDefaults() error {
 	return importExportHelper.ImportCSV(tableName, &TemplateStoreV3{}, templateImportProcessor)
 }
 
 // templateImportProcessor is called for each CSV row during import.
 func templateImportProcessor(inOriginal **TemplateStoreV3) (string, error) {
 	importedData := **inOriginal
-	stringField1 := strconv.Itoa(importedData.ID)
+	stringField1 := importedData.Key
 
 	_, err := Create(context.TODO(), &importedData)
 	if err != nil {

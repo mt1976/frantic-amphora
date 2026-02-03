@@ -8,21 +8,23 @@ import (
 	"github.com/robfig/cron/v3"
 )
 
-var domain = "Schedule"
-var scheduledTasks *cron.Cron
-var appName string
+var (
+	domain         = "Schedule"
+	scheduledTasks *cron.Cron
+	appName        string
+)
 
 func Initialise(cfg *commonConfig.Settings) error {
 	clock := timing.Start(domain, "Initialise", "")
 
-	logHandler.InfoLogger.Printf("[%v] %v - Initialise - Started", domain, appName)
+	logHandler.InfoLogger.Println("Initialise - Started")
 
 	scheduledTasks = cron.New(cron.WithParser(cron.NewParser(
 		cron.SecondOptional | cron.Minute | cron.Hour | cron.Dom | cron.Month | cron.Dow | cron.Descriptor,
 	)))
 
 	appName = cfg.GetApplication_Name()
-	logHandler.InfoLogger.Printf("[%v] %v - Initialise - Complete", domain, appName)
+	logHandler.InfoLogger.Println("Initialise - Complete")
 	clock.Stop(1)
 	return nil
 }

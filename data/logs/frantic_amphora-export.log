@@ -1,0 +1,164 @@
+2026/02/02 14:25:07 exportHelper.go:34: [36m[EXPO][0m Exporting 1 record(s) as CSV in SINGLE mode
+2026/02/02 14:25:07 exportHelper.go:56: [36m[EXPO][0m Exporting 397LkkOAUVg8u1LbvmstRE0F0d7-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode to [/data/dumps/397LkkOAUVg8u1LbvmstRE0F0d7-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv]
+2026/02/02 14:25:07 exportHelper.go:81: [36m[EXPO][0m Export (1/1) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:07 exportHelper.go:106: [36m[EXPO][0m Exported (1/1) 397LkkOAUVg8u1LbvmstRE0F0d7-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LkkOAUVg8u1LbvmstRE0F0d7-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv] at 14:25:07 2026-02-02 by 501-matttownsend on orion(*nix) in SINGLE mode.
+2026/02/02 14:25:07 exportHelper.go:34: [36m[EXPO][0m Exporting 1 record(s) as CSV in BULK mode
+2026/02/02 14:25:07 exportHelper.go:56: [36m[EXPO][0m Exporting 397LklObpA0qVH28kMidJ0exocr-TemplateStoreV3-END1-Bulk to [/data/dumps/397LklObpA0qVH28kMidJ0exocr-TemplateStoreV3-END1-Bulk.csv]
+2026/02/02 14:25:07 exportHelper.go:81: [36m[EXPO][0m Export (1/1) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:07 exportHelper.go:106: [36m[EXPO][0m Exported (1/1) 397LklObpA0qVH28kMidJ0exocr-TemplateStoreV3-END1-Bulk(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LklObpA0qVH28kMidJ0exocr-TemplateStoreV3-END1-Bulk.csv] at 14:25:07 2026-02-02 by 501-matttownsend on orion(*nix) in BULK mode.
+2026/02/02 14:25:07 exportHelper.go:34: [36m[EXPO][0m Exporting 1 record(s) as CSV in DEFAULTS mode
+2026/02/02 14:25:07 exportHelper.go:56: [36m[EXPO][0m Exporting TemplateStoreV3 to [/data/defaults/TemplateStoreV3.csv]
+2026/02/02 14:25:07 exportHelper.go:81: [36m[EXPO][0m Export (1/1) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:07 exportHelper.go:106: [36m[EXPO][0m Exported (1/1) TemplateStoreV3(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv] at 14:25:07 2026-02-02 by 501-matttownsend on orion(*nix) in DEFAULTS mode.
+2026/02/02 14:25:08 exportHelper.go:34: [36m[EXPO][0m Exporting 1 record(s) as CSV in SINGLE mode
+2026/02/02 14:25:08 exportHelper.go:56: [36m[EXPO][0m Exporting 397LkwOSAtWRQHOsLW5WfuopuNC-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode to [/data/dumps/397LkwOSAtWRQHOsLW5WfuopuNC-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv]
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (1/1) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:08 exportHelper.go:106: [36m[EXPO][0m Exported (1/1) 397LkwOSAtWRQHOsLW5WfuopuNC-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LkwOSAtWRQHOsLW5WfuopuNC-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv] at 14:25:08 2026-02-02 by 501-matttownsend on orion(*nix) in SINGLE mode.
+2026/02/02 14:25:08 exportHelper.go:34: [36m[EXPO][0m Exporting 3 record(s) as CSV in BULK mode
+2026/02/02 14:25:08 exportHelper.go:56: [36m[EXPO][0m Exporting 397LksObGoW0NyrYkMsKsVZAb1H-TemplateStoreV3-END2-Bulk to [/data/dumps/397LksObGoW0NyrYkMsKsVZAb1H-TemplateStoreV3-END2-Bulk.csv]
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (1/3) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (2/3) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (3/3) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:08 exportHelper.go:106: [36m[EXPO][0m Exported (3/3) 397LksObGoW0NyrYkMsKsVZAb1H-TemplateStoreV3-END2-Bulk(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LksObGoW0NyrYkMsKsVZAb1H-TemplateStoreV3-END2-Bulk.csv] at 14:25:08 2026-02-02 by 501-matttownsend on orion(*nix) in BULK mode.
+2026/02/02 14:25:08 exportHelper.go:34: [36m[EXPO][0m Exporting 3 record(s) as CSV in DEFAULTS mode
+2026/02/02 14:25:08 exportHelper.go:56: [36m[EXPO][0m Exporting TemplateStoreV3 to [/data/defaults/TemplateStoreV3.csv]
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (1/3) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (2/3) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (3/3) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:08 exportHelper.go:106: [36m[EXPO][0m Exported (3/3) TemplateStoreV3(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv] at 14:25:08 2026-02-02 by 501-matttownsend on orion(*nix) in DEFAULTS mode.
+2026/02/02 14:25:08 exportHelper.go:34: [36m[EXPO][0m Exporting 1 record(s) as CSV in SINGLE mode
+2026/02/02 14:25:08 exportHelper.go:56: [36m[EXPO][0m Exporting 397Lku7gIoAuhvMFTNDJVmZ0SSK-TemplateStoreV3-c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49-SingleMode to [/data/dumps/397Lku7gIoAuhvMFTNDJVmZ0SSK-TemplateStoreV3-c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49-SingleMode.csv]
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (1/1) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:08 exportHelper.go:106: [36m[EXPO][0m Exported (1/1) 397Lku7gIoAuhvMFTNDJVmZ0SSK-TemplateStoreV3-c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49-SingleMode(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397Lku7gIoAuhvMFTNDJVmZ0SSK-TemplateStoreV3-c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49-SingleMode.csv] at 14:25:08 2026-02-02 by 501-matttownsend on orion(*nix) in SINGLE mode.
+2026/02/02 14:25:08 exportHelper.go:34: [36m[EXPO][0m Exporting 7 record(s) as CSV in BULK mode
+2026/02/02 14:25:08 exportHelper.go:56: [36m[EXPO][0m Exporting 397LkxSnTF2Lqd2ctwSKGmCPqMa-TemplateStoreV3-END3-Bulk to [/data/dumps/397LkxSnTF2Lqd2ctwSKGmCPqMa-TemplateStoreV3-END3-Bulk.csv]
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (1/7) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (2/7) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (3/7) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (4/7) TemplateStoreV3 4ac767b6c55a7c25dc2e6513f952dfd69dbf9624a6e33a6fa16a54fe0058dbed
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (5/7) TemplateStoreV3 c88485afde93e277b7c3c257cb0b81536d58bb37794ffb4b99372ec61c170d5f
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (6/7) TemplateStoreV3 c6ae13a2a608bf2fc4b8c1f0b58819347626dc16609624bccf6ec5429d7a9944
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (7/7) TemplateStoreV3 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
+2026/02/02 14:25:08 exportHelper.go:106: [36m[EXPO][0m Exported (7/7) 397LkxSnTF2Lqd2ctwSKGmCPqMa-TemplateStoreV3-END3-Bulk(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LkxSnTF2Lqd2ctwSKGmCPqMa-TemplateStoreV3-END3-Bulk.csv] at 14:25:08 2026-02-02 by 501-matttownsend on orion(*nix) in BULK mode.
+2026/02/02 14:25:08 exportHelper.go:34: [36m[EXPO][0m Exporting 7 record(s) as CSV in DEFAULTS mode
+2026/02/02 14:25:08 exportHelper.go:56: [36m[EXPO][0m Exporting TemplateStoreV3 to [/data/defaults/TemplateStoreV3.csv]
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (1/7) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (2/7) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (3/7) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (4/7) TemplateStoreV3 4ac767b6c55a7c25dc2e6513f952dfd69dbf9624a6e33a6fa16a54fe0058dbed
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (5/7) TemplateStoreV3 c88485afde93e277b7c3c257cb0b81536d58bb37794ffb4b99372ec61c170d5f
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (6/7) TemplateStoreV3 c6ae13a2a608bf2fc4b8c1f0b58819347626dc16609624bccf6ec5429d7a9944
+2026/02/02 14:25:08 exportHelper.go:81: [36m[EXPO][0m Export (7/7) TemplateStoreV3 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
+2026/02/02 14:25:08 exportHelper.go:106: [36m[EXPO][0m Exported (7/7) TemplateStoreV3(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv] at 14:25:08 2026-02-02 by 501-matttownsend on orion(*nix) in DEFAULTS mode.
+2026/02/02 14:25:10 exportHelper.go:34: [36m[EXPO][0m Exporting 1 record(s) as CSV in SINGLE mode
+2026/02/02 14:25:10 exportHelper.go:56: [36m[EXPO][0m Exporting 397Ll7RAXoceRh8hqYVsLWv08Tc-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode to [/data/dumps/397Ll7RAXoceRh8hqYVsLWv08Tc-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv]
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (1/1) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:10 exportHelper.go:106: [36m[EXPO][0m Exported (1/1) 397Ll7RAXoceRh8hqYVsLWv08Tc-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397Ll7RAXoceRh8hqYVsLWv08Tc-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv] at 14:25:10 2026-02-02 by 501-matttownsend on orion(*nix) in SINGLE mode.
+2026/02/02 14:25:10 exportHelper.go:34: [36m[EXPO][0m Exporting 15 record(s) as CSV in BULK mode
+2026/02/02 14:25:10 exportHelper.go:56: [36m[EXPO][0m Exporting 397LlDnwfcTfBFyKUOP38xlEhLc-TemplateStoreV3-END4-Bulk to [/data/dumps/397LlDnwfcTfBFyKUOP38xlEhLc-TemplateStoreV3-END4-Bulk.csv]
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (1/15) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (2/15) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (3/15) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (4/15) TemplateStoreV3 4ac767b6c55a7c25dc2e6513f952dfd69dbf9624a6e33a6fa16a54fe0058dbed
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (5/15) TemplateStoreV3 c88485afde93e277b7c3c257cb0b81536d58bb37794ffb4b99372ec61c170d5f
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (6/15) TemplateStoreV3 c6ae13a2a608bf2fc4b8c1f0b58819347626dc16609624bccf6ec5429d7a9944
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (7/15) TemplateStoreV3 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (8/15) TemplateStoreV3 f871831ec312a3432c55d829457de90d7e41f915e1ec10be9056e1075e679a04
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (9/15) TemplateStoreV3 eb110e3c333d7c146aac76c70822c26e16a4300b0a078ac111bad9a639481aa6
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (10/15) TemplateStoreV3 10f418d1857ccb608bcf78b7b25f5fc4a221c5f2448561118a1592ef009a135f
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (11/15) TemplateStoreV3 3fdba666d381f11a91971d5ce73ca5847fd1d4c9322d4df9cd1caca70627689e
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (12/15) TemplateStoreV3 d62ebd38733b365e223bba9c93f916a236777ac832cf525b6fc424ad8a91ba04
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (13/15) TemplateStoreV3 1da62ac8623160fcfa33a3d379f1be76804de0d686aba974ce339b70b5401ae1
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (14/15) TemplateStoreV3 5bbe346999771517b637344d77ccf00818ea18ffbfe127cc5a605772a472588c
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (15/15) TemplateStoreV3 c7fbcc48928ff394f264d5fb4aaf941e4d4a06f7ecdcbf3421726e1e7acf6ceb
+2026/02/02 14:25:10 exportHelper.go:106: [36m[EXPO][0m Exported (15/15) 397LlDnwfcTfBFyKUOP38xlEhLc-TemplateStoreV3-END4-Bulk(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LlDnwfcTfBFyKUOP38xlEhLc-TemplateStoreV3-END4-Bulk.csv] at 14:25:10 2026-02-02 by 501-matttownsend on orion(*nix) in BULK mode.
+2026/02/02 14:25:10 exportHelper.go:34: [36m[EXPO][0m Exporting 15 record(s) as CSV in DEFAULTS mode
+2026/02/02 14:25:10 exportHelper.go:56: [36m[EXPO][0m Exporting TemplateStoreV3 to [/data/defaults/TemplateStoreV3.csv]
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (1/15) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (2/15) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (3/15) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (4/15) TemplateStoreV3 4ac767b6c55a7c25dc2e6513f952dfd69dbf9624a6e33a6fa16a54fe0058dbed
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (5/15) TemplateStoreV3 c88485afde93e277b7c3c257cb0b81536d58bb37794ffb4b99372ec61c170d5f
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (6/15) TemplateStoreV3 c6ae13a2a608bf2fc4b8c1f0b58819347626dc16609624bccf6ec5429d7a9944
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (7/15) TemplateStoreV3 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (8/15) TemplateStoreV3 f871831ec312a3432c55d829457de90d7e41f915e1ec10be9056e1075e679a04
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (9/15) TemplateStoreV3 eb110e3c333d7c146aac76c70822c26e16a4300b0a078ac111bad9a639481aa6
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (10/15) TemplateStoreV3 10f418d1857ccb608bcf78b7b25f5fc4a221c5f2448561118a1592ef009a135f
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (11/15) TemplateStoreV3 3fdba666d381f11a91971d5ce73ca5847fd1d4c9322d4df9cd1caca70627689e
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (12/15) TemplateStoreV3 d62ebd38733b365e223bba9c93f916a236777ac832cf525b6fc424ad8a91ba04
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (13/15) TemplateStoreV3 1da62ac8623160fcfa33a3d379f1be76804de0d686aba974ce339b70b5401ae1
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (14/15) TemplateStoreV3 5bbe346999771517b637344d77ccf00818ea18ffbfe127cc5a605772a472588c
+2026/02/02 14:25:10 exportHelper.go:81: [36m[EXPO][0m Export (15/15) TemplateStoreV3 c7fbcc48928ff394f264d5fb4aaf941e4d4a06f7ecdcbf3421726e1e7acf6ceb
+2026/02/02 14:25:10 exportHelper.go:106: [36m[EXPO][0m Exported (15/15) TemplateStoreV3(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv] at 14:25:10 2026-02-02 by 501-matttownsend on orion(*nix) in DEFAULTS mode.
+2026/02/02 14:25:12 exportHelper.go:34: [36m[EXPO][0m Exporting 1 record(s) as CSV in SINGLE mode
+2026/02/02 14:25:12 exportHelper.go:56: [36m[EXPO][0m Exporting 397LlM8CD955PmHyvJmnCbbvmF5-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode to [/data/dumps/397LlM8CD955PmHyvJmnCbbvmF5-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv]
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (1/1) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:12 exportHelper.go:106: [36m[EXPO][0m Exported (1/1) 397LlM8CD955PmHyvJmnCbbvmF5-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LlM8CD955PmHyvJmnCbbvmF5-TemplateStoreV3-42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf-SingleMode.csv] at 14:25:12 2026-02-02 by 501-matttownsend on orion(*nix) in SINGLE mode.
+2026/02/02 14:25:12 exportHelper.go:34: [36m[EXPO][0m Exporting 31 record(s) as CSV in BULK mode
+2026/02/02 14:25:12 exportHelper.go:56: [36m[EXPO][0m Exporting 397LlRzARdfsXJBbWId5ZtY6uVY-TemplateStoreV3-END5-Bulk to [/data/dumps/397LlRzARdfsXJBbWId5ZtY6uVY-TemplateStoreV3-END5-Bulk.csv]
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (1/31) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (2/31) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (3/31) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (4/31) TemplateStoreV3 4ac767b6c55a7c25dc2e6513f952dfd69dbf9624a6e33a6fa16a54fe0058dbed
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (5/31) TemplateStoreV3 c88485afde93e277b7c3c257cb0b81536d58bb37794ffb4b99372ec61c170d5f
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (6/31) TemplateStoreV3 c6ae13a2a608bf2fc4b8c1f0b58819347626dc16609624bccf6ec5429d7a9944
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (7/31) TemplateStoreV3 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (8/31) TemplateStoreV3 f871831ec312a3432c55d829457de90d7e41f915e1ec10be9056e1075e679a04
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (9/31) TemplateStoreV3 eb110e3c333d7c146aac76c70822c26e16a4300b0a078ac111bad9a639481aa6
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (10/31) TemplateStoreV3 10f418d1857ccb608bcf78b7b25f5fc4a221c5f2448561118a1592ef009a135f
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (11/31) TemplateStoreV3 3fdba666d381f11a91971d5ce73ca5847fd1d4c9322d4df9cd1caca70627689e
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (12/31) TemplateStoreV3 d62ebd38733b365e223bba9c93f916a236777ac832cf525b6fc424ad8a91ba04
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (13/31) TemplateStoreV3 1da62ac8623160fcfa33a3d379f1be76804de0d686aba974ce339b70b5401ae1
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (14/31) TemplateStoreV3 5bbe346999771517b637344d77ccf00818ea18ffbfe127cc5a605772a472588c
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (15/31) TemplateStoreV3 c7fbcc48928ff394f264d5fb4aaf941e4d4a06f7ecdcbf3421726e1e7acf6ceb
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (16/31) TemplateStoreV3 eaffcd55b24313e8c363ce5021d6c48a5501917768b16f2edb6039dcf6ecb23c
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (17/31) TemplateStoreV3 a04326fb3e3383ed1ad3db6b66d25d87052ab1514396f022efa00832d510aa37
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (18/31) TemplateStoreV3 87a5bfe4061dc68034521cb60d08a7cde0704ace80ff7d6261e886a40c4ee0b0
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (19/31) TemplateStoreV3 9d37095ec5dd38ae9d713fc11c13d451e60751814dcf8f739c0f6412860d872d
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (20/31) TemplateStoreV3 4e45997c4fcdc6b371c605f6b6efc63902737f296bc135830c1bc8f992b957a8
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (21/31) TemplateStoreV3 79e0fa26ed8b2ca0d6faa9bd0bdb673049f4a2673249dc68d8400df9c593c39e
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (22/31) TemplateStoreV3 45659554d4d32174965368b547008a8356922dea4b6427c46de87c1b290466fb
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (23/31) TemplateStoreV3 3df91979bdf1cf1f6c1414f7ff1dbd0b21863b78904fe7503f70f779902b5756
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (24/31) TemplateStoreV3 b340547f9f215053f16860fa0df37c7e8b30e2f073142ca8d175ba45d9435d47
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (25/31) TemplateStoreV3 01c9e0d3f98fe4b91ba33cf04de73fe82f688a986619f50404e839b0a0a464c1
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (26/31) TemplateStoreV3 03a84a21bb8eb4ef093ee221de3671e855abe81a90cb28992edef28dd156b4a0
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (27/31) TemplateStoreV3 f15682c587f3bc0852303ac54cdbdf789e40da4e2bd85a45609f10d3ece078c9
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (28/31) TemplateStoreV3 4d9a26cb0f453b7bf2f849c13cf24596770429c2e6a26a92c16b80070964847b
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (29/31) TemplateStoreV3 50fafb6544eea7e8a7ff8cf71f122140a218cb4738a751a83fca0ad90bd40458
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (30/31) TemplateStoreV3 e6250f813508c208ac1c265d230dea54ff94ca07f91cd32af171963cc9cea7d6
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (31/31) TemplateStoreV3 4544e9331b0ca3da95311867ff5a9d2ece2cd3f4032b96a2298b71b415786191
+2026/02/02 14:25:12 exportHelper.go:106: [36m[EXPO][0m Exported (31/31) 397LlRzARdfsXJBbWId5ZtY6uVY-TemplateStoreV3-END5-Bulk(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/dumps/397LlRzARdfsXJBbWId5ZtY6uVY-TemplateStoreV3-END5-Bulk.csv] at 14:25:12 2026-02-02 by 501-matttownsend on orion(*nix) in BULK mode.
+2026/02/02 14:25:12 exportHelper.go:34: [36m[EXPO][0m Exporting 31 record(s) as CSV in DEFAULTS mode
+2026/02/02 14:25:12 exportHelper.go:56: [36m[EXPO][0m Exporting TemplateStoreV3 to [/data/defaults/TemplateStoreV3.csv]
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (1/31) TemplateStoreV3 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (2/31) TemplateStoreV3 837e8448c4fa87e5287b06fff79647298f679223ac30e2627a605752cfb7bedc
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (3/31) TemplateStoreV3 c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (4/31) TemplateStoreV3 4ac767b6c55a7c25dc2e6513f952dfd69dbf9624a6e33a6fa16a54fe0058dbed
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (5/31) TemplateStoreV3 c88485afde93e277b7c3c257cb0b81536d58bb37794ffb4b99372ec61c170d5f
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (6/31) TemplateStoreV3 c6ae13a2a608bf2fc4b8c1f0b58819347626dc16609624bccf6ec5429d7a9944
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (7/31) TemplateStoreV3 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (8/31) TemplateStoreV3 f871831ec312a3432c55d829457de90d7e41f915e1ec10be9056e1075e679a04
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (9/31) TemplateStoreV3 eb110e3c333d7c146aac76c70822c26e16a4300b0a078ac111bad9a639481aa6
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (10/31) TemplateStoreV3 10f418d1857ccb608bcf78b7b25f5fc4a221c5f2448561118a1592ef009a135f
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (11/31) TemplateStoreV3 3fdba666d381f11a91971d5ce73ca5847fd1d4c9322d4df9cd1caca70627689e
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (12/31) TemplateStoreV3 d62ebd38733b365e223bba9c93f916a236777ac832cf525b6fc424ad8a91ba04
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (13/31) TemplateStoreV3 1da62ac8623160fcfa33a3d379f1be76804de0d686aba974ce339b70b5401ae1
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (14/31) TemplateStoreV3 5bbe346999771517b637344d77ccf00818ea18ffbfe127cc5a605772a472588c
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (15/31) TemplateStoreV3 c7fbcc48928ff394f264d5fb4aaf941e4d4a06f7ecdcbf3421726e1e7acf6ceb
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (16/31) TemplateStoreV3 eaffcd55b24313e8c363ce5021d6c48a5501917768b16f2edb6039dcf6ecb23c
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (17/31) TemplateStoreV3 a04326fb3e3383ed1ad3db6b66d25d87052ab1514396f022efa00832d510aa37
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (18/31) TemplateStoreV3 87a5bfe4061dc68034521cb60d08a7cde0704ace80ff7d6261e886a40c4ee0b0
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (19/31) TemplateStoreV3 9d37095ec5dd38ae9d713fc11c13d451e60751814dcf8f739c0f6412860d872d
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (20/31) TemplateStoreV3 4e45997c4fcdc6b371c605f6b6efc63902737f296bc135830c1bc8f992b957a8
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (21/31) TemplateStoreV3 79e0fa26ed8b2ca0d6faa9bd0bdb673049f4a2673249dc68d8400df9c593c39e
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (22/31) TemplateStoreV3 45659554d4d32174965368b547008a8356922dea4b6427c46de87c1b290466fb
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (23/31) TemplateStoreV3 3df91979bdf1cf1f6c1414f7ff1dbd0b21863b78904fe7503f70f779902b5756
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (24/31) TemplateStoreV3 b340547f9f215053f16860fa0df37c7e8b30e2f073142ca8d175ba45d9435d47
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (25/31) TemplateStoreV3 01c9e0d3f98fe4b91ba33cf04de73fe82f688a986619f50404e839b0a0a464c1
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (26/31) TemplateStoreV3 03a84a21bb8eb4ef093ee221de3671e855abe81a90cb28992edef28dd156b4a0
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (27/31) TemplateStoreV3 f15682c587f3bc0852303ac54cdbdf789e40da4e2bd85a45609f10d3ece078c9
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (28/31) TemplateStoreV3 4d9a26cb0f453b7bf2f849c13cf24596770429c2e6a26a92c16b80070964847b
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (29/31) TemplateStoreV3 50fafb6544eea7e8a7ff8cf71f122140a218cb4738a751a83fca0ad90bd40458
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (30/31) TemplateStoreV3 e6250f813508c208ac1c265d230dea54ff94ca07f91cd32af171963cc9cea7d6
+2026/02/02 14:25:12 exportHelper.go:81: [36m[EXPO][0m Export (31/31) TemplateStoreV3 4544e9331b0ca3da95311867ff5a9d2ece2cd3f4032b96a2298b71b415786191
+2026/02/02 14:25:12 exportHelper.go:106: [36m[EXPO][0m Exported (31/31) TemplateStoreV3(s) to [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv] at 14:25:12 2026-02-02 by 501-matttownsend on orion(*nix) in DEFAULTS mode.

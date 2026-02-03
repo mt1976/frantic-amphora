@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/mt1976/frantic-amphora/dao/audit"
@@ -97,10 +98,10 @@ func main() {
 
 	totalElapsed := time.Duration(0)
 	// start := time.Now()
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 5; i++ {
 		in_start := time.Now()
-
-		msg2 := test(ctx, "ONE", i+1)
+		phase := strconv.Itoa(i + 1)
+		msg2 := test(ctx, phase, i+1)
 		logHandler.InfoLogger.Printf("Phase 2 Test Message: %v", msg2)
 
 		stop := time.Now()
@@ -216,6 +217,37 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 		}
 	}
 
+	err = userRec.ExportRecordToCSV("SingleMode")
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error exporting user %v as CSV: %v", phase, uKey, err)
+	}
+
+	logHandler.InfoLogger.Printf("Phase %v Exporting All Users as CSV", phase)
+	err = templateStoreV3.ExportAllToCSV("END" + phase)
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error exporting all users as CSV: %v", phase, err)
+	}
+	logHandler.InfoLogger.Printf("Phase %v Exporting All Users as JSON", phase)
+
+	logHandler.InfoLogger.Printf("Phase %v Exporting All Users to Defaults", phase)
+	err = templateStoreV3.ExportDefaults()
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error exporting all users to Defaults: %v", phase, err)
+	}
+
+	logHandler.InfoLogger.Printf("Phase %v Importing All Users from Defaults", phase)
+	err = templateStoreV3.ImportDefaults()
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error importing all users from Defaults: %v", phase, err)
+	}
+	logHandler.InfoLogger.Printf("Phase %v Completed Imports from Defaults", phase)
+
+	// Get all users again to verify count
+	allUsers, err := templateStoreV3.GetAll()
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error getting all users after import: %v", phase, err)
+	}
+	logHandler.InfoLogger.Printf("Phase %v Total Users after Import: %v", phase, len(allUsers))
 	// // Benchmark: retrieve a cached record repeatedly and report timings.
 	// // This is intentionally simple and uses FindByKey which should hit the cache after hydration.
 	// fetchIterations := 1

@@ -25,6 +25,7 @@ type config struct {
 	TypeName   string
 	TableName  string
 	Namespace  string
+	URIPrefix  string
 	Force      bool
 	WithWorker bool
 	WithImpex  bool
@@ -36,6 +37,7 @@ type templateData struct {
 	TypeName         string
 	TableName        string
 	Namespace        string
+	URIPrefix        string
 	TableVar         string
 	FieldsVar        string
 	DomainFields     string            // Field definitions from .definition file
@@ -58,6 +60,7 @@ func main() {
 	flag.StringVar(&cfg.TypeName, "type", "", "type name (required)")
 	flag.StringVar(&cfg.TableName, "table", "", "table name (defaults to type)")
 	flag.StringVar(&cfg.Namespace, "namespace", "", "cache namespace passed to database.Connect")
+	flag.StringVar(&cfg.URIPrefix, "uri", "", "URI prefix for entities.URI.Set()")
 	flag.BoolVar(&cfg.Force, "force", false, "overwrite existing files")
 	flag.BoolVar(&cfg.WithWorker, "with-worker", true, "generate worker file")
 	flag.BoolVar(&cfg.WithImpex, "with-impex", true, "generate import/export file")
@@ -91,6 +94,7 @@ func main() {
 		TypeName:         cfg.TypeName,
 		TableName:        cfg.TableName,
 		Namespace:        cfg.Namespace,
+		URIPrefix:        cfg.URIPrefix,
 		TableVar:         "TableName",
 		FieldsVar:        "Fields",
 		DomainFields:     domainFields,

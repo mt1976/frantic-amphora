@@ -10,7 +10,6 @@ import (
 	"context"
 	"fmt"
 	"reflect"
-	"strconv"
 
 	"github.com/mt1976/frantic-amphora/dao"
 	"github.com/mt1976/frantic-amphora/dao/audit"
@@ -21,12 +20,12 @@ import (
 
 // ExportRecordToJSON exports the record as a JSON file.
 func (record *{{.TypeName}}) ExportRecordToJSON(name string) {
-	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
-	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
+	Key := reflect.ValueOf(*record).FieldByName(Fields.Key.String())
+	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", Key))
 
-	err := importExportHelper.ExportJSON(name, []{{.TypeName}}{*record}, Fields.ID)
+	err := importExportHelper.ExportJSON(name, []*{{.TypeName}}{record}, Fields.Key)
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error exporting %v record %v: %v", tableName, ID, err.Error())
+		logHandler.ExportLogger.Panicf("error exporting %v record %v: %v", tableName, Key, err.Error())
 	}
 
 	clock.Stop(1)
@@ -44,7 +43,7 @@ func ExportAllToJSON(message string) {
 		return
 	}
 
-	err := importExportHelper.ExportJSON(message, recordList, Fields.ID)
+	err := importExportHelper.ExportJSON(message, recordList, Fields.Key)
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error exporting all %v's: %v", tableName, err.Error())
 	}
@@ -53,12 +52,12 @@ func ExportAllToJSON(message string) {
 
 // ExportRecordToCSV exports the record as a CSV file.
 func (record *{{.TypeName}}) ExportRecordToCSV(name string) error {
-	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
-	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
+	Key := reflect.ValueOf(*record).FieldByName(Fields.Key.String())
+	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", Key))
 
-	err := importExportHelper.ExportCSV(name, []{{.TypeName}}{*record}, Fields.ID)
+	err := importExportHelper.ExportCSV(name, []*{{.TypeName}}{record}, Fields.Key, importExportHelper.SINGLE)
 	if err != nil {
-		logHandler.ExportLogger.Printf("Error exporting %v record %v: %v", tableName, ID, err.Error())
+		logHandler.ExportLogger.Printf("Error exporting %v record %v: %v", tableName, Key, err.Error())
 		clock.Stop(0)
 		return err
 	}
@@ -73,18 +72,27 @@ func ExportAllToCSV(msg string) error {
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
 	}
-	return importExportHelper.ExportCSV(msg, exportListData, Fields.ID)
+	return importExportHelper.ExportCSV(msg, exportListData, Fields.Key, importExportHelper.BULK)
 }
 
-// ImportAllFromCSV imports records for this table from a CSV file.
-func ImportAllFromCSV() error {
+// ExportDefaults exports all records as a CSV file to the Defaults path.
+func ExportDefaults() error {
+	exportListData, err := GetAll()
+	if err != nil {
+		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
+	}
+	return importExportHelper.ExportDefaults(exportListData, Fields.Key)
+}
+
+// ImportDefaults imports records for this table from a CSV file.
+func ImportDefaults() error {
 	return importExportHelper.ImportCSV(tableName, &{{.TypeName}}{}, templateImportProcessor)
 }
 
 // templateImportProcessor is called for each CSV row during import.
 func templateImportProcessor(inOriginal **{{.TypeName}}) (string, error) {
 	importedData := **inOriginal
-	stringField1 := strconv.Itoa(importedData.ID)
+	stringField1 := importedData.Key
 
 	_, err := Create(context.TODO(), &importedData)
 	if err != nil {

@@ -22,7 +22,7 @@ func (record *TestEntity) ExportRecordToJSON(name string) {
 	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
 	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
 
-	err := importExportHelper.ExportJSON(name, []TestEntity{*record}, Fields.ID)
+	err := importExportHelper.ExportJSON(name, []*TestEntity{record}, Fields.ID)
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error exporting %v record %v: %v", tableName, ID, err.Error())
 	}
@@ -54,7 +54,7 @@ func (record *TestEntity) ExportRecordToCSV(name string) error {
 	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
 	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
 
-	err := importExportHelper.ExportCSV(name, []TestEntity{*record}, Fields.ID)
+	err := importExportHelper.ExportCSV(name, []*TestEntity{record}, Fields.ID, importExportHelper.SINGLE)
 	if err != nil {
 		logHandler.ExportLogger.Printf("Error exporting %v record %v: %v", tableName, ID, err.Error())
 		clock.Stop(0)
@@ -66,12 +66,12 @@ func (record *TestEntity) ExportRecordToCSV(name string) error {
 }
 
 // ExportAllToCSV exports all records as a CSV file.
-func ExportAllToCSV(msg string) error {
+func ExportAllToCSV() error {
 	exportListData, err := GetAll()
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
 	}
-	return importExportHelper.ExportCSV(msg, exportListData, Fields.ID)
+	return importExportHelper.ExportCSV("", exportListData, Fields.ID, importExportHelper.BULK)
 }
 
 // ImportAllFromCSV imports records for this table from a CSV file.

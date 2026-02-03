@@ -17,6 +17,12 @@ import (
 var (
 	TableName = entities.Table("{{.TypeName}}")
 	tableName = TableName.String()
+	{{- if .URIPrefix}}
+	URI       entities.URI = entities.URI("{{.URIPrefix}}")
+	PK        entities.KEY = entities.KEY("{{.URIPrefix}}key")
+	RAW	      entities.KEY = entities.KEY("{{.URIPrefix}}alt")
+	{{- else}}
+	{{- end}}
 )
 
 // The {{.TypeName}} struct defines the data model for the {{.TableName}} table.

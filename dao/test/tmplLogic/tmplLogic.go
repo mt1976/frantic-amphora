@@ -40,7 +40,7 @@ func BuildUserCode(u *templateStoreV3.TemplateStoreV3) string {
 }
 
 func DuplicateCheck(record *templateStoreV3.TemplateStoreV3) (bool, error) {
-	logHandler.InfoLogger.Printf("Performing duplicate check for %v record %v", templateStoreV3.TableName, record.Key)
+	logHandler.TraceLogger.Printf("Performing duplicate check for %v record %v", templateStoreV3.TableName, record.Key)
 
 	if record.Key == "" {
 		logHandler.InfoLogger.Printf("Duplicate check failed for %v record: Key is empty", templateStoreV3.TableName)
@@ -49,14 +49,14 @@ func DuplicateCheck(record *templateStoreV3.TemplateStoreV3) (bool, error) {
 	}
 	responseRecord, err := templateStoreV3.GetBy(templateStoreV3.Fields.Key, record.Key)
 	if err != nil {
-		logHandler.InfoLogger.Printf("Duplicate check failed for %v record: %v - NO RECORD EXISTS, DONT SKIP CREATE", templateStoreV3.TableName, err)
+		logHandler.TraceLogger.Printf("Duplicate check failed for %v record: %v - NO RECORD EXISTS, DONT SKIP CREATE", templateStoreV3.TableName, err)
 		return false, nil
 	}
 	if responseRecord.Audit.DeletedBy != "" {
-		logHandler.InfoLogger.Printf("Duplicate check passed for %v record %v: Existing record is deleted, DONT SKIP CREATE", templateStoreV3.TableName, record.Key)
+		logHandler.TraceLogger.Printf("Duplicate check passed for %v record %v: Existing record is deleted, DONT SKIP CREATE", templateStoreV3.TableName, record.Key)
 		return false, nil
 	}
-	logHandler.InfoLogger.Printf("Duplicate check found existing %v record %v: SKIP CREATE", templateStoreV3.TableName, record.Key)
+	logHandler.TraceLogger.Printf("Duplicate check found existing %v record %v: SKIP CREATE", templateStoreV3.TableName, record.Key)
 	return true, nil
 }
 
@@ -88,12 +88,12 @@ func JobProcessor(name, desc string) {
 
 func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, *templateStoreV3.TemplateStoreV3, string) {
 	// Custom post-create logic can be added here
-	logHandler.InfoLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
+	logHandler.TraceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
 	update := true
 	message := "post create processing completed"
-	logHandler.InfoLogger.Printf("PostTest before create: %+v", record.PostTest)
+	logHandler.TraceLogger.Printf("PostTest before create: %+v", record.PostTest)
 	record.PostTest = append(record.PostTest, "CREATE@"+time.Now().Format(dateHelpers.Format.DMY))
-	logHandler.InfoLogger.Printf("PostTest after create: %+v", record.PostTest)
+	logHandler.TraceLogger.Printf("PostTest after create: %+v", record.PostTest)
 	return nil, update, record, message
 }
 

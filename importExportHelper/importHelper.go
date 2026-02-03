@@ -11,12 +11,11 @@ import (
 )
 
 func ImportCSV[T any](importName string, entryTypeToInsert T, importProcessor func(*T) (string, error)) error {
-
-	clock := timing.Start(importName, "Import", "")
+	clock := timing.Start(importName, IMPORT, "")
 	// Create a slice of entryTypeToInsert to hold the data from the CSV file
 	insertEntriesList := []T{}
 
-	importFile := openTargetFile(importName, importString, logHandler.ImportLogger, "csv", paths.Defaults().String())
+	importFile := openTargetFile(importName, IMPORT, logHandler.ImportLogger, CSV, paths.Defaults().String())
 	defer importFile.Close()
 
 	gocsv.SetCSVReader(func(in io.Reader) gocsv.CSVReader {
@@ -44,7 +43,7 @@ func ImportCSV[T any](importName string, entryTypeToInsert T, importProcessor fu
 
 	count := 0
 	for thisPos, insertEntry := range insertEntriesList {
-		//logHandler.ImportLogger.Printf("Import %v (%v/%v)", importName, thisPos+1, totalImportEntries)
+		// logHandler.ImportLogger.Printf("Import %v (%v/%v)", importName, thisPos+1, totalImportEntries)
 		// the load function is a helper function to create a new entry instance and save it to the database
 		// the parameters should be customised to suit the specific requirements of the entryination table/DAO.
 		entryIdentifier, err := importProcessor(&insertEntry)
@@ -52,13 +51,12 @@ func ImportCSV[T any](importName string, entryTypeToInsert T, importProcessor fu
 			logHandler.ImportLogger.Panicf("Error importing %v [%v] Error=[%v]", importName, entryIdentifier, err.Error())
 			continue
 		}
-		logHandler.ImportLogger.Printf("Imported %v (%v/%v) %v=[%v]", importName, thisPos+1, totalImportEntries, importName, entryIdentifier)
+		logHandler.ImportLogger.Printf("Import (%v/%v) %v %v", thisPos+1, totalImportEntries, importName, entryIdentifier)
 
 		count++
 	}
 
 	logHandler.ImportLogger.Printf("Imported (%v/%v) %v(s) from [%v]", count, totalImportEntries, importName, importFile.Name())
-	logHandler.EventLogger.Printf("Imported (%v/%v) %v(s) from [%v]", count, totalImportEntries, importName, importFile.Name())
 	importFile.Close()
 	clock.Stop(count)
 	return nil
