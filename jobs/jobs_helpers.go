@@ -18,12 +18,24 @@ func StartOfDay(t time.Time) time.Time {
 	return dateHelpers.StartOfDay(t)
 }
 
-func BeforeOrEqualTo(t1, t2 time.Time) bool {
-	return dateHelpers.IsBeforeOrEqualTo(t1, t2)
+func DateBeforeOrEqualTo(t1, t2 time.Time) bool {
+	return dateHelpers.IsBeforeOrEqualTo(dateHelpers.StartOfDay(t1), dateHelpers.StartOfDay(t2))
 }
 
-func AfterOrEqualTo(t1, t2 time.Time) bool {
-	return dateHelpers.IsAfterOrEqualTo(t1, t2)
+func DateAfterOrEqualTo(t1, t2 time.Time) bool {
+	return dateHelpers.IsAfterOrEqualTo(dateHelpers.StartOfDay(t1), dateHelpers.StartOfDay(t2))
+}
+
+func Before(t1, t2 time.Time) bool {
+	return dateHelpers.IsBefore(dateHelpers.StartOfDay(t1), dateHelpers.StartOfDay(t2))
+}
+
+func DateAfter(t1, t2 time.Time) bool {
+	return dateHelpers.IsAfter(dateHelpers.StartOfDay(t1), dateHelpers.StartOfDay(t2))
+}
+
+func Equal(t1, t2 time.Time) bool {
+	return dateHelpers.StartOfDay(t1).Equal(dateHelpers.StartOfDay(t2))
 }
 
 func NextRun(name, schedule string) string {

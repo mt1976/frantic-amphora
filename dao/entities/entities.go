@@ -27,6 +27,12 @@ type (
 	URI uri
 )
 
+// ACTION represents a web action type (e.g., CREATE, UPDATE, DELETE).
+type (
+	action string
+	ACTION action
+)
+
 // KEY represents a primary key value for database entities.
 type (
 	pk  string
@@ -583,4 +589,19 @@ func (p *KEY) Get() string {
 // Example: if the key is "123", this returns "{123}".
 func (p *KEY) Key() string {
 	return "{" + p.String() + "}"
+}
+
+// String returns the action as a string.
+func (a *ACTION) String() string {
+	return string(*a)
+}
+
+// Set sets the action value from a string.
+func (a *ACTION) Set(in string) {
+	*a = ACTION(in)
+}
+
+// Get returns the action as a string.
+func (a *ACTION) Get() string {
+	return a.String()
 }

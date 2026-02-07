@@ -19,7 +19,7 @@ type Audit struct {
 	DeletedAtDisplay string
 	AuditSequence    entities.Int
 	DBVersion        entities.Int
-	//Empty     time.Time // Convience Field - Used to avoid erros with dates.
+	// Empty     time.Time // Convience Field - Used to avoid erros with dates.
 }
 
 type AuditUpdateInfo struct {

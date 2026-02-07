@@ -8,6 +8,8 @@ require (
 	github.com/mt1976/frantic-core v1.10.0
 )
 
+replace github.com/mt1976/frantic-core => ../frantic-core
+
 require (
 	github.com/DataDog/zstd v1.5.7 // indirect
 	github.com/Sereal/Sereal/Go/sereal v0.0.0-20250307140414-035be09f1bc8 // indirect

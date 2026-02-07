@@ -14,9 +14,11 @@ import (
 )
 
 // Audit package handles auditing of actions performed on data entities.
-var name = "Audit"
-var cfg *commonConfig.Settings
-var upperName = strings.ToUpper(name)
+var (
+	name      = "Audit"
+	cfg       *commonConfig.Settings
+	upperName = strings.ToUpper(name)
+)
 
 func (a *Action) WithMessage(in string) Action {
 	a.description = in
@@ -24,7 +26,6 @@ func (a *Action) WithMessage(in string) Action {
 }
 
 func (a *Audit) Action(ctx context.Context, action Action) error {
-
 	message := action.popMessage()
 	timingMessage := fmt.Sprintf("Action: %v(%v) Message: %v", action.Code(), action.ShortName(), message)
 	clock := timing.Start(name, "Audit", timingMessage)
@@ -43,7 +44,7 @@ func (a *Audit) Action(ctx context.Context, action Action) error {
 		logHandler.WarningLogger.Printf("Action: %v(%v) Message: %v Error: %v", action.code, action.short, message, "No Active User")
 		os.Exit(1)
 	}
-	//updateAction := action
+	// updateAction := action
 
 	if action.Is(CREATE) {
 		a.CreatedAt = auditTime
