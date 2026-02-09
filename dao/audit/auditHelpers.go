@@ -10,8 +10,10 @@ import (
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
-var hostNameOnce sync.Once
-var cachedHostName string
+var (
+	hostNameOnce   sync.Once
+	cachedHostName string
+)
 
 func getHostName() string {
 	hostNameOnce.Do(func() {
@@ -35,7 +37,7 @@ func (a *Action) popMessage() string {
 func (a *Audit) Spew() error {
 	// Spew the Audit Data
 	noAudit := len(a.Updates)
-	//logger.InfoLogger.Printf(" No Updates=[%v]", noAudit)
+	// logger.InfoLogger.Printf(" No Updates=[%v]", noAudit)
 	if noAudit > 0 {
 		for i := range a.Updates {
 			upd := a.Updates[i]
@@ -46,7 +48,6 @@ func (a *Audit) Spew() error {
 }
 
 func getAuditUserCode(ctx context.Context) (string, error) {
-
 	defaultUser := cfg.GetServiceUser_UserCode()
 
 	if ctx == context.Background() {
@@ -62,7 +63,7 @@ func getAuditUserCode(ctx context.Context) (string, error) {
 
 	// Get the current user from the context
 	sessionUser := contextHandler.GetSession_UserCode(ctx)
-	//ctx.Value(cfg.GetSecuritySessionKey_UserCode())
+	// ctx.Value(cfg.GetSecuritySessionKey_UserCode())
 	if sessionUser != "" {
 		return sessionUser, nil
 	}

@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
-// Template Version: 0.5.10 - 2026-01-26
+// Template Version: 0.5.24 - 2026-01-31
 // Generated
-// Date: 27/01/2026 & 15:01
+// Date: 09/02/2026 & 10:22
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -20,12 +20,12 @@ import (
 
 // ExportRecordToJSON exports the record as a JSON file.
 func (record *TemplateStoreV3) ExportRecordToJSON(name string) {
-	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
-	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
+	Key := reflect.ValueOf(*record).FieldByName(Fields.Key.String())
+	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", Key))
 
-	err := importExportHelper.ExportJSON(name, []*TemplateStoreV3{record}, Fields.ID)
+	err := importExportHelper.ExportJSON(name, []*TemplateStoreV3{record}, Fields.Key)
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error exporting %v record %v: %v", tableName, ID, err.Error())
+		logHandler.ExportLogger.Panicf("error exporting %v record %v: %v", tableName, Key, err.Error())
 	}
 
 	clock.Stop(1)
@@ -43,7 +43,7 @@ func ExportAllToJSON(message string) {
 		return
 	}
 
-	err := importExportHelper.ExportJSON(message, recordList, Fields.ID)
+	err := importExportHelper.ExportJSON(message, recordList, Fields.Key)
 	if err != nil {
 		logHandler.ExportLogger.Panicf("error exporting all %v's: %v", tableName, err.Error())
 	}
@@ -52,12 +52,12 @@ func ExportAllToJSON(message string) {
 
 // ExportRecordToCSV exports the record as a CSV file.
 func (record *TemplateStoreV3) ExportRecordToCSV(name string) error {
-	ID := reflect.ValueOf(*record).FieldByName(Fields.ID.String())
-	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", ID))
+	Key := reflect.ValueOf(*record).FieldByName(Fields.Key.String())
+	clock := timing.Start(tableName, "Export", fmt.Sprintf("%v", Key))
 
 	err := importExportHelper.ExportCSV(name, []*TemplateStoreV3{record}, Fields.Key, importExportHelper.SINGLE)
 	if err != nil {
-		logHandler.ExportLogger.Printf("Error exporting %v record %v: %v", tableName, ID, err.Error())
+		logHandler.ExportLogger.Printf("Error exporting %v record %v: %v", tableName, Key, err.Error())
 		clock.Stop(0)
 		return err
 	}
@@ -85,18 +85,18 @@ func ExportDefaults() error {
 }
 
 // ImportDefaults imports records for this table from a CSV file.
-func ImportDefaults() error {
-	return importExportHelper.ImportCSV(tableName, &TemplateStoreV3{}, templateImportProcessor)
+func ImportDefaults(ctx context.Context) error {
+	return importExportHelper.ImportCSV(ctx, tableName, &TemplateStoreV3{}, templateImportProcessor)
 }
 
 // templateImportProcessor is called for each CSV row during import.
-func templateImportProcessor(inOriginal **TemplateStoreV3) (string, error) {
+func templateImportProcessor(ctx context.Context, inOriginal **TemplateStoreV3) (string, error) {
 	importedData := **inOriginal
 	stringField1 := importedData.Key
 
-	_, err := Create(context.TODO(), &importedData)
+	_, err := importRecord(ctx, &importedData)
 	if err != nil {
-		logHandler.ErrorLogger.Panicf("Error importing %v: %v", tableName, err.Error())
+		logHandler.ImportLogger.Panicf("Error importing %v: %v", tableName, err.Error())
 		return stringField1, err
 	}
 

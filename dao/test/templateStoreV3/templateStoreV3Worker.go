@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
-// Template Version: 0.5.10 - 2026-01-26
+// Template Version: 0.5.24 - 2026-01-31
 // Generated 
-// Date: 27/01/2026 & 15:01
+// Date: 09/02/2026 & 10:22
 // Who : matttownsend (orion)
 
 package templateStoreV3

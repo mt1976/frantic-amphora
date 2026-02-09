@@ -1,12 +1,13 @@
 // Data Access Object for the TemplateStoreV3 table
-// Template Version: 0.5.10 - 2026-01-26
+// Template Version: 0.5.24 - 2026-01-31
 // Generated
-// Date: 27/01/2026 & 15:01
+// Date: 09/02/2026 & 10:22
 // Who : matttownsend (orion)
 
 package templateStoreV3
 
 import (
+	"sync"
 	"time"
 
 	"github.com/mt1976/frantic-amphora/dao/audit"
@@ -61,19 +62,19 @@ type TemplateStoreV3 struct {
 	ExampleField entities.Field // Example field type1
 	ExampleTable entities.Table // Example table type1
 	// User Management fields
-	UID      string `validate:"required"`
-	GID      string `storm:"index" validate:"required"`
-	RealName string `validate:"required,min=5"`
-	UserName string `validate:"required,min=5"`
-	UserCode string `storm:"index" validate:"required,min=5"`
-	Email    string
-	Notes    string `validate:"max=75"`
-	Active   entities.Bool
-
-	LastLogin time.Time // Last login time
-	LastHost  string    `storm:"index"` // Last host with index
+	UID       string `validate:"required"`
+	GID       string `storm:"index" validate:"required"`
+	RealName  string `validate:"required,min=5"`
+	UserName  string `validate:"required,min=5"`
+	UserCode  string `storm:"index" validate:"required,min=5"`
+	Email     string
+	Notes     string `validate:"max=75"`
+	Active    entities.Bool
+	LastLogin time.Time  // Last login time
+	LastHost  string     `storm:"index"` // Last host with index
+	PostTest  []string   // For testing post processing hooks
+	Lock      sync.Mutex // For testing concurrent updates, not persisted to DB
 	// Add no more fields below this line
-	PostTest []string
 }
 
 type fieldNames struct {
@@ -114,6 +115,8 @@ type fieldNames struct {
 	Active            entities.Field
 	LastLogin         entities.Field
 	LastHost          entities.Field
+	PostTest          entities.Field
+	Lock              entities.Field
 
 	// Add no more fields below this line
 }
@@ -161,5 +164,7 @@ var Fields = fieldNames{
 	Active:            "Active",
 	LastLogin:         "LastLogin",
 	LastHost:          "LastHost",
+	PostTest:          "PostTest",
+	Lock:              "Lock",
 	// Add no more fields below this line
 }

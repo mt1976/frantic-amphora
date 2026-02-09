@@ -34,6 +34,8 @@ type {{.TypeName}} struct {
 	Raw string `storm:"index,unique"`
 	// Audit information, managed by the framework, DO NOT MODIFY
 	Audit audit.Audit `csv:"-"`
+	// Locking information, managed by the framework, DO NOT MODIFY
+	Lock sync.Mutex `csv:"-"` // Add this field to enable record locking for concurrent updates
 
 	// Domain specific fields
 {{.DomainFields}}

@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
-// Template Version: 0.5.12 - 2026-01-27
+// Template Version: 0.5.24 - 2026-01-31
 // Generated
-// Date: 27/01/2026 & 15:01
+// Date: 09/02/2026 & 10:22
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -64,7 +64,7 @@ func GetBy(field entities.Field, value any) (*TemplateStoreV3, error) {
 		logHandler.DatabaseLogger.Printf("Record not found for %v where %v=%v: %v", tableName, field.String(), value, err)
 		return New(), ce.ErrRecordNotFoundWrapper(tableName, field.String(), fmt.Sprintf("%v", value))
 	}
-	postGetRecord := record
+	postGetRecord := *record
 	logHandler.TraceLogger.Printf("Post Get Processing for %v record %v", tableName, postGetRecord.Key)
 	if err := postGetRecord.postGet(context.Background()); err != nil {
 		logHandler.DatabaseLogger.Printf("Post Get processing error for %v record %v: %v", tableName, postGetRecord.Key, err)
@@ -73,10 +73,10 @@ func GetBy(field entities.Field, value any) (*TemplateStoreV3, error) {
 	}
 
 	logHandler.TraceLogger.Printf("Post Get Processing completed for %v record %v", tableName, postGetRecord.Key)
-	record = postGetRecord
+	record = &postGetRecord
 
 	clock.Stop(1)
-	return postGetRecord, nil
+	return &postGetRecord, nil
 }
 
 // GetAll returns all TemplateStoreV3 records.
@@ -107,7 +107,7 @@ func GetAll() ([]*TemplateStoreV3, error) {
 	return result, nil
 }
 
-// GetAll returns all TemplateStoreV3 records.
+// GetAllUncached returns all TemplateStoreV3 records without cache.
 func GetAllUncached() ([]*TemplateStoreV3, error) {
 	logHandler.DatabaseLogger.Printf("SELECT %v ALL", tableName)
 	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
@@ -157,9 +157,9 @@ func New() *TemplateStoreV3 {
 func Create(ctx context.Context, basis *TemplateStoreV3) (*TemplateStoreV3, error) {
 	logHandler.DatabaseLogger.Printf("CREATE %v ...", tableName)
 	dao.CheckDAOReadyState(tableName, audit.CREATE, databaseConnectionActive)
-	logHandler.TraceLogger.Printf("**** Create %v Record: %v %+v", tableName, basis.Key, basis)
-	basis, err := (*basis).insertOrUpdate(ctx, fmt.Sprintf("New %v Record", tableName), audit.CREATE, CREATE)
-	logHandler.TraceLogger.Printf("**** Created %v Record: %v %+v %+v %+v %v", tableName, basis.Key, *basis, basis, &basis, err)
+	logHandler.InfoLogger.Printf("**** Create %v Record: %v %+v", tableName, basis.Key, basis)
+	basis, err := (*basis).insertOrUpdate(ctx, fmt.Sprintf("New %v Record", tableName), audit.CREATE, CREATE, false)
+	logHandler.InfoLogger.Printf("**** Created %v Record: %v %+v %+v %+v %v", tableName, basis.Key, *basis, basis, &basis, err)
 	if err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
 		return basis, err
@@ -168,9 +168,26 @@ func Create(ctx context.Context, basis *TemplateStoreV3) (*TemplateStoreV3, erro
 	return basis, nil
 }
 
+// Create constructs and inserts a new TemplateStoreV3 record.
+func importRecord(ctx context.Context, basis *TemplateStoreV3) (*TemplateStoreV3, error) {
+	logHandler.DatabaseLogger.Printf("IMPORT %v ...", tableName)
+	dao.CheckDAOReadyState(tableName, audit.IMPORT, databaseConnectionActive)
+	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v", tableName, basis.Key, basis)
+	basis, err := (*basis).insertOrUpdate(ctx, fmt.Sprintf("Import %v Record", tableName), audit.IMPORT, IMPORT, false)
+	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v %+v %+v %v", tableName, basis.Key, *basis, basis, &basis, err)
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Error importing %v record %v: %v", tableName, basis.Key, err.Error())
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
+		return basis, err
+	}
+	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v", tableName, basis.Key, &basis)
+	return basis, nil
+}
+
 // Delete deletes a record by ID.
 func Delete(ctx context.Context, id int, note string) error {
 	logHandler.DatabaseLogger.Printf("DELETE %v WHERE %v=%v (%v)", tableName, Fields.ID, id, note)
+
 	err := DeleteBy(ctx, Fields.ID, id, note)
 	if err != nil {
 		return ce.ErrDAODeleteWrapper(tableName, Fields.ID.String(), id, err)
@@ -211,7 +228,7 @@ func DeleteBy(ctx context.Context, field entities.Field, value any, note string)
 		}
 
 		logHandler.TraceLogger.Printf("Deleting %v record %v", tableName, record.Key)
-		if err := activeDBConnection.Delete(&record); err != nil {
+		if err := activeDBConnection.Delete(record); err != nil {
 			clock.Stop(0)
 			return ce.ErrDAODeleteWrapper(tableName, field.String(), value, err)
 		}
@@ -235,25 +252,24 @@ func (record *TemplateStoreV3) Validate() error {
 // Update persists changes to an existing record.
 func (record *TemplateStoreV3) Update(ctx context.Context, note string) error {
 	logHandler.DatabaseLogger.Printf("Updating %v record %v (%v)", tableName, record.Key, note)
-	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE)
+	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE, false)
+	logHandler.DatabaseLogger.Printf("Update record %v %v", record.Key, note)
+
+	return err
+}
+
+func (record *TemplateStoreV3) PostUpdateUpdate(ctx context.Context, note string) error {
+	logHandler.DatabaseLogger.Printf("Updating %v record %v during post-update processing (%v)", tableName, record.Key, note)
+	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE, true)
+	logHandler.DatabaseLogger.Printf("Post-update Update record %v %v", record.Key, note)
 	return err
 }
 
 // UpdateWithAction persists changes using the provided audit action.
 func (record *TemplateStoreV3) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error {
 	logHandler.DatabaseLogger.Printf("%ving %v record %v with action %v (%v)", UPDATE, tableName, record.Key, auditAction.Code(), note)
-	record, err := record.insertOrUpdate(ctx, note, auditAction, UPDATE)
-	return err
-}
-
-// Create inserts a new record.
-func (record *TemplateStoreV3) Create(ctx context.Context, note string) error {
-	logHandler.DatabaseLogger.Printf("%ving %v record %v (%v)", CREATE, tableName, record.Key, note)
-	record, err := record.insertOrUpdate(ctx, note, audit.CREATE, CREATE)
-	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-	}
-	logHandler.TraceLogger.Printf("Created %v Record: %v %+v", tableName, record.Key, record)
+	record, err := record.insertOrUpdate(ctx, note, auditAction, UPDATE, false)
+	logHandler.DatabaseLogger.Printf("%ved %v record %v with action %v (%v)", UPDATE, tableName, record.Key, auditAction.Code(), note)
 	return err
 }
 

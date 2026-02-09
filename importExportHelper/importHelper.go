@@ -1,6 +1,7 @@
 package importExportHelper
 
 import (
+	"context"
 	"encoding/csv"
 	"io"
 
@@ -10,7 +11,7 @@ import (
 	"github.com/mt1976/frantic-core/timing"
 )
 
-func ImportCSV[T any](importName string, entryTypeToInsert T, importProcessor func(*T) (string, error)) error {
+func ImportCSV[T any](ctx context.Context, importName string, entryTypeToInsert T, importProcessor func(ctx context.Context, entry *T) (string, error)) error {
 	clock := timing.Start(importName, IMPORT, "")
 	// Create a slice of entryTypeToInsert to hold the data from the CSV file
 	insertEntriesList := []T{}
@@ -46,7 +47,7 @@ func ImportCSV[T any](importName string, entryTypeToInsert T, importProcessor fu
 		// logHandler.ImportLogger.Printf("Import %v (%v/%v)", importName, thisPos+1, totalImportEntries)
 		// the load function is a helper function to create a new entry instance and save it to the database
 		// the parameters should be customised to suit the specific requirements of the entryination table/DAO.
-		entryIdentifier, err := importProcessor(&insertEntry)
+		entryIdentifier, err := importProcessor(ctx, &insertEntry)
 		if err != nil {
 			logHandler.ImportLogger.Panicf("Error importing %v [%v] Error=[%v]", importName, entryIdentifier, err.Error())
 			continue

@@ -1,183 +1,168 @@
-2026/02/02 14:25:07 logHandler.go:202: [32m[INFO][0m *------------------------------------------------------------------------*
-2026/02/02 14:25:07 logHandler.go:203: [32m[INFO][0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
-2026/02/02 14:25:07 logHandler.go:204: [32m[INFO][0m *------------------------------------------------------------------------*
-2026/02/02 14:25:07 main.go:86: [32m[INFO][0m Initialize User Store
-2026/02/02 14:25:07 main.go:96: [32m[INFO][0m Clear Down User Store
-2026/02/02 14:25:07 main.go:146: [32m[INFO][0m Phase 1 Creating 1 Baseline Users
-2026/02/02 14:25:07 main.go:153: [32m[INFO][0m Phase 1 Adding 1 Baseline Users to Store
-2026/02/02 14:25:07 main.go:156: [32m[INFO][0m Phase 1 Creating Baseline User 1
-2026/02/02 14:25:07 tmplLogicMain.go:52: [32m[INFO][0m Adding new user to TemplateStoreV3: SQ=0000
-2026/02/02 14:25:07 tmplLogicMain.go:77: [32m[INFO][0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010000
-2026/02/02 14:25:07 main.go:161: [32m[INFO][0m Phase 1 Created Baseline User 1
-2026/02/02 14:25:07 main.go:167: [32m[INFO][0m Phase 1 Baseline 1 Users Added to Store 1
-2026/02/02 14:25:07 main.go:176: [32m[INFO][0m Phase 1 Setup Templates Loaded: 1
-2026/02/02 14:25:07 main.go:192: [32m[INFO][0m Phase 1 Evaluating User: (0/1) Matt Townsend 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:07 main.go:198: [32m[INFO][0m PostTest: [CREATE@02/02/26]
-2026/02/02 14:25:07 main.go:203: [32m[INFO][0m Phase 1 Selected User Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:07 main.go:210: [32m[INFO][0m Phase 1 Retrieved User by Key 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf: Matt Townsend
-2026/02/02 14:25:07 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:07 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26]
-2026/02/02 14:25:07 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:07 main.go:216: [32m[INFO][0m Phase 1 Updated User 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf LastHost to orion-142507
-2026/02/02 14:25:07 main.go:225: [32m[INFO][0m Phase 1 Exporting All Users as CSV
-2026/02/02 14:25:07 main.go:230: [32m[INFO][0m Phase 1 Exporting All Users as JSON
-2026/02/02 14:25:07 main.go:232: [32m[INFO][0m Phase 1 Exporting All Users to Defaults
-2026/02/02 14:25:07 main.go:238: [32m[INFO][0m Phase 1 Importing All Users from Defaults
-2026/02/02 14:25:07 main.go:243: [32m[INFO][0m Phase 1 Completed Imports from Defaults
-2026/02/02 14:25:07 main.go:250: [32m[INFO][0m Phase 1 Total Users after Import: 2
-2026/02/02 14:25:07 main.go:385: [32m[INFO][0m Phase 1 Completed
-2026/02/02 14:25:07 main.go:105: [32m[INFO][0m Phase 2 Test Message: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:07 main.go:146: [32m[INFO][0m Phase 2 Creating 2 Baseline Users
-2026/02/02 14:25:07 main.go:153: [32m[INFO][0m Phase 2 Adding 2 Baseline Users to Store
-2026/02/02 14:25:07 main.go:156: [32m[INFO][0m Phase 2 Creating Baseline User 1
-2026/02/02 14:25:07 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:07 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:07 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:07 main.go:161: [32m[INFO][0m Phase 2 Created Baseline User 1
-2026/02/02 14:25:07 main.go:156: [32m[INFO][0m Phase 2 Creating Baseline User 2
-2026/02/02 14:25:07 tmplLogicMain.go:52: [32m[INFO][0m Adding new user to TemplateStoreV3: SQ=0001
-2026/02/02 14:25:07 tmplLogicMain.go:77: [32m[INFO][0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010001
-2026/02/02 14:25:07 main.go:161: [32m[INFO][0m Phase 2 Created Baseline User 2
-2026/02/02 14:25:07 main.go:167: [32m[INFO][0m Phase 2 Baseline 2 Users Added to Store 2
-2026/02/02 14:25:07 main.go:176: [32m[INFO][0m Phase 2 Setup Templates Loaded: 3
-2026/02/02 14:25:07 main.go:192: [32m[INFO][0m Phase 2 Evaluating User: (0/2) Matt Townsend 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:07 main.go:198: [32m[INFO][0m PostTest: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:07 main.go:192: [32m[INFO][0m Phase 2 Evaluating User: (1/2) Matt Townsend c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:07 main.go:198: [32m[INFO][0m PostTest: [CREATE@02/02/26]
-2026/02/02 14:25:07 main.go:203: [32m[INFO][0m Phase 2 Selected User Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:07 main.go:210: [32m[INFO][0m Phase 2 Retrieved User by Key 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf: Matt Townsend
-2026/02/02 14:25:08 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:08 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 main.go:216: [32m[INFO][0m Phase 2 Updated User 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf LastHost to orion-142507
-2026/02/02 14:25:08 main.go:225: [32m[INFO][0m Phase 2 Exporting All Users as CSV
-2026/02/02 14:25:08 main.go:230: [32m[INFO][0m Phase 2 Exporting All Users as JSON
-2026/02/02 14:25:08 main.go:232: [32m[INFO][0m Phase 2 Exporting All Users to Defaults
-2026/02/02 14:25:08 main.go:238: [32m[INFO][0m Phase 2 Importing All Users from Defaults
-2026/02/02 14:25:08 main.go:243: [32m[INFO][0m Phase 2 Completed Imports from Defaults
-2026/02/02 14:25:08 main.go:250: [32m[INFO][0m Phase 2 Total Users after Import: 6
-2026/02/02 14:25:08 main.go:385: [32m[INFO][0m Phase 2 Completed
-2026/02/02 14:25:08 main.go:105: [32m[INFO][0m Phase 2 Test Message: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:08 main.go:146: [32m[INFO][0m Phase 3 Creating 3 Baseline Users
-2026/02/02 14:25:08 main.go:153: [32m[INFO][0m Phase 3 Adding 3 Baseline Users to Store
-2026/02/02 14:25:08 main.go:156: [32m[INFO][0m Phase 3 Creating Baseline User 1
-2026/02/02 14:25:08 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:08 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 main.go:161: [32m[INFO][0m Phase 3 Created Baseline User 1
-2026/02/02 14:25:08 main.go:156: [32m[INFO][0m Phase 3 Creating Baseline User 2
-2026/02/02 14:25:08 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:08 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26]
-2026/02/02 14:25:08 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 main.go:161: [32m[INFO][0m Phase 3 Created Baseline User 2
-2026/02/02 14:25:08 main.go:156: [32m[INFO][0m Phase 3 Creating Baseline User 3
-2026/02/02 14:25:08 tmplLogicMain.go:52: [32m[INFO][0m Adding new user to TemplateStoreV3: SQ=0002
-2026/02/02 14:25:08 tmplLogicMain.go:77: [32m[INFO][0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010002
-2026/02/02 14:25:08 main.go:161: [32m[INFO][0m Phase 3 Created Baseline User 3
-2026/02/02 14:25:08 main.go:167: [32m[INFO][0m Phase 3 Baseline 3 Users Added to Store 3
-2026/02/02 14:25:08 main.go:176: [32m[INFO][0m Phase 3 Setup Templates Loaded: 7
-2026/02/02 14:25:08 main.go:192: [32m[INFO][0m Phase 3 Evaluating User: (0/3) Matt Townsend 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:08 main.go:198: [32m[INFO][0m PostTest: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 main.go:192: [32m[INFO][0m Phase 3 Evaluating User: (1/3) Matt Townsend c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:08 main.go:194: [32m[INFO][0m Phase 3 User: (1/3) Matt Townsend c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:08 main.go:203: [32m[INFO][0m Phase 3 Selected User Key: c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:08 main.go:210: [32m[INFO][0m Phase 3 Retrieved User by Key c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49: Matt Townsend
-2026/02/02 14:25:08 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:08 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:08 main.go:216: [32m[INFO][0m Phase 3 Updated User c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49 LastHost to orion-142508
-2026/02/02 14:25:08 main.go:225: [32m[INFO][0m Phase 3 Exporting All Users as CSV
-2026/02/02 14:25:08 main.go:230: [32m[INFO][0m Phase 3 Exporting All Users as JSON
-2026/02/02 14:25:08 main.go:232: [32m[INFO][0m Phase 3 Exporting All Users to Defaults
-2026/02/02 14:25:08 main.go:238: [32m[INFO][0m Phase 3 Importing All Users from Defaults
-2026/02/02 14:25:09 main.go:243: [32m[INFO][0m Phase 3 Completed Imports from Defaults
-2026/02/02 14:25:09 main.go:250: [32m[INFO][0m Phase 3 Total Users after Import: 14
-2026/02/02 14:25:09 main.go:385: [32m[INFO][0m Phase 3 Completed
-2026/02/02 14:25:09 main.go:105: [32m[INFO][0m Phase 2 Test Message: c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:09 main.go:146: [32m[INFO][0m Phase 4 Creating 4 Baseline Users
-2026/02/02 14:25:09 main.go:153: [32m[INFO][0m Phase 4 Adding 4 Baseline Users to Store
-2026/02/02 14:25:09 main.go:156: [32m[INFO][0m Phase 4 Creating Baseline User 1
-2026/02/02 14:25:09 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:09 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:09 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:09 main.go:161: [32m[INFO][0m Phase 4 Created Baseline User 1
-2026/02/02 14:25:09 main.go:156: [32m[INFO][0m Phase 4 Creating Baseline User 2
-2026/02/02 14:25:09 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:09 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:09 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:09 main.go:161: [32m[INFO][0m Phase 4 Created Baseline User 2
-2026/02/02 14:25:09 main.go:156: [32m[INFO][0m Phase 4 Creating Baseline User 3
-2026/02/02 14:25:09 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
-2026/02/02 14:25:09 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26]
-2026/02/02 14:25:09 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:09 main.go:161: [32m[INFO][0m Phase 4 Created Baseline User 3
-2026/02/02 14:25:09 main.go:156: [32m[INFO][0m Phase 4 Creating Baseline User 4
-2026/02/02 14:25:09 tmplLogicMain.go:52: [32m[INFO][0m Adding new user to TemplateStoreV3: SQ=0003
-2026/02/02 14:25:09 tmplLogicMain.go:77: [32m[INFO][0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010003
-2026/02/02 14:25:09 main.go:161: [32m[INFO][0m Phase 4 Created Baseline User 4
-2026/02/02 14:25:09 main.go:167: [32m[INFO][0m Phase 4 Baseline 4 Users Added to Store 4
-2026/02/02 14:25:09 main.go:176: [32m[INFO][0m Phase 4 Setup Templates Loaded: 15
-2026/02/02 14:25:09 main.go:192: [32m[INFO][0m Phase 4 Evaluating User: (0/4) Matt Townsend 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:09 main.go:194: [32m[INFO][0m Phase 4 User: (0/4) Matt Townsend 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:09 main.go:203: [32m[INFO][0m Phase 4 Selected User Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:09 main.go:210: [32m[INFO][0m Phase 4 Retrieved User by Key 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf: Matt Townsend
-2026/02/02 14:25:10 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:10 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:10 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:10 main.go:216: [32m[INFO][0m Phase 4 Updated User 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf LastHost to orion-142509
-2026/02/02 14:25:10 main.go:225: [32m[INFO][0m Phase 4 Exporting All Users as CSV
-2026/02/02 14:25:10 main.go:230: [32m[INFO][0m Phase 4 Exporting All Users as JSON
-2026/02/02 14:25:10 main.go:232: [32m[INFO][0m Phase 4 Exporting All Users to Defaults
-2026/02/02 14:25:10 main.go:238: [32m[INFO][0m Phase 4 Importing All Users from Defaults
-2026/02/02 14:25:11 main.go:243: [32m[INFO][0m Phase 4 Completed Imports from Defaults
-2026/02/02 14:25:11 main.go:250: [32m[INFO][0m Phase 4 Total Users after Import: 30
-2026/02/02 14:25:11 main.go:385: [32m[INFO][0m Phase 4 Completed
-2026/02/02 14:25:11 main.go:105: [32m[INFO][0m Phase 2 Test Message: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:11 main.go:146: [32m[INFO][0m Phase 5 Creating 5 Baseline Users
-2026/02/02 14:25:11 main.go:153: [32m[INFO][0m Phase 5 Adding 5 Baseline Users to Store
-2026/02/02 14:25:11 main.go:156: [32m[INFO][0m Phase 5 Creating Baseline User 1
-2026/02/02 14:25:11 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:11 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:11 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:11 main.go:161: [32m[INFO][0m Phase 5 Created Baseline User 1
-2026/02/02 14:25:11 main.go:156: [32m[INFO][0m Phase 5 Creating Baseline User 2
-2026/02/02 14:25:11 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: c1210e994c38d8c9d544f14dfb7905b470e33c283d4d0008d7aaf0f7c2a91d49
-2026/02/02 14:25:11 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:11 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:12 main.go:161: [32m[INFO][0m Phase 5 Created Baseline User 2
-2026/02/02 14:25:12 main.go:156: [32m[INFO][0m Phase 5 Creating Baseline User 3
-2026/02/02 14:25:12 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 23ad1e990af0e8fef632e1f7d582bad319b4b5530eb0eacce1d33f08d06ee981
-2026/02/02 14:25:12 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:12 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:12 main.go:161: [32m[INFO][0m Phase 5 Created Baseline User 3
-2026/02/02 14:25:12 main.go:156: [32m[INFO][0m Phase 5 Creating Baseline User 4
-2026/02/02 14:25:12 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: c7fbcc48928ff394f264d5fb4aaf941e4d4a06f7ecdcbf3421726e1e7acf6ceb
-2026/02/02 14:25:12 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26]
-2026/02/02 14:25:12 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:12 main.go:161: [32m[INFO][0m Phase 5 Created Baseline User 4
-2026/02/02 14:25:12 main.go:156: [32m[INFO][0m Phase 5 Creating Baseline User 5
-2026/02/02 14:25:12 tmplLogicMain.go:52: [32m[INFO][0m Adding new user to TemplateStoreV3: SQ=0004
-2026/02/02 14:25:12 tmplLogicMain.go:77: [32m[INFO][0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010004
-2026/02/02 14:25:12 main.go:161: [32m[INFO][0m Phase 5 Created Baseline User 5
-2026/02/02 14:25:12 main.go:167: [32m[INFO][0m Phase 5 Baseline 5 Users Added to Store 5
-2026/02/02 14:25:12 main.go:176: [32m[INFO][0m Phase 5 Setup Templates Loaded: 31
-2026/02/02 14:25:12 main.go:192: [32m[INFO][0m Phase 5 Evaluating User: (0/5) Matt Townsend 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:12 main.go:194: [32m[INFO][0m Phase 5 User: (0/5) Matt Townsend 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:12 main.go:203: [32m[INFO][0m Phase 5 Selected User Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:12 main.go:210: [32m[INFO][0m Phase 5 Retrieved User by Key 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf: Matt Townsend
-2026/02/02 14:25:12 tmplLogic.go:102: [32m[INFO][0m PostUpdate logic executed for TemplateStore Key: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:12 tmplLogic.go:105: [32m[INFO][0m PostTest before update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:12 tmplLogic.go:107: [32m[INFO][0m PostTest after update: [CREATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26 UPDATE@02/02/26]
-2026/02/02 14:25:12 main.go:216: [32m[INFO][0m Phase 5 Updated User 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf LastHost to orion-142512
-2026/02/02 14:25:12 main.go:225: [32m[INFO][0m Phase 5 Exporting All Users as CSV
-2026/02/02 14:25:12 main.go:230: [32m[INFO][0m Phase 5 Exporting All Users as JSON
-2026/02/02 14:25:12 main.go:232: [32m[INFO][0m Phase 5 Exporting All Users to Defaults
-2026/02/02 14:25:12 main.go:238: [32m[INFO][0m Phase 5 Importing All Users from Defaults
-2026/02/02 14:25:17 main.go:243: [32m[INFO][0m Phase 5 Completed Imports from Defaults
-2026/02/02 14:25:17 main.go:250: [32m[INFO][0m Phase 5 Total Users after Import: 62
-2026/02/02 14:25:17 main.go:385: [32m[INFO][0m Phase 5 Completed
-2026/02/02 14:25:17 main.go:105: [32m[INFO][0m Phase 2 Test Message: 42973b916e7ae997346a3f9b2dee8425d61b6ccebfb5850b5b1c0279400123cf
-2026/02/02 14:25:17 main.go:137: [32m[INFO][0m Total Test Duration: 9.667968542s
-2026/02/02 14:25:17 logHandler.go:202: [32m[INFO][0m *------------------------------------------------------------------------*
-2026/02/02 14:25:17 logHandler.go:203: [32m[INFO][0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
-2026/02/02 14:25:17 logHandler.go:204: [32m[INFO][0m *------------------------------------------------------------------------*
+2026/02/09 16:24:03 main.go:41: [32mINF[0m Creating Worker Pool...
+2026/02/09 16:24:03 main.go:47: [32mINF[0m Worker Pool Created with 10 workers
+2026/02/09 16:24:03 logHandler.go:202: [32mINF[0m *------------------------------------------------------------------------*
+2026/02/09 16:24:03 logHandler.go:203: [32mINF[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
+2026/02/09 16:24:03 logHandler.go:204: [32mINF[0m *------------------------------------------------------------------------*
+2026/02/09 16:24:03 main.go:54: [32mINF[0m Initialize User Store
+2026/02/09 16:24:03 main.go:65: [32mINF[0m Clear Down User Store
+2026/02/09 16:24:03 main.go:138: [32mINF[0m Phase 1 Creating 1 Baseline Users
+2026/02/09 16:24:03 main.go:145: [32mINF[0m Phase 1 Adding 1 Baseline Users to Store
+2026/02/09 16:24:03 main.go:148: [32mINF[0m Phase 1 Creating Baseline User 1
+2026/02/09 16:24:03 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0000
+2026/02/09 16:24:03 templateStoreV3.go:160: [32mINF[0m **** Create TemplateStoreV3 Record:  &{ID:0 Key: Raw: Audit:{CreatedAt:0001-01-01 00:00:00 +0000 UTC CreatedBy: CreatedOn: CreatedAtDisplay: Updates:[] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:} DBVersion:{Value:}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010000 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode: Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[] Lock:{_:{} mu:{state:0 sema:0}}}
+2026/02/09 16:24:03 templateStoreV3.go:162: [32mINF[0m **** Created TemplateStoreV3 Record: bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74 {ID:100 Key:bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74 Raw:39RM5Bl6oWD27tmIAzr1rJ1w1FA Audit:{CreatedAt:2026-02-09 16:24:03.48828 +0000 GMT m=+0.113956293 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:03 Updates:[{UpdatedAt:2026-02-09 16:24:03.48828 +0000 GMT m=+0.113956293 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:03.565186 +0000 GMT m=+0.190862418 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010000 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010000_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} &{ID:100 Key:bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74 Raw:39RM5Bl6oWD27tmIAzr1rJ1w1FA Audit:{CreatedAt:2026-02-09 16:24:03.48828 +0000 GMT m=+0.113956293 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:03 Updates:[{UpdatedAt:2026-02-09 16:24:03.48828 +0000 GMT m=+0.113956293 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:03.565186 +0000 GMT m=+0.190862418 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010000 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010000_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} 0x1400005e718 <nil>
+2026/02/09 16:24:03 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010000
+2026/02/09 16:24:03 main.go:153: [32mINF[0m Phase 1 Created Baseline User 1
+2026/02/09 16:24:03 main.go:159: [32mINF[0m Phase 1 Baseline 1 Users Added to Store 1
+2026/02/09 16:24:03 main.go:168: [32mINF[0m Phase 1 Setup Templates Loaded: 1
+2026/02/09 16:24:03 main.go:183: [32mINF[0m Phase 1 Evaluating : (0/1) Matt Townsend bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74
+2026/02/09 16:24:03 main.go:189: [32mINF[0m PostTest: [CREATE@09/02/26]
+2026/02/09 16:24:03 main.go:194: [32mINF[0m Phase 1 Selected User Key: bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74 1
+2026/02/09 16:24:03 main.go:201: [32mINF[0m Phase 1 Retrieved User by Key bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74: Matt Townsend
+2026/02/09 16:24:03 main.go:207: [32mINF[0m Phase 1 Updated User bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74 LastHost to orion-162403
+2026/02/09 16:24:03 main.go:218: [32mINF[0m Phase 1 Exporting All Users as CSV
+2026/02/09 16:24:03 main.go:223: [32mINF[0m Phase 1 Exporting All Users as JSON
+2026/02/09 16:24:03 main.go:225: [32mINF[0m Phase 1 Exporting All Users to Defaults
+2026/02/09 16:24:03 main.go:231: [32mINF[0m Cleardown User Store for Phase 1 Imports from Defaults
+2026/02/09 16:24:03 main.go:243: [32mINF[0m Phase 1 Users before Import: 0
+2026/02/09 16:24:03 main.go:249: [32mINF[0m Phase 1 Importing All Users from Defaults
+2026/02/09 16:24:03 main.go:254: [32mINF[0m Phase 1 Completed Imports from Defaults
+2026/02/09 16:24:03 main.go:261: [32mINF[0m Phase 1 Total Users after Import: 1
+2026/02/09 16:24:03 main.go:396: [32mINF[0m Phase 1 Completed
+2026/02/09 16:24:03 main.go:75: [32mINF[0m Phase 2 Test Message: bdf970d96cd74ba6230802ee2912592b34a1178205b08c63007b4e7e40420b74
+2026/02/09 16:24:03 main.go:138: [32mINF[0m Phase 2 Creating 2 Baseline Users
+2026/02/09 16:24:03 main.go:145: [32mINF[0m Phase 2 Adding 2 Baseline Users to Store
+2026/02/09 16:24:03 main.go:148: [32mINF[0m Phase 2 Creating Baseline User 1
+2026/02/09 16:24:03 main.go:153: [32mINF[0m Phase 2 Created Baseline User 1
+2026/02/09 16:24:03 main.go:148: [32mINF[0m Phase 2 Creating Baseline User 2
+2026/02/09 16:24:03 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0001
+2026/02/09 16:24:03 templateStoreV3.go:160: [32mINF[0m **** Create TemplateStoreV3 Record:  &{ID:0 Key: Raw: Audit:{CreatedAt:0001-01-01 00:00:00 +0000 UTC CreatedBy: CreatedOn: CreatedAtDisplay: Updates:[] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:} DBVersion:{Value:}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010001 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode: Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[] Lock:{_:{} mu:{state:0 sema:0}}}
+2026/02/09 16:24:04 templateStoreV3.go:162: [32mINF[0m **** Created TemplateStoreV3 Record: 6728964021b88c0d1a14ac8ebbf77ee68e2973498b8ce79f94e3a84ef890ca52 {ID:102 Key:6728964021b88c0d1a14ac8ebbf77ee68e2973498b8ce79f94e3a84ef890ca52 Raw:39RM55f0udrmQOCbyZmTUKimrQn Audit:{CreatedAt:2026-02-09 16:24:03.949951 +0000 GMT m=+0.575625209 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:03 Updates:[{UpdatedAt:2026-02-09 16:24:03.949951 +0000 GMT m=+0.575625209 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:03.992388 +0000 GMT m=+0.618062001 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010001 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010001_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} &{ID:102 Key:6728964021b88c0d1a14ac8ebbf77ee68e2973498b8ce79f94e3a84ef890ca52 Raw:39RM55f0udrmQOCbyZmTUKimrQn Audit:{CreatedAt:2026-02-09 16:24:03.949951 +0000 GMT m=+0.575625209 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:03 Updates:[{UpdatedAt:2026-02-09 16:24:03.949951 +0000 GMT m=+0.575625209 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:03.992388 +0000 GMT m=+0.618062001 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:03 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010001 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010001_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} 0x1400005e188 <nil>
+2026/02/09 16:24:04 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010001
+2026/02/09 16:24:04 main.go:153: [32mINF[0m Phase 2 Created Baseline User 2
+2026/02/09 16:24:04 main.go:159: [32mINF[0m Phase 2 Baseline 2 Users Added to Store 2
+2026/02/09 16:24:04 main.go:168: [32mINF[0m Phase 2 Setup Templates Loaded: 2
+2026/02/09 16:24:04 main.go:183: [32mINF[0m Phase 2 Evaluating : (0/2) Matt Townsend 596f7a28e96d0b0d4c1e3a3c7f6d51c9c509390b2b3a511cc6b95cebbe21ef6d
+2026/02/09 16:24:04 main.go:185: [32mINF[0m Phase 2 User: (0/2) Matt Townsend 596f7a28e96d0b0d4c1e3a3c7f6d51c9c509390b2b3a511cc6b95cebbe21ef6d
+2026/02/09 16:24:04 main.go:194: [32mINF[0m Phase 2 Selected User Key: 596f7a28e96d0b0d4c1e3a3c7f6d51c9c509390b2b3a511cc6b95cebbe21ef6d 2
+2026/02/09 16:24:04 main.go:201: [32mINF[0m Phase 2 Retrieved User by Key 596f7a28e96d0b0d4c1e3a3c7f6d51c9c509390b2b3a511cc6b95cebbe21ef6d: Matt Townsend
+2026/02/09 16:24:04 main.go:207: [32mINF[0m Phase 2 Updated User 596f7a28e96d0b0d4c1e3a3c7f6d51c9c509390b2b3a511cc6b95cebbe21ef6d LastHost to orion-162404
+2026/02/09 16:24:04 main.go:218: [32mINF[0m Phase 2 Exporting All Users as CSV
+2026/02/09 16:24:04 main.go:223: [32mINF[0m Phase 2 Exporting All Users as JSON
+2026/02/09 16:24:04 main.go:225: [32mINF[0m Phase 2 Exporting All Users to Defaults
+2026/02/09 16:24:04 main.go:231: [32mINF[0m Cleardown User Store for Phase 2 Imports from Defaults
+2026/02/09 16:24:04 main.go:243: [32mINF[0m Phase 2 Users before Import: 0
+2026/02/09 16:24:04 main.go:249: [32mINF[0m Phase 2 Importing All Users from Defaults
+2026/02/09 16:24:04 main.go:254: [32mINF[0m Phase 2 Completed Imports from Defaults
+2026/02/09 16:24:04 main.go:261: [32mINF[0m Phase 2 Total Users after Import: 2
+2026/02/09 16:24:04 main.go:396: [32mINF[0m Phase 2 Completed
+2026/02/09 16:24:04 main.go:75: [32mINF[0m Phase 2 Test Message: 596f7a28e96d0b0d4c1e3a3c7f6d51c9c509390b2b3a511cc6b95cebbe21ef6d
+2026/02/09 16:24:04 main.go:138: [32mINF[0m Phase 3 Creating 3 Baseline Users
+2026/02/09 16:24:04 main.go:145: [32mINF[0m Phase 3 Adding 3 Baseline Users to Store
+2026/02/09 16:24:04 main.go:148: [32mINF[0m Phase 3 Creating Baseline User 1
+2026/02/09 16:24:04 main.go:153: [32mINF[0m Phase 3 Created Baseline User 1
+2026/02/09 16:24:04 main.go:148: [32mINF[0m Phase 3 Creating Baseline User 2
+2026/02/09 16:24:04 main.go:153: [32mINF[0m Phase 3 Created Baseline User 2
+2026/02/09 16:24:04 main.go:148: [32mINF[0m Phase 3 Creating Baseline User 3
+2026/02/09 16:24:04 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0002
+2026/02/09 16:24:04 templateStoreV3.go:160: [32mINF[0m **** Create TemplateStoreV3 Record:  &{ID:0 Key: Raw: Audit:{CreatedAt:0001-01-01 00:00:00 +0000 UTC CreatedBy: CreatedOn: CreatedAtDisplay: Updates:[] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:} DBVersion:{Value:}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010002 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode: Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[] Lock:{_:{} mu:{state:0 sema:0}}}
+2026/02/09 16:24:04 templateStoreV3.go:162: [32mINF[0m **** Created TemplateStoreV3 Record: 1b7f0a1457788e85c43497cf9de45aa8f68b9280b7d3ba3a696b372156b547dd {ID:105 Key:1b7f0a1457788e85c43497cf9de45aa8f68b9280b7d3ba3a696b372156b547dd Raw:39RM5GdvhBiGwXpz84l4BqtZjAz Audit:{CreatedAt:2026-02-09 16:24:04.552852 +0000 GMT m=+1.178522126 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:04 Updates:[{UpdatedAt:2026-02-09 16:24:04.552852 +0000 GMT m=+1.178522126 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:04 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:04.59866 +0000 GMT m=+1.224330293 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:04 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010002 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010002_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} &{ID:105 Key:1b7f0a1457788e85c43497cf9de45aa8f68b9280b7d3ba3a696b372156b547dd Raw:39RM5GdvhBiGwXpz84l4BqtZjAz Audit:{CreatedAt:2026-02-09 16:24:04.552852 +0000 GMT m=+1.178522126 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:04 Updates:[{UpdatedAt:2026-02-09 16:24:04.552852 +0000 GMT m=+1.178522126 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:04 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:04.59866 +0000 GMT m=+1.224330293 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:04 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010002 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010002_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} 0x1400005e708 <nil>
+2026/02/09 16:24:04 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010002
+2026/02/09 16:24:04 main.go:153: [32mINF[0m Phase 3 Created Baseline User 3
+2026/02/09 16:24:04 main.go:159: [32mINF[0m Phase 3 Baseline 3 Users Added to Store 3
+2026/02/09 16:24:04 main.go:168: [32mINF[0m Phase 3 Setup Templates Loaded: 3
+2026/02/09 16:24:04 main.go:183: [32mINF[0m Phase 3 Evaluating : (0/3) Matt Townsend 9f3c2e4c3c03aefb6b5c72766c8df59a72dbe9747a1dafb2e0b510fe563b0e09
+2026/02/09 16:24:04 main.go:185: [32mINF[0m Phase 3 User: (0/3) Matt Townsend 9f3c2e4c3c03aefb6b5c72766c8df59a72dbe9747a1dafb2e0b510fe563b0e09
+2026/02/09 16:24:04 main.go:194: [32mINF[0m Phase 3 Selected User Key: 9f3c2e4c3c03aefb6b5c72766c8df59a72dbe9747a1dafb2e0b510fe563b0e09 3
+2026/02/09 16:24:04 main.go:201: [32mINF[0m Phase 3 Retrieved User by Key 9f3c2e4c3c03aefb6b5c72766c8df59a72dbe9747a1dafb2e0b510fe563b0e09: Matt Townsend
+2026/02/09 16:24:04 main.go:207: [32mINF[0m Phase 3 Updated User 9f3c2e4c3c03aefb6b5c72766c8df59a72dbe9747a1dafb2e0b510fe563b0e09 LastHost to orion-162404
+2026/02/09 16:24:04 main.go:218: [32mINF[0m Phase 3 Exporting All Users as CSV
+2026/02/09 16:24:04 main.go:223: [32mINF[0m Phase 3 Exporting All Users as JSON
+2026/02/09 16:24:04 main.go:225: [32mINF[0m Phase 3 Exporting All Users to Defaults
+2026/02/09 16:24:04 main.go:231: [32mINF[0m Cleardown User Store for Phase 3 Imports from Defaults
+2026/02/09 16:24:04 main.go:243: [32mINF[0m Phase 3 Users before Import: 0
+2026/02/09 16:24:04 main.go:249: [32mINF[0m Phase 3 Importing All Users from Defaults
+2026/02/09 16:24:05 main.go:254: [32mINF[0m Phase 3 Completed Imports from Defaults
+2026/02/09 16:24:05 main.go:261: [32mINF[0m Phase 3 Total Users after Import: 3
+2026/02/09 16:24:05 main.go:396: [32mINF[0m Phase 3 Completed
+2026/02/09 16:24:05 main.go:75: [32mINF[0m Phase 2 Test Message: 9f3c2e4c3c03aefb6b5c72766c8df59a72dbe9747a1dafb2e0b510fe563b0e09
+2026/02/09 16:24:05 main.go:138: [32mINF[0m Phase 4 Creating 4 Baseline Users
+2026/02/09 16:24:05 main.go:145: [32mINF[0m Phase 4 Adding 4 Baseline Users to Store
+2026/02/09 16:24:05 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 1
+2026/02/09 16:24:05 main.go:153: [32mINF[0m Phase 4 Created Baseline User 1
+2026/02/09 16:24:05 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 2
+2026/02/09 16:24:05 main.go:153: [32mINF[0m Phase 4 Created Baseline User 2
+2026/02/09 16:24:05 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 3
+2026/02/09 16:24:05 main.go:153: [32mINF[0m Phase 4 Created Baseline User 3
+2026/02/09 16:24:05 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 4
+2026/02/09 16:24:05 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0003
+2026/02/09 16:24:05 templateStoreV3.go:160: [32mINF[0m **** Create TemplateStoreV3 Record:  &{ID:0 Key: Raw: Audit:{CreatedAt:0001-01-01 00:00:00 +0000 UTC CreatedBy: CreatedOn: CreatedAtDisplay: Updates:[] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:} DBVersion:{Value:}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010003 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode: Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[] Lock:{_:{} mu:{state:0 sema:0}}}
+2026/02/09 16:24:05 templateStoreV3.go:162: [32mINF[0m **** Created TemplateStoreV3 Record: 45a4a34f9ef59bc6207839676395445b4806305856d7f3d585927942c2ce4de7 {ID:109 Key:45a4a34f9ef59bc6207839676395445b4806305856d7f3d585927942c2ce4de7 Raw:39RM5OwjviOAchWdwhHRiHi6vYp Audit:{CreatedAt:2026-02-09 16:24:05.348392 +0000 GMT m=+1.974058084 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:05 Updates:[{UpdatedAt:2026-02-09 16:24:05.348392 +0000 GMT m=+1.974058084 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:05 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:05.391709 +0000 GMT m=+2.017374251 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:05 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010003 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010003_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} &{ID:109 Key:45a4a34f9ef59bc6207839676395445b4806305856d7f3d585927942c2ce4de7 Raw:39RM5OwjviOAchWdwhHRiHi6vYp Audit:{CreatedAt:2026-02-09 16:24:05.348392 +0000 GMT m=+1.974058084 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:05 Updates:[{UpdatedAt:2026-02-09 16:24:05.348392 +0000 GMT m=+1.974058084 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:05 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:05.391709 +0000 GMT m=+2.017374251 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:05 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010003 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010003_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} 0x1400005e648 <nil>
+2026/02/09 16:24:05 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010003
+2026/02/09 16:24:05 main.go:153: [32mINF[0m Phase 4 Created Baseline User 4
+2026/02/09 16:24:05 main.go:159: [32mINF[0m Phase 4 Baseline 4 Users Added to Store 4
+2026/02/09 16:24:05 main.go:168: [32mINF[0m Phase 4 Setup Templates Loaded: 4
+2026/02/09 16:24:05 main.go:183: [32mINF[0m Phase 4 Evaluating : (0/4) Matt Townsend a3b50a190a777ecf356e5c8733011fe3c71d14f607c2b48ebbffe827ed7952b6
+2026/02/09 16:24:05 main.go:189: [32mINF[0m PostTest: [CREATE@09/02/26 UPDATE@09/02/26]
+2026/02/09 16:24:05 main.go:183: [32mINF[0m Phase 4 Evaluating : (1/4) Matt Townsend afd1e32e31d5a54954f51f4648122f245452251cec3c545b0e36e1633794297f
+2026/02/09 16:24:05 main.go:185: [32mINF[0m Phase 4 User: (1/4) Matt Townsend afd1e32e31d5a54954f51f4648122f245452251cec3c545b0e36e1633794297f
+2026/02/09 16:24:05 main.go:194: [32mINF[0m Phase 4 Selected User Key: afd1e32e31d5a54954f51f4648122f245452251cec3c545b0e36e1633794297f 4
+2026/02/09 16:24:05 main.go:201: [32mINF[0m Phase 4 Retrieved User by Key afd1e32e31d5a54954f51f4648122f245452251cec3c545b0e36e1633794297f: Matt Townsend
+2026/02/09 16:24:05 main.go:207: [32mINF[0m Phase 4 Updated User afd1e32e31d5a54954f51f4648122f245452251cec3c545b0e36e1633794297f LastHost to orion-162405
+2026/02/09 16:24:05 main.go:218: [32mINF[0m Phase 4 Exporting All Users as CSV
+2026/02/09 16:24:05 main.go:223: [32mINF[0m Phase 4 Exporting All Users as JSON
+2026/02/09 16:24:05 main.go:225: [32mINF[0m Phase 4 Exporting All Users to Defaults
+2026/02/09 16:24:05 main.go:231: [32mINF[0m Cleardown User Store for Phase 4 Imports from Defaults
+2026/02/09 16:24:05 main.go:243: [32mINF[0m Phase 4 Users before Import: 0
+2026/02/09 16:24:05 main.go:249: [32mINF[0m Phase 4 Importing All Users from Defaults
+2026/02/09 16:24:06 main.go:254: [32mINF[0m Phase 4 Completed Imports from Defaults
+2026/02/09 16:24:06 main.go:261: [32mINF[0m Phase 4 Total Users after Import: 4
+2026/02/09 16:24:06 main.go:396: [32mINF[0m Phase 4 Completed
+2026/02/09 16:24:06 main.go:75: [32mINF[0m Phase 2 Test Message: afd1e32e31d5a54954f51f4648122f245452251cec3c545b0e36e1633794297f
+2026/02/09 16:24:06 main.go:138: [32mINF[0m Phase 5 Creating 5 Baseline Users
+2026/02/09 16:24:06 main.go:145: [32mINF[0m Phase 5 Adding 5 Baseline Users to Store
+2026/02/09 16:24:06 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 1
+2026/02/09 16:24:06 main.go:153: [32mINF[0m Phase 5 Created Baseline User 1
+2026/02/09 16:24:06 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 2
+2026/02/09 16:24:06 main.go:153: [32mINF[0m Phase 5 Created Baseline User 2
+2026/02/09 16:24:06 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 3
+2026/02/09 16:24:06 main.go:153: [32mINF[0m Phase 5 Created Baseline User 3
+2026/02/09 16:24:06 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 4
+2026/02/09 16:24:06 main.go:153: [32mINF[0m Phase 5 Created Baseline User 4
+2026/02/09 16:24:06 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 5
+2026/02/09 16:24:06 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0004
+2026/02/09 16:24:06 templateStoreV3.go:160: [32mINF[0m **** Create TemplateStoreV3 Record:  &{ID:0 Key: Raw: Audit:{CreatedAt:0001-01-01 00:00:00 +0000 UTC CreatedBy: CreatedOn: CreatedAtDisplay: Updates:[] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:} DBVersion:{Value:}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010004 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode: Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[] Lock:{_:{} mu:{state:0 sema:0}}}
+2026/02/09 16:24:06 templateStoreV3.go:162: [32mINF[0m **** Created TemplateStoreV3 Record: c2a9b90579298177586e0708647323ecff669e59496c5a04827b80de609c0964 {ID:114 Key:c2a9b90579298177586e0708647323ecff669e59496c5a04827b80de609c0964 Raw:39RM5UUvHkk4oo9nqjfA6phkQcU Audit:{CreatedAt:2026-02-09 16:24:06.342042 +0000 GMT m=+2.967702293 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:06 Updates:[{UpdatedAt:2026-02-09 16:24:06.342042 +0000 GMT m=+2.967702293 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:06 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:06.388157 +0000 GMT m=+3.013817168 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:06 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010004 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010004_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} &{ID:114 Key:c2a9b90579298177586e0708647323ecff669e59496c5a04827b80de609c0964 Raw:39RM5UUvHkk4oo9nqjfA6phkQcU Audit:{CreatedAt:2026-02-09 16:24:06.342042 +0000 GMT m=+2.967702293 CreatedBy:UserCode123 CreatedOn:orion CreatedAtDisplay:2026-02-09 16:24:06 Updates:[{UpdatedAt:2026-02-09 16:24:06.342042 +0000 GMT m=+2.967702293 UpdateAction:CREATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:06 UpdateNotes:New TemplateStoreV3 Record} {UpdatedAt:2026-02-09 16:24:06.388157 +0000 GMT m=+3.013817168 UpdateAction:UPDATE UpdatedBy:UserCode123 UpdatedOn:orion UpdatedAtDisplay:2026-02-09 16:24:06 UpdateNotes:Post Create Processing}] DeletedAt:0001-01-01 00:00:00 +0000 UTC DeletedBy: DeletedOn: DeletedAtDisplay: AuditSequence:{Value:2} DBVersion:{Value:1}} ExampleString: ExampleBool:{Value:} ExampleStormBool:{Value:} ExampleInt:{Value:} ExampleInt32:{Value:} ExampleInt64:{Value:} ExampleUint:{Value:} ExampleUint32:{Value:} ExampleUint64:{Value:} ExampleFloat:{Value:} ExampleFloat32:{Value:} ExampleFloat64:{Value:} ExampleDecimal:{Value:} ExamplePercentage:{Value:} ExampleRate:{Value:} ExampleMoney:{Value:} ExampleCurrency:{Value:{Value:} CCY:} ExampleDate:0001-01-01 00:00:00 +0000 UTC ExampleField: ExampleTable: UID:5010004 GID:20 RealName:Matt Townsend UserName:matttownsend UserCode:5010004_matttownsend Email:matttownsend@orion.com Notes: Active:{Value:} LastLogin:0001-01-01 00:00:00 +0000 UTC LastHost: PostTest:[CREATE@09/02/26] Lock:{_:{} mu:{state:0 sema:0}}} 0x1400052e030 <nil>
+2026/02/09 16:24:06 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010004
+2026/02/09 16:24:06 main.go:153: [32mINF[0m Phase 5 Created Baseline User 5
+2026/02/09 16:24:06 main.go:159: [32mINF[0m Phase 5 Baseline 5 Users Added to Store 5
+2026/02/09 16:24:06 main.go:168: [32mINF[0m Phase 5 Setup Templates Loaded: 5
+2026/02/09 16:24:06 main.go:183: [32mINF[0m Phase 5 Evaluating : (0/5) Matt Townsend a6793688e33b19a61a3430b17dab68dd00538c2ab0e3005b72c5a7deb08866a6
+2026/02/09 16:24:06 main.go:185: [32mINF[0m Phase 5 User: (0/5) Matt Townsend a6793688e33b19a61a3430b17dab68dd00538c2ab0e3005b72c5a7deb08866a6
+2026/02/09 16:24:06 main.go:194: [32mINF[0m Phase 5 Selected User Key: a6793688e33b19a61a3430b17dab68dd00538c2ab0e3005b72c5a7deb08866a6 5
+2026/02/09 16:24:06 main.go:201: [32mINF[0m Phase 5 Retrieved User by Key a6793688e33b19a61a3430b17dab68dd00538c2ab0e3005b72c5a7deb08866a6: Matt Townsend
+2026/02/09 16:24:06 main.go:207: [32mINF[0m Phase 5 Updated User a6793688e33b19a61a3430b17dab68dd00538c2ab0e3005b72c5a7deb08866a6 LastHost to orion-162406
+2026/02/09 16:24:06 main.go:218: [32mINF[0m Phase 5 Exporting All Users as CSV
+2026/02/09 16:24:06 main.go:223: [32mINF[0m Phase 5 Exporting All Users as JSON
+2026/02/09 16:24:06 main.go:225: [32mINF[0m Phase 5 Exporting All Users to Defaults
+2026/02/09 16:24:06 main.go:231: [32mINF[0m Cleardown User Store for Phase 5 Imports from Defaults
+2026/02/09 16:24:06 main.go:243: [32mINF[0m Phase 5 Users before Import: 0
+2026/02/09 16:24:06 main.go:249: [32mINF[0m Phase 5 Importing All Users from Defaults
+2026/02/09 16:24:07 main.go:254: [32mINF[0m Phase 5 Completed Imports from Defaults
+2026/02/09 16:24:07 main.go:261: [32mINF[0m Phase 5 Total Users after Import: 5
+2026/02/09 16:24:07 main.go:396: [32mINF[0m Phase 5 Completed
+2026/02/09 16:24:07 main.go:75: [32mINF[0m Phase 2 Test Message: a6793688e33b19a61a3430b17dab68dd00538c2ab0e3005b72c5a7deb08866a6
+2026/02/09 16:24:07 main.go:107: [32mINF[0m Total Test Duration: 3.655375416s
+2026/02/09 16:24:07 logHandler.go:202: [32mINF[0m *------------------------------------------------------------------------*
+2026/02/09 16:24:07 logHandler.go:203: [32mINF[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
+2026/02/09 16:24:07 logHandler.go:204: [32mINF[0m *------------------------------------------------------------------------*
+2026/02/09 16:24:07 main.go:126: [32mINF[0m Worker Pool - Completed Tasks: 35
+2026/02/09 16:24:07 main.go:127: [32mINF[0m Worker Pool - Running Workers: 0
+2026/02/09 16:24:07 main.go:128: [32mINF[0m Worker Pool - Dropped Tasks: 0
+2026/02/09 16:24:07 main.go:129: [32mINF[0m Worker Pool - Waiting Tasks: 0
+2026/02/09 16:24:07 main.go:130: [32mINF[0m Worker Pool - Submitted Tasks: 35
+2026/02/09 16:24:07 main.go:131: [32mINF[0m Worker Pool - Succefully Tasks: 35
+2026/02/09 16:24:07 main.go:132: [32mINF[0m Worker Pool - Failed Tasks: 0
+2026/02/09 16:24:07 main.go:133: [32mINF[0m Worker Pool - Max Concurrency: 100
+2026/02/09 16:24:07 main.go:134: [32mINF[0m Worker Pool - Queue Size: 100
+2026/02/09 16:24:07 main.go:117: [32mINF[0m Use Ctrl+c to stop application.

@@ -1,30 +1,33 @@
 // Data Access Object for the TemplateStoreV3 table
-// Template Version: 0.5.12 - 2026-01-27
+// Template Version: 0.5.24 - 2026-01-31
 // Generated
-// Date: 27/01/2026 & 15:01
+// Date: 09/02/2026 & 10:22
 // Who : matttownsend (orion)
 
 package templateStoreV3
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/goforj/godump"
 	"github.com/mt1976/frantic-amphora/dao"
+	"github.com/mt1976/frantic-core/contextHandler"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
 type (
-	creatorFunc        func(ctx context.Context, sourceData *TemplateStoreV3) (string, bool, *TemplateStoreV3, error)
+	creatorFunc        func(ctx context.Context, source *TemplateStoreV3) (string, bool, *TemplateStoreV3, error)
 	upgraderFunc       func(*TemplateStoreV3) (*TemplateStoreV3, error)
 	defaulterFunc      func(*TemplateStoreV3) error
 	validatorFunc      func(*TemplateStoreV3) error
 	preDeleteFunc      func(ctx context.Context, record *TemplateStoreV3) error
 	postGetFunc        func(ctx context.Context, record *TemplateStoreV3) error
-	clonerFunc         func(ctx context.Context, sourceRecord *TemplateStoreV3) (*TemplateStoreV3, error)
+	clonerFunc         func(ctx context.Context, source *TemplateStoreV3) (*TemplateStoreV3, error)
 	duplicateCheckFunc func(*TemplateStoreV3) (bool, error)
 	workerFunc         func(string, string)
-	postCreateFunc     func(ctx context.Context, record *TemplateStoreV3) (error, bool, *TemplateStoreV3, string)
-	postUpdateFunc     func(ctx context.Context, record *TemplateStoreV3) (error, bool, *TemplateStoreV3, string)
+	postCreateFunc     func(ctx context.Context, record *TemplateStoreV3) error
+	postUpdateFunc     func(ctx context.Context, record *TemplateStoreV3) error
 	postDeleteFunc     func(ctx context.Context, record *TemplateStoreV3) error
 	postCloneFunc      func(ctx context.Context, record *TemplateStoreV3) error
 	postDropFunc       func(ctx context.Context) error
@@ -223,51 +226,88 @@ func templateClone(ctx context.Context, source *TemplateStoreV3) (*TemplateStore
 }
 
 // PostCreate runs any post-create processing after a record is created.
-func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) (error, bool, *TemplateStoreV3, string) {
+func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) error {
 	if postCreate != nil {
+		logHandler.TraceLogger.Printf("[POSTCREATE] Processing for %v Record: %v", TableName.String(), record.Key)
+		// logHandler.LockLogger.Printf("[POSTCREATE] LOCKING RECORD: %v", record.Raw)
 
-		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing for %v Record: %v", TableName.String(), record.Key)
-
-		err, recordUpdated, updatedRecord, feedbackMessage := postCreate(ctx, record)
-		if err != nil {
-			return err, false, New(), ""
+		// Get the workerPool from the context and run the post-create processing in a worker to avoid holding locks during potentially long-running processing.
+		workerPool := contextHandler.GetWorkerPool(ctx)
+		if workerPool != nil {
+			logHandler.TraceLogger.Printf("[POSTCREATE] Running post-create processing for %v Record: %v in worker pool Lock:%v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
+			task := workerPool.SubmitErr(func() error {
+				fmt.Printf("STARTING POST CREATE FOR %v\n", record.Key)
+				// Lock record for the duration of the post-create processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent concurrent updates to the same record during that time.
+				logHandler.LockLogger.Printf("[%v,%v] Locked - POSTCREATE", TableName.String(), record.Raw)
+				logHandler.TraceLogger.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
+				record.Lock.Lock()
+				err := postCreate(ctx, record)
+				if err != nil {
+					logHandler.ErrorLogger.Printf("Error during postCreateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+					record.Lock.Unlock()
+					logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTCREATE with error %v", TableName.String(), record.Raw, err.Error())
+					return err
+				}
+				record.Lock.Unlock()
+				logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTCREATE", TableName.String(), record.Raw)
+				logHandler.TraceLogger.Printf("[POSTCREATE] Post-create processing complete for %v Record: %v", TableName.String(), record.Key)
+				return nil
+			})
+			err := task.Wait() // Wait for the task to complete before returning to ensure post-create processing is complete before any subsequent operations that may depend on it. This is important to maintain data integrity and consistency, especially if the post-create processing involves updates to the record or related records.
+			if err != nil {
+				logHandler.ErrorLogger.Printf("Error in post-create worker task for %v Record: %v ", TableName.String(), record.Key)
+				return fmt.Errorf("error in post-create worker task for %v Record: %v %+v", TableName.String(), record.Key, godump.DumpStr(err))
+			}
+			return nil
+		} else {
+			logHandler.TraceLogger.Printf("[POSTCREATE] No worker pool found in context, running post-create processing for %v Record: %v synchronously", TableName.String(), record.Key)
 		}
-		if !recordUpdated {
-			return nil, false, New(), ""
-		}
-		if feedbackMessage == "" {
-			feedbackMessage = "Post Create Processing"
-		}
-		// Return the TemplateStoreV3 record with the new profile and notes
-		logHandler.DatabaseLogger.Printf("[POSTCREATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
-		return nil, true, updatedRecord, feedbackMessage
 	}
-	return nil, false, New(), ""
+	return nil
 }
 
-func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) (error, bool, *TemplateStoreV3, string) {
+func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) error {
 	if postUpdate != nil {
-		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing for %v Record: %v", TableName.String(), record.Key)
+		logHandler.TraceLogger.Printf("[POSTUPDATE] Processing for %v Record: %v (%v)", TableName.String(), record.Key, godump.DumpStr(ctx))
+		workerPool := contextHandler.GetWorkerPool(ctx)
+		if workerPool != nil {
 
-		err, recordUpdated, updatedRecord, feedbackMessage := postUpdate(ctx, record)
-		if err != nil {
-			logHandler.ErrorLogger.Printf("Error during postUpdateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
-			return err, false, New(), ""
+			logHandler.TraceLogger.Printf("[POSTUPDATE] Running post-update processing for %v Record: %v in worker pool", TableName.String(), record.Key)
+			task := workerPool.SubmitErr(func() error {
+				logHandler.TraceLogger.Printf("[POSTUPDATE] Starting post-update processing for %v Record: %v Lock: %v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
+				// Lock record for the duration of the post-update processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent
+				record.Lock.Lock()
+				logHandler.LockLogger.Printf("[%v,%v] Locked - POSTUPDATE", TableName.String(), record.Raw)
+				logHandler.TraceLogger.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
+				err := postUpdate(ctx, record)
+				if err != nil {
+					record.Lock.Unlock()
+					logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTUPDATE with error %v", TableName.String(), record.Raw, err.Error())
+					logHandler.ErrorLogger.Printf("error during postUpdateProcessing task for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+					// panic(err)
+					return err
+				}
+				record.Lock.Unlock()
+				logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTUPDATE", TableName.String(), record.Raw)
+				logHandler.DatabaseLogger.Printf("[POSTUPDATE] Post-update processing complete for %v Record: %v", TableName.String(), record.Key)
+				return nil
+			})
+			err := task.Wait() // Wait for the task to complete before returning to ensure post-update processing is complete before any subsequent operations that may depend on it. This is important to maintain data integrity and consistency, especially if the post-update processing involves updates to the record or related records.
+			if err != nil {
+				logHandler.ErrorLogger.Printf("Error in post-update worker task for %v Record: %v ", TableName.String(), record.Key)
+				return fmt.Errorf("error in post-update worker task for %v Record: %v ", TableName.String(), record.Key)
+			}
+			return nil
+		} else {
+			logHandler.DatabaseLogger.Printf("[POSTUPDATE] No worker pool found in context, running post-update processing for %v Record: %v synchronously", TableName.String(), record.Key)
 		}
-		if !recordUpdated {
-			logHandler.DatabaseLogger.Printf("[POSTUPDATE] No update required for %v Record: %v", TableName.String(), record.Key)
-			return nil, false, New(), ""
-		}
-		if feedbackMessage == "" {
-			feedbackMessage = "Post Update Processing"
-		}
-		// Return the TemplateStoreV3 record with the new profile and notes
+
 		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
-		return nil, true, updatedRecord, feedbackMessage
+		return nil
 
 	}
 	logHandler.DatabaseLogger.Printf("[POSTUPDATE] No post-update function registered for %v Record: %v", TableName.String(), record.Key)
-	return nil, false, New(), ""
+	return nil
 }
 
 // postDeleteProcessing runs any post-delete processing after a record is deleted.

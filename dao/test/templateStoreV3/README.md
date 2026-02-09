@@ -1,10 +1,10 @@
 # templateStoreV3
 
-`templateStoreV3` is a comprehensive example DAO package demonstrating the frantic-amphora framework's capabilities. It serves as a modernized template showcasing typed database operations, cache integration, background workers, import/export functionality, and comprehensive entity type examples.
+`templateStoreV3` is a DAO package for the TemplateStoreV3 table in the frantic-amphora framework.
 
 ## Overview
 
-This package provides a complete reference implementation for building DAO layers with:
+This package provides:
 
 - **Type-safe database operations** using strongly-typed field queries
 - **Audit trail integration** for all CRUD operations
@@ -12,55 +12,10 @@ This package provides a complete reference implementation for building DAO layer
 - **Background worker** support for async operations
 - **Import/Export** capabilities (JSON and CSV formats)
 - **Validation** using struct tags
-- **Comprehensive entity type examples** demonstrating all available framework types
 
-## Entity Type Examples
+## Entity Definition
 
-The `TemplateStoreV3` struct includes examples of all entity types available in the framework, organized by category:
-
-### String Types
-
-- `ExampleString` - Standard Go string
-
-### Boolean Types
-
-- `ExampleBool` - Framework boolean type (entities.Bool)
-- `ExampleStormBool` - Storm-compatible boolean type (entities.StormBool)
-
-### Integer Types
-
-- `ExampleInt` - Framework integer (entities.Int)
-- `ExampleInt32` - 32-bit integer (entities.Int32)
-- `ExampleInt64` - 64-bit integer (entities.Int64)
-- `ExampleUint` - Unsigned integer (entities.UInt)
-- `ExampleUint32` - Unsigned 32-bit integer (entities.UInt32)
-- `ExampleUint64` - Unsigned 64-bit integer (entities.UInt64)
-
-### Float Types
-
-- `ExampleFloat` - Framework float (entities.Float)
-- `ExampleFloat32` - 32-bit float (entities.Float32)
-- `ExampleFloat64` - 64-bit float (entities.Float64)
-
-### Specialized Numeric Types
-
-- `ExampleDecimal` - High-precision decimal (entities.Decimal)
-- `ExamplePercentage` - Percentage values (entities.Percentage)
-- `ExampleRate` - Rate values (entities.Rate)
-
-### Money Types
-
-- `ExampleMoney` - Monetary amount (entities.Money)
-- `ExampleCurrency` - Currency with code and amount (entities.Currency)
-
-### Date/Time Types
-
-- `ExampleDate` - Standard Go time.Time
-
-### Entity Framework Types
-
-- `ExampleField` - Field name type (entities.Field)
-- `ExampleTable` - Table name type (entities.Table)
+The `TemplateStoreV3` struct represents records in the TemplateStoreV3 table.
 
 ## Field Definitions
 
@@ -92,16 +47,18 @@ The `TemplateStoreV3` struct contains the following fields:
 | ExampleDate | `Fields.ExampleDate` | `time.Time // Example date field` |  | Date/Time types |
 | ExampleField | `Fields.ExampleField` | `entities.Field // Example field type1` |  | Entity framework types |
 | ExampleTable | `Fields.ExampleTable` | `entities.Table // Example table type1` |  |  |
-| UID | `Fields.UID` | `string` | validate:"required" | User Management fields |
-| GID | `Fields.GID` | `string` | storm:"index" validate:"required" |  |
-| RealName | `Fields.RealName` | `string` | validate:"required,min=5" |  |
-| UserName | `Fields.UserName` | `string` | validate:"required,min=5" |  |
-| UserCode | `Fields.UserCode` | `string` | storm:"index" validate:"required,min=5" |  |
+| UID | `Fields.UID` | `string` | `validate:"required"` | User Management fields |
+| GID | `Fields.GID` | `string` | `storm:"index" validate:"required"` |  |
+| RealName | `Fields.RealName` | `string` | `validate:"required,min=5"` |  |
+| UserName | `Fields.UserName` | `string` | `validate:"required,min=5"` |  |
+| UserCode | `Fields.UserCode` | `string` | `storm:"index" validate:"required,min=5"` |  |
 | Email | `Fields.Email` | `string` |  |  |
-| Notes | `Fields.Notes` | `string` | validate:"max=75" |  |
+| Notes | `Fields.Notes` | `string` | `validate:"max=75"` |  |
 | Active | `Fields.Active` | `entities.Bool` |  |  |
 | LastLogin | `Fields.LastLogin` | `time.Time // Last login time` |  |  |
-| LastHost | `Fields.LastHost` | `string` | storm:"index" |  |
+| LastHost | `Fields.LastHost` | `string` | `storm:"index"` |  |
+| PostTest | `Fields.PostTest` | `[]string // For testing post processing hooks` |  |  |
+| Lock | `Fields.Lock` | `sync.Mutex // For testing concurrent updates, not persisted to DB` |  |  |
 
 
 **Note:** Fields marked as **(required)** are mandatory framework fields and must not be modified or removed.
@@ -112,13 +69,13 @@ Field references enable type-safe queries throughout the DAO:
 
 ```go
 // Get a record by a specific field
-user, err := GetBy(Fields.UserName, "john.doe")
+record, err := templateStoreV3.GetBy(templateStoreV3.Fields.Key, "abc123")
 
 // Query with WHERE conditions
-activeUsers, err := GetAllWhere(Fields.Active, true)
+records, err := templateStoreV3.GetAllWhere(templateStoreV3.Fields.SomeField, value)
 
 // Count records matching criteria
-count, err := CountWhere(Fields.GID, "admin-group")
+count, err := templateStoreV3.CountWhere(templateStoreV3.Fields.Active, true)
 ```
 
 ## Public API
@@ -140,7 +97,7 @@ count, err := CountWhere(Fields.GID, "admin-group")
 
 - `func Count() (int, error)`
 - `func CountWhere(field entities.Field, value any) (int, error)`
-- `func GetBy(field entities.Field, value any) (TemplateStoreV3, error)`
+- `func GetBy(field entities.Field, value any) (*TemplateStoreV3, error)`
 - `func GetAll() ([]TemplateStoreV3, error)`
 - `func GetAllWhere(field entities.Field, value any) ([]TemplateStoreV3, error)`
 
@@ -154,10 +111,9 @@ count, err := CountWhere(Fields.GID, "admin-group")
 ### Record methods
 
 - `func (record *TemplateStoreV3) Validate() error`
-- `func (record *TemplateStoreV3) Update(ctx context.Context, note string) error`
-- `func (record *TemplateStoreV3) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error`
-- `func (record *TemplateStoreV3) Create(ctx context.Context, note string) error`
-- `func (record *TemplateStoreV3) Clone(ctx context.Context) (TemplateStoreV3, error)`
+- `func (record *TemplateStoreV3) Update(ctx context.Context, note string) (*TemplateStoreV3, error)`
+- `func (record *TemplateStoreV3) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) (*TemplateStoreV3, error)`
+- `func (record *TemplateStoreV3) Clone(ctx context.Context) (*TemplateStoreV3, error)`
 
 ### Lookups
 
@@ -171,15 +127,15 @@ count, err := CountWhere(Fields.GID, "admin-group")
 
 ### Construction
 
-- `func New() TemplateStoreV3`
-- `func Create(ctx context.Context, basis TemplateStoreV3) (TemplateStoreV3, error)`
+- `func New() *TemplateStoreV3`
+- `func Create(ctx context.Context, basis *TemplateStoreV3) (*TemplateStoreV3, error)`
 
 ### Import / Export
 
-- `func (record *TemplateStoreV3) ExportRecordAsJSON(name string)`
-- `func ExportAllAsJSON(message string)`
-- `func (record *TemplateStoreV3) ExportRecordAsCSV(name string) error`
-- `func ExportAllAsCSV(msg string) error`
+- `func (record *TemplateStoreV3) ExportRecordToJSON(name string)`
+- `func ExportAllToJSON(message string)`
+- `func (record *TemplateStoreV3) ExportRecordToCSV(name string) error`
+- `func ExportAllToCSV(msg string) error`
 - `func ImportAllFromCSV() error`
 
 ### Worker
@@ -204,6 +160,6 @@ count, err := CountWhere(Fields.GID, "admin-group")
 
 ## Generation Information
 
-**Generated Date:** 27/01/2026 & 15:01  
-**Generated By:** matttownsend (orion)
-**Generated From Template Version:** 0.5.10 - 2026-01-26
+**Generated Date:** 09/02/2026 & 10:22  
+**Generated By:** matttownsend (orion)  
+**Generated From Template Version:** 0.5.24 - 2026-01-31

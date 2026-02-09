@@ -13,6 +13,7 @@ replace github.com/mt1976/frantic-core => ../frantic-core
 require (
 	github.com/DataDog/zstd v1.5.7 // indirect
 	github.com/Sereal/Sereal/Go/sereal v0.0.0-20250307140414-035be09f1bc8 // indirect
+	github.com/alitto/pond/v2 v2.6.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect

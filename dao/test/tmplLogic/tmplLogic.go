@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/goforj/godump"
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV3"
 	"github.com/mt1976/frantic-core/dateHelpers"
@@ -86,24 +87,46 @@ func JobProcessor(name, desc string) {
 	clock.Stop(count)
 }
 
-func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, *templateStoreV3.TemplateStoreV3, string) {
+func PostCreate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) error {
 	// Custom post-create logic can be added here
-	logHandler.TraceLogger.Printf("PostCreate logic executed for TemplateStore Key: %v", record.Key)
-	update := true
-	message := "post create processing completed"
-	logHandler.TraceLogger.Printf("PostTest before create: %+v", record.PostTest)
+	// logHandler.WarningLogger.Printf("PostCreate logic executed for TemplateStore Key: %v %v %+v Locks: %+v", record.Key, godump.DumpStr(ctx), record.PostTest, godump.DumpStr(record.Lock))
+
 	record.PostTest = append(record.PostTest, "CREATE@"+time.Now().Format(dateHelpers.Format.DMY))
-	logHandler.TraceLogger.Printf("PostTest after create: %+v", record.PostTest)
-	return nil, update, record, message
+	// logHandler.WarningLogger.Printf("PostCreate after create: %+v Lock:%v", record.PostTest, godump.DumpStr(record.Lock))
+	// Need to store record also to capture the update to PostTest
+	// fmt.Printf("DOING POST CREATE")
+	actionError := record.PostUpdateUpdate(ctx, "Post Create Processing")
+	if actionError != nil {
+		logHandler.ErrorLogger.Printf("Error updating record during post-create processing for TemplateStore Key: %v: %v", record.Key, actionError.Error())
+		return actionError
+	}
+	// logHandler.WarningLogger.Printf("PostCreate after update: %+v %v", record.PostTest, record.ID)
+	// logHandler.WarningLogger.Printf("PostCreate after update: %+v %v", record.PostTest, record.ID)
+	// logHandler.WarningLogger.Printf("PostCreate after update: %+v %v", record.PostTest, record.ID)
+	// logHandler.WarningLogger.Printf("PostCreate after update: %+v %v", record.PostTest, record.ID)
+
+	return nil
 }
 
-func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) (error, bool, *templateStoreV3.TemplateStoreV3, string) {
+func PostUpdate(ctx context.Context, record *templateStoreV3.TemplateStoreV3) error {
 	// Custom post-update logic can be added here
-	logHandler.InfoLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v", record.Key)
-	update := true
-	message := "post update processing completed"
-	logHandler.InfoLogger.Printf("PostTest before update: %+v", record.PostTest)
+	logHandler.TraceLogger.Printf("PostUpdate logic executed for TemplateStore Key: %v %v %+v", record.Key, godump.DumpStr(ctx), record.PostTest)
 	record.PostTest = append(record.PostTest, "UPDATE@"+time.Now().Format(dateHelpers.Format.DMY))
-	logHandler.InfoLogger.Printf("PostTest after update: %+v", record.PostTest)
-	return nil, update, record, message
+	logHandler.TraceLogger.Printf("PostUpdate after update: %+v", record.PostTest)
+	// Need to store record also to capture the update to PostTest
+	// fmt.Printf("DOING POST CREATE")
+
+	actionError := record.PostUpdateUpdate(ctx, "Post Update Processing")
+	if actionError != nil {
+		logHandler.ErrorLogger.Printf("Error updating record during post-update processing for TemplateStore Key: %v: %v", record.Key, actionError.Error())
+		return actionError
+	}
+	logHandler.TraceLogger.Printf("PostUpdate after update: %+v %v", record.PostTest, record.ID)
+	return nil
+}
+
+func PostDelete(ctx context.Context, record *templateStoreV3.TemplateStoreV3) error {
+	// Custom post-delete logic can be added here
+	logHandler.TraceLogger.Printf("PostDelete logic executed for TemplateStore Key: %v", record.Key)
+	return nil
 }

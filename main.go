@@ -3,13 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 	"strconv"
 	"time"
 
+	"github.com/alitto/pond/v2"
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/entities"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV3"
 	tmpllogic "github.com/mt1976/frantic-amphora/dao/test/tmplLogic"
+	"github.com/mt1976/frantic-core/contextHandler"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/mathHelpers"
 )
@@ -34,53 +37,18 @@ var (
 
 func main() {
 	ctx := context.Background()
-	// SampleKey = entities.Field("Field1")
-	// Sample2Key = entities.Field("FieldA")
 
-	// //Cache.Initialise()
-	// //Cache.Spew()
-	// //Cache.Activate(Sausage{})
-	// //Cache.RegisterExpiry(Sausage{}, 30*time.Minute+15*time.Second)
-	// //Cache.RegisterKey(Sausage{}, SampleKey)
-	// //Cache.Spew()
-	// xx := Sausage{}
-	// xx.Field1 = "Bum"
-	// xx.Field2.Set(123)
-	// xx.When = time.Now()
-	// //Cache.AddEntry(xx)
-	// xx.Field1 = "Bum2"
-	// xx.Field2.Set(456)
-	// zz := xx
-	// //Cache.AddEntry(xx)
-	// xx.Field1 = "Bum3"
-	// xx.Field2.Set(789)
-	// xx.When = time.Now().Add(10 * time.Minute)
-	// //Cache.AddEntry(xx)
-	// xx.Field1 = "Bum4"
-	// xx.Field2.Set(101112)
-	// //Cache.AddEntry(xx)
-	// //Cache.Spew()
-	// yy := Supper{}
-	// yy.FieldA = "Foo"
-	// yy.FieldB = 789
-	// yy.FieldC = 12.34
-	// //Cache.Activate(Supper{})
-	// //Cache.RegisterKey(Supper{}, Sample2Key)
+	logHandler.InfoLogger.Println("Creating Worker Pool...")
+	workerPool := pond.NewPool(100, pond.WithContext(ctx), pond.WithQueueSize(100))
+	// Now add the pool to the context so it can be used by the jobs
 
-	// //Cache.AddEntry(yy)
-	// rtn, err := //Cache.FindByKey(Sausage{}, "Bum2")
-	// if err != nil {
-	// 	logHandler.ErrorLogger.Printf("Error Finding Entry: %v", err)
-	// } else {
-	// 	logHandler.InfoLogger.Printf("Found Entry: %+v", rtn)
-	// }
-	// //Cache.RemoveEntry(zz)
-	// //Cache.RemoveByKey(Sausage{}, "Bum3")
-	// ////Cache.Spew()
-	// created, updated, noTables, noCacheEntries := //Cache.Stats()
-	// logHandler.InfoLogger.Printf("Cache Stats - Created: %v, Updated: %v, Tables: %v, Entries: %v", created.Format(time.RFC3339Nano), updated.Format(time.RFC3339Nano), noTables, noCacheEntries)
-	// //os.Exit(0)
-	// Placeholder main function
+	ctx = contextHandler.AddWorkerPoolToContext(ctx, workerPool)
+	defer workerPool.StopAndWait()
+	logHandler.InfoLogger.Printf("Worker Pool Created with %d workers", 10)
+
+	ctx = contextHandler.SetSession_UserKey(ctx, "UserKey123")
+	ctx = contextHandler.SetSession_UserCode(ctx, "UserCode123")
+
 	logHandler.InfoBanner("INFO", "START", "Starting DAO Test Application - Phase 1")
 
 	logHandler.InfoLogger.Println("Initialize User Store")
@@ -90,10 +58,12 @@ func main() {
 	templateStoreV3.RegisterWorker(tmpllogic.JobProcessor)
 	templateStoreV3.RegisterPostCreate(tmpllogic.PostCreate)
 	templateStoreV3.RegisterPostUpdate(tmpllogic.PostUpdate)
+	templateStoreV3.RegisterPostDelete(tmpllogic.PostDelete)
 
 	// tripStore.Initialise(ctx, false)
 
 	logHandler.InfoLogger.Println("Clear Down User Store")
+
 	templateStoreV3.ClearDown(ctx)
 
 	totalElapsed := time.Duration(0)
@@ -137,9 +107,31 @@ func main() {
 	logHandler.InfoLogger.Printf("Total Test Duration: %v", totalElapsed)
 
 	logHandler.InfoBanner("INFO", "STOP", "Stopping DAO Test Application - Phase 1")
-	// templateStoreV2.ExportAllAsCSV("AllUsers")
 
+	// Need to keep program running to allow time to inspect logs and outputs before the deferred workerPool.StopAndWait() is called and the worker pool is stopped.
+	// godump.DumpJSON("Test Complete - Entering Idle State", workerPool)
+	// Log all the info from the worker pool to verify it is still active and processing any remaining tasks before we exit.
+	debugPool(workerPool)
+
+	// workerPool.StopAndWait()
+	logHandler.InfoLogger.Printf("Use Ctrl+c to stop application.")
+	select {}
+	select {}
+	// templateStoreV2.ExportAllAsCSV("AllUsers")
+	logHandler.InfoLogger.Printf("Noink")
 	// templateStoreV2.ExportAllAsJSON("AllUsers")
+}
+
+func debugPool(workerPool pond.Pool) {
+	logHandler.InfoLogger.Printf("Worker Pool - Completed Tasks: %v", workerPool.CompletedTasks())
+	logHandler.InfoLogger.Printf("Worker Pool - Running Workers: %v", workerPool.RunningWorkers())
+	logHandler.InfoLogger.Printf("Worker Pool - Dropped Tasks: %v", workerPool.DroppedTasks())
+	logHandler.InfoLogger.Printf("Worker Pool - Waiting Tasks: %v", workerPool.WaitingTasks())
+	logHandler.InfoLogger.Printf("Worker Pool - Submitted Tasks: %v", workerPool.SubmittedTasks())
+	logHandler.InfoLogger.Printf("Worker Pool - Succefully Tasks: %v", workerPool.SuccessfulTasks())
+	logHandler.InfoLogger.Printf("Worker Pool - Failed Tasks: %v", workerPool.FailedTasks())
+	logHandler.InfoLogger.Printf("Worker Pool - Max Concurrency: %v", workerPool.MaxConcurrency())
+	logHandler.InfoLogger.Printf("Worker Pool - Queue Size: %v", workerPool.QueueSize())
 }
 
 func test(ctx context.Context, phase string, baselineUsers int) string {
@@ -177,7 +169,6 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// if err != nil {
 	// 	logHandler.ErrorLogger.Printf("Phase %v Error getting all users: %v", phase, err)
 	// }
-
 	// //Cache.SpewForType(templateStoreV2.TemplateStore{})
 
 	// logHandler.InfoLogger.Printf("Phase %v Setup Templates Loaded: %v", phase, len(setupTemplates))
@@ -189,7 +180,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	// }
 	uKey := ""
 	for x, u := range newRecords {
-		logHandler.InfoLogger.Printf("Phase %v Evaluating User: (%v/%v) %v %v", phase, x, baselineUsers, u.RealName, u.Key)
+		logHandler.InfoLogger.Printf("Phase %v Evaluating : (%v/%v) %v %v", phase, x, baselineUsers, u.RealName, u.Key)
 		if mathHelpers.CoinToss() {
 			logHandler.InfoLogger.Printf("Phase %v User: (%v/%v) %v %v", phase, x, baselineUsers, u.RealName, u.Key)
 			uKey = u.Key
@@ -200,7 +191,7 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	if uKey == "" && len(newRecords) > 0 {
 		uKey = newRecords[0].Key
 	}
-	logHandler.InfoLogger.Printf("Phase %v Selected User Key: %v", phase, uKey)
+	logHandler.InfoLogger.Printf("Phase %v Selected User Key: %v %v", phase, uKey, len(newRecords))
 
 	// Read back in the created user with key uKey, and update its LastHost field to "orion+datetime"
 	userRec, getErr := templateStoreV3.GetBy(templateStoreV3.Fields.Key, uKey)
@@ -209,13 +200,15 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 	} else {
 		logHandler.InfoLogger.Printf("Phase %v Retrieved User by Key %v: %v", phase, uKey, userRec.RealName)
 		userRec.LastHost = fmt.Sprintf("orion-%v", time.Now().Format("150405"))
-		updateErr := userRec.UpdateWithAction(ctx, audit.UPDATE, "Test Update of LastHost")
+		updateErr := userRec.UpdateWithAction(ctx, audit.UPDATE, "Test Update of LastHost field "+userRec.LastHost)
 		if updateErr != nil {
 			logHandler.ErrorLogger.Printf("Phase %v Error updating user %v: %v", phase, uKey, updateErr)
 		} else {
 			logHandler.InfoLogger.Printf("Phase %v Updated User %v LastHost to %v", phase, uKey, userRec.LastHost)
 		}
 	}
+
+	// os.Exit(0)
 
 	err = userRec.ExportRecordToCSV("SingleMode")
 	if err != nil {
@@ -235,8 +228,26 @@ func test(ctx context.Context, phase string, baselineUsers int) string {
 		logHandler.ErrorLogger.Printf("Phase %v Error exporting all users to Defaults: %v", phase, err)
 	}
 
+	logHandler.InfoLogger.Printf("Cleardown User Store for Phase %v Imports from Defaults", phase)
+	err = templateStoreV3.ClearDown(ctx)
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error cleardown user store: %v", phase, err)
+	}
+
+	// Check its empty before we import
+	templateEntries, err := templateStoreV3.GetAll()
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Phase %v Error getting all users before import: %v", phase, err)
+	}
+	notemplateEntries := len(templateEntries)
+	logHandler.InfoLogger.Printf("Phase %v Users before Import: %v", phase, notemplateEntries)
+	if notemplateEntries != 0 {
+		logHandler.ErrorLogger.Printf("Phase %v User store not empty before import: expected 0, got %v", phase, notemplateEntries)
+		os.Exit(0)
+	}
+
 	logHandler.InfoLogger.Printf("Phase %v Importing All Users from Defaults", phase)
-	err = templateStoreV3.ImportDefaults()
+	err = templateStoreV3.ImportDefaults(ctx)
 	if err != nil {
 		logHandler.ErrorLogger.Printf("Phase %v Error importing all users from Defaults: %v", phase, err)
 	}
