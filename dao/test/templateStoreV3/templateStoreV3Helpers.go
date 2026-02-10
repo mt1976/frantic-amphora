@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.24 - 2026-01-31
 // Generated
-// Date: 09/02/2026 & 10:22
+// Date: 10/02/2026 & 08:45
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -236,7 +236,6 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) error {
 		if workerPool != nil {
 			logHandler.TraceLogger.Printf("[POSTCREATE] Running post-create processing for %v Record: %v in worker pool Lock:%v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
 			task := workerPool.SubmitErr(func() error {
-				fmt.Printf("STARTING POST CREATE FOR %v\n", record.Key)
 				// Lock record for the duration of the post-create processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent concurrent updates to the same record during that time.
 				logHandler.LockLogger.Printf("[%v,%v] Locked - POSTCREATE", TableName.String(), record.Raw)
 				logHandler.TraceLogger.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))

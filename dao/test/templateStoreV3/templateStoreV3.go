@@ -1,7 +1,7 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.24 - 2026-01-31
-// Generated
-// Date: 09/02/2026 & 10:22
+// Generated 
+// Date: 10/02/2026 & 08:45
 // Who : matttownsend (orion)
 
 package templateStoreV3
@@ -157,9 +157,9 @@ func New() *TemplateStoreV3 {
 func Create(ctx context.Context, basis *TemplateStoreV3) (*TemplateStoreV3, error) {
 	logHandler.DatabaseLogger.Printf("CREATE %v ...", tableName)
 	dao.CheckDAOReadyState(tableName, audit.CREATE, databaseConnectionActive)
-	logHandler.InfoLogger.Printf("**** Create %v Record: %v %+v", tableName, basis.Key, basis)
+	logHandler.TraceLogger.Printf("**** Create %v Record: %v %+v", tableName, basis.Key, basis)
 	basis, err := (*basis).insertOrUpdate(ctx, fmt.Sprintf("New %v Record", tableName), audit.CREATE, CREATE, false)
-	logHandler.InfoLogger.Printf("**** Created %v Record: %v %+v %+v %+v %v", tableName, basis.Key, *basis, basis, &basis, err)
+	logHandler.TraceLogger.Printf("**** Created %v Record: %v %+v %+v %+v %v", tableName, basis.Key, *basis, basis, &basis, err)
 	if err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
 		return basis, err

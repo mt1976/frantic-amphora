@@ -25,19 +25,36 @@ type op string
 const (
 	UPDATE op = "Update"
 	CREATE op = "Create"
+	IMPORT op = "Import"
 )
 
 // insertOrUpdate performs shared validation/audit and then creates or updates the record.
-func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, auditAction audit.Action, operation op) (*{{.TypeName}}, error) {
-	logHandler.TraceLogger.Printf("INSERTORUPDATE called for %v record %v operation %v action %v", tableName, record.Key, operation, auditAction.Code())
-	logHandler.DatabaseLogger.Printf("INSERTORUPDATE called for %v record %v operation %v action %v", tableName, record.Key, operation, auditAction.Code())
+func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, auditAction audit.Action, operation op, isPostProcessingRun bool) (*{{.TypeName}}, error) {
+	logHandler.TraceLogger.Printf("INSERTORUPDATE called for %v record: %v operation: %v action: %v isPostProcessing: %t", tableName, record.Raw, operation, auditAction.Code(), isPostProcessingRun)
+	logHandler.DatabaseLogger.Printf("INSERTORUPDATE called for %v record %v operation %v action %v postProcessing %t", tableName, record.Key, operation, auditAction.Code(), isPostProcessingRun)
 
 	isCreateOperation := false
-	if operation == CREATE {
+	if operation == CREATE || operation == IMPORT {
 		isCreateOperation = true
-		if !strings.EqualFold(auditAction.Code(), "Create") {
+		logHandler.TraceLogger.Printf("INSERTORUPDATE determined operation is CREATE type for %v record %v", tableName, record.Key)
+		if !strings.EqualFold(auditAction.Code(), "Create") && !strings.EqualFold(auditAction.Code(), "Import") {
+			logHandler.WarningLogger.Printf("Audit action '%v' does not match operation type 'Create' for %v record %v. This may lead to incorrect audit records.", auditAction.Code(), tableName, record.Key)
 			return New(), ce.ErrDAOUpdateWrapper(tableName, ce.ErrValidationFailed)
 		}
+	}
+
+	logHandler.TraceLogger.Printf("INSERTORUPDATE for %v record %v isCreate %t operation %v", tableName, record.Key, isCreateOperation, operation)
+
+	locked := false
+
+	if !isCreateOperation && !(operation == UPDATE && isPostProcessingRun) {
+		logHandler.TraceLogger.Printf("Attempting to lock %v record %v for %v operation", tableName, record.Key, operation)
+		logHandler.LockLogger.Printf("[%v,%v] Locking for %v", tableName, record.Raw, operation)
+		record.Lock.Lock()
+		locked = true
+	} else {
+		// For create operations, we will lock the record later in the process after the record has been created and we have a valid key. This is to prevent locking a record that may not be created if there are validation errors or duplicate key issues.
+		logHandler.LockLogger.Printf("[%v,%v] Deferring %v lock for new record until after creation", tableName, record.Raw, operation)
 	}
 
 	logHandler.TraceLogger.Printf("Starting %v processing for %v record %v isCreate %t", operation, tableName, record.Key, isCreateOperation)
@@ -128,19 +145,47 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 		clock.Stop(0)
 		return New(), updErr
 	}
+
+	if locked {
+		record.Lock.Unlock()
+		logHandler.LockLogger.Printf("[%v,%v] Unlocked record after post-processing: %v", tableName, record.Raw, operation)
+	}
+
+	// // Unlock record before post-processing to avoid deadlocks if post-processing updates the record
+	// if !isCreateOperation {
+	// 	logHandler.TraceLogger.Printf("UNLOCKING RECORD before post-processing: %v", record.Raw)
+	// 	record.Lock.Unlock()
+	// 	logHandler.LockLogger.Printf("UNLOCKED RECORD before post-processing: %v", record.Raw)
+	// } else {
+	// 	logHandler.TraceLogger.Printf("Deferring unlock for new record until after creation: %v", record.Raw)
+	// }
+
+	if isPostProcessingRun {
+		// Skip post-processing to avoid infinite loop when record is updated during post-processing
+		logHandler.TraceLogger.Printf("Skipping post-processing for %v record %v to avoid infinite loop", tableName, record.Key)
+		clock.Stop(1)
+		return record, nil
+	}
+
 	var err error
-	var update bool = false
-	var message string = ""
-	// var newRec *{{.TypeName}}
+	// logHandler.LockLogger.Printf("Post Processing: LOCKING RECORD: %v", record.Raw)
+	// record.Lock.Lock()
+	// logHandler.TraceLogger.Printf("Post Processing: LOCKED RECORD: %v", record.Raw)
+
 	if !isCreateOperation {
 		logHandler.TraceLogger.Printf("Starting post-update processing for %v record %v", tableName, record.Key)
-		err, update, _, message = record.postUpdateProcessing(ctx)
+		err = record.postUpdateProcessing(ctx)
 		logHandler.TraceLogger.Printf("Post-Update processing completed for %v record %v err %e", tableName, record.Key, err)
 	} else {
 		logHandler.TraceLogger.Printf("Starting post-create processing for %v record %v", tableName, record.Key)
-		err, update, _, message = record.postCreateProcessing(ctx)
+		err = record.postCreateProcessing(ctx)
 		logHandler.TraceLogger.Printf("Post-Create processing completed for %v record %v err %e", tableName, record.Key, err)
 	}
+
+	// logHandler.TraceLogger.Printf("Post Processing: UNLOCKING RECORD: %v", record.Raw)
+	// record.Lock.Unlock()
+	// logHandler.TraceLogger.Printf("Post Processing: UNLOCKED RECORD: %v", record.Raw)
+
 	logHandler.TraceLogger.Printf("POST %v processing completed for %v record %v err %e %+v", operation, tableName, record.Key, err, record)
 	if err != nil {
 		createProcErr := ce.ErrDAOCreateWrapper(tableName, record.Key, err)
@@ -150,31 +195,41 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	}
 
 	// Reset record to updated version (copy values from newRec back to record)
-	logHandler.TraceLogger.Printf("Updating record with values from post %v processing for %v record %v", operation, tableName, record.Key)
+	//logHandler.TraceLogger.Printf("Updating record with values from post %v processing for %v record %v", operation, tableName, record.Key)
 	//*record = newRec
 
 	// godump.Dump(record)
 	// godump.Dump(newRec)
-	if update {
-		if message == "" {
-			message = "Post " + string(operation) + " Processing"
-		}
-		logHandler.TraceLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.Raw)
-		actionError = activeDBConnection.Update(record)
-		logHandler.TraceLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.Raw)
-		// err = record.UpdateWithAction(ctx, audit.UPDATE, message)
-		if actionError != nil {
-			updErr := ce.ErrDAOCreateWrapper(tableName, record.Key, actionError)
-			logHandler.ErrorLogger.Panic(updErr.Error())
-			clock.Stop(0)
-			return New(), updErr
-		}
-	}
+	// if update {
+	// 	if message == "" {
+	// 		message = "Post " + string(operation) + " Processing"
+	// 	}
+	// 	logHandler.TraceLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.Raw)
+	// 	actionError = activeDBConnection.Update(record)
+	// 	logHandler.TraceLogger.Printf("Post %v processing requires update for %v record %v %v", operation, tableName, record.Key, record.Raw)
+	// 	// err = record.UpdateWithAction(ctx, audit.UPDATE, message)
+	// 	if actionError != nil {
+	// 		updErr := ce.ErrDAOCreateWrapper(tableName, record.Key, actionError)
+	// 		logHandler.ErrorLogger.Panic(updErr.Error())
+	// 		clock.Stop(0)
+	// 		return New(), updErr
+	// 	}
+	// }
 
 	logHandler.TraceLogger.Printf("%v operation completed for %v record %v %v %+v", operation, tableName, record.Key, record.Raw, record)
 	logHandler.TraceLogger.Printf("%v", godump.DumpJSONStr(record))
 	clock.Stop(1)
 	return record, nil
+}
+
+func (record *{{.TypeName}}) unlock(isCreate bool) error {
+	record.Lock.Unlock()
+	if isCreate {
+		logHandler.LockLogger.Printf("UNLOCKED NEW RECORD: %v", record.Raw)
+	} else {
+		logHandler.LockLogger.Printf("UNLOCKED RECORD: %v", record.Raw)
+	}
+	return nil
 }
 
 // postGetList runs post-get processing for each record in the list.
@@ -216,7 +271,7 @@ func (record *{{.TypeName}}) checkForDuplicate() error {
 			return err
 		}
 		if found {
-			logHandler.InfoLogger.Printf("A duplicate match for %v, %v has been found", tableName, record.Key)
+			logHandler.TraceLogger.Printf("A duplicate match for %v, %v has been found", tableName, record.Key)
 			return ce.ErrDuplicate
 		}
 		return nil

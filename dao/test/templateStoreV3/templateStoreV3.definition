@@ -46,4 +46,3 @@
 	LastLogin time.Time // Last login time
     LastHost  string    `storm:"index"` // Last host with index
 	PostTest []string  // For testing post processing hooks	
-	Lock sync.Mutex // For testing concurrent updates, not persisted to DB

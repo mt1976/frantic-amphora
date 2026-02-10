@@ -158,7 +158,7 @@ func Create(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
 	logHandler.DatabaseLogger.Printf("CREATE %v ...", tableName)
 	dao.CheckDAOReadyState(tableName, audit.CREATE, databaseConnectionActive)
 	logHandler.TraceLogger.Printf("**** Create %v Record: %v %+v", tableName, basis.Key, basis)
-	basis, err := (*basis).insertOrUpdate(ctx, fmt.Sprintf("New %v Record", tableName), audit.CREATE, CREATE)
+	basis, err := (*basis).insertOrUpdate(ctx, fmt.Sprintf("New %v Record", tableName), audit.CREATE, CREATE, false)
 	logHandler.TraceLogger.Printf("**** Created %v Record: %v %+v %+v %+v %v", tableName, basis.Key, *basis, basis, &basis, err)
 	if err != nil {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
@@ -168,10 +168,26 @@ func Create(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
 	return basis, nil
 }
 
+// Create constructs and inserts a new {{.TypeName}} record.
+func importRecord(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
+	logHandler.DatabaseLogger.Printf("IMPORT %v ...", tableName)
+	dao.CheckDAOReadyState(tableName, audit.IMPORT, databaseConnectionActive)
+	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v", tableName, basis.Key, basis)
+	basis, err := (*basis).insertOrUpdate(ctx, fmt.Sprintf("Import %v Record", tableName), audit.IMPORT, IMPORT, false)
+	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v %+v %+v %v", tableName, basis.Key, *basis, basis, &basis, err)
+	if err != nil {
+		logHandler.ErrorLogger.Printf("Error importing %v record %v: %v", tableName, basis.Key, err.Error())
+		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
+		return basis, err
+	}
+	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v", tableName, basis.Key, &basis)
+	return basis, nil
+}
+
 // Delete deletes a record by ID.
 func Delete(ctx context.Context, id int, note string) error {
 	logHandler.DatabaseLogger.Printf("DELETE %v WHERE %v=%v (%v)", tableName, Fields.ID, id, note)
-	
+
 	err := DeleteBy(ctx, Fields.ID, id, note)
 	if err != nil {
 		return ce.ErrDAODeleteWrapper(tableName, Fields.ID.String(), id, err)
@@ -236,25 +252,24 @@ func (record *{{.TypeName}}) Validate() error {
 // Update persists changes to an existing record.
 func (record *{{.TypeName}}) Update(ctx context.Context, note string) error {
 	logHandler.DatabaseLogger.Printf("Updating %v record %v (%v)", tableName, record.Key, note)
-	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE)
+	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE, false)
+	logHandler.DatabaseLogger.Printf("Update record %v %v", record.Key, note)
+
+	return err
+}
+
+func (record *{{.TypeName}}) PostUpdateUpdate(ctx context.Context, note string) error {
+	logHandler.DatabaseLogger.Printf("Updating %v record %v during post-update processing (%v)", tableName, record.Key, note)
+	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE, true)
+	logHandler.DatabaseLogger.Printf("Post-update Update record %v %v", record.Key, note)
 	return err
 }
 
 // UpdateWithAction persists changes using the provided audit action.
 func (record *{{.TypeName}}) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error {
 	logHandler.DatabaseLogger.Printf("%ving %v record %v with action %v (%v)", UPDATE, tableName, record.Key, auditAction.Code(), note)
-	record, err := record.insertOrUpdate(ctx, note, auditAction, UPDATE)
-	return err
-}
-
-// Create inserts a new record.
-func (record *{{.TypeName}}) Create(ctx context.Context, note string) error {
-	logHandler.DatabaseLogger.Printf("%ving %v record %v (%v)", CREATE, tableName, record.Key, note)
-	record, err := record.insertOrUpdate(ctx, note, audit.CREATE, CREATE)
-	if err != nil {
-		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, record.ID, err))
-	}
-	logHandler.TraceLogger.Printf("Created %v Record: %v %+v", tableName, record.Key, record)
+	record, err := record.insertOrUpdate(ctx, note, auditAction, UPDATE, false)
+	logHandler.DatabaseLogger.Printf("%ved %v record %v with action %v (%v)", UPDATE, tableName, record.Key, auditAction.Code(), note)
 	return err
 }
 
