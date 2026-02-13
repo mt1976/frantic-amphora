@@ -28,7 +28,7 @@ import (
 //
 // DEPRECATED: Use Get instead.
 func (db *DB) Retrieve(field entities.Field, value, to any) (any, error) {
-	logHandler.WarningLogger.Printf("Retrieve is DEPRECATED, use Get instead")
+	logHandler.Warning.Printf("Retrieve is DEPRECATED, use Get instead")
 	panic("Retrieve is DEPRECATED, use Get instead")
 	// return db.get(field, value, to)
 }
@@ -59,38 +59,38 @@ func (db *DB) Get(field entities.Field, value, to *any) (*any, error) {
 //   - any: The retrieved record.
 //   - error: An error object if any issues occur during the retrieval process; otherwise, nil.
 func (db *DB) get(field entities.Field, value, to *any) (*any, error) {
-	logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db]", entities.GetStructType(to), field.String(), value, db.Name)
+	logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db]", entities.GetStructType(to), field.String(), value, db.Name)
 
 	if cache.IsEnabled(to) {
 		cachedValue, err := cache.GetWhere(to, field, value)
 		if err == nil {
 			reflect.ValueOf(to).Elem().Set(reflect.ValueOf(cachedValue).Elem())
-			logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - From Cache", entities.GetStructType(to), field.String(), value, db.Name)
+			logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - From Cache", entities.GetStructType(to), field.String(), value, db.Name)
 			return *cachedValue, nil
 		}
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Not Found in Cache", entities.GetStructType(to), field.String(), value, db.Name)
+		logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Not Found in Cache", entities.GetStructType(to), field.String(), value, db.Name)
 	}
 
-	logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - From Database", entities.GetStructType(to), field.String(), value, db.Name)
+	logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - From Database", entities.GetStructType(to), field.String(), value, db.Name)
 
 	// [GET] from database
 	err := db.connection.One(field.String(), value, to)
 
-	logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Completed", entities.GetStructType(to), field.String(), value, db.Name)
+	logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Completed", entities.GetStructType(to), field.String(), value, db.Name)
 	if err != nil {
 		// On error, do not attempt to use or populate the cache
-		logHandler.ErrorLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Error from DB: %v", entities.GetStructType(to), field.String(), value, db.Name, err)
+		logHandler.Error.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Error from DB: %v", entities.GetStructType(to), field.String(), value, db.Name, err)
 		return nil, err
 	}
 
 	if cache.IsEnabled(to) {
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Populating Cache", entities.GetStructType(to), field.String(), value, db.Name)
+		logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Populating Cache", entities.GetStructType(to), field.String(), value, db.Name)
 		cache.AddEntry(to)
 	} else {
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Caching Disabled or Not Initialised", entities.GetStructType(to), field.String(), value, db.Name)
+		logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Caching Disabled or Not Initialised", entities.GetStructType(to), field.String(), value, db.Name)
 	}
 
-	logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Returning", entities.GetStructType(to), field.String(), value, db.Name)
+	logHandler.Database.Printf("[GET] %v WHERE %+v=%+v) [...%v.db] - Returning", entities.GetStructType(to), field.String(), value, db.Name)
 
 	return to, err
 }
@@ -104,45 +104,45 @@ func (db *DB) get(field entities.Field, value, to *any) (*any, error) {
 //   - []any: A slice of all retrieved records.
 //   - error: An error object if any issues occur during the retrieval process; otherwise, nil.
 func (db *DB) GetAll(to any, options ...func(*index.Options)) ([]*any, error) {
-	logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db]", entities.GetStructType(to), options, db.Name)
+	logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db]", entities.GetStructType(to), options, db.Name)
 
 	if cache.IsEnabled(to) {
 		var resultList []*any
 		// Get all records from cache
 		allRecords, err := cache.GetAll(to)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Error retrieving from cache: %v", entities.GetStructType(to), options, db.Name, err)
+			logHandler.Error.Printf("[GET] %v ALL [%+v] [...%v.db] - Error retrieving from cache: %v", entities.GetStructType(to), options, db.Name, err)
 			return nil, err
 		}
 		// Convert cached records to []any, but only return if there are records
 		for _, record := range allRecords {
 			resultList = append(resultList, record)
 		}
-		logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Returning %d cached entries", entities.GetStructType(to), options, db.Name, len(resultList))
+		logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db] - Returning %d cached entries", entities.GetStructType(to), options, db.Name, len(resultList))
 		if len(resultList) > 0 {
 			return resultList, nil
 		}
 	}
 
-	logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - From Database", entities.GetStructType(to), options, db.Name)
+	logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db] - From Database", entities.GetStructType(to), options, db.Name)
 	// [GET] from database
 	err := db.connection.All(to, options...)
 	if err != nil {
 		// On error, do not attempt to use or populate the cache
-		logHandler.ErrorLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Error from DB: %v", entities.GetStructType(to), options, db.Name, err)
+		logHandler.Error.Printf("[GET] %v ALL [%+v] [...%v.db] - Error from DB: %v", entities.GetStructType(to), options, db.Name, err)
 		return nil, err
 	}
 
-	logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Completed", entities.GetStructType(to), options, db.Name)
+	logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db] - Completed", entities.GetStructType(to), options, db.Name)
 
 	// Use reflection to iterate through the slice without assuming its concrete type
 	sliceValue := reflect.ValueOf(to).Elem()
 	if sliceValue.Kind() != reflect.Slice {
-		logHandler.ErrorLogger.Printf("[GET] %v ALL - Expected slice, got %v from DB", entities.GetStructType(to), sliceValue.Kind())
+		logHandler.Error.Printf("[GET] %v ALL - Expected slice, got %v from DB", entities.GetStructType(to), sliceValue.Kind())
 		return nil, commonErrors.ErrInvalidTypeWrapper("GetAll", string(entities.GetStructType(to)), sliceValue.Kind().String())
 	}
 
-	logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Retrieved %d entries from DB", entities.GetStructType(to), options, db.Name, sliceValue.Len())
+	logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db] - Retrieved %d entries from DB", entities.GetStructType(to), options, db.Name, sliceValue.Len())
 
 	// Convert the typed slice (e.g. []TemplateStore) into []any
 	result := make([]*any, sliceValue.Len())
@@ -153,17 +153,17 @@ func (db *DB) GetAll(to any, options ...func(*index.Options)) ([]*any, error) {
 
 	// Populate cache if enabled
 	if cache.IsEnabled(to) {
-		logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Populating Cache", entities.GetStructType(to), options, db.Name)
+		logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db] - Populating Cache", entities.GetStructType(to), options, db.Name)
 		err = cache.AddEntries(result)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Error populating Cache: %v", entities.GetStructType(to), options, db.Name, err)
+			logHandler.Error.Printf("[GET] %v ALL [%+v] [...%v.db] - Error populating Cache: %v", entities.GetStructType(to), options, db.Name, err)
 			return nil, err
 		}
 	} else {
-		logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db] - Caching Disabled or Not Initialised", entities.GetStructType(to), options, db.Name)
+		logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db] - Caching Disabled or Not Initialised", entities.GetStructType(to), options, db.Name)
 	}
 
-	logHandler.InfoLogger.Printf("[GET] %v ALL [%+v] [...%v.db] on %v - Returning %d entries from cache", entities.GetStructType(to), entities.GetStructType(to), db.Name, "GetAll", sliceValue.Len())
+	logHandler.Info.Printf("[GET] %v ALL [%+v] [...%v.db] on %v - Returning %d entries from cache", entities.GetStructType(to), entities.GetStructType(to), db.Name, "GetAll", sliceValue.Len())
 	return result, nil
 }
 
@@ -178,19 +178,19 @@ func (db *DB) GetAll(to any, options ...func(*index.Options)) ([]*any, error) {
 //   - error: An error object if any issues occur during the retrieval process; otherwise, nil.
 func (db *DB) GetAllWhere(field entities.Field, value, to *any) ([]*any, error) {
 	tableName := entities.GetStructType(to)
-	logHandler.DatabaseLogger.Printf("[GET] %v WHERE %v=%v", tableName, field.String(), value)
+	logHandler.Database.Printf("[GET] %v WHERE %v=%v", tableName, field.String(), value)
 	zero := []*any{}
 	clock := timing.Start(tableName.String(), "GetAll", fmt.Sprintf("%v=%v", field.String(), value))
 
 	// logHandler.DatabaseLogger.Printf("SELECT %v WHERE %v=%v", Domain, fields.Field, value)
 	if err := entities.IsValidFieldInStruct(field, to); err != nil {
-		logHandler.ErrorLogger.Printf("Field validation error for fields.Field '%v': %v", field.String(), err)
+		logHandler.Error.Printf("Field validation error for fields.Field '%v': %v", field.String(), err)
 		clock.Stop(0)
 		return nil, err
 	}
 
 	if err := entities.IsValidTypeForField(field, value, to); err != nil {
-		logHandler.ErrorLogger.Printf("Type validation error for fields.Field '%v': %v", field.String(), err)
+		logHandler.Error.Printf("Type validation error for fields.Field '%v': %v", field.String(), err)
 		clock.Stop(0)
 		return nil, err
 	}
@@ -199,7 +199,7 @@ func (db *DB) GetAllWhere(field entities.Field, value, to *any) ([]*any, error) 
 	if cache.IsEnabled(to) {
 		cachedValues, err := cache.GetAllWhere(to, field, value)
 		if err == nil && len(cachedValues) > 0 {
-			logHandler.DatabaseLogger.Printf("[GET] %v WHERE %v=%v - From Cache", tableName, field.String(), value)
+			logHandler.Database.Printf("[GET] %v WHERE %v=%v - From Cache", tableName, field.String(), value)
 			// Convert []**any to []*any
 			result := make([]*any, len(cachedValues))
 			for i, v := range cachedValues {
@@ -208,7 +208,7 @@ func (db *DB) GetAllWhere(field entities.Field, value, to *any) ([]*any, error) 
 			clock.Stop(len(result))
 			return result, nil
 		}
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE %v=%v - Not Found in Cache", tableName, field.String(), value)
+		logHandler.Database.Printf("[GET] %v WHERE %v=%v - Not Found in Cache", tableName, field.String(), value)
 	}
 
 	// Otherwise, use Storm's indexed query to retrieve matching records directly.
@@ -219,14 +219,14 @@ func (db *DB) GetAllWhere(field entities.Field, value, to *any) ([]*any, error) 
 			clock.Stop(0)
 			return zero, nil
 		}
-		logHandler.ErrorLogger.Printf("Error querying %v where %v=%v: %v", tableName, field.String(), value, err)
+		logHandler.Error.Printf("Error querying %v where %v=%v: %v", tableName, field.String(), value, err)
 		clock.Stop(0)
 		return nil, err
 	}
 
 	sliceValue := reflect.ValueOf(to).Elem()
 	if sliceValue.Kind() != reflect.Slice {
-		logHandler.ErrorLogger.Printf("[GET]<%v>{WHERE} - Expected slice pointer, got %v", tableName, sliceValue.Kind())
+		logHandler.Error.Printf("[GET]<%v>{WHERE} - Expected slice pointer, got %v", tableName, sliceValue.Kind())
 		clock.Stop(0)
 		return nil, commonErrors.ErrInvalidTypeWrapper("GetAllWhere", tableName.String(), sliceValue.Kind().String())
 	}
@@ -239,14 +239,14 @@ func (db *DB) GetAllWhere(field entities.Field, value, to *any) ([]*any, error) 
 
 	// Populate cache if enabled
 	if cache.IsEnabled(to) {
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE %v=%v - Populating Cache", tableName, field.String(), value)
+		logHandler.Database.Printf("[GET] %v WHERE %v=%v - Populating Cache", tableName, field.String(), value)
 		err = cache.AddEntries(resultList)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("[GET] %v WHERE %v=%v - Error populating Cache: %v", tableName, field.String(), value, err)
+			logHandler.Error.Printf("[GET] %v WHERE %v=%v - Error populating Cache: %v", tableName, field.String(), value, err)
 			return nil, err
 		}
 	} else {
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE %v=%v - Caching Disabled or Not Initialised", tableName, field.String(), value)
+		logHandler.Database.Printf("[GET] %v WHERE %v=%v - Caching Disabled or Not Initialised", tableName, field.String(), value)
 	}
 
 	// hydrateerr := db.hydrateCacheBulk(resultList)
@@ -266,22 +266,22 @@ func (db *DB) GetAllWhere(field entities.Field, value, to *any) ([]*any, error) 
 // Returns:
 //   - error: An error object if any issues occur during the deletion process; otherwise, nil.
 func (db *DB) Delete(data any) error {
-	logHandler.DatabaseLogger.Printf("[DELETE] %v [...%v.db] (%.10s)", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[DELETE] %v [...%v.db] (%.10s)", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	err := db.connection.DeleteStruct(data)
 	if err != nil {
-		logHandler.ErrorLogger.Printf("[DELETE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+		logHandler.Error.Printf("[DELETE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 		return err
 	}
 
 	if cache.IsEnabled(data) {
-		logHandler.DatabaseLogger.Printf("[DELETE] %v [...%v.db] (%.10s) - Removing from Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+		logHandler.Database.Printf("[DELETE] %v [...%v.db] (%.10s) - Removing from Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		err := cache.RemoveEntry(data)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("[DELETE] %v [...%v.db] (%.10s) - Error removing from Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+			logHandler.Error.Printf("[DELETE] %v [...%v.db] (%.10s) - Error removing from Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 			return err
 		}
 	} else {
-		logHandler.DatabaseLogger.Printf("[DELETE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+		logHandler.Database.Printf("[DELETE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	}
 	// removeFromCache(db, data, "Delete", entities.GetStructType(data))
 	return nil
@@ -295,16 +295,16 @@ func (db *DB) Delete(data any) error {
 // Returns:
 //   - error: An error object if any issues occur during the drop process; otherwise, nil.
 func (db *DB) Drop(data any) error {
-	logHandler.DatabaseLogger.Printf("[DROP] %v [...%v.db] (%.10s)", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[DROP] %v [...%v.db] (%.10s)", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	err := db.connection.Drop(data)
 	if err != nil {
-		logHandler.ErrorLogger.Printf("[DROP] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+		logHandler.Error.Printf("[DROP] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 		return err
 	}
-	logHandler.DatabaseLogger.Printf("[DROP] %v [...%v.db] (%.10s) - Removing from Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[DROP] %v [...%v.db] (%.10s) - Removing from Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	err = cache.ClearCacheForType(data)
 	if err != nil {
-		logHandler.ErrorLogger.Printf("[DROP] %v [...%v.db] (%.10s) - Error clearing Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+		logHandler.Error.Printf("[DROP] %v [...%v.db] (%.10s) - Error clearing Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 		return err
 	}
 	// removeFromCache(db, data, "Drop", entities.GetStructType(data))
@@ -319,30 +319,30 @@ func (db *DB) Drop(data any) error {
 // Returns:
 //   - error: An error object if any issues occur during the update process; otherwise, nil.
 func (db *DB) Update(data any) error {
-	logHandler.DatabaseLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Start", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[UPDATE] %v [...%v.db] (%.10s) - Start", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	err := validate(data, db)
 	if err != nil {
-		logHandler.ErrorLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Error", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+		logHandler.Error.Printf("[UPDATE] %v [...%v.db] (%.10s) - Error", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		return commonErrors.ErrWrapper(err)
 	}
-	logHandler.DatabaseLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - End", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[UPDATE] %v [...%v.db] (%.10s) - End", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 
 	if cache.IsEnabled(data) {
-		logHandler.InfoLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Updating Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+		logHandler.Info.Printf("[UPDATE] %v [...%v.db] (%.10s) - Updating Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		//		godump.Dump(data, "Updating Cache with data:")
 		err := cache.AddEntry(data)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Error updating Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+			logHandler.Error.Printf("[UPDATE] %v [...%v.db] (%.10s) - Error updating Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 			return err
 		}
 	}
 	// Concurrently update the database
 	// 	go bgUpdate(data, db)
 	// } else {
-	logHandler.DatabaseLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	err = db.connection.Update(data)
 	if err != nil {
-		logHandler.ErrorLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Error updating DB: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+		logHandler.Error.Printf("[UPDATE] %v [...%v.db] (%.10s) - Error updating DB: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 		return err
 	}
 	//	}
@@ -351,10 +351,10 @@ func (db *DB) Update(data any) error {
 }
 
 func bgUpdate(data any, db *DB) {
-	logHandler.DatabaseLogger.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	err := db.connection.Update(data)
 	if err != nil {
-		logHandler.ErrorLogger.Panicf("[UPDATE] %v [...%v.db] (%.10s) - Error updating DB: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+		logHandler.Error.Panicf("[UPDATE] %v [...%v.db] (%.10s) - Error updating DB: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 		return
 	}
 }
@@ -367,33 +367,33 @@ func bgUpdate(data any, db *DB) {
 // Returns:
 //   - error: An error object if any issues occur during the creation process; otherwise, nil.
 func (db *DB) Create(data any) error {
-	logHandler.DatabaseLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - Start", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[CREATE] %v [...%v.db] (%.10s) - Start", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 	err := validate(data, db)
 	if err != nil {
-		logHandler.ErrorLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - Error", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+		logHandler.Error.Printf("[CREATE] %v [...%v.db] (%.10s) - Error", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		return commonErrors.ErrCreateWrapper(err)
 	}
-	logHandler.DatabaseLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - End", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+	logHandler.Database.Printf("[CREATE] %v [...%v.db] (%.10s) - End", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 
 	if cache.IsEnabled(data) {
-		logHandler.InfoLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - Adding to Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+		logHandler.Info.Printf("[CREATE] %v [...%v.db] (%.10s) - Adding to Cache", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		err := cache.AddEntry(data)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - Error adding to Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+			logHandler.Error.Printf("[CREATE] %v [...%v.db] (%.10s) - Error adding to Cache: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 			return err
 		}
 		// Save to database asynchronously when cache is enabled
 		go func() {
 			saveErr := db.connection.Save(data)
 			if saveErr != nil {
-				logHandler.ErrorLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), saveErr)
+				logHandler.Error.Printf("[CREATE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), saveErr)
 			}
 		}()
 	} else {
-		logHandler.DatabaseLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+		logHandler.Database.Printf("[CREATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		err = db.connection.Save(data)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("[CREATE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+			logHandler.Error.Printf("[CREATE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 		}
 	}
 	return err
@@ -408,7 +408,7 @@ func (db *DB) Create(data any) error {
 //   - int: The total number of records.
 //   - error: An error object if any issues occur during the counting process; otherwise, nil.
 func (db *DB) Count(data any) (int, error) {
-	logHandler.DatabaseLogger.Printf("[COUNT] %v [...%v.db]", entities.GetStructType(data), db.Name)
+	logHandler.Database.Printf("[COUNT] %v [...%v.db]", entities.GetStructType(data), db.Name)
 	// if db.isCaching(data) {
 	// 	logHandler.CacheLogger.Printf("[CNT]<%v>{SKIP} Count [%+v] [...%v.db] - Caching Enabled", entities.GetStructType(data), entities.GetStructType(data), db.Name)
 	// 	return len(inMemoryCache[entities.GetStructType(data)]), nil
@@ -430,9 +430,9 @@ func (db *DB) Count(data any) (int, error) {
 //   - int: The number of records that match the specified criteria.
 //   - error: An error object if any issues occur during the counting process; otherwise, nil.
 func (db *DB) CountWhere(field entities.Field, value any, to any) (int, error) {
-	logHandler.DatabaseLogger.Printf("[COUNT] %v WHERE %+v=%+v [...%v.db]", entities.GetStructType(to), field.String(), value, db.Name)
+	logHandler.Database.Printf("[COUNT] %v WHERE %+v=%+v [...%v.db]", entities.GetStructType(to), field.String(), value, db.Name)
 	if err := entities.IsValidFieldInStruct(field, to); err != nil {
-		logHandler.ErrorLogger.Printf("[COUNT] %v WHERE %+v=%+v [...%v.db] - Error (%e)", entities.GetStructType(to), field.String(), value, db.Name, err)
+		logHandler.Error.Printf("[COUNT] %v WHERE %+v=%+v [...%v.db] - Error (%e)", entities.GetStructType(to), field.String(), value, db.Name, err)
 		return 0, err
 	}
 	// if db.isCaching(to) {
@@ -449,6 +449,6 @@ func (db *DB) CountWhere(field entities.Field, value any, to any) (int, error) {
 	// }
 	query := db.connection.Select(q.Eq(field.String(), value))
 	count, err := query.Count(to)
-	logHandler.DatabaseLogger.Printf("[COUNT] %v WHERE %+v=%+v [...%v.db] - Result: %d", entities.GetStructType(to), field.String(), value, db.Name, count)
+	logHandler.Database.Printf("[COUNT] %v WHERE %+v=%+v [...%v.db] - Result: %d", entities.GetStructType(to), field.String(), value, db.Name, count)
 	return count, err
 }

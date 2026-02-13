@@ -33,6 +33,5 @@
 	StartNotified         entities.Bool // Has the start notification been sent?
 	EndWarned             entities.Bool // Has the end warning been sent?
 	EndNotified           entities.Bool // Has the end notification been sent?
-	Travel                Booking
-	Hotel                 Booking
-	Desk                  Booking
+	LastHost 			  string       `storm:"index"`                    // Last host that modified the record
+		PostTest []string  // For testing post processing hooks	

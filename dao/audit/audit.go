@@ -35,13 +35,13 @@ func (a *Audit) Action(ctx context.Context, action Action) error {
 	// auditUser := support.GetActiveUserCode()
 	auditUser, err := getAuditUserCode(ctx)
 	if err != nil {
-		logHandler.WarningLogger.Printf("Action: %v(%v) Message: %v Error: %v", action.code, action.short, message, err)
+		logHandler.Warning.Printf("Action: %v(%v) Message: %v Error: %v", action.code, action.short, message, err)
 	}
 	auditHost := getHostName()
 
 	if auditUser == "" {
 		//	logHandler.WarningLogger.Printf("[%v] Error: %v", strings.ToUpper(name), "No Active User")
-		logHandler.WarningLogger.Printf("Action: %v(%v) Message: %v Error: %v", action.code, action.short, message, "No Active User")
+		logHandler.Warning.Printf("Action: %v(%v) Message: %v Error: %v", action.code, action.short, message, "No Active User")
 		os.Exit(1)
 	}
 	// updateAction := action

@@ -53,119 +53,119 @@ var (
 
 // RegisterCreator registers a creator function for TemplateStoreV3.
 func RegisterCreator(fn creatorFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Creator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	creator = fn
 }
 
 // RegisterPostCreate registers a post-create function for TemplateStoreV3.
 func RegisterPostCreate(fn postCreateFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PostCreate for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postCreate = fn
 }
 
 // RegisterPostUpdate registers a post-update function for TemplateStoreV3.
 func RegisterPostUpdate(fn postUpdateFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PostUpdate for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postUpdate = fn
 }
 
 // RegisterPostDelete registers a post-delete function for TemplateStoreV3.
 func RegisterPostDelete(fn postDeleteFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PostDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postDelete = fn
 }
 
 // RegisterPostClone registers a post-clone function for TemplateStoreV3.
 func RegisterPostClone(fn postCloneFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PostClone for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postClone = fn
 }
 
 // RegisterPostDrop registers a post-drop function for TemplateStoreV3.
 func RegisterPostDrop(fn postDropFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PostDrop for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postDrop = fn
 }
 
 // RegisterPostClearDown registers a post-clear-down function for TemplateStoreV3.
 func RegisterPostClearDown(fn postDropFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PostClearDown for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postClearDown = fn
 }
 
 // RegisterUpgrader registers an upgrader function for TemplateStoreV3.
 func RegisterUpgrader(fn upgraderFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Upgrader for %v (%v)", tableName, dao.GetFunctionName(fn))
 	upgrader = fn
 }
 
 // RegisterDefaulter registers a defaulter function for TemplateStoreV3.
 func RegisterDefaulter(fn defaulterFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Defaulter for %v (%v)", tableName, dao.GetFunctionName(fn))
 	defaulter = fn
 }
 
 // RegisterValidator registers a validator function for TemplateStoreV3.
 func RegisterValidator(fn validatorFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Validator for %v (%v)", tableName, dao.GetFunctionName(fn))
 	validator = fn
 }
 
 // RegisterPreDelete registers a pre-delete function for TemplateStoreV3.
 func RegisterPreDelete(fn preDeleteFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PreDelete for %v (%v)", tableName, dao.GetFunctionName(fn))
 	preDelete = fn
 }
 
 // RegisterPostGet registers a post-get function for TemplateStoreV3.
 func RegisterPostGet(fn postGetFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] PostGet for %v (%v)", tableName, dao.GetFunctionName(fn))
 	postGet = fn
 }
 
 // RegisterCloner registers a cloner function for TemplateStoreV3.
 func RegisterCloner(fn clonerFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Cloner for %v (%v)", tableName, dao.GetFunctionName(fn))
 	cloner = fn
 }
 
 // RegisterDuplicateCheck registers a duplicate check function for TemplateStoreV3.
 func RegisterDuplicateCheck(fn duplicateCheckFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] DuplicateCheck for %v (%v)", tableName, dao.GetFunctionName(fn))
 	duplicateCheck = fn
 }
 
 // RegisterWorker registers a worker function for TemplateStoreV3.
 func RegisterWorker(fn workerFunc) {
-	logHandler.EventLogger.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
-	logHandler.DatabaseLogger.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Event.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
 	worker = fn
 }
 
 // upgradeProcessing performs any one-time upgrade or migration logic on the record.
 func (record *TemplateStoreV3) upgradeProcessing() error {
 	if upgrader != nil {
-		logHandler.DatabaseLogger.Printf("[UPGRADE] record %v of %v", record.Key, TableName.String())
+		logHandler.Database.Printf("[UPGRADE] record %v of %v", record.Key, TableName.String())
 		updatedRecord, err := upgrader(record)
 		if err != nil {
 			return err
 		}
 		*record = *updatedRecord
-		logHandler.DatabaseLogger.Printf("[UPGRADE] Upgrade complete for record %v of %v", record.Key, TableName.String())
+		logHandler.Database.Printf("[UPGRADE] Upgrade complete for record %v of %v", record.Key, TableName.String())
 	}
 	return nil
 }
@@ -173,9 +173,9 @@ func (record *TemplateStoreV3) upgradeProcessing() error {
 // defaultProcessing applies any default values prior to validation and persistence.
 func (record *TemplateStoreV3) defaultProcessing() error {
 	if defaulter != nil {
-		logHandler.DatabaseLogger.Printf("[DEFAULT] Applying defaults to record %v of %v", record.Key, TableName.String())
+		logHandler.Database.Printf("[DEFAULT] Applying defaults to record %v of %v", record.Key, TableName.String())
 		err := defaulter(record)
-		logHandler.DatabaseLogger.Printf("[DEFAULT] Defaults applied to record %v of %v", record.Key, TableName.String())
+		logHandler.Database.Printf("[DEFAULT] Defaults applied to record %v of %v", record.Key, TableName.String())
 		return err
 	}
 	return nil
@@ -184,9 +184,9 @@ func (record *TemplateStoreV3) defaultProcessing() error {
 // validationProcessing validates the record and returns an error if it is invalid.
 func (record *TemplateStoreV3) validationProcessing() error {
 	if validator != nil {
-		logHandler.DatabaseLogger.Printf("[VALIDATE] Validating record %v of %v", record.Key, TableName.String())
+		logHandler.Database.Printf("[VALIDATE] Validating record %v of %v", record.Key, TableName.String())
 		err := validator(record)
-		logHandler.DatabaseLogger.Printf("[VALIDATE] Record %v of %v is valid", record.Key, TableName.String())
+		logHandler.Database.Printf("[VALIDATE] Record %v of %v is valid", record.Key, TableName.String())
 		return err
 	}
 	return nil
@@ -195,9 +195,9 @@ func (record *TemplateStoreV3) validationProcessing() error {
 // postGetProcessing runs any post-load processing after a record is retrieved.
 func (h *TemplateStoreV3) postGetProcessing(ctx context.Context) error {
 	if postGet != nil {
-		logHandler.DatabaseLogger.Printf("[POSTGET] Processing for %v Record: %v", TableName.String(), h.Key)
+		logHandler.Database.Printf("[POSTGET] Processing for %v Record: %v", TableName.String(), h.Key)
 		err := postGet(ctx, h)
-		logHandler.DatabaseLogger.Printf("[POSTGET] Processing complete for %v Record: %v", TableName.String(), h.Key)
+		logHandler.Database.Printf("[POSTGET] Processing complete for %v Record: %v", TableName.String(), h.Key)
 		return err
 	}
 	return nil
@@ -206,9 +206,9 @@ func (h *TemplateStoreV3) postGetProcessing(ctx context.Context) error {
 // preDeleteProcessing runs any checks or actions required before delete.
 func (record *TemplateStoreV3) preDeleteProcessing(ctx context.Context) error {
 	if preDelete != nil {
-		logHandler.DatabaseLogger.Printf("[PREDELETE] Processing for %v Record: %v", TableName.String(), record.Key)
+		logHandler.Database.Printf("[PREDELETE] Processing for %v Record: %v", TableName.String(), record.Key)
 		err := preDelete(ctx, record)
-		logHandler.DatabaseLogger.Printf("[PREDELETE] Processing complete for %v Record: %v", TableName.String(), record.Key)
+		logHandler.Database.Printf("[PREDELETE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 		return err
 	}
 	return nil
@@ -217,9 +217,9 @@ func (record *TemplateStoreV3) preDeleteProcessing(ctx context.Context) error {
 // templateClone contains the package's clone logic.
 func templateClone(ctx context.Context, source *TemplateStoreV3) (*TemplateStoreV3, error) {
 	if cloner != nil {
-		logHandler.DatabaseLogger.Printf("[CLONE] Cloning record %v of %v", source.Key, TableName.String())
+		logHandler.Database.Printf("[CLONE] Cloning record %v of %v", source.Key, TableName.String())
 		nr, err := cloner(ctx, source)
-		logHandler.DatabaseLogger.Printf("[CLONE] Cloning complete for record %v of %v", source.Key, TableName.String())
+		logHandler.Database.Printf("[CLONE] Cloning complete for record %v of %v", source.Key, TableName.String())
 		return nr, err
 	}
 	return New(), nil
@@ -228,42 +228,42 @@ func templateClone(ctx context.Context, source *TemplateStoreV3) (*TemplateStore
 // PostCreate runs any post-create processing after a record is created.
 func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) error {
 	if postCreate != nil {
-		logHandler.TraceLogger.Printf("[POSTCREATE] Processing for %v Record: %v", TableName.String(), record.Key)
+		logHandler.Trace.Printf("[POSTCREATE] Processing for %v Record: %v", TableName.String(), record.Key)
 		// logHandler.LockLogger.Printf("[POSTCREATE] LOCKING RECORD: %v", record.Raw)
 
 		// Get the workerPool from the context and run the post-create processing in a worker to avoid holding locks during potentially long-running processing.
 		workerPool, err := contextHandler.GetWorkerPool(ctx)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("Error retrieving worker pool from context for post-create processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+			logHandler.Error.Printf("Error retrieving worker pool from context for post-create processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 			return fmt.Errorf("error retrieving worker pool from context for post-create processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 		}
 		if workerPool != nil {
-			logHandler.TraceLogger.Printf("[POSTCREATE] Running post-create processing for %v Record: %v in worker pool Lock:%v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
+			logHandler.Trace.Printf("[POSTCREATE] Running post-create processing for %v Record: %v in worker pool Lock:%v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
 			task := workerPool.SubmitErr(func() error {
 				// Lock record for the duration of the post-create processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent concurrent updates to the same record during that time.
-				logHandler.LockLogger.Printf("[%v,%v] Locked - POSTCREATE", TableName.String(), record.Raw)
-				logHandler.TraceLogger.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
+				logHandler.Lock.Printf("[%v,%v] Locked - POSTCREATE", TableName.String(), record.Raw)
+				logHandler.Trace.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
 				record.Lock.Lock()
 				err := postCreate(ctx, record)
 				if err != nil {
-					logHandler.ErrorLogger.Printf("Error during postCreateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+					logHandler.Error.Printf("Error during postCreateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 					record.Lock.Unlock()
-					logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTCREATE with error %v", TableName.String(), record.Raw, err.Error())
+					logHandler.Lock.Printf("[%v,%v] Unlocked - POSTCREATE with error %v", TableName.String(), record.Raw, err.Error())
 					return err
 				}
 				record.Lock.Unlock()
-				logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTCREATE", TableName.String(), record.Raw)
-				logHandler.TraceLogger.Printf("[POSTCREATE] Post-create processing complete for %v Record: %v", TableName.String(), record.Key)
+				logHandler.Lock.Printf("[%v,%v] Unlocked - POSTCREATE", TableName.String(), record.Raw)
+				logHandler.Trace.Printf("[POSTCREATE] Post-create processing complete for %v Record: %v", TableName.String(), record.Key)
 				return nil
 			})
 			err := task.Wait() // Wait for the task to complete before returning to ensure post-create processing is complete before any subsequent operations that may depend on it. This is important to maintain data integrity and consistency, especially if the post-create processing involves updates to the record or related records.
 			if err != nil {
-				logHandler.ErrorLogger.Printf("Error in post-create worker task for %v Record: %v ", TableName.String(), record.Key)
+				logHandler.Error.Printf("Error in post-create worker task for %v Record: %v ", TableName.String(), record.Key)
 				return fmt.Errorf("error in post-create worker task for %v Record: %v %+v", TableName.String(), record.Key, godump.DumpStr(err))
 			}
 			return nil
 		} else {
-			logHandler.TraceLogger.Printf("[POSTCREATE] No worker pool found in context, running post-create processing for %v Record: %v synchronously", TableName.String(), record.Key)
+			logHandler.Trace.Printf("[POSTCREATE] No worker pool found in context, running post-create processing for %v Record: %v synchronously", TableName.String(), record.Key)
 		}
 	}
 	return nil
@@ -271,58 +271,58 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) error {
 
 func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) error {
 	if postUpdate != nil {
-		logHandler.TraceLogger.Printf("[POSTUPDATE] Processing for %v Record: %v (%v)", TableName.String(), record.Key, godump.DumpStr(ctx))
+		logHandler.Trace.Printf("[POSTUPDATE] Processing for %v Record: %v (%v)", TableName.String(), record.Key, godump.DumpStr(ctx))
 		workerPool, err := contextHandler.GetWorkerPool(ctx)
 		if err != nil {
-			logHandler.ErrorLogger.Printf("Error retrieving worker pool from context for post-update processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+			logHandler.Error.Printf("Error retrieving worker pool from context for post-update processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 			return fmt.Errorf("error retrieving worker pool from context for post-update processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 		}
 		if workerPool != nil {
 
-			logHandler.TraceLogger.Printf("[POSTUPDATE] Running post-update processing for %v Record: %v in worker pool", TableName.String(), record.Key)
+			logHandler.Trace.Printf("[POSTUPDATE] Running post-update processing for %v Record: %v in worker pool", TableName.String(), record.Key)
 			task := workerPool.SubmitErr(func() error {
-				logHandler.TraceLogger.Printf("[POSTUPDATE] Starting post-update processing for %v Record: %v Lock: %v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
+				logHandler.Trace.Printf("[POSTUPDATE] Starting post-update processing for %v Record: %v Lock: %v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
 				// Lock record for the duration of the post-update processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent
 				record.Lock.Lock()
-				logHandler.LockLogger.Printf("[%v,%v] Locked - POSTUPDATE", TableName.String(), record.Raw)
-				logHandler.TraceLogger.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
+				logHandler.Lock.Printf("[%v,%v] Locked - POSTUPDATE", TableName.String(), record.Raw)
+				logHandler.Trace.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
 				err := postUpdate(ctx, record)
 				if err != nil {
 					record.Lock.Unlock()
-					logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTUPDATE with error %v", TableName.String(), record.Raw, err.Error())
-					logHandler.ErrorLogger.Printf("error during postUpdateProcessing task for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+					logHandler.Lock.Printf("[%v,%v] Unlocked - POSTUPDATE with error %v", TableName.String(), record.Raw, err.Error())
+					logHandler.Error.Printf("error during postUpdateProcessing task for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 					// panic(err)
 					return err
 				}
 				record.Lock.Unlock()
-				logHandler.LockLogger.Printf("[%v,%v] Unlocked - POSTUPDATE", TableName.String(), record.Raw)
-				logHandler.DatabaseLogger.Printf("[POSTUPDATE] Post-update processing complete for %v Record: %v", TableName.String(), record.Key)
+				logHandler.Lock.Printf("[%v,%v] Unlocked - POSTUPDATE", TableName.String(), record.Raw)
+				logHandler.Database.Printf("[POSTUPDATE] Post-update processing complete for %v Record: %v", TableName.String(), record.Key)
 				return nil
 			})
 			err := task.Wait() // Wait for the task to complete before returning to ensure post-update processing is complete before any subsequent operations that may depend on it. This is important to maintain data integrity and consistency, especially if the post-update processing involves updates to the record or related records.
 			if err != nil {
-				logHandler.ErrorLogger.Printf("Error in post-update worker task for %v Record: %v ", TableName.String(), record.Key)
+				logHandler.Error.Printf("Error in post-update worker task for %v Record: %v ", TableName.String(), record.Key)
 				return fmt.Errorf("error in post-update worker task for %v Record: %v ", TableName.String(), record.Key)
 			}
 			return nil
 		} else {
-			logHandler.DatabaseLogger.Printf("[POSTUPDATE] No worker pool found in context, running post-update processing for %v Record: %v synchronously", TableName.String(), record.Key)
+			logHandler.Database.Printf("[POSTUPDATE] No worker pool found in context, running post-update processing for %v Record: %v synchronously", TableName.String(), record.Key)
 		}
 
-		logHandler.DatabaseLogger.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
+		logHandler.Database.Printf("[POSTUPDATE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 		return nil
 
 	}
-	logHandler.DatabaseLogger.Printf("[POSTUPDATE] No post-update function registered for %v Record: %v", TableName.String(), record.Key)
+	logHandler.Database.Printf("[POSTUPDATE] No post-update function registered for %v Record: %v", TableName.String(), record.Key)
 	return nil
 }
 
 // postDeleteProcessing runs any post-delete processing after a record is deleted.
 func (record *TemplateStoreV3) postDeleteProcessing(ctx context.Context) error {
 	if postDelete != nil {
-		logHandler.DatabaseLogger.Printf("[POSTDELETE] Processing for %v Record: %v", TableName.String(), record.Key)
+		logHandler.Database.Printf("[POSTDELETE] Processing for %v Record: %v", TableName.String(), record.Key)
 		err := postDelete(ctx, record)
-		logHandler.DatabaseLogger.Printf("[POSTDELETE] Processing complete for %v Record: %v", TableName.String(), record.Key)
+		logHandler.Database.Printf("[POSTDELETE] Processing complete for %v Record: %v", TableName.String(), record.Key)
 		return err
 	}
 	return nil

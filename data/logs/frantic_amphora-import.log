@@ -1,20 +1,6 @@
-2026/02/10 08:45:10 importHelper.go:55: [34mIMP[0m Import (1/1) TemplateStoreV3 6b28dfb9fca7244c9bb67aea5a00be62446568dbd6a9bdf5d12ddf9b566f0246
-2026/02/10 08:45:10 importHelper.go:60: [34mIMP[0m Imported (1/1) TemplateStoreV3(s) from [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv]
-2026/02/10 08:45:11 importHelper.go:55: [34mIMP[0m Import (1/2) TemplateStoreV3 d9faa6ca2a61b82fce3f5336764b93705ce8d726ac099e7d8334c54301a08fa3
-2026/02/10 08:45:11 importHelper.go:55: [34mIMP[0m Import (2/2) TemplateStoreV3 5b630f30603062ae1405b02b99e974894075b196c5eeda763c88f2f71cd0181f
-2026/02/10 08:45:11 importHelper.go:60: [34mIMP[0m Imported (2/2) TemplateStoreV3(s) from [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv]
-2026/02/10 08:45:12 importHelper.go:55: [34mIMP[0m Import (1/3) TemplateStoreV3 35982acc22645d3ed5e96e6024168c8ac4fc67c5dae34922da348986aabf68a0
-2026/02/10 08:45:12 importHelper.go:55: [34mIMP[0m Import (2/3) TemplateStoreV3 d0bba05251c624b8861c046776bbab15e6be0cec134820b93748f711fe3e9ff5
-2026/02/10 08:45:12 importHelper.go:55: [34mIMP[0m Import (3/3) TemplateStoreV3 e41485fe664e544fb14d375033205ccfe750b23520de9d53c33ecc576a1e6558
-2026/02/10 08:45:12 importHelper.go:60: [34mIMP[0m Imported (3/3) TemplateStoreV3(s) from [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv]
-2026/02/10 08:45:13 importHelper.go:55: [34mIMP[0m Import (1/4) TemplateStoreV3 38020224cf4a5f02f03788753d0a61eb2c4fe76bd470201b6b8c1fd8d2845c51
-2026/02/10 08:45:13 importHelper.go:55: [34mIMP[0m Import (2/4) TemplateStoreV3 4e9346196edc59f854105c418477514fa7f1d8b5fe06914cd05b8764faf28e7d
-2026/02/10 08:45:13 importHelper.go:55: [34mIMP[0m Import (3/4) TemplateStoreV3 d90a8d5caf2af3155d1f03a91883d6e18c2b3973957b94be4c5acc796bca8ee6
-2026/02/10 08:45:13 importHelper.go:55: [34mIMP[0m Import (4/4) TemplateStoreV3 2d392d4c6e763e6b21dca7a9116d0fe9aceca264c869af18142dc4d4b4b77331
-2026/02/10 08:45:13 importHelper.go:60: [34mIMP[0m Imported (4/4) TemplateStoreV3(s) from [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv]
-2026/02/10 08:45:14 importHelper.go:55: [34mIMP[0m Import (1/5) TemplateStoreV3 bbe184ec3e8fbb0ceeebed6ba8fb5e96251ff45b298104fbbc2f8efa6b082fc9
-2026/02/10 08:45:14 importHelper.go:55: [34mIMP[0m Import (2/5) TemplateStoreV3 8335e6bc7a4538162f1893a025bf44ceed0025f69fd9ad828b268219f7202390
-2026/02/10 08:45:14 importHelper.go:55: [34mIMP[0m Import (3/5) TemplateStoreV3 432a5716c45c36af58e665d4d171de0a5049ad08c490a03a18b200a263aa2cc9
-2026/02/10 08:45:15 importHelper.go:55: [34mIMP[0m Import (4/5) TemplateStoreV3 8e0d71b70503ac0824a6b72914920fd60605ad35a8c79d7b3e95dd00a011bd29
-2026/02/10 08:45:15 importHelper.go:55: [34mIMP[0m Import (5/5) TemplateStoreV3 ff240a09dfe8bf12ec9dbbed1f17446c6bbdde7421b94a9eee86153b44cc7b6d
-2026/02/10 08:45:15 importHelper.go:60: [34mIMP[0m Imported (5/5) TemplateStoreV3(s) from [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV3.csv]
+2026/02/13 19:55:02 importHelper.go:55: [37mIMPO[0m Import (1/5) TemplateStoreV6 7838505864677354e5c9ba0a1ee3e606c7a54d765b1a06de254de0ae170742f7
+2026/02/13 19:55:02 importHelper.go:55: [37mIMPO[0m Import (2/5) TemplateStoreV6 464dfb7794e6567f91214b627931ff25be99fa560df2d928abb0444cb9acaa56
+2026/02/13 19:55:02 importHelper.go:55: [37mIMPO[0m Import (3/5) TemplateStoreV6 85af2689ae8590f7534005bec2e4e74c78e615f8e741cb24cde2e4ed66458427
+2026/02/13 19:55:02 importHelper.go:55: [37mIMPO[0m Import (4/5) TemplateStoreV6 56de19d8468fcbfd4dfdddf2cf0a40aface1a5863df188cbb60c016b25cc580f
+2026/02/13 19:55:02 importHelper.go:55: [37mIMPO[0m Import (5/5) TemplateStoreV6 b63414794993961d1ea84619ded8943535efb43e3c85feecb7ff8fd539870ede
+2026/02/13 19:55:02 importHelper.go:60: [37mIMPO[0m Imported (5/5) TemplateStoreV6(s) from [/Volumes/External HD/Dev/GitHub/frantic-amphora/data/defaults/TemplateStoreV6.csv]

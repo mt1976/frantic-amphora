@@ -80,7 +80,7 @@ func main() {
 		cfg.Namespace = "main"
 	}
 
-	logHandler.ServiceLogger.Printf("Generating %v as package %s in %s", cfg.TypeName, cfg.Package, cfg.OutDir)
+	logHandler.Service.Printf("Generating %v as package %s in %s", cfg.TypeName, cfg.Package, cfg.OutDir)
 
 	// Read domain fields from .definition file if it exists
 	domainFields, fieldNames, fieldInits, fieldDefs := readDefinitionFile(cfg.OutDir, cfg.TypeName)

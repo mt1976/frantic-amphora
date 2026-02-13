@@ -17,14 +17,14 @@ var (
 func Initialise(cfg *commonConfig.Settings) error {
 	clock := timing.Start(domain, "Initialise", "")
 
-	logHandler.InfoLogger.Println("Initialise - Started")
+	logHandler.Info.Println("Initialise - Started")
 
 	scheduledTasks = cron.New(cron.WithParser(cron.NewParser(
 		cron.SecondOptional | cron.Minute | cron.Hour | cron.Dom | cron.Month | cron.Dow | cron.Descriptor,
 	)))
 
 	appName = cfg.GetApplication_Name()
-	logHandler.InfoLogger.Println("Initialise - Complete")
+	logHandler.Info.Println("Initialise - Complete")
 	clock.Stop(1)
 	return nil
 }

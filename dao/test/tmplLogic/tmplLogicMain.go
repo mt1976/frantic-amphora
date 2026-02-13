@@ -5,54 +5,43 @@ import (
 	"fmt"
 	"os"
 	"os/user"
-	"strings"
-	"time"
 
 	"github.com/goforj/godump"
 	"github.com/mt1976/frantic-amphora/dao/audit"
-	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV3"
+	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV6"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
 // Login logs a user in (creating a record if needed) and updates last login metadata.
-func Login(ctx context.Context, sq string) (*templateStoreV3.TemplateStoreV3, error) {
-	temp := buildUserStub(sq)
-	usr := templateStoreV3.New()
+func Login(ctx context.Context, sq string) (*templateStoreV6.TemplateStoreV6, error) {
+	usr := templateStoreV6.New()
 
-	logHandler.TraceLogger.Printf("%v", godump.DumpStr(temp))
+	logHandler.Trace.Printf("%v", godump.DumpStr(usr))
 
-	usrList, err := templateStoreV3.GetAllWhere(templateStoreV3.Fields.UserCode, temp.UserCode)
-	if err != nil || len(usrList) == 0 {
-		if err != nil {
-			logHandler.WarningLogger.Printf("Warning=[%v] User=[%v]", err.Error(), temp.UserName)
-			return templateStoreV3.New(), err
-		}
-		usr, err = Add(ctx, sq)
-		if err != nil {
-			logHandler.ErrorLogger.Printf("Warning=[%v] User=[%v]", err.Error(), temp.UserName)
-			return templateStoreV3.New(), err
-		}
-		return usr, nil
+	usr, err := Add(ctx, sq)
+	if err != nil {
+		logHandler.Error.Printf("Warning=[%v] User=[%v]", err.Error(), usr.Name)
+		return templateStoreV6.New(), err
 	}
+	return usr, nil
 
 	// Existing user(s): update login details, return first updated.
-	u := usrList[0]
-	u.LastHost, _ = os.Hostname()
-	u.LastLogin = time.Now()
-	if err = u.UpdateWithAction(ctx, audit.LOGIN, fmt.Sprintf("User %v logged in", u.UserName)); err != nil {
-		logHandler.WarningLogger.Printf("Warning=[%v] User=[%v]", err.Error(), u.UserName)
-		return templateStoreV3.New(), err
+
+	usr.LastHost, _ = os.Hostname()
+	// u.LastLogin = time.Now()
+	if err = usr.UpdateWithAction(ctx, audit.LOGIN, fmt.Sprintf("User %v logged in", usr.Name)); err != nil {
+		logHandler.Warning.Printf("Warning=[%v] User=[%v]", err.Error(), usr.Name)
+		return templateStoreV6.New(), err
 	}
-	usr = u
+
 	return usr, nil
 }
 
 // Add creates and persists a new user record based on the current OS user.
-func Add(ctx context.Context, sq string) (*templateStoreV3.TemplateStoreV3, error) {
-	logHandler.InfoLogger.Printf("Adding new user to TemplateStoreV3: SQ=%v", sq)
-	testu := buildUserStub(sq)
+func Add(ctx context.Context, sq string) (*templateStoreV6.TemplateStoreV6, error) {
+	logHandler.Info.Printf("Adding new user to TemplateStoreV6: SQ=%v", sq)
 
-	newUser := templateStoreV3.New()
+	newUser := templateStoreV6.New()
 	// use the creator to build the new record
 	// _, skip, u, err := Creator(ctx, newUser)
 	// if err != nil {
@@ -64,32 +53,26 @@ func Add(ctx context.Context, sq string) (*templateStoreV3.TemplateStoreV3, erro
 	// 	return templateStoreV2.New(), nil
 	// }
 
-	newUser.UserName = testu.UserName
-	newUser.UID = testu.UID
-	newUser.RealName = testu.RealName
-	newUser.Email = testu.Email
-	newUser.GID = testu.GID
-	u, err := templateStoreV3.Create(ctx, newUser)
-	if err != nil {
-		logHandler.ErrorLogger.Printf("Error: '%v'", err.Error())
-		return templateStoreV3.New(), err
+	newUser.Name = os.Getenv("USERNAME")
+	if newUser.Name == "" {
+		// Fallback to current OS user if USERNAME env var is not set
+		if currentUser, err := user.Current(); err == nil {
+			newUser.Name = currentUser.Username
+		} else {
+			logHandler.Error.Printf("Error retrieving current user: '%v'", err.Error())
+			return templateStoreV6.New(), err
+		}
 	}
-	logHandler.InfoLogger.Printf("New user added to TemplateStoreV3: UserName=%v, UID=%v", u.UserName, u.UID)
+	newUser.Name = newUser.Name + "_" + sq
+	newUser.Destination = newUser.Name + "'s Destination"
+	newUser.Profile = "Standard"
+	newUser.ProfileKey = "standard"
+	newUser.ProfileEnrichment = "Standard profile with no special requirements"
+	u, err := templateStoreV6.Create(ctx, newUser)
+	if err != nil {
+		logHandler.Error.Printf("Error: '%v'", err.Error())
+		return templateStoreV6.New(), err
+	}
+	logHandler.Info.Printf("New user added to TemplateStoreV6: Name=%v, UID=%v", u.Name, u.Raw)
 	return u, nil
-}
-
-// buildUserStub builds a record stub for the current OS user.
-func buildUserStub(sq string) *templateStoreV3.TemplateStoreV3 {
-	currentUser, _ := user.Current()
-	hostname, _ := os.Hostname()
-
-	stub := templateStoreV3.New()
-	stub.ID = 0
-	stub.UID = fmt.Sprintf("%v%04v", currentUser.Uid, sq)
-	stub.UserName = currentUser.Username
-	stub.RealName = currentUser.Name
-	stub.GID = currentUser.Gid
-	stub.Email = strings.ToLower(fmt.Sprintf("%v@%v.com", currentUser.Username, hostname))
-	stub.UserCode = BuildUserCode(stub)
-	return stub
 }

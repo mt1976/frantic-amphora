@@ -65,6 +65,8 @@ type TemplateStoreV6 struct {
 	StartNotified         entities.Bool // Has the start notification been sent?
 	EndWarned             entities.Bool // Has the end warning been sent?
 	EndNotified           entities.Bool // Has the end notification been sent?
+	LastHost              string        `storm:"index"` // Last host that modified the record
+	PostTest              []string      // For testing post processing hooks
 
 	// Add no more fields below this line
 }

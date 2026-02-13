@@ -13,43 +13,43 @@ func Spew() {
 	//godump.Dump(Cache)
 	//fmt.Printf("Cache Dump: %+v", Cache)
 
-	logHandler.InfoBanner("Cache", "Report", "Starting Cache Report")
+	logHandler.Banner("Cache", "Report", "Starting Cache Report")
 
 	if len(Cache.tablesActive) == 0 {
-		logHandler.InfoLogger.Println("No tables are currently cached")
+		logHandler.Info.Println("No tables are currently cached")
 	}
 
-	logHandler.InfoLogger.Printf("Cache created at: %v", Cache.created.Format(time.RFC3339Nano))
-	logHandler.InfoLogger.Printf("Cache updated at: %v", Cache.updated.Format(time.RFC3339Nano))
-	logHandler.InfoLogger.Printf("Cache Age: %v", humanize.Time(Cache.created))
-	logHandler.InfoLogger.Printf("Cache Last Updated: %v", humanize.Time(Cache.updated))
-	logHandler.InfoLogger.Println("")
+	logHandler.Info.Printf("Cache created at: %v", Cache.created.Format(time.RFC3339Nano))
+	logHandler.Info.Printf("Cache updated at: %v", Cache.updated.Format(time.RFC3339Nano))
+	logHandler.Info.Printf("Cache Age: %v", humanize.Time(Cache.created))
+	logHandler.Info.Printf("Cache Last Updated: %v", humanize.Time(Cache.updated))
+	logHandler.Info.Println("")
 	msg := ". Cached Tables: "
 	for tableName := range Cache.tablesActive {
 		msg += string(tableName) + " "
 	}
 
 	if len(Cache.tablesActive) == 0 {
-		logHandler.InfoBanner("Cache", "Report", "End Report")
+		logHandler.Banner("Cache", "Report", "End Report")
 		return
 	}
-	logHandler.InfoLogger.Println(msg)
+	logHandler.Info.Println(msg)
 
-	logHandler.InfoLogger.Println(". Cached Keys Summary")
+	logHandler.Info.Println(". Cached Keys Summary")
 	for tableName, keyField := range Cache.key {
-		logHandler.InfoLogger.Printf(". 	Table [%v] has Key Field [%v]", tableName, keyField.String())
+		logHandler.Info.Printf(". 	Table [%v] has Key Field [%v]", tableName, keyField.String())
 	}
 
 	// Display A COUNT OF THE RECORDS IN THE CACHE
-	logHandler.InfoLogger.Println(". Cached Records Summary")
+	logHandler.Info.Println(". Cached Records Summary")
 	for tableName := range Cache.tablesActive {
 		SpewFor(tableName)
 	}
 	created, updated, noTables, noCacheEntries := Stats()
-	logHandler.InfoLogger.Println("")
-	logHandler.InfoLogger.Printf("Cache Stats - Created: %v, Updated: %v, Tables: %v, Entries: %v", created.Format(time.RFC3339Nano), updated.Format(time.RFC3339Nano), noTables, noCacheEntries)
+	logHandler.Info.Println("")
+	logHandler.Info.Printf("Cache Stats - Created: %v, Updated: %v, Tables: %v, Entries: %v", created.Format(time.RFC3339Nano), updated.Format(time.RFC3339Nano), noTables, noCacheEntries)
 
-	logHandler.InfoBanner("Cache", "Report", "End Report")
+	logHandler.Banner("Cache", "Report", "End Report")
 }
 
 // SpewFor outputs the same cache report detail as Spew(), but scoped to a single table.
@@ -73,30 +73,30 @@ func SpewForType(data any) {
 func spewForEntity(table entities.Table) {
 	tableNameStr := table.String()
 	if len(Cache.tablesActive) == 0 {
-		logHandler.WarningLogger.Printf(". \tTable [%v] is not cached (no active tables)", tableNameStr)
+		logHandler.Warning.Printf(". \tTable [%v] is not cached (no active tables)", tableNameStr)
 		return
 	}
 
 	if _, ok := Cache.tablesActive[table]; !ok {
-		logHandler.WarningLogger.Printf(". \tTable [%v] is not currently cached", tableNameStr)
+		logHandler.Warning.Printf(". \tTable [%v] is not currently cached", tableNameStr)
 		return
 	}
 
 	cachedEntry, exists := Cache.cache[table]
 	if !exists {
-		logHandler.WarningLogger.Printf(". \tTable [%v] has 0 cached records", tableNameStr)
+		logHandler.Warning.Printf(". \tTable [%v] has 0 cached records", tableNameStr)
 		return
 	}
 
 	cacheExpiry := Cache.expiry[table]
-	logHandler.InfoLogger.Printf(". \tTable [%v] has [%d] cached records and expiry set to [%v]", tableNameStr, len(cachedEntry), cacheExpiry)
+	logHandler.Info.Printf(". \tTable [%v] has [%d] cached records and expiry set to [%v]", tableNameStr, len(cachedEntry), cacheExpiry)
 	for key, record := range cachedEntry {
 		keyField, ok := Cache.key[table]
 		if ok {
-			logHandler.InfoLogger.Printf(".       %v>%v: %v - expires: %v(%v)", tableNameStr, keyField.String(), key, record.cacheTimestamp.Format(time.RFC3339Nano), humanize.Time(record.cacheTimestamp))
+			logHandler.Info.Printf(".       %v>%v: %v - expires: %v(%v)", tableNameStr, keyField.String(), key, record.cacheTimestamp.Format(time.RFC3339Nano), humanize.Time(record.cacheTimestamp))
 			continue
 		}
-		logHandler.InfoLogger.Printf(".       %v>%v: %v - expires: %v(%v)", tableNameStr, "<unknown-key>", key, record.cacheTimestamp.Format(time.RFC3339Nano), humanize.Time(record.cacheTimestamp))
+		logHandler.Info.Printf(".       %v>%v: %v - expires: %v(%v)", tableNameStr, "<unknown-key>", key, record.cacheTimestamp.Format(time.RFC3339Nano), humanize.Time(record.cacheTimestamp))
 	}
 }
 

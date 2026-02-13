@@ -148,7 +148,7 @@ func (i *Int) Int() int {
 	}
 	val, err := strconv.Atoi(i.Value)
 	if err != nil {
-		logHandler.ErrorLogger.Panic(commonErrors.ErrInvalidTypeWrapper("Int", i.Value, "int"))
+		logHandler.Error.Panic(commonErrors.ErrInvalidTypeWrapper("Int", i.Value, "int"))
 	}
 	// logHandler.InfoLogger.Printf("val: '%v' int: '%d'", i.Value, val)
 	return val
@@ -240,7 +240,7 @@ func (i *Int) MultiplyBy(other Int) Int {
 // This method modifies the receiver and returns it.
 func (i *Int) DivideBy(other Int) Int {
 	if other.Int() == 0 {
-		logHandler.ErrorLogger.Panic(fmt.Errorf("division by zero in Int.Divide"))
+		logHandler.Error.Panic(fmt.Errorf("division by zero in Int.Divide"))
 		return *i
 	}
 	quot := i.Int() / other.Int()
@@ -289,7 +289,7 @@ func (f *Float) Float() float64 {
 	}
 	val, err := strconv.ParseFloat(f.Value, 64)
 	if err != nil {
-		logHandler.ErrorLogger.Panic(commonErrors.ErrInvalidTypeWrapper("Float", f.Value, "float64"))
+		logHandler.Error.Panic(commonErrors.ErrInvalidTypeWrapper("Float", f.Value, "float64"))
 	}
 	return val
 }
@@ -497,7 +497,7 @@ func (c *Currency) SetCode(code string) {
 		code = "GBP"
 	}
 	if len(code) != 3 {
-		logHandler.ErrorLogger.Panic(commonErrors.ErrInvalidTypeWrapper("Currency Code", code, "3-letter ISO currency code"))
+		logHandler.Error.Panic(commonErrors.ErrInvalidTypeWrapper("Currency Code", code, "3-letter ISO currency code"))
 	}
 	code = strings.ToUpper(code)
 	c.CCY = code

@@ -36,26 +36,26 @@ func connect(table any, options ...Option) *DB {
 	}
 
 	// Log the applied configuration
-	logHandler.DatabaseLogger.Printf("[CON]{CONNECT} Configuration for %v.db: caching: %t, cacheKey: %v, verbose: %t, timeout: %d, poolSize: %d, nameSpace: %s, encryption: %t, indices: %v",
+	logHandler.Database.Printf("[CON]{CONNECT} Configuration for %v.db: caching: %t, cacheKey: %v, verbose: %t, timeout: %d, poolSize: %d, nameSpace: %s, encryption: %t, indices: %v",
 		config.nameSpace, config.withCaching, config.withCacheKey, config.Verbose, config.timeout, config.poolSize, config.nameSpace, config.withEncryption, config.indices)
 
 	if config.withCaching && config.withCacheKey == "" {
-		logHandler.DatabaseLogger.Panicf("[CON]{CONNECT} Caching enabled but no cache key provided for [...%v.db]", config.nameSpace)
+		logHandler.Database.Panicf("[CON]{CONNECT} Caching enabled but no cache key provided for [...%v.db]", config.nameSpace)
 		panic(commonErrors.ErrDBConnect)
 	}
 
 	// Ensure the name is lowercase
 	config.nameSpace = strings.ToLower(config.nameSpace)
-	logHandler.DatabaseLogger.Printf("[CON]{CONNECT} Opening Connection to [...%v.db] data (%v)", config.nameSpace, len(connectionPool))
+	logHandler.Database.Printf("[CON]{CONNECT} Opening Connection to [...%v.db] data (%v)", config.nameSpace, len(connectionPool))
 	// list the connection pool
 	if config.Verbose {
 		for key, value := range connectionPool {
-			logHandler.DatabaseLogger.Printf("[CON]{CONNECT} Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
+			logHandler.Database.Printf("[CON]{CONNECT} Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
 		}
 	}
 	// check if connection already exists
 	if connectionPool[config.nameSpace] != nil && connectionPool[config.nameSpace].Name == config.nameSpace {
-		logHandler.DatabaseLogger.Printf("[CON]{CONNECT} Connection already open [%v], using connection pool [%v] [codec=%v]", connectionPool[config.nameSpace].Name, connectionPool[config.nameSpace].databaseName, connectionPool[config.nameSpace].connection.Node.Codec().Name())
+		logHandler.Database.Printf("[CON]{CONNECT} Connection already open [%v], using connection pool [%v] [codec=%v]", connectionPool[config.nameSpace].Name, connectionPool[config.nameSpace].databaseName, connectionPool[config.nameSpace].connection.Node.Codec().Name())
 		rtn := connectionPool[config.nameSpace]
 		// Update configuration in case options have changed
 		//rtn.withCaching = config.withCaching
@@ -70,7 +70,7 @@ func connect(table any, options ...Option) *DB {
 		return rtn
 	}
 
-	logHandler.DatabaseLogger.Printf("[CON]{CONNECT} (re)Opening [...%v.db] data connection", config.nameSpace)
+	logHandler.Database.Printf("[CON]{CONNECT} (re)Opening [...%v.db] data connection", config.nameSpace)
 	// Open a new connection
 
 	db := DB{}
@@ -91,24 +91,24 @@ func connect(table any, options ...Option) *DB {
 	db.connection, err = storm.Open(db.databaseName, storm.BoltOptions(0666, nil))
 	if err != nil {
 		connect.Stop(0)
-		logHandler.DatabaseLogger.Fatalf("[CON]{CONNECT} Opening [...%v.db] connection Error=[%v]", strings.ToLower(db.databaseName), err.Error())
+		logHandler.Database.Fatalf("[CON]{CONNECT} Opening [...%v.db] connection Error=[%v]", strings.ToLower(db.databaseName), err.Error())
 		panic(commonErrors.ErrConnectWrapper(err))
 	}
 	if db.verbose {
-		logHandler.DatabaseLogger.Printf("[CON]{CONNECT}  Connection Pool [%+v]", connectionPool)
+		logHandler.Database.Printf("[CON]{CONNECT}  Connection Pool [%+v]", connectionPool)
 		for key, value := range connectionPool {
-			logHandler.DatabaseLogger.Printf("[CON]{CONNECT}  Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
+			logHandler.Database.Printf("[CON]{CONNECT}  Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
 		}
 	}
 	// Add to connection pool
 	addConnectionToPool(db, db.Name)
 	if db.verbose {
-		logHandler.DatabaseLogger.Printf("[CON]{CONNECT}  Connection Pool [%+v]", connectionPool)
+		logHandler.Database.Printf("[CON]{CONNECT}  Connection Pool [%+v]", connectionPool)
 		for key, value := range connectionPool {
-			logHandler.DatabaseLogger.Printf("[CON]{CONNECT}  Connection Pool [%v] [%v] [codec=%v] %v", key, value.databaseName, value.connection.Node.Codec().Name(), value.initialised)
+			logHandler.Database.Printf("[CON]{CONNECT}  Connection Pool [%v] [%v] [codec=%v] %v", key, value.databaseName, value.connection.Node.Codec().Name(), value.initialised)
 		}
 	}
-	logHandler.DatabaseLogger.Printf("[CON]{CONNECT} Opened [...%v.db] data connection [codec=%v] %v", db.databaseName, db.connection.Node.Codec().Name(), db.initialised)
+	logHandler.Database.Printf("[CON]{CONNECT} Opened [...%v.db] data connection [codec=%v] %v", db.databaseName, db.connection.Node.Codec().Name(), db.initialised)
 
 	// // Enable caching for the specified table if caching is enabled
 	// if config.withCaching && table != nil {
@@ -131,7 +131,7 @@ func validate(data any, db *DB) error {
 	//logHandler.DatabaseLogger.Printf("[CON]{VALIDATE} Validate [%+v] [...%v.db]", entities.GetStructType(data), db.Name)
 	err := commonErrors.HandleGoValidatorError(dataValidator.Struct(data))
 	if err != nil {
-		logHandler.DatabaseLogger.Panicf("[CON]{VALIDATE} error validating %v %v [...%v.db]", err.Error(), entities.GetStructType(data), db.Name)
+		logHandler.Database.Panicf("[CON]{VALIDATE} error validating %v %v [...%v.db]", err.Error(), entities.GetStructType(data), db.Name)
 		timer.Stop(0)
 		return commonErrors.ErrValidationWrapper(err)
 	}
@@ -142,14 +142,14 @@ func validate(data any, db *DB) error {
 // Connect establishes a database connection with the provided options
 // It is the primary function to initiate a connection using various configuration options.
 func Connect(table any, options ...Option) *DB {
-	logHandler.DatabaseLogger.Printf("[CON] %d Options ", len(options))
+	logHandler.Database.Printf("[CON] %d Options ", len(options))
 	return connect(table, options...)
 }
 
 // ConnectToNamedDB establishes a database connection to a named database
 // DEPRECATED: ConnectToNamedDB - Use Connect with WithNameSpace option instead
 func ConnectToNamedDB(name string, options ...Option) *DB {
-	logHandler.WarningLogger.Println("[CON] DEPRECATED: ConnectToNamedDB - Use Connect with WithNameSpace option instead")
+	logHandler.Warning.Println("[CON] DEPRECATED: ConnectToNamedDB - Use Connect with WithNameSpace option instead")
 	panic("Deprecated: ConnectToNamedDB - Use Connect with WithNameSpace option instead")
 	//return connect(options...)
 }
@@ -159,28 +159,28 @@ func ConnectToNamedDB(name string, options ...Option) *DB {
 // If disconnection fails, it logs the error and panics with a wrapped disconnect error.
 func (db *DB) Disconnect() {
 	timer := timing.Start(db.Name, "Disconnect", db.databaseName)
-	logHandler.DatabaseLogger.Printf("[CON]{DISCONNECT} Disconnecting [...%v.db] connection", db.Name)
+	logHandler.Database.Printf("[CON]{DISCONNECT} Disconnecting [...%v.db] connection", db.Name)
 	err := db.connection.Close()
 	if err != nil {
-		logHandler.DatabaseLogger.Panicf("[CON]{DISCONNECT} Closing [...%v.db] %v ", db.Name, err.Error())
+		logHandler.Database.Panicf("[CON]{DISCONNECT} Closing [...%v.db] %v ", db.Name, err.Error())
 		panic(commonErrors.ErrDisconnectWrapper(err))
 	}
 	releaseFromConnectionPool(db)
-	logHandler.DatabaseLogger.Printf("[CON]{DISCONNECT} Closed [...%v.db] connection", db.Name)
+	logHandler.Database.Printf("[CON]{DISCONNECT} Closed [...%v.db] connection", db.Name)
 	if db.verbose {
 		for key, value := range connectionPool {
-			logHandler.DatabaseLogger.Printf("[CON]{DISCONNECT} Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
+			logHandler.Database.Printf("[CON]{DISCONNECT} Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
 		}
 	}
 	timer.Stop(1)
 }
 
 func (db *DB) Reconnect() {
-	logHandler.DatabaseLogger.Printf("[CON]{RECONNECT} Reconnecting [...%v.db] data - %+v", db.Name, db)
-	logHandler.DatabaseLogger.Printf("[CON]{RECONNECT} Connection Pool [%+v]", connectionPool)
+	logHandler.Database.Printf("[CON]{RECONNECT} Reconnecting [...%v.db] data - %+v", db.Name, db)
+	logHandler.Database.Printf("[CON]{RECONNECT} Connection Pool [%+v]", connectionPool)
 	for key, value := range connectionPool {
-		logHandler.DatabaseLogger.Printf("[CON]{RECONNECT} Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
+		logHandler.Database.Printf("[CON]{RECONNECT} Connection Pool [%v] [%v] [codec=%v]", key, value.databaseName, value.connection.Node.Codec().Name())
 	}
 	connect(WithNameSpace(db.Name))
-	logHandler.DatabaseLogger.Printf("[CON]{RECONNECT} Reconnected [...%v.db] data", db.Name)
+	logHandler.Database.Printf("[CON]{RECONNECT} Reconnected [...%v.db] data", db.Name)
 }

@@ -23,7 +23,7 @@ type Option func(*connectionConfig)
 
 // WithCaching enables or disables caching for the database connection
 func WithCaching(enabled bool) Option {
-	logHandler.DatabaseLogger.Printf("[CON]{OPTION} WithCaching set to %v", enabled)
+	logHandler.Database.Printf("[CON]{OPTION} WithCaching set to %v", enabled)
 	return func(c *connectionConfig) {
 		c.withCaching = enabled
 	}
@@ -31,7 +31,7 @@ func WithCaching(enabled bool) Option {
 
 // WithCacheKey sets the cache key fields.Fields.Field for the database connection
 func WithCacheKey(field entities.Field) Option {
-	logHandler.DatabaseLogger.Printf("[CON]{OPTION} WithCacheKey set to %v", field.String())
+	logHandler.Database.Printf("[CON]{OPTION} WithCacheKey set to %v", field.String())
 	return func(c *connectionConfig) {
 		c.withCacheKey = field
 	}
@@ -39,7 +39,7 @@ func WithCacheKey(field entities.Field) Option {
 
 // WithVerbose enables or disables verbose logging for the database connection
 func WithVerbose(enabled bool) Option {
-	logHandler.DatabaseLogger.Printf("[CON]{OPTION} WithVerbose set to %v", enabled)
+	logHandler.Database.Printf("[CON]{OPTION} WithVerbose set to %v", enabled)
 	return func(c *connectionConfig) {
 		c.Verbose = enabled
 	}
@@ -47,7 +47,7 @@ func WithVerbose(enabled bool) Option {
 
 // WithTimeout sets the connection timeout in seconds
 func WithTimeout(seconds int) Option {
-	logHandler.DatabaseLogger.Printf("[CON]{OPTION} WithTimeout set to %d", seconds)
+	logHandler.Database.Printf("[CON]{OPTION} WithTimeout set to %d", seconds)
 	return func(c *connectionConfig) {
 		c.timeout = seconds
 	}
@@ -55,7 +55,7 @@ func WithTimeout(seconds int) Option {
 
 // WithPoolSize sets the maximum connection pool size
 func WithPoolSize(size int) Option {
-	logHandler.DatabaseLogger.Printf("[CON]{OPTION} WithPoolSize set to %d", size)
+	logHandler.Database.Printf("[CON]{OPTION} WithPoolSize set to %d", size)
 	return func(c *connectionConfig) {
 		c.poolSize = size
 	}
@@ -63,7 +63,7 @@ func WithPoolSize(size int) Option {
 
 // WithNameSpace sets the namespace (database name) for the connection
 func WithNameSpace(name string) Option {
-	logHandler.DatabaseLogger.Printf("[CON]{OPTION} WithNameSpace set to %s", name)
+	logHandler.Database.Printf("[CON]{OPTION} WithNameSpace set to %s", name)
 	return func(c *connectionConfig) {
 		c.nameSpace = name
 	}
@@ -73,8 +73,8 @@ func WithNameSpace(name string) Option {
 // By default, encryption is disabled.
 // Reserved for Future use.
 func WithEncryption(enabled bool) Option {
-	logHandler.DatabaseLogger.Printf("[CON]{OPTION} WithEncryption set to %v", enabled)
-	logHandler.WarningLogger.Printf("WithEncryption is not yet implemented")
+	logHandler.Database.Printf("[CON]{OPTION} WithEncryption set to %v", enabled)
+	logHandler.Warning.Printf("WithEncryption is not yet implemented")
 	return func(c *connectionConfig) {
 		c.withEncryption = enabled
 	}

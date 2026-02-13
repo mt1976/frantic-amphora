@@ -1,6 +1,6 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.24 - 2026-01-31
-// Generated 
+// Generated
 // Date: 10/02/2026 & 08:45
 // Who : matttownsend (orion)
 
@@ -22,7 +22,7 @@ var cfg *commonConfig.Settings
 // Initialise opens the database connection for TemplateStoreV3 and optionally enables caching.
 func Initialise(ctx context.Context, cached bool) {
 	//logHandler.DatabaseLogger.Printf("Opening connection to %v", tableName)
-	logHandler.TraceLogger.Printf("Initialising %v DAO Caching: %t", tableName, cached)
+	logHandler.Trace.Printf("Initialising %v DAO Caching: %t", tableName, cached)
 
 	clock := timing.Start(tableName, "Initialise", "Initialise")
 	cfg = commonConfig.Get()

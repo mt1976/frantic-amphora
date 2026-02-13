@@ -25,7 +25,7 @@ func (a *Lookup) Spew() error {
 	if noAudit > 0 {
 		for i := 0; i < noAudit; i++ {
 			upd := a.Data[i]
-			logHandler.TraceLogger.Printf("[LKP] Lookup Data [%v] Key=[%v] Value=[%v]", i, upd.Key, upd.Value)
+			logHandler.Trace.Printf("[LKP] Lookup Data [%v] Key=[%v] Value=[%v]", i, upd.Key, upd.Value)
 		}
 	}
 	return nil

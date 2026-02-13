@@ -1,6 +1,6 @@
 // Data Access Object for the TemplateStoreV3 table
 // Template Version: 0.5.24 - 2026-01-31
-// Generated 
+// Generated
 // Date: 10/02/2026 & 08:45
 // Who : matttownsend (orion)
 
@@ -31,7 +31,7 @@ func CacheHydrator(ctx context.Context) func() ([]any, error) {
 
 // CacheSynchroniser returns the cache synchroniser function for this table.
 func CacheSynchroniser(ctx context.Context) func(any) error {
-	logHandler.InfoLogger.Printf("Defining Sync function for %v", tableName)
+	logHandler.Info.Printf("Defining Sync function for %v", tableName)
 	return func(data any) error {
 		switch rec := data.(type) {
 		case TemplateStoreV3:
@@ -44,7 +44,7 @@ func CacheSynchroniser(ctx context.Context) func(any) error {
 			logHandler.CacheLogger.Printf("Sync cache for %v Key: %v", tableName, rec.Key)
 			return rec.UpdateWithAction(ctx, audit.SYNC, "Cache Sync Update")
 		default:
-			logHandler.WarningLogger.Printf("Sync cache for %v received unexpected type %T", tableName, data)
+			logHandler.Warning.Printf("Sync cache for %v received unexpected type %T", tableName, data)
 			return nil
 		}
 	}

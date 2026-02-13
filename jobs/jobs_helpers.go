@@ -41,7 +41,7 @@ func Equal(t1, t2 time.Time) bool {
 func NextRun(name, schedule string) string {
 	// Purpose: To determine the next run time of a job
 	rtn := fmt.Sprintf("[%v] NextRun: %v", name, GetHumanReadableCronFreq(schedule))
-	logHandler.ServiceLogger.Println(rtn)
+	logHandler.Service.Println(rtn)
 	return rtn
 }
 
@@ -61,14 +61,14 @@ func GetHumanReadableCronFreq(freq string) string {
 
 func PreRun(job Job) {
 	// Purpose: To log the start of a job
-	logHandler.ServiceLogger.Printf("[%v] Started", job.Name())
+	logHandler.Service.Printf("[%v] Started", job.Name())
 }
 
 func PostRun(job Job) {
 	// Purpose: To log the completion of a job
 	nextRun := GetHumanReadableCronFreq(job.Schedule())
-	logHandler.ServiceLogger.Printf("[%v] Completed", job.Name())
-	logHandler.ServiceLogger.Printf("[%v] Scheduled (%v) Next Run: %v", job.Name(), job.Schedule(), nextRun)
+	logHandler.Service.Printf("[%v] Completed", job.Name())
+	logHandler.Service.Printf("[%v] Scheduled (%v) Next Run: %v", job.Name(), job.Schedule(), nextRun)
 }
 
 func CodedName(job Job) string {
@@ -87,11 +87,11 @@ func AddJobToScheduler(job Job) {
 	// Start the job
 	jobID, err := scheduledTasks.AddFunc(job.Schedule(), job.Service())
 	if err != nil {
-		logHandler.ErrorLogger.Printf("[%v] Scheduling Error=[%v]", job.Name(), err.Error())
+		logHandler.Error.Printf("[%v] Scheduling Error=[%v]", job.Name(), err.Error())
 		return
 	}
 	nextRun := GetHumanReadableCronFreq(job.Schedule())
-	logHandler.ServiceLogger.Printf("[%v] Scheduled (%v) Next Run: %v (id=%v)", job.Name(), job.Schedule(), nextRun, jobID)
+	logHandler.Service.Printf("[%v] Scheduled (%v) Next Run: %v (id=%v)", job.Name(), job.Schedule(), nextRun, jobID)
 	clock.Stop(1)
 }
 
@@ -106,7 +106,7 @@ func AddJobsToScheduler(jobs []Job) {
 
 func StartScheduler() {
 	clock := timing.Start(domain, "Start", "Scheduler")
-	logHandler.ServiceLogger.Println("Scheduler - Starting")
+	logHandler.Service.Println("Scheduler - Starting")
 	// Start the scheduler
 	scheduledTasks.Start()
 
@@ -115,6 +115,6 @@ func StartScheduler() {
 	// for x, entry := range scheduledTasks.Entries() {
 	// 	logHandler.ServiceLogger.Printf("(%v/%v) [%v] [%v] [%v]", x+1, noEntries, entry.ID, entry.Next, entry.Job)
 	// }
-	logHandler.ServiceLogger.Println("Scheduler - Started")
+	logHandler.Service.Println("Scheduler - Started")
 	clock.Stop(noEntries + 1)
 }

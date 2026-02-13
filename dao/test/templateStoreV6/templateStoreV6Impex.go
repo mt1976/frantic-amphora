@@ -25,7 +25,7 @@ func (record *TemplateStoreV6) ExportRecordToJSON(name string) {
 
 	err := importExportHelper.ExportJSON(name, []*TemplateStoreV6{record}, Fields.Key)
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error exporting %v record %v: %v", tableName, Key, err.Error())
+		logHandler.Export.Panicf("error exporting %v record %v: %v", tableName, Key, err.Error())
 	}
 
 	clock.Stop(1)
@@ -38,14 +38,14 @@ func ExportAllToJSON(message string) {
 	clock := timing.Start(tableName, "Export", "ALL")
 	recordList, _ := GetAll()
 	if len(recordList) == 0 {
-		logHandler.WarningLogger.Printf("[%v] %v data not found", tableName, tableName)
+		logHandler.Warning.Printf("[%v] %v data not found", tableName, tableName)
 		clock.Stop(0)
 		return
 	}
 
 	err := importExportHelper.ExportJSON(message, recordList, Fields.Key)
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error exporting all %v's: %v", tableName, err.Error())
+		logHandler.Export.Panicf("error exporting all %v's: %v", tableName, err.Error())
 	}
 	clock.Stop(len(recordList))
 }
@@ -57,7 +57,7 @@ func (record *TemplateStoreV6) ExportRecordToCSV(name string) error {
 
 	err := importExportHelper.ExportCSV(name, []*TemplateStoreV6{record}, Fields.Key, importExportHelper.SINGLE)
 	if err != nil {
-		logHandler.ExportLogger.Printf("Error exporting %v record %v: %v", tableName, Key, err.Error())
+		logHandler.Export.Printf("Error exporting %v record %v: %v", tableName, Key, err.Error())
 		clock.Stop(0)
 		return err
 	}
@@ -70,7 +70,7 @@ func (record *TemplateStoreV6) ExportRecordToCSV(name string) error {
 func ExportAllToCSV(msg string) error {
 	exportListData, err := GetAll()
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
+		logHandler.Export.Panicf("error Getting all %v's: %v", tableName, err.Error())
 	}
 	return importExportHelper.ExportCSV(msg, exportListData, Fields.Key, importExportHelper.BULK)
 }
@@ -79,7 +79,7 @@ func ExportAllToCSV(msg string) error {
 func ExportDefaults() error {
 	exportListData, err := GetAll()
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error Getting all %v's: %v", tableName, err.Error())
+		logHandler.Export.Panicf("error Getting all %v's: %v", tableName, err.Error())
 	}
 	return importExportHelper.ExportDefaults(exportListData, Fields.Key)
 }
@@ -96,7 +96,7 @@ func templateImportProcessor(ctx context.Context, inOriginal **TemplateStoreV6) 
 
 	_, err := importRecord(ctx, &importedData)
 	if err != nil {
-		logHandler.ImportLogger.Panicf("Error importing %v: %v", tableName, err.Error())
+		logHandler.Import.Panicf("Error importing %v: %v", tableName, err.Error())
 		return stringField1, err
 	}
 

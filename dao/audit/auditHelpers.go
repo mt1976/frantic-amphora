@@ -41,7 +41,7 @@ func (a *Audit) Spew() error {
 	if noAudit > 0 {
 		for i := range a.Updates {
 			upd := a.Updates[i]
-			logHandler.TraceLogger.Printf(AUDITMSG, upperName, upd.UpdateAction, upd.UpdatedAtDisplay, upd.UpdatedBy, upd.UpdatedOn, upd.UpdateNotes)
+			logHandler.Trace.Printf(AUDITMSG, upperName, upd.UpdateAction, upd.UpdatedAtDisplay, upd.UpdatedBy, upd.UpdatedOn, upd.UpdateNotes)
 		}
 	}
 	return nil

@@ -21,7 +21,7 @@ func Worker(j jobs.Job, db *database.DB) {
 
 	if db != nil {
 		if activeDBConnection.Name != db.Name {
-			logHandler.EventLogger.Printf("Switching to %v.db", db.Name)
+			logHandler.Event.Printf("Switching to %v.db", db.Name)
 			activeDBConnection = db
 			dbSwitched = true
 		}
@@ -32,7 +32,7 @@ func Worker(j jobs.Job, db *database.DB) {
 	}
 
 	if dbSwitched {
-		logHandler.EventLogger.Printf("Switching back to %v.db from %v.db", oldDB.Name, activeDBConnection.Name)
+		logHandler.Event.Printf("Switching back to %v.db from %v.db", oldDB.Name, activeDBConnection.Name)
 		activeDBConnection = oldDB
 	}
 	clock.Stop(1)

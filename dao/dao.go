@@ -24,12 +24,12 @@ var DBName string = "default"
 // Initialise sets up the DAO package with the provided configuration.
 func Initialise(cfg *commonConfig.Settings) error {
 	clock := timing.Start(name, "Initialise", "")
-	logHandler.InfoLogger.Printf("[%v] Initialising...", strings.ToUpper(name))
+	logHandler.Info.Printf("[%v] Initialising...", strings.ToUpper(name))
 
 	DBVersion = cfg.GetDatabase_Version()
 	DBName = cfg.GetDatabase_Name()
 
-	logHandler.InfoLogger.Printf("[%v] Initialised", strings.ToUpper(name))
+	logHandler.Info.Printf("[%v] Initialised", strings.ToUpper(name))
 	clock.Stop(1)
 	return nil
 }
@@ -41,7 +41,7 @@ func GetDBNameFromPath(t string) string {
 	dbNameArr := strings.Split(dbName, string(os.PathSeparator))
 	noparts := len(dbNameArr)
 	dbName = dbNameArr[noparts-1]
-	logHandler.TraceLogger.Printf("dbName: %v\n", dbName)
+	logHandler.Trace.Printf("dbName: %v\n", dbName)
 	return dbName
 }
 
@@ -49,7 +49,7 @@ func GetDBNameFromPath(t string) string {
 func CheckDAOReadyState(table string, action audit.Action, isDaoReady bool) {
 	if !isDaoReady {
 		err := ce.ErrDAONotInitialisedWrapper(table, action.Description())
-		logHandler.ErrorLogger.Panic(err)
+		logHandler.Error.Panic(err)
 	}
 }
 

@@ -24,7 +24,7 @@ var (
 // Initialise opens the database connection for TripStore and optionally enables caching.
 func Initialise(ctx context.Context, cached bool) {
 	// logHandler.DatabaseLogger.Printf("Opening connection to %v", tableName)
-	logHandler.TraceLogger.Printf("Initialising %v DAO Caching: %t", tableName, cached)
+	logHandler.Trace.Printf("Initialising %v DAO Caching: %t", tableName, cached)
 
 	clock := timing.Start(tableName, "Initialise", "Initialise")
 	cfg = commonConfig.Get()

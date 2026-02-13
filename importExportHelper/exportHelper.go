@@ -23,25 +23,25 @@ func ExportCSV[T any](exportName string, exportList []*T, idField entities.Field
 
 	// Do nothing if there are no records to export
 	if len(exportList) == 0 {
-		logHandler.ExportLogger.Printf("No records to export for %v", exportName)
+		logHandler.Export.Printf("No records to export for %v", exportName)
 		clock.Stop(0)
 		return nil
 	}
 
-	logHandler.ExportLogger.Printf("Exporting %v record(s) as CSV in %v mode", len(exportList), mode)
+	logHandler.Export.Printf("Exporting %v record(s) as CSV in %v mode", len(exportList), mode)
 
 	switch mode {
 	case SINGLE:
-		logHandler.TraceLogger.Printf("Exporting to Single Record to Dumps path")
+		logHandler.Trace.Printf("Exporting to Single Record to Dumps path")
 		exportName = buildName(exportName, exportList, idField, mode)
 	case BULK:
-		logHandler.TraceLogger.Printf("Exporting to Bulk Records to Dumps path")
+		logHandler.Trace.Printf("Exporting to Bulk Records to Dumps path")
 		exportName = buildName(exportName, exportList, idField, mode)
 	case DEFAULTS:
-		logHandler.TraceLogger.Printf("Exporting to Defaults path")
+		logHandler.Trace.Printf("Exporting to Defaults path")
 		exportName = buildName("", exportList, idField, mode)
 	default:
-		logHandler.ErrorLogger.Panicf("Unknown export mode %v, defaulting to BULK", mode)
+		logHandler.Error.Panicf("Unknown export mode %v, defaulting to BULK", mode)
 		return fmt.Errorf("Unknown export mode %v, defaulting to BULK", mode)
 	}
 
@@ -50,9 +50,9 @@ func ExportCSV[T any](exportName string, exportList []*T, idField entities.Field
 		path = paths.Defaults()
 	}
 
-	logHandler.ExportLogger.Printf("Exporting %v to [%v/%v.csv]", exportName, path.String(), exportName)
+	logHandler.Export.Printf("Exporting %v to [%v/%v.csv]", exportName, path.String(), exportName)
 
-	exportFile := openTargetFile(exportName, EXPORT, logHandler.ExportLogger, CSV, path.String())
+	exportFile := openTargetFile(exportName, EXPORT, logHandler.Export, CSV, path.String())
 	defer exportFile.Close()
 
 	gocsv.SetCSVWriter(func(out io.Writer) *gocsv.SafeCSVWriter {
@@ -64,18 +64,18 @@ func ExportCSV[T any](exportName string, exportList []*T, idField entities.Field
 
 	_, err := gocsv.MarshalString(exportList) // Get all texts as CSV string
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error exporting %v: %v", exportName, err.Error())
+		logHandler.Export.Panicf("error exporting %v: %v", exportName, err.Error())
 	}
 
 	err = gocsv.MarshalFile(exportList, exportFile) // Get all texts as CSV string
 	if err != nil {
-		logHandler.ExportLogger.Panicf("error exporting %v: %v", exportName, err.Error())
+		logHandler.Export.Panicf("error exporting %v: %v", exportName, err.Error())
 	}
 
 	// Example: # Generated (10) TestEntity Records at 15:04:05 2006-01-02 by 501/username on MacOS(mode=BULK)
 	for i, item := range exportList {
 		idFieldContent := getFieldValue(item, idField)
-		logHandler.ExportLogger.Printf("Export (%v/%v) %v %v", i+1, len(exportList), getTypeName(item), idFieldContent)
+		logHandler.Export.Printf("Export (%v/%v) %v %v", i+1, len(exportList), getTypeName(item), idFieldContent)
 	}
 	noItems := len(exportList)
 	// plurality := "s"
@@ -100,7 +100,7 @@ func ExportCSV[T any](exportName string, exportList []*T, idField entities.Field
 
 	exportFile.Close()
 
-	logHandler.ExportLogger.Println(msg)
+	logHandler.Export.Println(msg)
 	// logHandler.EventLogger.Printf("Exported (%v/%v) %v(s) to [%v]", len(exportList), len(exportList), exportName, exportFile.Name())
 	clock.Stop(len(exportList))
 	return nil
@@ -116,12 +116,12 @@ func ExportJSON[T any](exportName string, exportList []*T, idField entities.Fiel
 	//if exportName == "" {
 	//	exportName = buildName(exportName, exportList, idField)
 	//}
-	logHandler.TraceLogger.Printf("Exporting %v record(s) as JSON '%v'", len(exportList), exportName)
+	logHandler.Trace.Printf("Exporting %v record(s) as JSON '%v'", len(exportList), exportName)
 
 	for _, record := range exportList {
 		// ID := reflect.ValueOf(record).FieldByName(idField.String())
 		outputName := buildNameForRecord(exportName, record, idField)
-		logHandler.TraceLogger.Printf("Exporting %v.json", outputName)
+		logHandler.Trace.Printf("Exporting %v.json", outputName)
 
 		exportJSON(outputName, paths.Dumps(), record)
 	}
@@ -205,7 +205,7 @@ func getFieldValue[T any](record T, idField entities.Field) string {
 }
 
 func buildNameForRecord[T any](baseName string, record T, idField entities.Field) string {
-	logHandler.TraceLogger.Printf("buildNameForRecord IN: baseName=[%v]", baseName)
+	logHandler.Trace.Printf("buildNameForRecord IN: baseName=[%v]", baseName)
 	if baseName == "" {
 		baseName = EXPORT
 	}
@@ -233,14 +233,14 @@ func buildNameForRecord[T any](baseName string, record T, idField entities.Field
 	}
 	xx := field.Interface()
 	domainName = domainName + SEP + fmt.Sprintf("%v", xx) + SEP + baseName
-	logHandler.TraceLogger.Printf("buildNameForRecord OUT: domainName=[%v]", domainName)
+	logHandler.Trace.Printf("buildNameForRecord OUT: domainName=[%v]", domainName)
 	return domainName
 }
 
 func exportJSON[T any](exportName string, where paths.FileSystemPath, record T) {
-	logHandler.TraceLogger.Printf("Exporting %v.json", exportName)
-	logHandler.ExportLogger.Printf("Exporting %v %v.json", entities.GetStructType(record), exportName)
-	exportFile := openTargetFile(exportName, EXPORT, logHandler.ExportLogger, JSON, where.String())
+	logHandler.Trace.Printf("Exporting %v.json", exportName)
+	logHandler.Export.Printf("Exporting %v %v.json", entities.GetStructType(record), exportName)
+	exportFile := openTargetFile(exportName, EXPORT, logHandler.Export, JSON, where.String())
 	defer exportFile.Close()
 
 	exportFile.WriteString(godump.DumpJSONStr(record))

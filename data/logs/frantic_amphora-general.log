@@ -1,160 +1,66 @@
-2026/02/10 08:45:10 main.go:41: [32mINF[0m Creating Worker Pool...
-2026/02/10 08:45:10 main.go:47: [32mINF[0m Worker Pool Created with 10 workers
-2026/02/10 08:45:10 logHandler.go:202: [32mINF[0m *------------------------------------------------------------------------*
-2026/02/10 08:45:10 logHandler.go:203: [32mINF[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
-2026/02/10 08:45:10 logHandler.go:204: [32mINF[0m *------------------------------------------------------------------------*
-2026/02/10 08:45:10 main.go:54: [32mINF[0m Initialize User Store
-2026/02/10 08:45:10 main.go:65: [32mINF[0m Clear Down User Store
-2026/02/10 08:45:10 main.go:138: [32mINF[0m Phase 1 Creating 1 Baseline Users
-2026/02/10 08:45:10 main.go:145: [32mINF[0m Phase 1 Adding 1 Baseline Users to Store
-2026/02/10 08:45:10 main.go:148: [32mINF[0m Phase 1 Creating Baseline User 1
-2026/02/10 08:45:10 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0000
-2026/02/10 08:45:10 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010000
-2026/02/10 08:45:10 main.go:153: [32mINF[0m Phase 1 Created Baseline User 1
-2026/02/10 08:45:10 main.go:159: [32mINF[0m Phase 1 Baseline 1 Users Added to Store 1
-2026/02/10 08:45:10 main.go:168: [32mINF[0m Phase 1 Setup Templates Loaded: 1
-2026/02/10 08:45:10 main.go:183: [32mINF[0m Phase 1 Evaluating : (0/1) Matt Townsend 6b28dfb9fca7244c9bb67aea5a00be62446568dbd6a9bdf5d12ddf9b566f0246
-2026/02/10 08:45:10 main.go:185: [32mINF[0m Phase 1 User: (0/1) Matt Townsend 6b28dfb9fca7244c9bb67aea5a00be62446568dbd6a9bdf5d12ddf9b566f0246
-2026/02/10 08:45:10 main.go:194: [32mINF[0m Phase 1 Selected User Key: 6b28dfb9fca7244c9bb67aea5a00be62446568dbd6a9bdf5d12ddf9b566f0246 1
-2026/02/10 08:45:10 main.go:201: [32mINF[0m Phase 1 Retrieved User by Key 6b28dfb9fca7244c9bb67aea5a00be62446568dbd6a9bdf5d12ddf9b566f0246: Matt Townsend
-2026/02/10 08:45:10 main.go:207: [32mINF[0m Phase 1 Updated User 6b28dfb9fca7244c9bb67aea5a00be62446568dbd6a9bdf5d12ddf9b566f0246 LastHost to orion-084510
-2026/02/10 08:45:10 main.go:218: [32mINF[0m Phase 1 Exporting All Users as CSV
-2026/02/10 08:45:10 main.go:223: [32mINF[0m Phase 1 Exporting All Users as JSON
-2026/02/10 08:45:10 main.go:225: [32mINF[0m Phase 1 Exporting All Users to Defaults
-2026/02/10 08:45:10 main.go:231: [32mINF[0m Cleardown User Store for Phase 1 Imports from Defaults
-2026/02/10 08:45:10 main.go:243: [32mINF[0m Phase 1 Users before Import: 0
-2026/02/10 08:45:10 main.go:249: [32mINF[0m Phase 1 Importing All Users from Defaults
-2026/02/10 08:45:10 main.go:254: [32mINF[0m Phase 1 Completed Imports from Defaults
-2026/02/10 08:45:10 main.go:261: [32mINF[0m Phase 1 Total Users after Import: 1
-2026/02/10 08:45:10 main.go:396: [32mINF[0m Phase 1 Completed
-2026/02/10 08:45:10 main.go:75: [32mINF[0m Phase 2 Test Message: 6b28dfb9fca7244c9bb67aea5a00be62446568dbd6a9bdf5d12ddf9b566f0246
-2026/02/10 08:45:10 main.go:138: [32mINF[0m Phase 2 Creating 2 Baseline Users
-2026/02/10 08:45:10 main.go:145: [32mINF[0m Phase 2 Adding 2 Baseline Users to Store
-2026/02/10 08:45:10 main.go:148: [32mINF[0m Phase 2 Creating Baseline User 1
-2026/02/10 08:45:11 main.go:153: [32mINF[0m Phase 2 Created Baseline User 1
-2026/02/10 08:45:11 main.go:148: [32mINF[0m Phase 2 Creating Baseline User 2
-2026/02/10 08:45:11 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0001
-2026/02/10 08:45:11 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010001
-2026/02/10 08:45:11 main.go:153: [32mINF[0m Phase 2 Created Baseline User 2
-2026/02/10 08:45:11 main.go:159: [32mINF[0m Phase 2 Baseline 2 Users Added to Store 2
-2026/02/10 08:45:11 main.go:168: [32mINF[0m Phase 2 Setup Templates Loaded: 2
-2026/02/10 08:45:11 main.go:183: [32mINF[0m Phase 2 Evaluating : (0/2) Matt Townsend d9faa6ca2a61b82fce3f5336764b93705ce8d726ac099e7d8334c54301a08fa3
-2026/02/10 08:45:11 main.go:189: [32mINF[0m PostTest: [CREATE@10/02/26 UPDATE@10/02/26]
-2026/02/10 08:45:11 main.go:183: [32mINF[0m Phase 2 Evaluating : (1/2) Matt Townsend 5b630f30603062ae1405b02b99e974894075b196c5eeda763c88f2f71cd0181f
-2026/02/10 08:45:11 main.go:185: [32mINF[0m Phase 2 User: (1/2) Matt Townsend 5b630f30603062ae1405b02b99e974894075b196c5eeda763c88f2f71cd0181f
-2026/02/10 08:45:11 main.go:194: [32mINF[0m Phase 2 Selected User Key: 5b630f30603062ae1405b02b99e974894075b196c5eeda763c88f2f71cd0181f 2
-2026/02/10 08:45:11 main.go:201: [32mINF[0m Phase 2 Retrieved User by Key 5b630f30603062ae1405b02b99e974894075b196c5eeda763c88f2f71cd0181f: Matt Townsend
-2026/02/10 08:45:11 main.go:207: [32mINF[0m Phase 2 Updated User 5b630f30603062ae1405b02b99e974894075b196c5eeda763c88f2f71cd0181f LastHost to orion-084511
-2026/02/10 08:45:11 main.go:218: [32mINF[0m Phase 2 Exporting All Users as CSV
-2026/02/10 08:45:11 main.go:223: [32mINF[0m Phase 2 Exporting All Users as JSON
-2026/02/10 08:45:11 main.go:225: [32mINF[0m Phase 2 Exporting All Users to Defaults
-2026/02/10 08:45:11 main.go:231: [32mINF[0m Cleardown User Store for Phase 2 Imports from Defaults
-2026/02/10 08:45:11 main.go:243: [32mINF[0m Phase 2 Users before Import: 0
-2026/02/10 08:45:11 main.go:249: [32mINF[0m Phase 2 Importing All Users from Defaults
-2026/02/10 08:45:11 main.go:254: [32mINF[0m Phase 2 Completed Imports from Defaults
-2026/02/10 08:45:11 main.go:261: [32mINF[0m Phase 2 Total Users after Import: 2
-2026/02/10 08:45:11 main.go:396: [32mINF[0m Phase 2 Completed
-2026/02/10 08:45:11 main.go:75: [32mINF[0m Phase 2 Test Message: 5b630f30603062ae1405b02b99e974894075b196c5eeda763c88f2f71cd0181f
-2026/02/10 08:45:11 main.go:138: [32mINF[0m Phase 3 Creating 3 Baseline Users
-2026/02/10 08:45:11 main.go:145: [32mINF[0m Phase 3 Adding 3 Baseline Users to Store
-2026/02/10 08:45:11 main.go:148: [32mINF[0m Phase 3 Creating Baseline User 1
-2026/02/10 08:45:11 main.go:153: [32mINF[0m Phase 3 Created Baseline User 1
-2026/02/10 08:45:11 main.go:148: [32mINF[0m Phase 3 Creating Baseline User 2
-2026/02/10 08:45:11 main.go:153: [32mINF[0m Phase 3 Created Baseline User 2
-2026/02/10 08:45:11 main.go:148: [32mINF[0m Phase 3 Creating Baseline User 3
-2026/02/10 08:45:11 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0002
-2026/02/10 08:45:11 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010002
-2026/02/10 08:45:11 main.go:153: [32mINF[0m Phase 3 Created Baseline User 3
-2026/02/10 08:45:11 main.go:159: [32mINF[0m Phase 3 Baseline 3 Users Added to Store 3
-2026/02/10 08:45:11 main.go:168: [32mINF[0m Phase 3 Setup Templates Loaded: 3
-2026/02/10 08:45:11 main.go:183: [32mINF[0m Phase 3 Evaluating : (0/3) Matt Townsend 35982acc22645d3ed5e96e6024168c8ac4fc67c5dae34922da348986aabf68a0
-2026/02/10 08:45:11 main.go:185: [32mINF[0m Phase 3 User: (0/3) Matt Townsend 35982acc22645d3ed5e96e6024168c8ac4fc67c5dae34922da348986aabf68a0
-2026/02/10 08:45:11 main.go:194: [32mINF[0m Phase 3 Selected User Key: 35982acc22645d3ed5e96e6024168c8ac4fc67c5dae34922da348986aabf68a0 3
-2026/02/10 08:45:11 main.go:201: [32mINF[0m Phase 3 Retrieved User by Key 35982acc22645d3ed5e96e6024168c8ac4fc67c5dae34922da348986aabf68a0: Matt Townsend
-2026/02/10 08:45:12 main.go:207: [32mINF[0m Phase 3 Updated User 35982acc22645d3ed5e96e6024168c8ac4fc67c5dae34922da348986aabf68a0 LastHost to orion-084511
-2026/02/10 08:45:12 main.go:218: [32mINF[0m Phase 3 Exporting All Users as CSV
-2026/02/10 08:45:12 main.go:223: [32mINF[0m Phase 3 Exporting All Users as JSON
-2026/02/10 08:45:12 main.go:225: [32mINF[0m Phase 3 Exporting All Users to Defaults
-2026/02/10 08:45:12 main.go:231: [32mINF[0m Cleardown User Store for Phase 3 Imports from Defaults
-2026/02/10 08:45:12 main.go:243: [32mINF[0m Phase 3 Users before Import: 0
-2026/02/10 08:45:12 main.go:249: [32mINF[0m Phase 3 Importing All Users from Defaults
-2026/02/10 08:45:12 main.go:254: [32mINF[0m Phase 3 Completed Imports from Defaults
-2026/02/10 08:45:12 main.go:261: [32mINF[0m Phase 3 Total Users after Import: 3
-2026/02/10 08:45:12 main.go:396: [32mINF[0m Phase 3 Completed
-2026/02/10 08:45:12 main.go:75: [32mINF[0m Phase 2 Test Message: 35982acc22645d3ed5e96e6024168c8ac4fc67c5dae34922da348986aabf68a0
-2026/02/10 08:45:12 main.go:138: [32mINF[0m Phase 4 Creating 4 Baseline Users
-2026/02/10 08:45:12 main.go:145: [32mINF[0m Phase 4 Adding 4 Baseline Users to Store
-2026/02/10 08:45:12 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 1
-2026/02/10 08:45:12 main.go:153: [32mINF[0m Phase 4 Created Baseline User 1
-2026/02/10 08:45:12 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 2
-2026/02/10 08:45:12 main.go:153: [32mINF[0m Phase 4 Created Baseline User 2
-2026/02/10 08:45:12 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 3
-2026/02/10 08:45:12 main.go:153: [32mINF[0m Phase 4 Created Baseline User 3
-2026/02/10 08:45:12 main.go:148: [32mINF[0m Phase 4 Creating Baseline User 4
-2026/02/10 08:45:12 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0003
-2026/02/10 08:45:13 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010003
-2026/02/10 08:45:13 main.go:153: [32mINF[0m Phase 4 Created Baseline User 4
-2026/02/10 08:45:13 main.go:159: [32mINF[0m Phase 4 Baseline 4 Users Added to Store 4
-2026/02/10 08:45:13 main.go:168: [32mINF[0m Phase 4 Setup Templates Loaded: 4
-2026/02/10 08:45:13 main.go:183: [32mINF[0m Phase 4 Evaluating : (0/4) Matt Townsend 38020224cf4a5f02f03788753d0a61eb2c4fe76bd470201b6b8c1fd8d2845c51
-2026/02/10 08:45:13 main.go:189: [32mINF[0m PostTest: [CREATE@10/02/26 UPDATE@10/02/26]
-2026/02/10 08:45:13 main.go:183: [32mINF[0m Phase 4 Evaluating : (1/4) Matt Townsend 4e9346196edc59f854105c418477514fa7f1d8b5fe06914cd05b8764faf28e7d
-2026/02/10 08:45:13 main.go:185: [32mINF[0m Phase 4 User: (1/4) Matt Townsend 4e9346196edc59f854105c418477514fa7f1d8b5fe06914cd05b8764faf28e7d
-2026/02/10 08:45:13 main.go:194: [32mINF[0m Phase 4 Selected User Key: 4e9346196edc59f854105c418477514fa7f1d8b5fe06914cd05b8764faf28e7d 4
-2026/02/10 08:45:13 main.go:201: [32mINF[0m Phase 4 Retrieved User by Key 4e9346196edc59f854105c418477514fa7f1d8b5fe06914cd05b8764faf28e7d: Matt Townsend
-2026/02/10 08:45:13 main.go:207: [32mINF[0m Phase 4 Updated User 4e9346196edc59f854105c418477514fa7f1d8b5fe06914cd05b8764faf28e7d LastHost to orion-084513
-2026/02/10 08:45:13 main.go:218: [32mINF[0m Phase 4 Exporting All Users as CSV
-2026/02/10 08:45:13 main.go:223: [32mINF[0m Phase 4 Exporting All Users as JSON
-2026/02/10 08:45:13 main.go:225: [32mINF[0m Phase 4 Exporting All Users to Defaults
-2026/02/10 08:45:13 main.go:231: [32mINF[0m Cleardown User Store for Phase 4 Imports from Defaults
-2026/02/10 08:45:13 main.go:243: [32mINF[0m Phase 4 Users before Import: 0
-2026/02/10 08:45:13 main.go:249: [32mINF[0m Phase 4 Importing All Users from Defaults
-2026/02/10 08:45:13 main.go:254: [32mINF[0m Phase 4 Completed Imports from Defaults
-2026/02/10 08:45:13 main.go:261: [32mINF[0m Phase 4 Total Users after Import: 4
-2026/02/10 08:45:13 main.go:396: [32mINF[0m Phase 4 Completed
-2026/02/10 08:45:13 main.go:75: [32mINF[0m Phase 2 Test Message: 4e9346196edc59f854105c418477514fa7f1d8b5fe06914cd05b8764faf28e7d
-2026/02/10 08:45:13 main.go:138: [32mINF[0m Phase 5 Creating 5 Baseline Users
-2026/02/10 08:45:13 main.go:145: [32mINF[0m Phase 5 Adding 5 Baseline Users to Store
-2026/02/10 08:45:13 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 1
-2026/02/10 08:45:13 main.go:153: [32mINF[0m Phase 5 Created Baseline User 1
-2026/02/10 08:45:13 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 2
-2026/02/10 08:45:13 main.go:153: [32mINF[0m Phase 5 Created Baseline User 2
-2026/02/10 08:45:13 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 3
-2026/02/10 08:45:14 main.go:153: [32mINF[0m Phase 5 Created Baseline User 3
-2026/02/10 08:45:14 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 4
-2026/02/10 08:45:14 main.go:153: [32mINF[0m Phase 5 Created Baseline User 4
-2026/02/10 08:45:14 main.go:148: [32mINF[0m Phase 5 Creating Baseline User 5
-2026/02/10 08:45:14 tmplLogicMain.go:52: [32mINF[0m Adding new user to TemplateStoreV3: SQ=0004
-2026/02/10 08:45:14 tmplLogicMain.go:77: [32mINF[0m New user added to TemplateStoreV3: UserName=matttownsend, UID=5010004
-2026/02/10 08:45:14 main.go:153: [32mINF[0m Phase 5 Created Baseline User 5
-2026/02/10 08:45:14 main.go:159: [32mINF[0m Phase 5 Baseline 5 Users Added to Store 5
-2026/02/10 08:45:14 main.go:168: [32mINF[0m Phase 5 Setup Templates Loaded: 5
-2026/02/10 08:45:14 main.go:183: [32mINF[0m Phase 5 Evaluating : (0/5) Matt Townsend bbe184ec3e8fbb0ceeebed6ba8fb5e96251ff45b298104fbbc2f8efa6b082fc9
-2026/02/10 08:45:14 main.go:185: [32mINF[0m Phase 5 User: (0/5) Matt Townsend bbe184ec3e8fbb0ceeebed6ba8fb5e96251ff45b298104fbbc2f8efa6b082fc9
-2026/02/10 08:45:14 main.go:194: [32mINF[0m Phase 5 Selected User Key: bbe184ec3e8fbb0ceeebed6ba8fb5e96251ff45b298104fbbc2f8efa6b082fc9 5
-2026/02/10 08:45:14 main.go:201: [32mINF[0m Phase 5 Retrieved User by Key bbe184ec3e8fbb0ceeebed6ba8fb5e96251ff45b298104fbbc2f8efa6b082fc9: Matt Townsend
-2026/02/10 08:45:14 main.go:207: [32mINF[0m Phase 5 Updated User bbe184ec3e8fbb0ceeebed6ba8fb5e96251ff45b298104fbbc2f8efa6b082fc9 LastHost to orion-084514
-2026/02/10 08:45:14 main.go:218: [32mINF[0m Phase 5 Exporting All Users as CSV
-2026/02/10 08:45:14 main.go:223: [32mINF[0m Phase 5 Exporting All Users as JSON
-2026/02/10 08:45:14 main.go:225: [32mINF[0m Phase 5 Exporting All Users to Defaults
-2026/02/10 08:45:14 main.go:231: [32mINF[0m Cleardown User Store for Phase 5 Imports from Defaults
-2026/02/10 08:45:14 main.go:243: [32mINF[0m Phase 5 Users before Import: 0
-2026/02/10 08:45:14 main.go:249: [32mINF[0m Phase 5 Importing All Users from Defaults
-2026/02/10 08:45:15 main.go:254: [32mINF[0m Phase 5 Completed Imports from Defaults
-2026/02/10 08:45:15 main.go:261: [32mINF[0m Phase 5 Total Users after Import: 5
-2026/02/10 08:45:15 main.go:396: [32mINF[0m Phase 5 Completed
-2026/02/10 08:45:15 main.go:75: [32mINF[0m Phase 2 Test Message: bbe184ec3e8fbb0ceeebed6ba8fb5e96251ff45b298104fbbc2f8efa6b082fc9
-2026/02/10 08:45:15 main.go:107: [32mINF[0m Total Test Duration: 4.724374918s
-2026/02/10 08:45:15 logHandler.go:202: [32mINF[0m *------------------------------------------------------------------------*
-2026/02/10 08:45:15 logHandler.go:203: [32mINF[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
-2026/02/10 08:45:15 logHandler.go:204: [32mINF[0m *------------------------------------------------------------------------*
-2026/02/10 08:45:15 main.go:126: [32mINF[0m Worker Pool - Completed Tasks: 35
-2026/02/10 08:45:15 main.go:127: [32mINF[0m Worker Pool - Running Workers: 0
-2026/02/10 08:45:15 main.go:128: [32mINF[0m Worker Pool - Dropped Tasks: 0
-2026/02/10 08:45:15 main.go:129: [32mINF[0m Worker Pool - Waiting Tasks: 0
-2026/02/10 08:45:15 main.go:130: [32mINF[0m Worker Pool - Submitted Tasks: 35
-2026/02/10 08:45:15 main.go:131: [32mINF[0m Worker Pool - Succefully Tasks: 35
-2026/02/10 08:45:15 main.go:132: [32mINF[0m Worker Pool - Failed Tasks: 0
-2026/02/10 08:45:15 main.go:133: [32mINF[0m Worker Pool - Max Concurrency: 100
-2026/02/10 08:45:15 main.go:134: [32mINF[0m Worker Pool - Queue Size: 100
-2026/02/10 08:45:15 main.go:117: [32mINF[0m Use Ctrl+c to stop application.
+2026/02/13 19:55:00 main.go:41: [32mINFO[0m Creating Worker Pool...
+2026/02/13 19:55:00 main.go:47: [32mINFO[0m Worker Pool Created with 10 workers
+2026/02/13 19:55:00 logHandler.go:210: [32mINFO[0m *------------------------------------------------------------------------*
+2026/02/13 19:55:00 logHandler.go:211: [32mINFO[0m [INFO] Activity=[START] - Starting DAO Test Application - Phase 1
+2026/02/13 19:55:00 logHandler.go:212: [32mINFO[0m *------------------------------------------------------------------------*
+2026/02/13 19:55:00 main.go:54: [32mINFO[0m Initialize User Store
+2026/02/13 19:55:00 main.go:66: [32mINFO[0m Clear Down User Store
+2026/02/13 19:55:00 main.go:146: [32mINFO[0m Phase 0 Adding 5 Baseline Things to Store
+2026/02/13 19:55:00 main.go:149: [32mINFO[0m Phase 0 Creating Baseline User 1
+2026/02/13 19:55:00 tmplLogicMain.go:42: [32mINFO[0m Adding new user to TemplateStoreV6: SQ=0001
+2026/02/13 19:55:00 tmplLogicMain.go:76: [32mINFO[0m New user added to TemplateStoreV6: Name=matttownsend_0001, UID=matttownsend_0001
+2026/02/13 19:55:00 main.go:154: [32mINFO[0m Phase 0 Created Baseline User 1 matttownsend_0001
+2026/02/13 19:55:00 main.go:163: [32mINFO[0m Phase 0 Cloned Baseline User 1 matttownsend_0001_clone
+2026/02/13 19:55:00 main.go:149: [32mINFO[0m Phase 0 Creating Baseline User 2
+2026/02/13 19:55:00 tmplLogicMain.go:42: [32mINFO[0m Adding new user to TemplateStoreV6: SQ=0002
+2026/02/13 19:55:01 tmplLogicMain.go:76: [32mINFO[0m New user added to TemplateStoreV6: Name=matttownsend_0002, UID=matttownsend_0002
+2026/02/13 19:55:01 main.go:154: [32mINFO[0m Phase 0 Created Baseline User 2 matttownsend_0002
+2026/02/13 19:55:01 main.go:163: [32mINFO[0m Phase 0 Cloned Baseline User 2 matttownsend_0002_clone
+2026/02/13 19:55:01 main.go:149: [32mINFO[0m Phase 0 Creating Baseline User 3
+2026/02/13 19:55:01 tmplLogicMain.go:42: [32mINFO[0m Adding new user to TemplateStoreV6: SQ=0003
+2026/02/13 19:55:01 tmplLogicMain.go:76: [32mINFO[0m New user added to TemplateStoreV6: Name=matttownsend_0003, UID=matttownsend_0003
+2026/02/13 19:55:01 main.go:154: [32mINFO[0m Phase 0 Created Baseline User 3 matttownsend_0003
+2026/02/13 19:55:01 main.go:163: [32mINFO[0m Phase 0 Cloned Baseline User 3 matttownsend_0003_clone
+2026/02/13 19:55:01 main.go:149: [32mINFO[0m Phase 0 Creating Baseline User 4
+2026/02/13 19:55:01 tmplLogicMain.go:42: [32mINFO[0m Adding new user to TemplateStoreV6: SQ=0004
+2026/02/13 19:55:01 tmplLogicMain.go:76: [32mINFO[0m New user added to TemplateStoreV6: Name=matttownsend_0004, UID=matttownsend_0004
+2026/02/13 19:55:01 main.go:154: [32mINFO[0m Phase 0 Created Baseline User 4 matttownsend_0004
+2026/02/13 19:55:01 main.go:163: [32mINFO[0m Phase 0 Cloned Baseline User 4 matttownsend_0004_clone
+2026/02/13 19:55:01 main.go:149: [32mINFO[0m Phase 0 Creating Baseline User 5
+2026/02/13 19:55:01 tmplLogicMain.go:42: [32mINFO[0m Adding new user to TemplateStoreV6: SQ=0005
+2026/02/13 19:55:01 tmplLogicMain.go:76: [32mINFO[0m New user added to TemplateStoreV6: Name=matttownsend_0005, UID=matttownsend_0005
+2026/02/13 19:55:01 main.go:154: [32mINFO[0m Phase 0 Created Baseline User 5 matttownsend_0005
+2026/02/13 19:55:01 main.go:163: [32mINFO[0m Phase 0 Cloned Baseline User 5 matttownsend_0005_clone
+2026/02/13 19:55:01 main.go:167: [32mINFO[0m Phase 0 Baseline 5 Things Added to Store 5
+2026/02/13 19:55:01 main.go:176: [32mINFO[0m Phase 0 Setup Templates Loaded: 5
+2026/02/13 19:55:01 main.go:191: [32mINFO[0m Phase 0 Evaluating : (0/5) matttownsend_0001 7838505864677354e5c9ba0a1ee3e606c7a54d765b1a06de254de0ae170742f7
+2026/02/13 19:55:01 main.go:197: [32mINFO[0m PostTest: [CREATE@2026-02-13 19:55:00 POSTCREATE@2026-02-13 19:55:00]
+2026/02/13 19:55:01 main.go:191: [32mINFO[0m Phase 0 Evaluating : (1/5) matttownsend_0002 464dfb7794e6567f91214b627931ff25be99fa560df2d928abb0444cb9acaa56
+2026/02/13 19:55:01 main.go:193: [32mINFO[0m Phase 0 User: (1/5) matttownsend_0002 464dfb7794e6567f91214b627931ff25be99fa560df2d928abb0444cb9acaa56
+2026/02/13 19:55:01 main.go:202: [32mINFO[0m Phase 0 Selected User Key: 464dfb7794e6567f91214b627931ff25be99fa560df2d928abb0444cb9acaa56 5
+2026/02/13 19:55:01 main.go:209: [32mINFO[0m Phase 0 Retrieved User by Key 464dfb7794e6567f91214b627931ff25be99fa560df2d928abb0444cb9acaa56: matttownsend_0002
+2026/02/13 19:55:01 main.go:215: [32mINFO[0m Phase 0 Updated User 464dfb7794e6567f91214b627931ff25be99fa560df2d928abb0444cb9acaa56 LastHost to orion-195501
+2026/02/13 19:55:01 main.go:226: [32mINFO[0m Phase 0 Exporting All Things as CSV
+2026/02/13 19:55:01 main.go:231: [32mINFO[0m Phase 0 Exporting All Things as JSON
+2026/02/13 19:55:01 main.go:233: [32mINFO[0m Phase 0 Exporting All Things to Defaults
+2026/02/13 19:55:01 main.go:239: [32mINFO[0m Cleardown User Store for Phase 0 Imports from Defaults
+2026/02/13 19:55:01 main.go:251: [32mINFO[0m Phase 0 Things before Import: 0
+2026/02/13 19:55:01 main.go:262: [32mINFO[0m Phase 0 Importing All Things from Defaults
+2026/02/13 19:55:02 main.go:267: [32mINFO[0m Phase 0 Completed Imports from Defaults
+2026/02/13 19:55:02 main.go:274: [32mINFO[0m Phase 0 Total Things after Import: 5
+2026/02/13 19:55:02 main.go:409: [32mINFO[0m Phase 0 Completed
+2026/02/13 19:55:02 main.go:76: [32mINFO[0m Phase 2 Test Message: 464dfb7794e6567f91214b627931ff25be99fa560df2d928abb0444cb9acaa56
+2026/02/13 19:55:02 main.go:108: [32mINFO[0m Total Test Duration: 1.679390209s
+2026/02/13 19:55:02 logHandler.go:210: [32mINFO[0m *------------------------------------------------------------------------*
+2026/02/13 19:55:02 logHandler.go:211: [32mINFO[0m [INFO] Activity=[STOP] - Stopping DAO Test Application - Phase 1
+2026/02/13 19:55:02 logHandler.go:212: [32mINFO[0m *------------------------------------------------------------------------*
+2026/02/13 19:55:02 main.go:127: [32mINFO[0m Worker Pool - Completed Tasks: 11
+2026/02/13 19:55:02 main.go:128: [32mINFO[0m Worker Pool - Running Workers: 0
+2026/02/13 19:55:02 main.go:129: [32mINFO[0m Worker Pool - Dropped Tasks: 0
+2026/02/13 19:55:02 main.go:130: [32mINFO[0m Worker Pool - Waiting Tasks: 0
+2026/02/13 19:55:02 main.go:131: [32mINFO[0m Worker Pool - Submitted Tasks: 11
+2026/02/13 19:55:02 main.go:132: [32mINFO[0m Worker Pool - Succefully Tasks: 11
+2026/02/13 19:55:02 main.go:133: [32mINFO[0m Worker Pool - Failed Tasks: 0
+2026/02/13 19:55:02 main.go:134: [32mINFO[0m Worker Pool - Max Concurrency: 100
+2026/02/13 19:55:02 main.go:135: [32mINFO[0m Worker Pool - Queue Size: 100
+2026/02/13 19:55:02 main.go:118: [32mINFO[0m Use Ctrl+c to stop application.

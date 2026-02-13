@@ -13,5 +13,5 @@ import (
 
 // Spew outputs the contents of the record to the Trace log.
 func (record *TemplateStoreV6) Spew() {
-	logHandler.TraceLogger.Printf("[%v] Record=[%+v]", tableName, godump.DumpStr(record))
+	logHandler.Trace.Printf("[%v] Record=[%+v]", tableName, godump.DumpStr(record))
 }

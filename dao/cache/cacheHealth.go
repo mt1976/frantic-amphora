@@ -11,12 +11,12 @@ import (
 func PurgeExpiredEntries() {
 	watch := timing.Start("Cache", "Purge_Expired_Entries", "")
 	now := time.Now()
-	logHandler.ServiceLogger.Printf("Cache Purge Started at %v", now.Format(time.RFC3339Nano))
+	logHandler.Service.Printf("Cache Purge Started at %v", now.Format(time.RFC3339Nano))
 	noPurged := 0
 	for tableName, entries := range Cache.cache {
 		for key, record := range entries {
 			if now.After(record.cacheTimestamp) {
-				logHandler.InfoLogger.Printf("Cache Entry for Table [%v] with Key [%v] expired at [%v], removing it", tableName, key, record.cacheTimestamp.Format(time.RFC3339Nano))
+				logHandler.Info.Printf("Cache Entry for Table [%v] with Key [%v] expired at [%v], removing it", tableName, key, record.cacheTimestamp.Format(time.RFC3339Nano))
 				delete(entries, key)
 				Cache.count[tableName]--
 				noPurged++
@@ -24,5 +24,5 @@ func PurgeExpiredEntries() {
 		}
 	}
 	watch.Stop(noPurged)
-	logHandler.ServiceLogger.Printf("Cache Purge Completed at %v", now.Format(time.RFC3339Nano))
+	logHandler.Service.Printf("Cache Purge Completed at %v", now.Format(time.RFC3339Nano))
 }

@@ -16,7 +16,7 @@ func ImportCSV[T any](ctx context.Context, importName string, entryTypeToInsert 
 	// Create a slice of entryTypeToInsert to hold the data from the CSV file
 	insertEntriesList := []T{}
 
-	importFile := openTargetFile(importName, IMPORT, logHandler.ImportLogger, CSV, paths.Defaults().String())
+	importFile := openTargetFile(importName, IMPORT, logHandler.Import, CSV, paths.Defaults().String())
 	defer importFile.Close()
 
 	gocsv.SetCSVReader(func(in io.Reader) gocsv.CSVReader {
@@ -28,14 +28,14 @@ func ImportCSV[T any](ctx context.Context, importName string, entryTypeToInsert 
 	})
 
 	if err := gocsv.UnmarshalFile(importFile, &insertEntriesList); err != nil { // Load clients from file
-		logHandler.ImportLogger.Printf("Importing %v: %v - No Content, nothing to import.", importName, err.Error())
+		logHandler.Import.Printf("Importing %v: %v - No Content, nothing to import.", importName, err.Error())
 		importFile.Close()
 		clock.Stop(0)
 		return nil
 	}
 
 	if _, err := importFile.Seek(0, 0); err != nil { // Go to the start of the file
-		logHandler.ImportLogger.Panicf("Importing %v: %v - Unable to fet to start of file.", importName, err.Error())
+		logHandler.Import.Panicf("Importing %v: %v - Unable to fet to start of file.", importName, err.Error())
 		clock.Stop(0)
 		panic(err)
 	}
@@ -49,15 +49,15 @@ func ImportCSV[T any](ctx context.Context, importName string, entryTypeToInsert 
 		// the parameters should be customised to suit the specific requirements of the entryination table/DAO.
 		entryIdentifier, err := importProcessor(ctx, &insertEntry)
 		if err != nil {
-			logHandler.ImportLogger.Panicf("Error importing %v [%v] Error=[%v]", importName, entryIdentifier, err.Error())
+			logHandler.Import.Panicf("Error importing %v [%v] Error=[%v]", importName, entryIdentifier, err.Error())
 			continue
 		}
-		logHandler.ImportLogger.Printf("Import (%v/%v) %v %v", thisPos+1, totalImportEntries, importName, entryIdentifier)
+		logHandler.Import.Printf("Import (%v/%v) %v %v", thisPos+1, totalImportEntries, importName, entryIdentifier)
 
 		count++
 	}
 
-	logHandler.ImportLogger.Printf("Imported (%v/%v) %v(s) from [%v]", count, totalImportEntries, importName, importFile.Name())
+	logHandler.Import.Printf("Imported (%v/%v) %v(s) from [%v]", count, totalImportEntries, importName, importFile.Name())
 	importFile.Close()
 	clock.Stop(count)
 	return nil

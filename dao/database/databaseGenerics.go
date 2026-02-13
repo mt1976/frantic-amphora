@@ -21,7 +21,7 @@ import (
 // T is expected to be a struct type (not a pointer). Storm expects a pointer to a struct
 // destination; if you call this with a pointer type, it will return an invalid-type error.
 func GetTyped[T any](db *DB, field entities.Field, value any) (*T, error) {
-	logHandler.DatabaseLogger.Printf("GetTyped called for %v where %v=%T(%v)", entities.GetStructType(new(T)), field.String(), value, value)
+	logHandler.Database.Printf("GetTyped called for %v where %v=%T(%v)", entities.GetStructType(new(T)), field.String(), value, value)
 	var empty *T
 	record := new(T)
 
@@ -29,15 +29,15 @@ func GetTyped[T any](db *DB, field entities.Field, value any) (*T, error) {
 	if cache.IsEnabled(&record) {
 		cachedRecord, err := cache.GetWhere(record, field, value)
 		if err == nil {
-			logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v [...%v.db] - From Cache", entities.GetStructType(&record), field.String(), value, db.Name)
+			logHandler.Database.Printf("[GET] %v WHERE %+v=%+v [...%v.db] - From Cache", entities.GetStructType(&record), field.String(), value, db.Name)
 			return *cachedRecord, nil
 		}
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE %+v=%+v [...%v.db] - Not Found in Cache", entities.GetStructType(&record), field.String(), value, db.Name)
+		logHandler.Database.Printf("[GET] %v WHERE %+v=%+v [...%v.db] - Not Found in Cache", entities.GetStructType(&record), field.String(), value, db.Name)
 	}
 
-	logHandler.TraceLogger.Printf("[GET] %v WHERE %+v=%+v [...%v.db] %v", entities.GetStructType(&record), field.String(), value, db.Name, reflect.TypeOf(record))
+	logHandler.Trace.Printf("[GET] %v WHERE %+v=%+v [...%v.db] %v", entities.GetStructType(&record), field.String(), value, db.Name, reflect.TypeOf(record))
 	if err := db.connection.One(field.String(), value, record); err != nil {
-		logHandler.TraceLogger.Printf("[GET]Error in GetTyped for %v where %v=%v: %v", entities.GetStructType(&record), field.String(), value, err)
+		logHandler.Trace.Printf("[GET]Error in GetTyped for %v where %v=%v: %v", entities.GetStructType(&record), field.String(), value, err)
 		return empty, err
 	}
 	return record, nil
@@ -47,7 +47,7 @@ func GetTyped[T any](db *DB, field entities.Field, value any) (*T, error) {
 //
 // NOTE: T is expected to be a struct type (not a pointer).
 func GetAllTyped[T any](db *DB, options ...func(*index.Options)) ([]*T, error) {
-	logHandler.DatabaseLogger.Printf("GetAllTyped called for %v", entities.GetStructType(new(T)))
+	logHandler.Database.Printf("GetAllTyped called for %v", entities.GetStructType(new(T)))
 
 	var record *T
 
@@ -58,10 +58,10 @@ func GetAllTyped[T any](db *DB, options ...func(*index.Options)) ([]*T, error) {
 
 	// Check if cache is enabled and retrieve from cache if available
 	if cache.IsEnabled(record) {
-		logHandler.EventLogger.Printf("Cache is enabled for %v", entities.GetStructType(record))
+		logHandler.Event.Printf("Cache is enabled for %v", entities.GetStructType(record))
 		cachedResult, err := cache.GetAll(record)
 		if err == nil {
-			logHandler.DatabaseLogger.Printf("[GET] %v ALL [...%v.db] - From Cache", entities.GetStructType(record), db.Name)
+			logHandler.Database.Printf("[GET] %v ALL [...%v.db] - From Cache", entities.GetStructType(record), db.Name)
 			// Dereference double pointers to match return type []*T
 			result := make([]*T, len(cachedResult))
 			for i, item := range cachedResult {
@@ -69,10 +69,10 @@ func GetAllTyped[T any](db *DB, options ...func(*index.Options)) ([]*T, error) {
 			}
 			return result, nil
 		}
-		logHandler.DatabaseLogger.Printf("[GET] %v ALL [...%v.db] - Not Found in Cache", entities.GetStructType(record), db.Name)
+		logHandler.Database.Printf("[GET] %v ALL [...%v.db] - Not Found in Cache", entities.GetStructType(record), db.Name)
 	}
 
-	logHandler.TraceLogger.Printf("[GET] %v ALL [...%v.db]", entities.GetStructType(record), db.Name)
+	logHandler.Trace.Printf("[GET] %v ALL [...%v.db]", entities.GetStructType(record), db.Name)
 
 	result := []*T{}
 	if err := db.connection.All(&result, options...); err != nil {
@@ -85,7 +85,7 @@ func GetAllTyped[T any](db *DB, options ...func(*index.Options)) ([]*T, error) {
 //
 // NOTE: T is expected to be a struct type (not a pointer).
 func GetAllWhereTyped[T any](db *DB, field entities.Field, value any) ([]*T, error) {
-	logHandler.DatabaseLogger.Printf("GetAllWhereTyped called for %v where %v=%T(%v)", entities.GetStructType(new(T)), field.String(), value, value)
+	logHandler.Database.Printf("GetAllWhereTyped called for %v where %v=%T(%v)", entities.GetStructType(new(T)), field.String(), value, value)
 	var record T
 	var zero []*T
 	if reflect.TypeOf(record) != nil && reflect.TypeOf(record).Kind() == reflect.Ptr {
@@ -98,29 +98,29 @@ func GetAllWhereTyped[T any](db *DB, field entities.Field, value any) ([]*T, err
 	if err := entities.IsValidTypeForField(field, value, record); err != nil {
 		return nil, err
 	}
-	logHandler.DatabaseLogger.Printf("Valid field/type check passed for %v.%v=%T(%v)", entities.GetStructType(record), field.String(), value, value)
+	logHandler.Database.Printf("Valid field/type check passed for %v.%v=%T(%v)", entities.GetStructType(record), field.String(), value, value)
 
 	// Check if cache is enabled and retrieve from cache if available
 	if cache.IsEnabled(record) {
 		cachedResult, err := cache.GetAllWhere(record, field, value)
 		if err == nil {
-			logHandler.DatabaseLogger.Printf("[GET] %v WHERE (%+v=%+v) ALL [...%v.db] - From Cache", entities.GetStructType(record), field.String(), value, db.Name)
+			logHandler.Database.Printf("[GET] %v WHERE (%+v=%+v) ALL [...%v.db] - From Cache", entities.GetStructType(record), field.String(), value, db.Name)
 			return cachedResult, nil
 		}
-		logHandler.DatabaseLogger.Printf("[GET] %v WHERE (%+v=%+v) ALL [...%v.db] - Not Found in Cache", entities.GetStructType(record), field.String(), value, db.Name)
+		logHandler.Database.Printf("[GET] %v WHERE (%+v=%+v) ALL [...%v.db] - Not Found in Cache", entities.GetStructType(record), field.String(), value, db.Name)
 	}
 
-	logHandler.DatabaseLogger.Printf("[GET] %v WHERE (%+v=%+v) ALL [...%v.db]", entities.GetStructType(record), field.String(), value, db.Name)
+	logHandler.Database.Printf("[GET] %v WHERE (%+v=%+v) ALL [...%v.db]", entities.GetStructType(record), field.String(), value, db.Name)
 	result := []*T{}
 	query := db.connection.Select(q.Eq(field.String(), value))
 	if err := query.Find(&result); err != nil {
 		if err == storm.ErrNotFound {
-			logHandler.DatabaseLogger.Printf("No records found for %v where %v=%v", entities.GetStructType(record), field.String(), value)
+			logHandler.Database.Printf("No records found for %v where %v=%v", entities.GetStructType(record), field.String(), value)
 			return zero, nil
 		}
-		logHandler.ErrorLogger.Printf("Error in GetAllWhereTyped for %v where %v=%v: %v", entities.GetStructType(record), field.String(), value, err)
+		logHandler.Error.Printf("Error in GetAllWhereTyped for %v where %v=%v: %v", entities.GetStructType(record), field.String(), value, err)
 		return nil, err
 	}
-	logHandler.DatabaseLogger.Printf("Found %d records for %v where %v=%v", len(result), entities.GetStructType(record), field.String(), value)
+	logHandler.Database.Printf("Found %d records for %v where %v=%v", len(result), entities.GetStructType(record), field.String(), value)
 	return result, nil
 }
