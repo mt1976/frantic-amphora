@@ -1,0 +1,38 @@
+// TemplateStore.definition
+// Add your entity fields here, these will be used in the generated DAO code.
+// This is a sample structure to illustrate various data types.
+// Modify as needed for your specific entity.
+
+    // Domain specific fields, starts.
+    //
+	Name                  string       `validate:"required,max=25,min=5"` // this field will not be indexed
+	Profile               string       `storm:"index"`                    // profile of the trip
+	ProfileKey            string       `storm:"index"`                    // profile of the trip
+	ProfileEnrichment     string       // Used to Display Date            // profile name of the trip
+	StatusKey             string       `storm:"index"`                    // Status key of the trip
+	StatusEnrichment      string       // Only used during the display of records
+	Destination           string       `storm:"index" validate:"required,max=35,min=4"` // Destination of the trip
+	DestinationKey        string       `storm:"index"`                    // Internal Key for Destination
+    DestinationEnrichment string       // Only used during the display of records
+	Notes                 string       `validate:"max=75"`                   // Notes about the trip
+	StartDate             time.Time    // Start Date of the Trip
+	EndDate               time.Time    // End Date of the Trip
+	DisplayStartDate      string       // External Start Date of the Trip
+	DisplayEndDate        string       // External End Date of the Trip
+	DurationInDays        entities.Int // Duration of the Trip in Days
+	MinimumNumberOfItems  entities.Int // Minimum Number of Items
+	Countdown             entities.Int // Days remaining until the trip starts
+	TotalItems            entities.Int // Total number of items for the trip
+	TotalItemsPacked      entities.Int // Total number of items packed for the trip
+	Year                  string       `storm:"index"`                    // Year of the Trip
+	DisplayID             string       ``                                 // Display ID of the Trip
+	SequenceNumber        entities.Int // Sequence Number of the Trip
+	PackingProgress       entities.Int // Packing Progress percentage
+	TripProgress          entities.Int // Trip Progress percentage
+	Completed             entities.Bool // Is the trip completed?
+	StartNotified         entities.Bool // Has the start notification been sent?
+	EndWarned             entities.Bool // Has the end warning been sent?
+	EndNotified           entities.Bool // Has the end notification been sent?
+	Travel                Booking
+	Hotel                 Booking
+	Desk                  Booking

@@ -1,0 +1,164 @@
+# tripStore
+
+`tripStore` is a DAO package for the TripStore table in the frantic-amphora framework.
+
+## Overview
+
+This package provides:
+
+- **Type-safe database operations** using strongly-typed field queries
+- **Audit trail integration** for all CRUD operations
+- **Cache management** with automatic hydration and synchronization
+- **Background worker** support for async operations
+- **Import/Export** capabilities (JSON and CSV formats)
+- **Validation** using struct tags
+
+## Entity Definition
+
+The `TripStore` struct represents records in the TripStore table.
+
+## Field Definitions
+
+The `TripStore` struct contains the following fields:
+
+| Field Name | Field Reference | Type | Tags | Purpose |
+|------------|----------------|------|------|---------|
+| **ID** (required) | `Fields.ID` | `int` | `storm:"id,increment=100"` | Primary key with auto-increment |
+| **Key** (required) | `Fields.Key` | `string` | `storm:"index,unique"` | Encoded unique identifier |
+| **Raw** (required) | `Fields.Raw` | `string` | `storm:"index,unique"` | Raw unique identifier |
+| **Audit** (required) | `Fields.Audit` | `audit.Audit` | `csv:"-"` | Audit trail information |
+| Name | `Fields.Name` | `string` | `validate:"required,max=25,min=5"` |  |
+| Profile | `Fields.Profile` | `string` | `storm:"index"` |  |
+| ProfileKey | `Fields.ProfileKey` | `string` | `storm:"index"` |  |
+| ProfileEnrichment | `Fields.ProfileEnrichment` | `string // Used to Display Date // profile name of the trip` |  |  |
+| StatusKey | `Fields.StatusKey` | `string` | `storm:"index"` |  |
+| StatusEnrichment | `Fields.StatusEnrichment` | `string // Only used during the display of records` |  |  |
+| Destination | `Fields.Destination` | `string` | `storm:"index" validate:"required,max=35,min=4"` |  |
+| DestinationKey | `Fields.DestinationKey` | `string` | `storm:"index"` |  |
+| DestinationEnrichment | `Fields.DestinationEnrichment` | `string // Only used during the display of records` |  |  |
+| Notes | `Fields.Notes` | `string` | `validate:"max=75"` |  |
+| StartDate | `Fields.StartDate` | `time.Time // Start Date of the Trip` |  |  |
+| EndDate | `Fields.EndDate` | `time.Time // End Date of the Trip` |  |  |
+| DisplayStartDate | `Fields.DisplayStartDate` | `string // External Start Date of the Trip` |  |  |
+| DisplayEndDate | `Fields.DisplayEndDate` | `string // External End Date of the Trip` |  |  |
+| DurationInDays | `Fields.DurationInDays` | `entities.Int // Duration of the Trip in Days` |  |  |
+| MinimumNumberOfItems | `Fields.MinimumNumberOfItems` | `entities.Int // Minimum Number of Items` |  |  |
+| Countdown | `Fields.Countdown` | `entities.Int // Days remaining until the trip starts` |  |  |
+| TotalItems | `Fields.TotalItems` | `entities.Int // Total number of items for the trip` |  |  |
+| TotalItemsPacked | `Fields.TotalItemsPacked` | `entities.Int // Total number of items packed for the trip` |  |  |
+| Year | `Fields.Year` | `string` | `storm:"index"` |  |
+| DisplayID | `Fields.DisplayID` | `string` |  |  |
+| SequenceNumber | `Fields.SequenceNumber` | `entities.Int // Sequence Number of the Trip` |  |  |
+| PackingProgress | `Fields.PackingProgress` | `entities.Int // Packing Progress percentage` |  |  |
+| TripProgress | `Fields.TripProgress` | `entities.Int // Trip Progress percentage` |  |  |
+| Completed | `Fields.Completed` | `entities.Bool // Is the trip completed?` |  |  |
+| StartNotified | `Fields.StartNotified` | `entities.Bool // Has the start notification been sent?` |  |  |
+| EndWarned | `Fields.EndWarned` | `entities.Bool // Has the end warning been sent?` |  |  |
+| EndNotified | `Fields.EndNotified` | `entities.Bool // Has the end notification been sent?` |  |  |
+| Travel | `Fields.Travel` | `Booking` |  |  |
+| Hotel | `Fields.Hotel` | `Booking` |  |  |
+| Desk | `Fields.Desk` | `Booking` |  |  |
+
+
+**Note:** Fields marked as **(required)** are mandatory framework fields and must not be modified or removed.
+
+### Using Field References
+
+Field references enable type-safe queries throughout the DAO:
+
+```go
+// Get a record by a specific field
+record, err := tripStore.GetBy(tripStore.Fields.Key, "abc123")
+
+// Query with WHERE conditions
+records, err := tripStore.GetAllWhere(tripStore.Fields.SomeField, value)
+
+// Count records matching criteria
+count, err := tripStore.CountWhere(tripStore.Fields.Active, true)
+```
+
+## Public API
+
+### Exported types/vars
+
+- `type TripStore struct { ... }`
+- `var TableName entities.Table`
+- `var Fields fieldNames`
+
+### Database lifecycle
+
+- `func Initialise(ctx context.Context, cached bool)`
+- `func IsInitialised() bool`
+- `func Close()`
+- `func GetDatabaseConnections() func() ([]*database.DB, error)`
+
+### Queries
+
+- `func Count() (int, error)`
+- `func CountWhere(field entities.Field, value any) (int, error)`
+- `func GetBy(field entities.Field, value any) (*TripStore, error)`
+- `func GetAll() ([]TripStore, error)`
+- `func GetAllWhere(field entities.Field, value any) ([]TripStore, error)`
+
+### Mutations
+
+- `func Delete(ctx context.Context, id int, note string) error`
+- `func DeleteBy(ctx context.Context, field entities.Field, value any, note string) error`
+- `func Drop() error`
+- `func ClearDown(ctx context.Context) error`
+
+### Record methods
+
+- `func (record *TripStore) Validate() error`
+- `func (record *TripStore) Update(ctx context.Context, note string) (*TripStore, error)`
+- `func (record *TripStore) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) (*TripStore, error)`
+- `func (record *TripStore) Clone(ctx context.Context) (*TripStore, error)`
+
+### Lookups
+
+- `func GetDefaultLookup() (lookup.Lookup, error)`
+- `func GetLookup(field, value entities.Field) (lookup.Lookup, error)`
+
+### Cache integration
+
+- `func CacheHydrator(ctx context.Context) func() ([]any, error)`
+- `func CacheSynchroniser(ctx context.Context) func(any) error`
+
+### Construction
+
+- `func New() *TripStore`
+- `func Create(ctx context.Context, basis *TripStore) (*TripStore, error)`
+
+### Import / Export
+
+- `func (record *TripStore) ExportRecordToJSON(name string)`
+- `func ExportAllToJSON(message string)`
+- `func (record *TripStore) ExportRecordToCSV(name string) error`
+- `func ExportAllToCSV(msg string) error`
+- `func ImportAllFromCSV() error`
+
+### Worker
+
+- `func Worker(j jobs.Job, db *database.DB)`
+
+### Debug
+
+- `func (record *TripStore) Spew()`
+
+## Regenerate
+
+- From this package directory, run: `go generate ./...`
+
+## Next edits
+
+- Adjust the domain fields in the model file.
+- Update validation/defaulting hooks.
+- Replace any placeholder logic (e.g. clone, import processor) with real implementations.
+
+---
+
+## Generation Information
+
+**Generated Date:** 10/02/2026 & 13:16  
+**Generated By:** matttownsend (orion)  
+**Generated From Template Version:** 0.5.24 - 2026-01-31

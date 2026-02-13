@@ -1,10 +1,10 @@
-// Data Access Object for the {{.TableName}} table
+// Data Access Object for the TripStore table
 // Template Version: 0.5.24 - 2026-01-31
-// Generated 
-// Date: {{.GeneratedDate}}
-// Who : {{.GeneratedBy}}
+// Generated
+// Date: 10/02/2026 & 13:16
+// Who : matttownsend (orion)
 
-package {{.PackageName}}
+package templateStoreV6
 
 import (
 	"context"
@@ -24,14 +24,14 @@ import (
 // Count returns the total number of records in the table.
 func Count() (int, error) {
 	logHandler.DatabaseLogger.Printf("COUNT %v", tableName)
-	return activeDBConnection.Count(&{{.TypeName}}{})
+	return activeDBConnection.Count(&TemplateStoreV6{})
 }
 
 // CountWhere returns the number of records matching a field/value filter.
 func CountWhere(field entities.Field, value any) (int, error) {
 	logHandler.DatabaseLogger.Printf("COUNT %v WHERE (%v=%v)", tableName, field.String(), value)
 	clock := timing.Start(tableName, "Count", fmt.Sprintf("%v=%v", field.String(), value))
-	count, err := activeDBConnection.CountWhere(field, value, &{{.TypeName}}{})
+	count, err := activeDBConnection.CountWhere(field, value, &TemplateStoreV6{})
 	if err != nil {
 		clock.Stop(0)
 		return 0, err
@@ -41,7 +41,7 @@ func CountWhere(field entities.Field, value any) (int, error) {
 }
 
 // GetBy returns a single record matching the given field/value.
-func GetBy(field entities.Field, value any) (*{{.TypeName}}, error) {
+func GetBy(field entities.Field, value any) (*TemplateStoreV6, error) {
 	logHandler.DatabaseLogger.Printf("SELECT %v WHERE (%v=%v)", tableName, field.String(), value)
 
 	clock := timing.Start(tableName, "Get", fmt.Sprintf("%v=%v", field, value))
@@ -58,7 +58,7 @@ func GetBy(field entities.Field, value any) (*{{.TypeName}}, error) {
 		return New(), ce.ErrGetWrapper(tableName, field.String(), value, fmt.Errorf(msg, value))
 	}
 	logHandler.TraceLogger.Printf("Getting %v record where %v=%v", tableName, field.String(), value)
-	record, err := database.GetTyped[{{.TypeName}}](activeDBConnection, field, value)
+	record, err := database.GetTyped[TemplateStoreV6](activeDBConnection, field, value)
 	if err != nil {
 		clock.Stop(0)
 		logHandler.DatabaseLogger.Printf("Record not found for %v where %v=%v: %v", tableName, field.String(), value, err)
@@ -79,13 +79,13 @@ func GetBy(field entities.Field, value any) (*{{.TypeName}}, error) {
 	return &postGetRecord, nil
 }
 
-// GetAll returns all {{.TypeName}} records.
-func GetAll() ([]*{{.TypeName}}, error) {
+// GetAll returns all TripStore records.
+func GetAll() ([]*TemplateStoreV6, error) {
 	logHandler.DatabaseLogger.Printf("SELECT %v ALL", tableName)
 	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
 
 	clock := timing.Start(tableName, "GetAll", "ALL")
-	records, err := database.GetAllTyped[{{.TypeName}}](activeDBConnection)
+	records, err := database.GetAllTyped[TemplateStoreV6](activeDBConnection)
 
 	logHandler.TraceLogger.Printf("Retrieved %v records from %v", len(records), tableName)
 
@@ -107,13 +107,13 @@ func GetAll() ([]*{{.TypeName}}, error) {
 	return result, nil
 }
 
-// GetAllUncached returns all {{.TypeName}} records without cache.
-func GetAllUncached() ([]*{{.TypeName}}, error) {
+// GetAllUncached returns all TripStore records without cache.
+func GetAllUncached() ([]*TemplateStoreV6, error) {
 	logHandler.DatabaseLogger.Printf("SELECT %v ALL", tableName)
 	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
 
 	clock := timing.Start(tableName, "GetAllUncached", "ALL")
-	records, err := database.GetAllTyped[{{.TypeName}}](activeDBConnection)
+	records, err := database.GetAllTyped[TemplateStoreV6](activeDBConnection)
 	if err != nil {
 		clock.Stop(0)
 		return nil, ce.ErrNotFoundWrapper(tableName, err)
@@ -128,12 +128,12 @@ func GetAllUncached() ([]*{{.TypeName}}, error) {
 }
 
 // GetAllWhere returns all records matching a field/value filter.
-func GetAllWhere(field entities.Field, value any) ([]*{{.TypeName}}, error) {
+func GetAllWhere(field entities.Field, value any) ([]*TemplateStoreV6, error) {
 	logHandler.DatabaseLogger.Printf("SELECT %v WHERE (%v=%v)", tableName, field.String(), value)
 	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
 
 	clock := timing.Start(tableName, "GetAllWhere", fmt.Sprintf("%v=%v", field, value))
-	records, err := database.GetAllWhereTyped[{{.TypeName}}](activeDBConnection, field, value)
+	records, err := database.GetAllWhereTyped[TemplateStoreV6](activeDBConnection, field, value)
 	if err != nil {
 		clock.Stop(0)
 		return nil, err
@@ -147,14 +147,14 @@ func GetAllWhere(field entities.Field, value any) ([]*{{.TypeName}}, error) {
 	return result, nil
 }
 
-// New returns an empty {{.TypeName}} record.
-func New() *{{.TypeName}} {
+// New returns an empty TripStore record.
+func New() *TemplateStoreV6 {
 	logHandler.DatabaseLogger.Printf("NEW %v", tableName)
-	return &{{.TypeName}}{}
+	return &TemplateStoreV6{}
 }
 
-// Create constructs and inserts a new {{.TypeName}} record.
-func Create(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
+// Create constructs and inserts a new TripStore record.
+func Create(ctx context.Context, basis *TemplateStoreV6) (*TemplateStoreV6, error) {
 	logHandler.DatabaseLogger.Printf("CREATE %v ...", tableName)
 	dao.CheckDAOReadyState(tableName, audit.CREATE, databaseConnectionActive)
 	logHandler.TraceLogger.Printf("**** Create %v Record: %v %+v", tableName, basis.Key, basis)
@@ -164,13 +164,14 @@ func Create(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
 		logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, basis.ID, err))
 		return basis, err
 	}
+	// godump.Dump(basis)
 	logHandler.TraceLogger.Printf("**** Created %v Record: %v %+v", tableName, basis.Key, &basis)
 	logHandler.EventLogger.Printf("Created %v record %v", tableName, basis.Key)
 	return basis, nil
 }
 
-// Create constructs and inserts a new {{.TypeName}} record.
-func importRecord(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
+// Create constructs and inserts a new TripStore record.
+func importRecord(ctx context.Context, basis *TemplateStoreV6) (*TemplateStoreV6, error) {
 	logHandler.DatabaseLogger.Printf("IMPORT %v ...", tableName)
 	dao.CheckDAOReadyState(tableName, audit.IMPORT, databaseConnectionActive)
 	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v", tableName, basis.Key, basis)
@@ -182,7 +183,7 @@ func importRecord(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, er
 		return basis, err
 	}
 	logHandler.TraceLogger.Printf("**** Import %v Record: %v %+v", tableName, basis.Key, &basis)
-	//logHandler.EventLogger.Printf("Imported %v record %v", tableName, basis.Key)
+	// logHandler.EventLogger.Printf("Imported %v record %v", tableName, basis.Key)
 	return basis, nil
 }
 
@@ -194,7 +195,7 @@ func Delete(ctx context.Context, id int, note string) error {
 	if err != nil {
 		return ce.ErrDAODeleteWrapper(tableName, Fields.ID.String(), id, err)
 	}
-	//logHandler.EventLogger.Printf("Deleted %v record %v", tableName, id)
+	// logHandler.EventLogger.Printf("Deleted %v record %v", tableName, id)
 	return err
 }
 
@@ -247,13 +248,13 @@ func DeleteBy(ctx context.Context, field entities.Field, value any, note string)
 }
 
 // Validate runs record validation and returns an error if invalid.
-func (record *{{.TypeName}}) Validate() error {
+func (record *TemplateStoreV6) Validate() error {
 	logHandler.DatabaseLogger.Printf("Validating %v record %v", tableName, record.Key)
 	return record.validationProcessing()
 }
 
 // Update persists changes to an existing record.
-func (record *{{.TypeName}}) Update(ctx context.Context, note string) error {
+func (record *TemplateStoreV6) Update(ctx context.Context, note string) error {
 	logHandler.DatabaseLogger.Printf("Updating %v record %v (%v)", tableName, record.Key, note)
 	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE, false)
 	logHandler.DatabaseLogger.Printf("Update record %v %v", record.Key, note)
@@ -261,7 +262,7 @@ func (record *{{.TypeName}}) Update(ctx context.Context, note string) error {
 	return err
 }
 
-func (record *{{.TypeName}}) PostUpdateUpdate(ctx context.Context, note string) error {
+func (record *TemplateStoreV6) PostUpdateUpdate(ctx context.Context, note string) error {
 	logHandler.DatabaseLogger.Printf("Updating %v record %v during post-update processing (%v)", tableName, record.Key, note)
 	record, err := record.insertOrUpdate(ctx, note, audit.UPDATE, UPDATE, true)
 	logHandler.DatabaseLogger.Printf("Post-update Update record %v %v", record.Key, note)
@@ -269,7 +270,7 @@ func (record *{{.TypeName}}) PostUpdateUpdate(ctx context.Context, note string) 
 }
 
 // UpdateWithAction persists changes using the provided audit action.
-func (record *{{.TypeName}}) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error {
+func (record *TemplateStoreV6) UpdateWithAction(ctx context.Context, auditAction audit.Action, note string) error {
 	logHandler.DatabaseLogger.Printf("%ving %v record %v with action %v (%v)", UPDATE, tableName, record.Key, auditAction.Code(), note)
 	record, err := record.insertOrUpdate(ctx, note, auditAction, UPDATE, false)
 	logHandler.DatabaseLogger.Printf("%ved %v record %v with action %v (%v)", UPDATE, tableName, record.Key, auditAction.Code(), note)
@@ -277,7 +278,7 @@ func (record *{{.TypeName}}) UpdateWithAction(ctx context.Context, auditAction a
 }
 
 // Clone returns a copy of the record using templateClone.
-func (record *{{.TypeName}}) Clone(ctx context.Context) (*{{.TypeName}}, error) {
+func (record *TemplateStoreV6) Clone(ctx context.Context) (*TemplateStoreV6, error) {
 	logHandler.DatabaseLogger.Printf("Cloning %v record %v", tableName, record.Key)
 	return templateClone(ctx, record)
 }
@@ -319,7 +320,7 @@ func GetLookup(field, value entities.Field) (lookup.Lookup, error) {
 // Drop drops the underlying database bucket/table for this entity.
 func Drop() error {
 	logHandler.DatabaseLogger.Printf("Drop %v", tableName)
-	err := activeDBConnection.Drop({{.TypeName}}{})
+	err := activeDBConnection.Drop(TemplateStoreV6{})
 	if err != nil {
 		return err
 	}

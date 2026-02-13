@@ -232,7 +232,11 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) error {
 		// logHandler.LockLogger.Printf("[POSTCREATE] LOCKING RECORD: %v", record.Raw)
 
 		// Get the workerPool from the context and run the post-create processing in a worker to avoid holding locks during potentially long-running processing.
-		workerPool := contextHandler.GetWorkerPool(ctx)
+		workerPool, err := contextHandler.GetWorkerPool(ctx)
+		if err != nil {
+			logHandler.ErrorLogger.Printf("Error retrieving worker pool from context for post-create processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+			return fmt.Errorf("error retrieving worker pool from context for post-create processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+		}
 		if workerPool != nil {
 			logHandler.TraceLogger.Printf("[POSTCREATE] Running post-create processing for %v Record: %v in worker pool Lock:%v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
 			task := workerPool.SubmitErr(func() error {
@@ -268,7 +272,11 @@ func (record *TemplateStoreV3) postCreateProcessing(ctx context.Context) error {
 func (record *TemplateStoreV3) postUpdateProcessing(ctx context.Context) error {
 	if postUpdate != nil {
 		logHandler.TraceLogger.Printf("[POSTUPDATE] Processing for %v Record: %v (%v)", TableName.String(), record.Key, godump.DumpStr(ctx))
-		workerPool := contextHandler.GetWorkerPool(ctx)
+		workerPool, err := contextHandler.GetWorkerPool(ctx)
+		if err != nil {
+			logHandler.ErrorLogger.Printf("Error retrieving worker pool from context for post-update processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+			return fmt.Errorf("error retrieving worker pool from context for post-update processing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
+		}
 		if workerPool != nil {
 
 			logHandler.TraceLogger.Printf("[POSTUPDATE] Running post-update processing for %v Record: %v in worker pool", TableName.String(), record.Key)

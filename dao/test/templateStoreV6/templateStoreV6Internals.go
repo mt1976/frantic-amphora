@@ -1,10 +1,10 @@
-// Data Access Object for the {{.TableName}} table
+// Data Access Object for the TripStore table
 // Template Version: 0.5.24 - 2026-01-31
-// Generated 
-// Date: {{.GeneratedDate}}
-// Who : {{.GeneratedBy}}
+// Generated
+// Date: 10/02/2026 & 13:16
+// Who : matttownsend (orion)
 
-package {{.PackageName}}
+package templateStoreV6
 
 import (
 	"context"
@@ -29,9 +29,10 @@ const (
 )
 
 // insertOrUpdate performs shared validation/audit and then creates or updates the record.
-func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, auditAction audit.Action, operation op, isPostProcessingRun bool) (*{{.TypeName}}, error) {
+func (record *TemplateStoreV6) insertOrUpdate(ctx context.Context, note string, auditAction audit.Action, operation op, isPostProcessingRun bool) (*TemplateStoreV6, error) {
 	logHandler.TraceLogger.Printf("INSERTORUPDATE called for %v record: %v operation: %v action: %v isPostProcessing: %t", tableName, record.Raw, operation, auditAction.Code(), isPostProcessingRun)
 	logHandler.DatabaseLogger.Printf("INSERTORUPDATE called for %v record %v operation %v action %v postProcessing %t", tableName, record.Key, operation, auditAction.Code(), isPostProcessingRun)
+	logHandler.EventLogger.Printf("INSERTORUPDATE called for %v record %v operation %v action %v postProcessing %t", tableName, record.Key, operation, auditAction.Code(), isPostProcessingRun)
 
 	isCreateOperation := false
 	if operation == CREATE || operation == IMPORT {
@@ -54,7 +55,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 		locked = true
 	} else {
 		// For create operations, we will lock the record later in the process after the record has been created and we have a valid key. This is to prevent locking a record that may not be created if there are validation errors or duplicate key issues.
-		logHandler.SkipLockLogger.Printf("[%v,%v] Deferring %v lock for new record until after creation", tableName, record.Raw, operation)
+		logHandler.LockLogger.Printf("[%v,%v] Deferring %v lock for new record until after creation", tableName, record.Raw, operation)
 	}
 
 	logHandler.TraceLogger.Printf("Starting %v processing for %v record %v isCreate %t", operation, tableName, record.Key, isCreateOperation)
@@ -67,30 +68,37 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	// Invoke custom creator logic if defined
 	if isCreateOperation {
 		if creator != nil {
-			logHandler.TraceLogger.Printf("Invoking custom creator for %v record %v", tableName, record.Key)
+			logHandler.WarningLogger.Printf("Invoking custom creator for %v record %v", tableName, record.Key)
 			id, skip, createdRecord, err := creator(ctx, record)
 			if err != nil {
 				logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", record.Key), err))
 			}
 			if skip {
-				logHandler.TraceLogger.Printf("Custom creator skipped for %v record %v", tableName, record.Key)
+				logHandler.EventLogger.Printf("Custom creator recomends skipping update for %v record %v", tableName, record.Key)
 				// No more processing required
 				clock.Stop(0)
 				return record, nil
 			}
 
 			record = createdRecord
-			logHandler.TraceLogger.Printf("Custom creator completed for %v record %v", tableName, record.Key)
+			logHandler.EventLogger.Printf("Custom creator completed for %v record %v", tableName, record.Key)
 
 			// Update record with keys
-			record.Raw = id
-			record.Key = idHelpers.Encode(id)
+			if id != "" {
+				record.Raw = id
+				record.Key = idHelpers.Encode(id)
+			} else {
+				record.Raw = ""
+				record.Key = ""
+			}
 		}
 		if record.Key == "" {
-			logHandler.TraceLogger.Printf("No Key found, Generating new UUID for %v record", tableName)
+			logHandler.WarningLogger.Printf("No Key provided/found, Generating new UUID for %v record", tableName)
 			record.Raw = idHelpers.GetUUID()
 			record.Key = idHelpers.Encode(record.Raw)
 		}
+
+		// godump.Dump(record, "Record after creator processing", record.Key)
 		// Check for duplicates on create
 		logHandler.TraceLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
 		err := record.checkForDuplicate()
@@ -222,7 +230,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	return record, nil
 }
 
-func (record *{{.TypeName}}) unlock(isCreate bool) error {
+func (record *TemplateStoreV6) unlock(isCreate bool) error {
 	record.Lock.Unlock()
 	if isCreate {
 		logHandler.LockLogger.Printf("UNLOCKED NEW RECORD: %v", record.Raw)
@@ -233,9 +241,9 @@ func (record *{{.TypeName}}) unlock(isCreate bool) error {
 }
 
 // postGetList runs post-get processing for each record in the list.
-func postGetList(ctx context.Context, recordList []*{{.TypeName}}) ([]*{{.TypeName}}, error) {
+func postGetList(ctx context.Context, recordList []*TemplateStoreV6) ([]*TemplateStoreV6, error) {
 	clock := timing.Start(tableName, "Process", "POSTGET")
-	returnList := []*{{.TypeName}}{}
+	returnList := []*TemplateStoreV6{}
 	for _, record := range recordList {
 		if err := record.postGet(ctx); err != nil {
 			clock.Stop(0)
@@ -248,7 +256,7 @@ func postGetList(ctx context.Context, recordList []*{{.TypeName}}) ([]*{{.TypeNa
 }
 
 // postGet runs upgrade/default/validation processing after a record is loaded.
-func (record *{{.TypeName}}) postGet(ctx context.Context) error {
+func (record *TemplateStoreV6) postGet(ctx context.Context) error {
 	logHandler.TraceLogger.Printf("PostGet processing for %v record %v", tableName, record.Key)
 	if upgradeError := record.upgradeProcessing(); upgradeError != nil {
 		return upgradeError
@@ -262,7 +270,7 @@ func (record *{{.TypeName}}) postGet(ctx context.Context) error {
 }
 
 // checkForDuplicate checks whether the record key already exists.
-func (record *{{.TypeName}}) checkForDuplicate() error {
+func (record *TemplateStoreV6) checkForDuplicate() error {
 	dao.CheckDAOReadyState(tableName, audit.PROCESS, databaseConnectionActive)
 	logHandler.TraceLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
 	if duplicateCheck != nil {

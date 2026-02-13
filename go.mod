@@ -1,19 +1,21 @@
 module github.com/mt1976/frantic-amphora
 
-go 1.25
+go 1.26
 
 require (
+	github.com/alitto/pond/v2 v2.6.0
 	github.com/dustin/go-humanize v1.0.1
 	github.com/goforj/godump v1.9.0
 	github.com/mt1976/frantic-core v1.10.0
 )
 
 replace github.com/mt1976/frantic-core => ../frantic-core
+replace github.com/mt1976/loghandler => ../loghandler
+replace github.com/mt1976/frantic-core/contextHandler => ../frantic-core/contextHandler
 
 require (
 	github.com/DataDog/zstd v1.5.7 // indirect
 	github.com/Sereal/Sereal/Go/sereal v0.0.0-20250307140414-035be09f1bc8 // indirect
-	github.com/alitto/pond/v2 v2.6.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
@@ -40,8 +42,8 @@ require (
 	github.com/segmentio/ksuid v1.0.4 // indirect
 	github.com/shopspring/decimal v1.4.0
 	go.etcd.io/bbolt v1.4.3 // indirect
-	golang.org/x/crypto v0.47.0 // indirect
-	golang.org/x/sys v0.40.0 // indirect
-	golang.org/x/text v0.33.0 // indirect
+	golang.org/x/crypto v0.48.0 // indirect
+	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/text v0.34.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )
