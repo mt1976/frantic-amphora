@@ -89,7 +89,7 @@ func (a *Audit) Action(ctx context.Context, action Action) error {
 		a.Updates = append(a.Updates, update)
 	}
 
-	logHandler.AuditLogger.Printf(AUDITMSG, upperName, action.code, auditDisplay, auditUser, auditHost, message)
+	logHandler.Audit.Printf(AUDITMSG, upperName, action.code, auditDisplay, auditUser, auditHost, message)
 	clock.Stop(1)
 	return nil
 }

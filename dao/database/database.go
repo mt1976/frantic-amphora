@@ -410,7 +410,7 @@ func (db *DB) Create(data any) error {
 func (db *DB) Count(data any) (int, error) {
 	logHandler.Database.Printf("[COUNT] %v [...%v.db]", entities.GetStructType(data), db.Name)
 	// if db.isCaching(data) {
-	// 	logHandler.CacheLogger.Printf("[CNT]<%v>{SKIP} Count [%+v] [...%v.db] - Caching Enabled", entities.GetStructType(data), entities.GetStructType(data), db.Name)
+	// 	logHandler.Cache.Printf("[CNT]<%v>{SKIP} Count [%+v] [...%v.db] - Caching Enabled", entities.GetStructType(data), entities.GetStructType(data), db.Name)
 	// 	return len(inMemoryCache[entities.GetStructType(data)]), nil
 	// }
 	// for key, value := range connectionPool {
@@ -436,7 +436,7 @@ func (db *DB) CountWhere(field entities.Field, value any, to any) (int, error) {
 		return 0, err
 	}
 	// if db.isCaching(to) {
-	// 	logHandler.CacheLogger.Printf("[CNT]<%v>{SKIP} CountWhere (%+v=%+v)[%+v] [...%v.db] - Caching Enabled", entities.GetStructType(to), field.String(), value, entities.GetStructType(to), db.Name)
+	// 	logHandler.Cache.Printf("[CNT]<%v>{SKIP} CountWhere (%+v=%+v)[%+v] [...%v.db] - Caching Enabled", entities.GetStructType(to), field.String(), value, entities.GetStructType(to), db.Name)
 	// 	// Range through inMemoryCache and count matching entries
 	// 	count := 0
 	// 	for _, v := range inMemoryCache[entities.GetStructType(to)] {

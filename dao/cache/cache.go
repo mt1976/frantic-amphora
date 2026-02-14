@@ -216,7 +216,7 @@ func AddEntry(data any) error {
 	Cache.cache[table][key] = record
 	Cache.count[table]++
 	Cache.updated = time.Now()
-	logHandler.CacheLogger.Printf("Cache Entry for Table [%v] added with Key [%v], expiry [%v] %v", table, key, record.cacheTimestamp.Format(time.RFC3339Nano), humanize.Time(record.cacheTimestamp))
+	logHandler.Cache.Printf("Cache Entry for Table [%v] added with Key [%v], expiry [%v] %v", table, key, record.cacheTimestamp.Format(time.RFC3339Nano), humanize.Time(record.cacheTimestamp))
 	return nil
 }
 
@@ -569,7 +569,7 @@ func RegisterSynchroniser(data any, synchroniser func(any) error) {
 	// Get the name of the function passed in
 	funcname := runtime.FuncForPC(reflect.ValueOf(synchroniser).Pointer()).Name()
 	logHandler.Event.Printf("[REGISTER] Registered Function %v as Synchroniser for Table [%v]", funcname, table)
-	logHandler.CacheLogger.Printf("[REGISTER] Registered Function %v as Synchroniser for Table [%v]", funcname, table)
+	logHandler.Cache.Printf("[REGISTER] Registered Function %v as Synchroniser for Table [%v]", funcname, table)
 	//
 }
 
@@ -586,7 +586,7 @@ func RegisterHydrator(data any, hydrator func() ([]any, error)) {
 	// Get the name of the function passed in
 	funcname := runtime.FuncForPC(reflect.ValueOf(hydrator).Pointer()).Name()
 	logHandler.Event.Printf("[REGISTER] Registered Function %v as Hydrator for Table [%v]", funcname, table)
-	logHandler.CacheLogger.Printf("[REGISTER] Registered Function %v as Hydrator for Table [%v]", funcname, table)
+	logHandler.Cache.Printf("[REGISTER] Registered Function %v as Hydrator for Table [%v]", funcname, table)
 }
 
 func HydrateForType(data any) error {

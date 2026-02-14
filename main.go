@@ -11,7 +11,7 @@ import (
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/entities"
 	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV6"
-	tmpllogic "github.com/mt1976/frantic-amphora/dao/test/tmplLogic"
+	logic "github.com/mt1976/frantic-amphora/dao/test/tmplLogic"
 	"github.com/mt1976/frantic-core/contextHandler"
 	"github.com/mt1976/frantic-core/logHandler"
 	"github.com/mt1976/frantic-core/mathHelpers"
@@ -53,13 +53,13 @@ func main() {
 
 	logHandler.Info.Println("Initialize User Store")
 	templateStoreV6.Initialise(ctx, false)
-	templateStoreV6.RegisterCreator(tmpllogic.Creator)
-	templateStoreV6.RegisterDuplicateCheck(tmpllogic.DuplicateCheck)
-	templateStoreV6.RegisterWorker(tmpllogic.JobProcessor)
-	templateStoreV6.RegisterPostCreate(tmpllogic.PostCreate)
-	templateStoreV6.RegisterPostUpdate(tmpllogic.PostUpdate)
-	templateStoreV6.RegisterPostDelete(tmpllogic.PostDelete)
-	templateStoreV6.RegisterCloner(tmpllogic.Cloner)
+	templateStoreV6.RegisterCreator(logic.Creator)
+	templateStoreV6.RegisterDuplicateCheck(logic.DuplicateCheck)
+	templateStoreV6.RegisterWorker(logic.JobProcessor)
+	templateStoreV6.RegisterPostCreate(logic.PostCreate)
+	templateStoreV6.RegisterPostUpdate(logic.PostUpdate)
+	templateStoreV6.RegisterPostDelete(logic.PostDelete)
+	templateStoreV6.RegisterCloner(logic.Cloner)
 
 	// tripStore.Initialise(ctx, false)
 
@@ -147,7 +147,7 @@ func test(ctx context.Context, phase string, baselineThings int) string {
 	var newRecords []*templateStoreV6.TemplateStoreV6
 	for i := 0; i < baselineThings; i++ {
 		logHandler.Info.Printf("Phase %v Creating Baseline User %v", phase, i+1)
-		newRecord, info := tmpllogic.Login(ctx, fmt.Sprintf("%04v", i+1))
+		newRecord, info := logic.Login(ctx, fmt.Sprintf("%04v", i+1))
 		if info != nil {
 			logHandler.Error.Printf("Phase %v Error creating Baseline User %v: %v", phase, i+1, info)
 		}

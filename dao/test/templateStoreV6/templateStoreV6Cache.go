@@ -35,13 +35,13 @@ func CacheSynchroniser(ctx context.Context) func(any) error {
 	return func(data any) error {
 		switch rec := data.(type) {
 		case TemplateStoreV6:
-			logHandler.CacheLogger.Printf("Sync cache for %v Key: %v", tableName, rec.Key)
+			logHandler.Cache.Printf("Sync cache for %v Key: %v", tableName, rec.Key)
 			return rec.UpdateWithAction(ctx, audit.SYNC, "Cache Sync Update")
 		case *TemplateStoreV6:
 			if rec == nil {
 				return nil
 			}
-			logHandler.CacheLogger.Printf("Sync cache for %v Key: %v", tableName, rec.Key)
+			logHandler.Cache.Printf("Sync cache for %v Key: %v", tableName, rec.Key)
 			return rec.UpdateWithAction(ctx, audit.SYNC, "Cache Sync Update")
 		default:
 			logHandler.Warning.Printf("Sync cache for %v received unexpected type %T", tableName, data)

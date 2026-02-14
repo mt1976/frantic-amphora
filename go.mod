@@ -9,10 +9,6 @@ require (
 	github.com/mt1976/frantic-core v1.10.0
 )
 
-replace github.com/mt1976/frantic-core => ../frantic-core
-replace github.com/mt1976/loghandler => ../loghandler
-replace github.com/mt1976/frantic-core/contextHandler => ../frantic-core/contextHandler
-
 require (
 	github.com/DataDog/zstd v1.5.7 // indirect
 	github.com/Sereal/Sereal/Go/sereal v0.0.0-20250307140414-035be09f1bc8 // indirect
@@ -47,3 +43,9 @@ require (
 	golang.org/x/text v0.34.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )
+
+replace github.com/mt1976/frantic-core => ../frantic-core
+
+replace github.com/mt1976/frantic-core/loghandler => ../frantic-core/loghandler
+
+replace github.com/mt1976/frantic-core/contextHandler => ../frantic-core/contextHandler

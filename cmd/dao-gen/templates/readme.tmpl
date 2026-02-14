@@ -27,6 +27,9 @@ The `{{.TypeName}}` struct contains the following fields:
 | **Key** (required) | `Fields.Key` | `string` | `storm:"index,unique"` | Encoded unique identifier |
 | **Raw** (required) | `Fields.Raw` | `string` | `storm:"index,unique"` | Raw unique identifier |
 | **Audit** (required) | `Fields.Audit` | `audit.Audit` | `csv:"-"` | Audit trail information |
+| **Lock** (required) | `Fields.Lock` | `sync.Mutex` | `csv:"-"` | Record locking for concurrent updates |
+{{range .FieldDefinitions}}| {{.Name}} | `Fields.{{.Name}}` | `{{.Type}}` | {{if .Tags}}`{{.Tags}}`{{end}} | {{.Purpose}} |
+{{end}}
 {{range .FieldDefinitions}}| {{.Name}} | `Fields.{{.Name}}` | `{{.Type}}` | {{if .Tags}}`{{.Tags}}`{{end}} | {{.Purpose}} |
 {{end}}
 

@@ -1,5 +1,5 @@
 // Data Access Object for the {{.TableName}} table
-// Template Version: 0.5.24 - 2026-01-31
+// Template Version: 0.6.00 - 2026-02-14
 // Generated 
 // Date: {{.GeneratedDate}}
 // Who : {{.GeneratedBy}}
@@ -30,125 +30,132 @@ const (
 
 // insertOrUpdate performs shared validation/audit and then creates or updates the record.
 func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, auditAction audit.Action, operation op, isPostProcessingRun bool) (*{{.TypeName}}, error) {
-	logHandler.TraceLogger.Printf("INSERTORUPDATE called for %v record: %v operation: %v action: %v isPostProcessing: %t", tableName, record.Raw, operation, auditAction.Code(), isPostProcessingRun)
-	logHandler.DatabaseLogger.Printf("INSERTORUPDATE called for %v record %v operation %v action %v postProcessing %t", tableName, record.Key, operation, auditAction.Code(), isPostProcessingRun)
+	logHandler.Trace.Printf("INSERTORUPDATE called for %v record: %v operation: %v action: %v isPostProcessing: %t", tableName, record.Raw, operation, auditAction.Code(), isPostProcessingRun)
+	logHandler.Database.Printf("INSERTORUPDATE called for %v record %v operation %v action %v postProcessing %t", tableName, record.Key, operation, auditAction.Code(), isPostProcessingRun)
 
 	isCreateOperation := false
 	if operation == CREATE || operation == IMPORT {
 		isCreateOperation = true
-		logHandler.TraceLogger.Printf("INSERTORUPDATE determined operation is CREATE type for %v record %v", tableName, record.Key)
+		logHandler.Trace.Printf("INSERTORUPDATE determined operation is CREATE type for %v record %v", tableName, record.Key)
 		if !strings.EqualFold(auditAction.Code(), "Create") && !strings.EqualFold(auditAction.Code(), "Import") {
-			logHandler.WarningLogger.Printf("Audit action '%v' does not match operation type 'Create' for %v record %v. This may lead to incorrect audit records.", auditAction.Code(), tableName, record.Key)
+			logHandler.Warning.Printf("Audit action '%v' does not match operation type 'Create' for %v record %v. This may lead to incorrect audit records.", auditAction.Code(), tableName, record.Key)
 			return New(), ce.ErrDAOUpdateWrapper(tableName, ce.ErrValidationFailed)
 		}
 	}
 
-	logHandler.TraceLogger.Printf("INSERTORUPDATE for %v record %v isCreate %t operation %v", tableName, record.Key, isCreateOperation, operation)
+	logHandler.Trace.Printf("INSERTORUPDATE for %v record %v isCreate %t operation %v", tableName, record.Key, isCreateOperation, operation)
 
 	locked := false
 
 	if !isCreateOperation && !(operation == UPDATE && isPostProcessingRun) {
-		logHandler.TraceLogger.Printf("Attempting to lock %v record %v for %v operation", tableName, record.Key, operation)
-		logHandler.LockLogger.Printf("[%v,%v] Locking for %v", tableName, record.Raw, operation)
+		logHandler.Trace.Printf("Attempting to lock %v record %v for %v operation", tableName, record.Key, operation)
+		logHandler.Lock.Printf("[%v,%v] Locking for %v", tableName, record.Raw, operation)
 		record.Lock.Lock()
 		locked = true
 	} else {
 		// For create operations, we will lock the record later in the process after the record has been created and we have a valid key. This is to prevent locking a record that may not be created if there are validation errors or duplicate key issues.
-		logHandler.SkipLockLogger.Printf("[%v,%v] Deferring %v lock for new record until after creation", tableName, record.Raw, operation)
+		logHandler.SkipLock.Printf("[%v,%v] Deferring %v lock for new record until after creation", tableName, record.Raw, operation)
 	}
 
-	logHandler.TraceLogger.Printf("Starting %v processing for %v record %v isCreate %t", operation, tableName, record.Key, isCreateOperation)
+	logHandler.Trace.Printf("Starting %v processing for %v record %v isCreate %t", operation, tableName, record.Key, isCreateOperation)
 
 	dao.CheckDAOReadyState(tableName, auditAction, databaseConnectionActive)
 
 	clock := timing.Start(tableName, string(operation), fmt.Sprintf("%v", record.Key))
 
-	logHandler.TraceLogger.Printf("Processing %v record %v", tableName, record.Key)
+	logHandler.Trace.Printf("Processing %v record %v", tableName, record.Key)
 	// Invoke custom creator logic if defined
 	if isCreateOperation {
 		if creator != nil {
-			logHandler.TraceLogger.Printf("Invoking custom creator for %v record %v", tableName, record.Key)
+			logHandler.Trace.Printf("Invoking custom creator for %v record %v", tableName, record.Key)
 			id, skip, createdRecord, err := creator(ctx, record)
 			if err != nil {
-				logHandler.ErrorLogger.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", record.Key), err))
+				logHandler.Error.Panic(ce.ErrDAOCreateWrapper(tableName, fmt.Sprintf("%v", record.Key), err))
 			}
 			if skip {
-				logHandler.TraceLogger.Printf("Custom creator skipped for %v record %v", tableName, record.Key)
+				logHandler.Event.Printf("Custom creator recomends skipping update for %v record %v", tableName, record.Key)
 				// No more processing required
 				clock.Stop(0)
 				return record, nil
 			}
 
 			record = createdRecord
-			logHandler.TraceLogger.Printf("Custom creator completed for %v record %v", tableName, record.Key)
+			logHandler.Trace.Printf("Custom creator completed for %v record %v", tableName, record.Key)
 
 			// Update record with keys
-			record.Raw = id
-			record.Key = idHelpers.Encode(id)
+			if id != "" {
+				record.Raw = id
+				record.Key = idHelpers.Encode(id)
+			} else {
+				record.Raw = ""
+				record.Key = ""
+			}
 		}
 		if record.Key == "" {
-			logHandler.TraceLogger.Printf("No Key found, Generating new UUID for %v record", tableName)
+			logHandler.Warning.Printf("No Key provided/found, Generating new UUID for %v record", tableName)
 			record.Raw = idHelpers.GetUUID()
 			record.Key = idHelpers.Encode(record.Raw)
 		}
+
+		// godump.Dump(record, "Record after creator processing", record.Key)
 		// Check for duplicates on create
-		logHandler.TraceLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
+		logHandler.Trace.Printf("Checking for duplicate %v record %v", tableName, record.Key)
 		err := record.checkForDuplicate()
 		if err != nil {
-			logHandler.ErrorLogger.Printf("Duplicate check failed for %v record %v: %v", tableName, record.Key, err)
+			logHandler.Error.Printf("Duplicate check failed for %v record %v: [%v]", tableName, record.Key, err)
 			clock.Stop(0)
 			return New(), ce.ErrDAOCreateWrapper(tableName, record.Key, err)
 		}
 	}
-	logHandler.TraceLogger.Printf("Running default/validation processing for %v record %v", tableName, record.Key)
+	logHandler.Trace.Printf("Running default/validation processing for %v record %v", tableName, record.Key)
 	if calculationError := record.defaultProcessing(); calculationError != nil {
 		rtnErr := ce.ErrDAOCaclulationWrapper(tableName, calculationError)
-		logHandler.ErrorLogger.Print(rtnErr.Error())
+		logHandler.Error.Print(rtnErr.Error())
 		clock.Stop(0)
 		return New(), rtnErr
 	}
 
-	logHandler.TraceLogger.Printf("Running validation processing for %v record %v", tableName, record.Key)
+	logHandler.Trace.Printf("Running validation processing for %v record %v", tableName, record.Key)
 	if validationError := record.validationProcessing(); validationError != nil {
 		valErr := ce.ErrDAOValidationWrapper(tableName, validationError)
-		logHandler.ErrorLogger.Print(valErr.Error())
+		logHandler.Error.Print(valErr.Error())
 		clock.Stop(0)
 		return New(), valErr
 	}
 
-	logHandler.TraceLogger.Printf("Performing audit action for %v record %v", tableName, record.Key)
+	logHandler.Trace.Printf("Performing audit action for %v record %v", tableName, record.Key)
 	auditErr := record.Audit.Action(ctx, auditAction.WithMessage(note))
 	if auditErr != nil {
 		audErr := ce.ErrDAOUpdateAuditWrapper(tableName, record.Key, auditErr)
-		logHandler.ErrorLogger.Print(audErr.Error())
+		logHandler.Error.Print(audErr.Error())
 		clock.Stop(0)
 		return New(), audErr
 	}
 
 	var actionError error
 	if isCreateOperation {
-		logHandler.TraceLogger.Printf("Creating %v record %v %v", tableName, record.Key, record.Raw)
+		logHandler.Trace.Printf("Creating %v record %v %v", tableName, record.Key, record.Raw)
 		actionError = activeDBConnection.Create(record)
-		logHandler.TraceLogger.Printf("Created %v record %v %v", tableName, record.Key, record.Raw)
+		logHandler.Trace.Printf("Created %v record %v %v", tableName, record.Key, record.Raw)
 
 	} else {
-		logHandler.TraceLogger.Printf("Updating %v record %v %v", tableName, record.Key, record.Raw)
+		logHandler.Trace.Printf("Updating %v record %v %v", tableName, record.Key, record.Raw)
 		actionError = activeDBConnection.Update(record)
-		logHandler.TraceLogger.Printf("Updated %v record %v %v", tableName, record.Key, record.Raw)
+		logHandler.Trace.Printf("Updated %v record %v %v", tableName, record.Key, record.Raw)
 	}
 
-	logHandler.TraceLogger.Printf("POST %v operation completed for %v record %v %v", operation, tableName, record.Key, record.Raw)
-	logHandler.TraceLogger.Printf("POST %v operation completed for %v record %v %v", operation, tableName, record.Key, record.Raw)
+	logHandler.Trace.Printf("POST %v operation completed for %v record %v %v", operation, tableName, record.Key, record.Raw)
+	logHandler.Trace.Printf("POST %v operation completed for %v record %v %v", operation, tableName, record.Key, record.Raw)
 	if actionError != nil {
 		updErr := ce.ErrDAOUpdateWrapper(tableName, actionError)
-		logHandler.ErrorLogger.Panic(updErr.Error(), actionError)
+		logHandler.Error.Panic(updErr.Error(), actionError)
 		clock.Stop(0)
 		return New(), updErr
 	}
 
 	if locked {
 		record.Lock.Unlock()
-		logHandler.LockLogger.Printf("[%v,%v] Unlocked record after post-processing: %v", tableName, record.Raw, operation)
+		logHandler.Unlock.Printf("[%v,%v] Unlocked record after post-processing: %v", tableName, record.Raw, operation)
 	}
 
 	// // Unlock record before post-processing to avoid deadlocks if post-processing updates the record
@@ -162,7 +169,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 
 	if isPostProcessingRun {
 		// Skip post-processing to avoid infinite loop when record is updated during post-processing
-		logHandler.TraceLogger.Printf("Skipping post-processing for %v record %v to avoid infinite loop", tableName, record.Key)
+		logHandler.Trace.Printf("Skipping post-processing for %v record %v to avoid infinite loop", tableName, record.Key)
 		clock.Stop(1)
 		return record, nil
 	}
@@ -173,23 +180,23 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	// logHandler.TraceLogger.Printf("Post Processing: LOCKED RECORD: %v", record.Raw)
 
 	if !isCreateOperation {
-		logHandler.TraceLogger.Printf("Starting post-update processing for %v record %v", tableName, record.Key)
+		logHandler.Trace.Printf("Starting post-update processing for %v record %v", tableName, record.Key)
 		err = record.postUpdateProcessing(ctx)
-		logHandler.TraceLogger.Printf("Post-Update processing completed for %v record %v err %e", tableName, record.Key, err)
+		logHandler.Trace.Printf("Post-Update processing completed for %v record %v err %e", tableName, record.Key, err)
 	} else {
-		logHandler.TraceLogger.Printf("Starting post-create processing for %v record %v", tableName, record.Key)
+		logHandler.Trace.Printf("Starting post-create processing for %v record %v", tableName, record.Key)
 		err = record.postCreateProcessing(ctx)
-		logHandler.TraceLogger.Printf("Post-Create processing completed for %v record %v err %e", tableName, record.Key, err)
+		logHandler.Trace.Printf("Post-Create processing completed for %v record %v err %e", tableName, record.Key, err)
 	}
 
 	// logHandler.TraceLogger.Printf("Post Processing: UNLOCKING RECORD: %v", record.Raw)
 	// record.Lock.Unlock()
 	// logHandler.TraceLogger.Printf("Post Processing: UNLOCKED RECORD: %v", record.Raw)
 
-	logHandler.TraceLogger.Printf("POST %v processing completed for %v record %v err %e %+v", operation, tableName, record.Key, err, record)
+	logHandler.Trace.Printf("POST %v processing completed for %v record %v err %e %+v", operation, tableName, record.Key, err, record)
 	if err != nil {
 		createProcErr := ce.ErrDAOCreateWrapper(tableName, record.Key, err)
-		logHandler.ErrorLogger.Print(createProcErr.Error())
+		logHandler.Error.Print(createProcErr.Error())
 		clock.Stop(0)
 		return New(), createProcErr
 	}
@@ -216,8 +223,8 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	// 	}
 	// }
 
-	logHandler.TraceLogger.Printf("%v operation completed for %v record %v %v %+v", operation, tableName, record.Key, record.Raw, record)
-	logHandler.TraceLogger.Printf("%v", godump.DumpJSONStr(record))
+	logHandler.Trace.Printf("%v operation completed for %v record %v %v %+v", operation, tableName, record.Key, record.Raw, record)
+	logHandler.Trace.Printf("%v", godump.DumpJSONStr(record))
 	clock.Stop(1)
 	return record, nil
 }
@@ -225,9 +232,9 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 func (record *{{.TypeName}}) unlock(isCreate bool) error {
 	record.Lock.Unlock()
 	if isCreate {
-		logHandler.LockLogger.Printf("UNLOCKED NEW RECORD: %v", record.Raw)
+		logHandler.Lock.Printf("UNLOCKED NEW RECORD: %v", record.Raw)
 	} else {
-		logHandler.LockLogger.Printf("UNLOCKED RECORD: %v", record.Raw)
+		logHandler.Lock.Printf("UNLOCKED RECORD: %v", record.Raw)
 	}
 	return nil
 }
@@ -249,13 +256,13 @@ func postGetList(ctx context.Context, recordList []*{{.TypeName}}) ([]*{{.TypeNa
 
 // postGet runs upgrade/default/validation processing after a record is loaded.
 func (record *{{.TypeName}}) postGet(ctx context.Context) error {
-	logHandler.TraceLogger.Printf("PostGet processing for %v record %v", tableName, record.Key)
+	logHandler.Trace.Printf("PostGet processing for %v record %v", tableName, record.Key)
 	if upgradeError := record.upgradeProcessing(); upgradeError != nil {
 		return upgradeError
 	}
 	err := record.postGetProcessing(ctx)
 	if err != nil {
-		logHandler.ErrorLogger.Printf("PostGet processing error for %v record %v: %v", tableName, record.Key, err)
+		logHandler.Error.Printf("PostGet processing error for %v record %v: %v", tableName, record.Key, err)
 		return err
 	}
 	return nil
@@ -264,18 +271,18 @@ func (record *{{.TypeName}}) postGet(ctx context.Context) error {
 // checkForDuplicate checks whether the record key already exists.
 func (record *{{.TypeName}}) checkForDuplicate() error {
 	dao.CheckDAOReadyState(tableName, audit.PROCESS, databaseConnectionActive)
-	logHandler.TraceLogger.Printf("Checking for duplicate %v record %v", tableName, record.Key)
+	logHandler.Trace.Printf("Checking for duplicate %v record %v", tableName, record.Key)
 	if duplicateCheck != nil {
 		found, err := duplicateCheck(record)
 		if err != nil {
 			return err
 		}
 		if found {
-			logHandler.TraceLogger.Printf("A duplicate match for %v, %v has been found", tableName, record.Key)
+			logHandler.Warning.Printf("A duplicate match for %v, %v has been found", tableName, record.Key)
 			return ce.ErrDuplicate
 		}
 		return nil
 	}
-	logHandler.TraceLogger.Printf("No duplicate check function defined for %v", tableName)
+	logHandler.Trace.Printf("No duplicate check function defined for %v", tableName)
 	return nil
 }
