@@ -21,6 +21,12 @@ The `dao-gen` tool generates complete DAO packages with:
 ./dao-gen -pkg <package-name> -type <TypeName> -out <output-directory>
 ```
 
+### Build from source
+
+```bash
+go build -o dao-gen
+```
+
 ### Command Line Options
 
 - `-pkg` (required) - Package name for the generated code
@@ -231,4 +237,7 @@ Current version: 0.5.0 (Updated: 2026-01-24)
 ## See Also
 
 - [TemplateStore.definition](./TemplateStore.definition) - Example definition file with all entity types
-- [../dao/test/templateStoreV2/](../dao/test/templateStoreV2/) - Reference implementation
+- [Root overview](../../README.md)
+- [Code generation guide](../../CODE-GEN.md)
+- [TemplateStoreV3 example](../../dao/test/templateStoreV3/README.md)
+- [TripStore example](../../dao/test/templateStoreV6/README.md)

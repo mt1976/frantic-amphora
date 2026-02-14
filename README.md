@@ -1,6 +1,6 @@
 # frantic-amphora
 
-**frantic-amphora** is a comprehensive Data Access Object (DAO) framework for Go applications, providing type-safe database operations, code generation, and enterprise features built on top of Storm (BoltDB). It's designed to reduce boilerplate while maintaining flexibility through extensible hooks and validators.
+**frantic-amphora** is a comprehensive Data Access Object (DAO) framework for Go applications, providing type-safe database operations, code generation, and enterprise features built on top of Storm (BoltDB). It is designed to reduce boilerplate while maintaining flexibility through extensible hooks and validators.
 
 ## What is frantic-amphora?
 
@@ -81,7 +81,7 @@ See the **[dao-gen README](cmd/dao-gen/README.md)** for details on field types a
 
 ## Example Implementation
 
-The **[templateStoreV2](dao/test/templateStoreV2/README.md)** package provides a complete reference implementation demonstrating:
+The **[templateStoreV3](dao/test/templateStoreV3/README.md)** and **[tripStore](dao/test/templateStoreV6/README.md)** packages provide complete reference implementations demonstrating:
 
 - All available entity types (Bool, Int variants, Float variants, Decimal, Money, Currency, etc.)
 - Function registration pattern for custom logic
@@ -147,10 +147,24 @@ users, err := database.GetAllTyped[User](db)
 
 ## Documentation
 
+### Documentation Index
+
+- [Root overview](README.md)
+- [Code generation guide](CODE-GEN.md)
+- [DAO generator tool](cmd/dao-gen/README.md)
+- [DAO generator test output](cmd/dao-gen/test-output/README.md)
+- [Database helpers](dao/database/README.md)
+- [TemplateStoreV3 example](dao/test/templateStoreV3/README.md)
+- [TripStore example](dao/test/templateStoreV6/README.md)
+- [Import/Export helper](importExportHelper/README.md)
+- [Jobs scheduler](jobs/README.md)
+- [Sample config](data/config/README.md)
+
 - **[Code Generation Guide](CODE-GEN.md)** - Complete guide to using `dao-gen`
 - **[dao-gen Tool Reference](cmd/dao-gen/README.md)** - Tool-specific documentation
 - **[Database Package](dao/database/README.md)** - Database layer and generic helpers
-- **[TemplateStoreV2 Example](dao/test/templateStoreV2/README.md)** - Reference implementation
+- **[TemplateStoreV3 Example](dao/test/templateStoreV3/README.md)** - Reference implementation
+- **[TripStore Example](dao/test/templateStoreV6/README.md)** - Reference implementation
 - **[Import/Export Helper](importExportHelper/README.md)** - Data import/export utilities
 - **[Jobs Package](jobs/README.md)** - Background job scheduling
 

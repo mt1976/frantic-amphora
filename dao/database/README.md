@@ -27,7 +27,7 @@ So usage is:
 
 Fetches a single record where `field == value`.
 
-- Returns `error` when not found (Storm’s `ErrNotFound` or wrapped upstream).
+- Returns `error` when not found (Storm's `ErrNotFound` or wrapped upstream).
 
 Example:
 
@@ -60,7 +60,7 @@ func loadUser(db *database.DB, key string) (User, error) {
 
 Fetches all records of type `T`.
 
-- The optional `options` are passed through to Storm’s `All` (ordering, limits, etc.).
+- The optional `options` are passed through to Storm's `All` (ordering, limits, etc.).
 
 Example:
 
@@ -74,7 +74,7 @@ func loadAllUsers(db *database.DB) ([]User, error) {
     // No options
     return database.GetAllTyped[User](db)
 
-    // With options (example only — depends on Storm’s index.Options)
+    // With options (example only - depends on Storm's index.Options)
     // return database.GetAllTyped[User](db, func(o *index.Options) {
     //     o.Skip = 0
     //     o.Limit = 100
@@ -131,4 +131,10 @@ A concrete example DAO that uses these helpers is the TemplateStoreV2 implementa
 
 See:
 
-- dao/test/templateStoreV2/templateStoreV2.go
+- dao/test/templateStoreV3/templateStoreV3.go
+- dao/test/templateStoreV6/templateStoreV6.go
+
+## See also
+
+- [Root overview](../../README.md)
+- [Code generation guide](../../CODE-GEN.md)

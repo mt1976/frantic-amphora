@@ -2,7 +2,7 @@
 
 `importExportHelper` contains helpers for importing and exporting data in CSV and JSON formats.
 
-It’s designed to work with the project’s standard file locations (via `paths`) and logging conventions.
+It is designed to work with the project standard file locations (via `paths`) and logging conventions.
 
 ## Key functions
 
@@ -15,7 +15,7 @@ It’s designed to work with the project’s standard file locations (via `paths
 - CSV delimiter defaults to `FIELDSEPARATOR` (currently `|`).
 - `ExportCSV` writes to the defaults folder (`paths.Defaults()`), and appends a generated `# ...` metadata line at the end of the file.
 - `ExportJSON` writes one JSON file per record into the dumps folder (`paths.Dumps()`).
-- Naming uses a KSUID-based prefix (via `idHelpers.GetUUID()`), and attempts to include the record’s ID field.
+- Naming uses a KSUID-based prefix (via `idHelpers.GetUUID()`), and attempts to include the record's ID field.
 
 ## Example
 
@@ -41,3 +41,8 @@ func importUsers() error {
     })
 }
 ```
+
+## See also
+
+- [Root overview](../README.md)
+- [Sample config](../data/config/README.md)

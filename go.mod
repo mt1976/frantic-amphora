@@ -6,7 +6,7 @@ require (
 	github.com/alitto/pond/v2 v2.6.0
 	github.com/dustin/go-humanize v1.0.1
 	github.com/goforj/godump v1.9.0
-	github.com/mt1976/frantic-core v1.10.0
+	github.com/mt1976/frantic-core v1.20.0
 )
 
 require (
@@ -15,7 +15,7 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/gopherjs/gopherjs v1.20.0 // indirect
+	github.com/gopherjs/gopherjs v1.20.1 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
@@ -43,9 +43,3 @@ require (
 	golang.org/x/text v0.34.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )
-
-replace github.com/mt1976/frantic-core => ../frantic-core
-
-replace github.com/mt1976/frantic-core/loghandler => ../frantic-core/loghandler
-
-replace github.com/mt1976/frantic-core/contextHandler => ../frantic-core/contextHandler

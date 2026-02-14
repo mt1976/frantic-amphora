@@ -1,6 +1,8 @@
 # testentity
 
-`testentity` is a comprehensive example DAO package demonstrating the frantic-amphora framework's capabilities. It serves as a modernized template showcasing typed database operations, cache integration, background workers, import/export functionality, and comprehensive entity type examples.
+`testentity` is a comprehensive example DAO package demonstrating the frantic-amphora framework capabilities. It serves as a modernized template showcasing typed database operations, cache integration, background workers, import/export functionality, and comprehensive entity type examples.
+
+This folder is generated output from the `dao-gen` tool and is primarily used for template validation and regression checks.
 
 ## Overview
 
@@ -191,3 +193,8 @@ count, err := CountWhere(Fields.GID, "admin-group")
 - Adjust the domain fields in the model file.
 - Update validation/defaulting hooks.
 - Replace any placeholder logic (e.g. clone, import processor) with real implementations.
+
+## See also
+
+- [DAO generator tool](../README.md)
+- [Root overview](../../../README.md)
