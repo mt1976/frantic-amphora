@@ -8,27 +8,27 @@ import (
 
 // Audit represents the audit information for a data entity
 type Audit struct {
-	CreatedAt        time.Time
-	CreatedBy        string
-	CreatedOn        string
-	CreatedAtDisplay string
-	Updates          []AuditUpdateInfo
-	DeletedAt        time.Time
-	DeletedBy        string
-	DeletedOn        string
-	DeletedAtDisplay string
-	AuditSequence    entities.Int
-	DBVersion        entities.Int
+	CreatedAt        time.Time         `json:"CreatedAt"`
+	CreatedBy        string            `json:"CreatedBy"`
+	CreatedOn        string            `json:"CreatedOn"`
+	CreatedAtDisplay string            `json:"CreatedAtDisplay"`
+	Updates          []AuditUpdateInfo `json:"Updates,omitempty"`
+	DeletedAt        time.Time         `json:"DeletedAt"`
+	DeletedBy        string            `json:"DeletedBy"`
+	DeletedOn        string            `json:"DeletedOn"`
+	DeletedAtDisplay string            `json:"DeletedAtDisplay"`
+	AuditSequence    entities.Int      `json:"AuditSequence"`
+	DBVersion        entities.Int      `json:"DBVersion"`
 	// Empty     time.Time // Convience Field - Used to avoid erros with dates.
 }
 
 type AuditUpdateInfo struct {
-	UpdatedAt        time.Time
-	UpdateAction     string
-	UpdatedBy        string
-	UpdatedOn        string
-	UpdatedAtDisplay string
-	UpdateNotes      string
+	UpdatedAt        time.Time `json:"UpdatedAt"`
+	UpdateAction     string    `json:"UpdateAction"`
+	UpdatedBy        string    `json:"UpdatedBy"`
+	UpdatedOn        string    `json:"UpdatedOn"`
+	UpdatedAtDisplay string    `json:"UpdatedAtDisplay"`
+	UpdateNotes      string    `json:"UpdateNotes"`
 }
 
 // Action represents an audit action with its properties
