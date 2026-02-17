@@ -67,8 +67,8 @@ func PreRun(job Job) {
 func PostRun(job Job) {
 	// Purpose: To log the completion of a job
 	nextRun := GetHumanReadableCronFreq(job.Schedule())
-	logHandler.Service.Printf("[%v] Completed", job.Name())
-	logHandler.Service.Printf("[%v] Scheduled (%v) Next Run: %v", job.Name(), job.Schedule(), nextRun)
+	// logHandler.Service.Printf("[%v] Completed", job.Name())
+	logHandler.Service.Printf("[%v] Completed - Scheduled (%v) Next Run: %v", job.Name(), job.Schedule(), nextRun)
 }
 
 func CodedName(job Job) string {
