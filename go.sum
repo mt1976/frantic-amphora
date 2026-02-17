@@ -9,6 +9,8 @@ github.com/Sereal/Sereal/Go/sereal v0.0.0-20250307140414-035be09f1bc8 h1:6+qQvLk
 github.com/Sereal/Sereal/Go/sereal v0.0.0-20250307140414-035be09f1bc8/go.mod h1:JwrycNnC8+sZPDyzM3MQ86LvaGzSpfxg885KOOwFRW4=
 github.com/alitto/pond/v2 v2.6.0 h1:R4haldpYpIVnU7ZgHu4VexC8I/yDE2G4KF9GzRV+aIQ=
 github.com/alitto/pond/v2 v2.6.0/go.mod h1:xkjYEgQ05RSpWdfSd1nM3OVv7TBhLdy7rMp3+2Nq+yE=
+github.com/alitto/pond/v2 v2.6.2 h1:Sphe40g0ILeM1pA2c2K+Th0DGU+pt0A/Kprr+WB24Pw=
+github.com/alitto/pond/v2 v2.6.2/go.mod h1:xkjYEgQ05RSpWdfSd1nM3OVv7TBhLdy7rMp3+2Nq+yE=
 github.com/asdine/storm/v3 v3.2.1 h1:I5AqhkPK6nBZ/qJXySdI7ot5BlXSZ7qvDY1zAn5ZJac=
 github.com/asdine/storm/v3 v3.2.1/go.mod h1:LEpXwGt4pIqrE/XcTvCnZHT5MgZCV6Ub9q7yQzOFWr0=
 github.com/beorn7/floats v1.0.0 h1:DDiZ9c+GfTNiebVwfH/h92PCNyql+NPM9ownCkZBoHQ=
@@ -63,6 +65,8 @@ github.com/leodido/go-urn v1.4.0 h1:WT9HwE9SGECu3lg4d/dIA+jxlljEa1/ffXKmRjqdmIQ=
 github.com/leodido/go-urn v1.4.0/go.mod h1:bvxc+MVxLKB4z00jd1z+Dvzr47oO32F/QSNjSBOlFxI=
 github.com/mt1976/frantic-core v1.20.0 h1:x9YEjWVmZNd6p7Db2sS6m3pkEVWQUHtB+NVaTttBSOc=
 github.com/mt1976/frantic-core v1.20.0/go.mod h1:viq7lqLk+CReh3DLAI9OcQlBrCN+a/17/1l0qe+0RJY=
+github.com/mt1976/frantic-core v1.21.0 h1:SZNWqefgTROcHqgnIgbXENokNeT+Ad/ZWise5/yzU9c=
+github.com/mt1976/frantic-core v1.21.0/go.mod h1:gRNI6cJ0+gadIZxaDmjrcQjAwDVkUC3K8jDKzgsW4Jc=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rivo/uniseg v0.4.7 h1:WUdvkW8uEhrYfLC4ZzdpI2ztxP1I582+49Oc5Mq64VQ=
