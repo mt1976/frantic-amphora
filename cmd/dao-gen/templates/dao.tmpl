@@ -166,7 +166,7 @@ func Create(ctx context.Context, basis *{{.TypeName}}) (*{{.TypeName}}, error) {
 	}
 	// godump.Dump(basis)
 	logHandler.Trace.Printf("**** Created %v Record: %v %+v", tableName, basis.Raw, &basis)
-	logHandler.Database.Printf("Created %v record %v(%v)", tableName, basis.Key, basis.Raw)
+	logHandler.Event.Printf("Created %v record %v(%v)", tableName, basis.Key, basis.Raw)
 	return basis, nil
 }
 

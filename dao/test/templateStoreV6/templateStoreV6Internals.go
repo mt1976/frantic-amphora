@@ -145,6 +145,12 @@ func (record *TemplateStoreV6) insertOrUpdate(ctx context.Context, note string, 
 		logHandler.Trace.Printf("Updated %v record %v %v", tableName, record.Key, record.Raw)
 	}
 
+	if actionError != nil && strings.Contains(actionError.Error(), "already exists") && auditAction.Is(audit.IMPORT) {
+		// If we get a duplicate key error during an import, we want to update the existing record instead of failing. This allows us to re-import data to update existing records without having to delete them first.
+		logHandler.Warning.Printf("Duplicate key error during import for %v record %v. Skipping. Error: %v", tableName, record.Key, actionError)
+		actionError = nil
+	}
+
 	logHandler.Trace.Printf("POST %v operation completed for %v record %v %v", operation, tableName, record.Key, record.Raw)
 	logHandler.Trace.Printf("POST %v operation completed for %v record %v %v", operation, tableName, record.Key, record.Raw)
 	if actionError != nil {

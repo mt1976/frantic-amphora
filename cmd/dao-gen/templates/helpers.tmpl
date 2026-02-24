@@ -25,7 +25,7 @@ type (
 	preDeleteFunc      func(ctx context.Context, record *{{.TypeName}}) error
 	postGetFunc        func(ctx context.Context, record *{{.TypeName}}) error
 	clonerFunc         func(ctx context.Context, source *{{.TypeName}}) (clonedRecord *{{.TypeName}}, err error)
-	duplicateCheckFunc func(*{{.TypeName}}) (bool, error)
+	duplicateCheckFunc func(*{{.TypeName}}) (found bool, err error)
 	workerFunc         func(string, string)
 	postCreateFunc     func(ctx context.Context, record *{{.TypeName}}) error
 	postUpdateFunc     func(ctx context.Context, record *{{.TypeName}}) error
@@ -183,6 +183,7 @@ func (record *{{.TypeName}}) upgradeProcessing() error {
 		if err != nil {
 			return err
 		}
+		//*record = *updatedRecord
 		logHandler.Database.Printf("[UPGRADE] Upgrade complete for record %v of %v", record.Key, TableName.String())
 	}
 	return nil

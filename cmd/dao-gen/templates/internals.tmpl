@@ -32,6 +32,7 @@ const (
 func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, auditAction audit.Action, operation op, isPostProcessingRun bool) (*{{.TypeName}}, error) {
 	logHandler.Trace.Printf("INSERTORUPDATE called for %v record: %v operation: %v action: %v isPostProcessing: %t", tableName, record.Raw, operation, auditAction.Code(), isPostProcessingRun)
 	logHandler.Database.Printf("INSERTORUPDATE called for %v record %v operation %v action %v postProcessing %t", tableName, record.Key, operation, auditAction.Code(), isPostProcessingRun)
+	logHandler.Trace.Printf("INSERTORUPDATE called for %v record %v operation %v action %v postProcessing %t", tableName, record.Key, operation, auditAction.Code(), isPostProcessingRun)
 
 	isCreateOperation := false
 	if operation == CREATE || operation == IMPORT {
@@ -142,6 +143,12 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 		logHandler.Trace.Printf("Updating %v record %v %v", tableName, record.Key, record.Raw)
 		actionError = activeDBConnection.Update(record)
 		logHandler.Trace.Printf("Updated %v record %v %v", tableName, record.Key, record.Raw)
+	}
+
+	if actionError != nil && strings.Contains(actionError.Error(), "already exists") && auditAction.Is(audit.IMPORT) {
+		// If we get a duplicate key error during an import, we want to update the existing record instead of failing. This allows us to re-import data to update existing records without having to delete them first.
+		logHandler.Warning.Printf("Duplicate key error during import for %v record %v. Skipping. Error: %v", tableName, record.Key, actionError)
+		actionError = nil
 	}
 
 	logHandler.Trace.Printf("POST %v operation completed for %v record %v %v", operation, tableName, record.Key, record.Raw)

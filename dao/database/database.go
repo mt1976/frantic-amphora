@@ -393,7 +393,7 @@ func (db *DB) Create(data any) error {
 		logHandler.Database.Printf("[CREATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
 		err = db.connection.Save(data)
 		if err != nil {
-			logHandler.Error.Printf("[CREATE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+			logHandler.Warning.Printf("[CREATE] %v [...%v.db] (%.10s) - Error: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
 		}
 	}
 	return err
