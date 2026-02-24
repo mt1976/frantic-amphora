@@ -32,6 +32,8 @@ type (
 	postDeleteFunc     func(ctx context.Context, record *TemplateStoreV6) error
 	postCloneFunc      func(ctx context.Context, record *TemplateStoreV6) error
 	postDropFunc       func(ctx context.Context) error
+	importerFunc       func(ctx context.Context, record *TemplateStoreV6) (err error)
+	exporterFunc       func(ctx context.Context, record *TemplateStoreV6) (err error)
 )
 
 var (
@@ -50,6 +52,8 @@ var (
 	postClone      postCloneFunc
 	postDrop       postDropFunc
 	postClearDown  postDropFunc
+	importer       importerFunc
+	exporter       exporterFunc
 )
 
 // RegisterCreator registers a creator function for TripStore.
@@ -155,6 +159,20 @@ func RegisterWorker(fn workerFunc) {
 	logHandler.Event.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
 	logHandler.Database.Printf("[REGISTER] Worker for %v (%v)", tableName, dao.GetFunctionName(fn))
 	worker = fn
+}
+
+// RegisterImporter registers an importer function for TripStore.
+func RegisterImporter(fn importerFunc) {
+	logHandler.Event.Printf("[REGISTER] Importer for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Importer for %v (%v)", tableName, dao.GetFunctionName(fn))
+	importer = fn
+}
+
+// RegisterExporter registers an exporter function for TripStore.
+func RegisterExporter(fn exporterFunc) {
+	logHandler.Event.Printf("[REGISTER] Exporter for %v (%v)", tableName, dao.GetFunctionName(fn))
+	logHandler.Database.Printf("[REGISTER] Exporter for %v (%v)", tableName, dao.GetFunctionName(fn))
+	exporter = fn
 }
 
 // upgradeProcessing performs any one-time upgrade or migration logic on the record.
