@@ -51,7 +51,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	if !isCreateOperation && !(operation == UPDATE && isPostProcessingRun) {
 		logHandler.Trace.Printf("Attempting to lock %v record %v for %v operation", tableName, record.Key, operation)
 		logHandler.Lock.Printf("[%v,%v] Locking for %v", tableName, record.Raw, operation)
-		record.Lock.Lock()
+		record.lock.Lock()
 		locked = true
 	} else {
 		// For create operations, we will lock the record later in the process after the record has been created and we have a valid key. This is to prevent locking a record that may not be created if there are validation errors or duplicate key issues.
@@ -161,14 +161,14 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	}
 
 	if locked {
-		record.Lock.Unlock()
+		record.lock.Unlock()
 		logHandler.Unlock.Printf("[%v,%v] Unlocked record after post-processing: %v", tableName, record.Raw, operation)
 	}
 
 	// // Unlock record before post-processing to avoid deadlocks if post-processing updates the record
 	// if !isCreateOperation {
 	// 	logHandler.TraceLogger.Printf("UNLOCKING RECORD before post-processing: %v", record.Raw)
-	// 	record.Lock.Unlock()
+	// 	record.lock.Unlock()
 	// 	logHandler.LockLogger.Printf("UNLOCKED RECORD before post-processing: %v", record.Raw)
 	// } else {
 	// 	logHandler.TraceLogger.Printf("Deferring unlock for new record until after creation: %v", record.Raw)
@@ -183,7 +183,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 
 	var err error
 	// logHandler.LockLogger.Printf("Post Processing: LOCKING RECORD: %v", record.Raw)
-	// record.Lock.Lock()
+	// record.lock.Lock()
 	// logHandler.TraceLogger.Printf("Post Processing: LOCKED RECORD: %v", record.Raw)
 
 	if !isCreateOperation {
@@ -197,7 +197,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 	}
 
 	// logHandler.TraceLogger.Printf("Post Processing: UNLOCKING RECORD: %v", record.Raw)
-	// record.Lock.Unlock()
+	// record.lock.Unlock()
 	// logHandler.TraceLogger.Printf("Post Processing: UNLOCKED RECORD: %v", record.Raw)
 
 	logHandler.Trace.Printf("POST %v processing completed for %v record %v err %e %+v", operation, tableName, record.Key, err, record)
@@ -237,7 +237,7 @@ func (record *{{.TypeName}}) insertOrUpdate(ctx context.Context, note string, au
 }
 
 func (record *{{.TypeName}}) unlock(isCreate bool) error {
-	record.Lock.Unlock()
+	record.lock.Unlock()
 	if isCreate {
 		logHandler.Lock.Printf("UNLOCKED NEW RECORD: %v", record.Raw)
 	} else {

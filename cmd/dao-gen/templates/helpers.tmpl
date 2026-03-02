@@ -265,15 +265,15 @@ func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
 				// Lock record for the duration of the post-create processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent concurrent updates to the same record during that time.
 				logHandler.Lock.Printf("[%v,%v] Locked - POSTCREATE", TableName.String(), record.Raw)
 				logHandler.Trace.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
-				record.Lock.Lock()
+				record.lock.Lock()
 				err := postCreate(ctx, record)
 				if err != nil {
 					logHandler.Error.Printf("Error during postCreateProcessing for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
-					record.Lock.Unlock()
+					record.lock.Unlock()
 					logHandler.Unlock.Printf("[%v,%v] Unlocked - POSTCREATE with error %v", TableName.String(), record.Raw, err.Error())
 					return err
 				}
-				record.Lock.Unlock()
+				record.lock.Unlock()
 				logHandler.Unlock.Printf("[%v,%v] Unlocked - POSTCREATE", TableName.String(), record.Raw)
 				logHandler.Trace.Printf("[POSTCREATE] Post-create processing complete for %v Record: %v", TableName.String(), record.Key)
 				return nil
@@ -307,18 +307,18 @@ func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) error {
 			task := workerPool.SubmitErr(func() error {
 				logHandler.Trace.Printf("[POSTUPDATE] Starting post-update processing for %v Record: %v Lock: %v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
 				// Lock record for the duration of the post-update processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent
-				record.Lock.Lock()
+				record.lock.Lock()
 				logHandler.Lock.Printf("[%v,%v] Locked - POSTUPDATE", TableName.String(), record.Raw)
 				logHandler.Trace.Printf("CONTEXT=[%v]", godump.DumpStr(ctx))
 				err := postUpdate(ctx, record)
 				if err != nil {
-					record.Lock.Unlock()
+					record.lock.Unlock()
 					logHandler.Unlock.Printf("[%v,%v] Unlocked - POSTUPDATE with error %v", TableName.String(), record.Raw, err.Error())
 					logHandler.Error.Printf("error during postUpdateProcessing task for %v Record: %v Error: %v", TableName.String(), record.Key, err.Error())
 					// panic(err)
 					return err
 				}
-				record.Lock.Unlock()
+				record.lock.Unlock()
 				logHandler.Unlock.Printf("[%v,%v] Unlocked - POSTUPDATE", TableName.String(), record.Raw)
 				logHandler.Database.Printf("[POSTUPDATE] Post-update processing complete for %v Record: %v", TableName.String(), record.Key)
 				return nil
