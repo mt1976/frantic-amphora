@@ -83,8 +83,7 @@ func (a *Audit) Action(ctx context.Context, action Action) error {
 	}
 	update.UpdateNotes = updateMessage
 	// a.DBVersion = dao.Version
-	dbVersion := getDBVersion()
-	a.DBVersion.Set(dbVersion)
+	a.Version = getDBVersion()
 	if !(action.Is(SERVICE) || action.Is(SILENT) || action.IsSilent()) {
 		a.Updates = append(a.Updates, update)
 	}

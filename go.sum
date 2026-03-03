@@ -38,6 +38,8 @@ github.com/gocarina/gocsv v0.0.0-20240520201108-78e41c74b4b1 h1:FWNFq4fM1wPfcK40
 github.com/gocarina/gocsv v0.0.0-20240520201108-78e41c74b4b1/go.mod h1:5YoVOkjYAQumqlV356Hj3xeYh4BdZuLE0/nRkf2NKkI=
 github.com/goforj/godump v1.9.0 h1:Y/APfWKQKnJetXgVJxDqD7vEpTGSgAwbKJGmj0UAteI=
 github.com/goforj/godump v1.9.0/go.mod h1:/Vy+p50JtOkwsFN5dA1HQ7LS5gtPk3f61DaP4UR2o4s=
+github.com/goforj/godump v1.9.1 h1:9OGpb978Ytz3B59d5Yi2PzRYYLid6UkmhYDIDNiF15Y=
+github.com/goforj/godump v1.9.1/go.mod h1:JsuL6AEZfKIU+iR5ewL6iQ2fIuhvLtPmJDH47M9Ptrc=
 github.com/golang/protobuf v1.3.1/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.3.2/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
@@ -67,6 +69,8 @@ github.com/mt1976/frantic-core v1.20.0 h1:x9YEjWVmZNd6p7Db2sS6m3pkEVWQUHtB+NVaTt
 github.com/mt1976/frantic-core v1.20.0/go.mod h1:viq7lqLk+CReh3DLAI9OcQlBrCN+a/17/1l0qe+0RJY=
 github.com/mt1976/frantic-core v1.21.0 h1:SZNWqefgTROcHqgnIgbXENokNeT+Ad/ZWise5/yzU9c=
 github.com/mt1976/frantic-core v1.21.0/go.mod h1:gRNI6cJ0+gadIZxaDmjrcQjAwDVkUC3K8jDKzgsW4Jc=
+github.com/mt1976/frantic-core v1.22.2 h1:ao4bq6T6PUAr98IBGLy+xyvnT/9w5+tZPbuMcRSFWJ4=
+github.com/mt1976/frantic-core v1.22.2/go.mod h1:gRNI6cJ0+gadIZxaDmjrcQjAwDVkUC3K8jDKzgsW4Jc=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rivo/uniseg v0.4.7 h1:WUdvkW8uEhrYfLC4ZzdpI2ztxP1I582+49Oc5Mq64VQ=

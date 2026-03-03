@@ -23,7 +23,7 @@ func getHostName() string {
 }
 
 // getDBVersion retrieves the current database version
-func getDBVersion() int {
+func getDBVersion() string {
 	// Implement the logic to get the DB version without importing the dao package
 	return cfg.GetDatabase_Version()
 }

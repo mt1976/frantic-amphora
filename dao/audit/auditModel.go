@@ -19,6 +19,7 @@ type Audit struct {
 	DeletedAtDisplay string            `json:"DeletedAtDisplay"`
 	AuditSequence    entities.Int      `json:"AuditSequence"`
 	DBVersion        entities.Int      `json:"DBVersion"`
+	Version          string            `json:"Version"`
 	// Empty     time.Time // Convience Field - Used to avoid erros with dates.
 }
 

@@ -5,8 +5,8 @@ go 1.26
 require (
 	github.com/alitto/pond/v2 v2.6.2
 	github.com/dustin/go-humanize v1.0.1
-	github.com/goforj/godump v1.9.0
-	github.com/mt1976/frantic-core v1.21.0
+	github.com/goforj/godump v1.9.1
+	github.com/mt1976/frantic-core v1.22.2
 )
 
 require (

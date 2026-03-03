@@ -16,10 +16,12 @@ import (
 	"github.com/mt1976/frantic-core/timing"
 )
 
-var name = "DAO"
-var DBVersion = 1
-var DB *storm.DB
-var DBName string = "default"
+var (
+	name      string = "DAO"
+	DBVersion string = "0.0.0"
+	DB        *storm.DB
+	DBName    string = "default"
+)
 
 // Initialise sets up the DAO package with the provided configuration.
 func Initialise(cfg *commonConfig.Settings) error {
