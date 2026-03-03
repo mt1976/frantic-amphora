@@ -2,6 +2,8 @@ package audit
 
 import (
 	"context"
+	"strconv"
+	"strings"
 	"sync"
 
 	"github.com/mt1976/frantic-core/application"
@@ -45,6 +47,41 @@ func (a *Audit) Spew() error {
 		}
 	}
 	return nil
+}
+
+func (a *Audit) VersionString() string {
+	if a.Version != "" {
+		return a.Version
+	} else {
+		version := strconv.Itoa(a.DBVersion.Int())
+		a.Version = version
+		return a.Version
+	}
+}
+
+func (a *Audit) VersionAbsolute() int {
+	ver := a.VersionString()
+	// Split the version on "."
+	verParts := strings.Split(ver, ".")
+	if len(verParts) == 0 {
+		return 0
+	}
+	// Get the first part of the version and convert to int
+	majorVersion, err := strconv.Atoi(verParts[0])
+	if err != nil {
+		majorVersion = 0
+	}
+	minorVersion, err := strconv.Atoi(verParts[1])
+	if err != nil {
+		minorVersion = 0
+	}
+	patchVersion, err := strconv.Atoi(verParts[2])
+	if err != nil {
+		patchVersion = 0
+	}
+	// Calculate the absolute version as (major * 10000) + (minor * 100) + patch
+	absoluteVersion := (majorVersion * 10000) + (minorVersion * 100) + patchVersion
+	return absoluteVersion
 }
 
 func getAuditUserCode(ctx context.Context) (string, error) {
