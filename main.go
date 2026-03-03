@@ -162,6 +162,11 @@ func test(ctx context.Context, phase string, baselineThings int) string {
 		}
 		logHandler.Info.Printf("Phase %v Cloned Baseline User %v %v", phase, i+1, clone.Name)
 
+		dbVersion := clone.Audit.VersionString()
+		appVersion := clone.Audit.VersionAbsolute()
+		logHandler.Event.Printf("Phase %v Cloned Baseline User '%v' Version: '%v' Absolute Version: %v", phase, clone.Name, dbVersion, appVersion)
+		logHandler.Event.Printf("Phase %v Cloned Baseline User '%v' Version: '%v' Absolute Version: %v", phase, clone.Name, dbVersion, appVersion)
+		logHandler.Event.Printf("Phase %v Cloned Baseline User '%v' Version: '%v' Absolute Version: %v", phase, clone.Name, dbVersion, appVersion)
 	}
 
 	logHandler.Info.Printf("Phase %v Baseline %v Things Added to Store %d", phase, baselineThings, len(newRecords))

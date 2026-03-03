@@ -50,27 +50,47 @@ func (a *Audit) Spew() error {
 }
 
 func (a *Audit) VersionString() string {
+	version := ""
 	if a.Version != "" {
-		return a.Version
+		version = a.Version
+		logHandler.Trace.Printf("Audit Version: %v - from Version field\n", version)
 	} else {
-		version := strconv.Itoa(a.DBVersion.Int())
+		version := "0.0.0"
+		if a.DBVersion.Int() != 0 {
+			version = strconv.Itoa(a.DBVersion.Int()) + ".0.0"
+			logHandler.Trace.Printf("Audit DBVersion: %v - from DBVersion field\n", version)
+		}
+		if version == "0.0.0" {
+			version = cfg.GetDatabase_Version()
+			logHandler.Trace.Printf("Audit Config DBVersion: %v - from Config field\n", version)
+		}
+		logHandler.Trace.Printf("Audit Version: %v - Calculated\n", version)
 		a.Version = version
-		return a.Version
+		return version
 	}
+	logHandler.Trace.Printf("Audit Version: %v - Returned\n", version)
+
+	return version
 }
 
 func (a *Audit) VersionAbsolute() int {
 	ver := a.VersionString()
 	// Split the version on "."
 	verParts := strings.Split(ver, ".")
-	if len(verParts) == 0 {
+	if len(verParts) == 0 || len(verParts) == 1 {
 		return 0
 	}
+
+	// fmt.Printf("Version Parts: %v %v %v\n", verParts, ver, len(verParts))
+	// fmt.Printf("Version Parts: %v %v %v\n", verParts, ver, len(verParts))
+	// fmt.Printf("Version Parts: %v %v %v\n", verParts, ver, len(verParts))
+
 	// Get the first part of the version and convert to int
 	majorVersion, err := strconv.Atoi(verParts[0])
 	if err != nil {
 		majorVersion = 0
 	}
+
 	minorVersion, err := strconv.Atoi(verParts[1])
 	if err != nil {
 		minorVersion = 0
