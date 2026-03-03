@@ -260,7 +260,7 @@ func (record *{{.TypeName}}) postCreateProcessing(ctx context.Context) error {
 			os.Exit(0)
 		}
 		if workerPool != nil {
-			logHandler.Trace.Printf("[POSTCREATE] Running post-create processing for %v Record: %v in worker pool Lock:%v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
+			logHandler.Trace.Printf("[POSTCREATE] Running post-create processing for %v Record: %v in worker pool Lock:%v", TableName.String(), record.Key, godump.DumpStr(record.lock))
 			task := workerPool.SubmitErr(func() error {
 				// Lock record for the duration of the post-create processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent concurrent updates to the same record during that time.
 				logHandler.Lock.Printf("[%v,%v] Locked - POSTCREATE", TableName.String(), record.Raw)
@@ -305,7 +305,7 @@ func (record *{{.TypeName}}) postUpdateProcessing(ctx context.Context) error {
 
 			logHandler.Trace.Printf("[POSTUPDATE] Running post-update processing for %v Record: %v in worker pool", TableName.String(), record.Key)
 			task := workerPool.SubmitErr(func() error {
-				logHandler.Trace.Printf("[POSTUPDATE] Starting post-update processing for %v Record: %v Lock: %v", TableName.String(), record.Key, godump.DumpStr(record.Lock))
+				logHandler.Trace.Printf("[POSTUPDATE] Starting post-update processing for %v Record: %v Lock: %v", TableName.String(), record.Key, godump.DumpStr(record.lock))
 				// Lock record for the duration of the post-update processing to prevent concurrent updates to the same record. This is necessary because the record may be updated during post-processing and we want to prevent
 				record.lock.Lock()
 				logHandler.Lock.Printf("[%v,%v] Locked - POSTUPDATE", TableName.String(), record.Raw)
