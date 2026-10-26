@@ -47,6 +47,58 @@ See **[CODE-GEN.md](CODE-GEN.md)** for complete usage instructions and command-l
 - **[jobs](jobs/README.md)** - Background job scheduling with cron support
 - **[data/config](data/config/README.md)** - Sample configuration files
 
+## Using frantic-amphora in Another Project
+
+### 1. Add it to your project
+
+From your other project's folder (it must be a Go module, i.e. have a `go.mod`):
+
+```bash
+go get github.com/mt1976/frantic-amphora@latest
+```
+
+### 2. Install the code generator
+
+```bash
+go install github.com/mt1976/frantic-amphora/cmd/dao-gen@latest
+```
+
+This puts a `dao-gen` command in your Go bin folder (`go env GOPATH` + `/bin`); make sure it is on your `PATH`.
+
+### 3. Generate a DAO package
+
+From your project's root:
+
+```bash
+dao-gen -pkg user -type User -table users -out ./dao/user
+```
+
+This creates a `user` package in `./dao/user` (model, CRUD, cache, worker, import/export, etc.).
+
+### 4. Customise the fields (optional)
+
+Create `./dao/user/User.definition` with your fields, then re-run the command with `-force`:
+
+```go
+// Domain specific fields, starts.
+UserName string `validate:"required"`
+Email    string `storm:"index,unique" validate:"required,email"`
+```
+
+See [CODE-GEN.md](CODE-GEN.md) and [cmd/dao-gen/README.md](cmd/dao-gen/README.md) for all options.
+
+### 5. Use it
+
+Import the generated package in your code (e.g. `yourmodule/dao/user`) and call its functions (`Count`, `Create`, `Update`, `Delete`, ...).
+Run `go mod tidy` afterwards to pull in any remaining dependencies.
+
+### Generated files are protected from AI edits
+
+Every generated `.go` file starts with a `// Code generated ... DO NOT EDIT.` header, the standard Go marker that
+linters and AI assistants respect, plus an explicit note telling AI tools not to modify it. To change generated code,
+edit the `.definition` file or the templates in `cmd/dao-gen/templates/` and regenerate.
+`*Helpers.go` is the exception: it is where you register your own hooks.
+
 ## Quick Start
 
 ### Using the Code Generator
