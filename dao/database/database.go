@@ -258,6 +258,163 @@ func (db *DB) GetAllWhere(field entities.Field, value, to *any) ([]*any, error) 
 	return resultList, nil
 }
 
+// GetAllPaged retrieves a single page of records into the slice pointed to by to.
+//
+// Paged reads always go to the database (bypassing the cache) so that record ordering
+// is stable between pages.
+//
+// Parameters:
+//   - to: A pointer to a slice where the retrieved records will be stored.
+//   - page: The 1-based page number to retrieve (values below 1 are treated as 1).
+//   - pageSize: The maximum number of records per page (must be at least 1).
+//
+// Returns:
+//   - []*any: A slice of the records on the requested page.
+//   - PageInfo: Paging information, including the total number of pages.
+//   - error: An error object if any issues occur during the retrieval process; otherwise, nil.
+func (db *DB) GetAllPaged(to any, page, pageSize int) ([]*any, PageInfo, error) {
+	tableName := entities.GetStructType(to)
+	logHandler.Database.Printf("[GET] %v ALL PAGE %d (size=%d) [...%v.db]", tableName, page, pageSize, db.Name)
+	clock := timing.Start(tableName.String(), "GetAllPaged", fmt.Sprintf("page=%d size=%d", page, pageSize))
+
+	page, offset, err := validatePaging("GetAllPaged", page, pageSize)
+	if err != nil {
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	kind, err := sliceElementInstance("GetAllPaged", to)
+	if err != nil {
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	total, err := db.connection.Count(kind)
+	if err != nil {
+		logHandler.Error.Printf("[GET] %v ALL PAGE %d [...%v.db] - Error counting records: %v", tableName, page, db.Name, err)
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+	pageInfo := NewPageInfo(page, pageSize, total)
+
+	logHandler.Database.Printf("[GET] %v ALL PAGE %d/%d (size=%d, skip=%d) [...%v.db] - From Database", tableName, pageInfo.Page, pageInfo.TotalPages, pageSize, offset, db.Name)
+	err = db.connection.Select(q.True()).Skip(offset).Limit(pageSize).Find(to)
+	if err != nil {
+		if err == storm.ErrNotFound {
+			logHandler.Database.Printf("[GET] %v ALL PAGE %d/%d [...%v.db] - No records found", tableName, pageInfo.Page, pageInfo.TotalPages, db.Name)
+			clock.Stop(0)
+			return []*any{}, pageInfo, nil
+		}
+		logHandler.Error.Printf("[GET] %v ALL PAGE %d [...%v.db] - Error from DB: %v", tableName, page, db.Name, err)
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	resultList := sliceToAnyList(to)
+	logHandler.Database.Printf("[GET] %v ALL PAGE %d/%d [...%v.db] - Retrieved %d entries from DB", tableName, pageInfo.Page, pageInfo.TotalPages, db.Name, len(resultList))
+	clock.Stop(len(resultList))
+	return resultList, pageInfo, nil
+}
+
+// GetAllPagedWhere retrieves a single page of records that match the specified
+// fields.Field and value into the slice pointed to by to.
+//
+// Paged reads always go to the database (bypassing the cache) so that record ordering
+// is stable between pages.
+//
+// Parameters:
+//   - fields.Field: The fields.Field to be used for filtering records.
+//   - value: The value of the specified fields.Field to filter records.
+//   - to: A pointer to a slice where the retrieved records will be stored.
+//   - page: The 1-based page number to retrieve (values below 1 are treated as 1).
+//   - pageSize: The maximum number of records per page (must be at least 1).
+//
+// Returns:
+//   - []*any: A slice of the matching records on the requested page.
+//   - PageInfo: Paging information, including the total number of pages.
+//   - error: An error object if any issues occur during the retrieval process; otherwise, nil.
+func (db *DB) GetAllPagedWhere(field entities.Field, value any, to any, page, pageSize int) ([]*any, PageInfo, error) {
+	tableName := entities.GetStructType(to)
+	logHandler.Database.Printf("[GET] %v WHERE %v=%v PAGE %d (size=%d) [...%v.db]", tableName, field.String(), value, page, pageSize, db.Name)
+	clock := timing.Start(tableName.String(), "GetAllPagedWhere", fmt.Sprintf("%v=%v page=%d size=%d", field.String(), value, page, pageSize))
+
+	page, offset, err := validatePaging("GetAllPagedWhere", page, pageSize)
+	if err != nil {
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	kind, err := sliceElementInstance("GetAllPagedWhere", to)
+	if err != nil {
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	if err := entities.IsValidFieldInStruct(field, kind); err != nil {
+		logHandler.Error.Printf("Field validation error for fields.Field '%v': %v", field.String(), err)
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	if err := entities.IsValidTypeForField(field, value, kind); err != nil {
+		logHandler.Error.Printf("Type validation error for fields.Field '%v': %v", field.String(), err)
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	total, err := db.connection.Select(q.Eq(field.String(), value)).Count(kind)
+	if err != nil {
+		logHandler.Error.Printf("[GET] %v WHERE %v=%v PAGE %d [...%v.db] - Error counting records: %v", tableName, field.String(), value, page, db.Name, err)
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+	pageInfo := NewPageInfo(page, pageSize, total)
+
+	logHandler.Database.Printf("[GET] %v WHERE %v=%v PAGE %d/%d (size=%d, skip=%d) [...%v.db] - From Database", tableName, field.String(), value, pageInfo.Page, pageInfo.TotalPages, pageSize, offset, db.Name)
+	err = db.connection.Select(q.Eq(field.String(), value)).Skip(offset).Limit(pageSize).Find(to)
+	if err != nil {
+		if err == storm.ErrNotFound {
+			logHandler.Database.Printf("[GET] %v WHERE %v=%v PAGE %d/%d [...%v.db] - No records found", tableName, field.String(), value, pageInfo.Page, pageInfo.TotalPages, db.Name)
+			clock.Stop(0)
+			return []*any{}, pageInfo, nil
+		}
+		logHandler.Error.Printf("Error querying %v where %v=%v page %d: %v", tableName, field.String(), value, page, err)
+		clock.Stop(0)
+		return nil, PageInfo{}, err
+	}
+
+	resultList := sliceToAnyList(to)
+	logHandler.Database.Printf("[GET] %v WHERE %v=%v PAGE %d/%d [...%v.db] - Retrieved %d entries from DB", tableName, field.String(), value, pageInfo.Page, pageInfo.TotalPages, db.Name, len(resultList))
+	clock.Stop(len(resultList))
+	return resultList, pageInfo, nil
+}
+
+// sliceElementInstance returns a pointer to a new zero value of the struct type held by
+// the slice pointed to by to, as required by Storm's Count functions.
+func sliceElementInstance(operation string, to any) (any, error) {
+	toType := reflect.TypeOf(to)
+	if toType == nil || toType.Kind() != reflect.Ptr || toType.Elem().Kind() != reflect.Slice {
+		logHandler.Error.Printf("[GET] %v - Expected pointer to slice, got %T", entities.GetStructType(to), to)
+		return nil, commonErrors.ErrInvalidTypeWrapper(operation, fmt.Sprintf("%T", to), "pointer to slice")
+	}
+	elemType := toType.Elem().Elem()
+	if elemType.Kind() == reflect.Ptr {
+		elemType = elemType.Elem()
+	}
+	return reflect.New(elemType).Interface(), nil
+}
+
+// sliceToAnyList converts the slice pointed to by to into []*any.
+func sliceToAnyList(to any) []*any {
+	sliceValue := reflect.ValueOf(to).Elem()
+	resultList := make([]*any, sliceValue.Len())
+	for i := 0; i < sliceValue.Len(); i++ {
+		elem := sliceValue.Index(i).Interface()
+		resultList[i] = &elem
+	}
+	return resultList
+}
+
 // Delete removes the specified record from the database.
 //
 // Parameters:

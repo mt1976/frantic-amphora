@@ -12,7 +12,9 @@ package {{.PackageName}}
 
 import (
 	"sync"
+{{- if usesTime}}
 	"time"
+{{- end}}
 
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/entities"

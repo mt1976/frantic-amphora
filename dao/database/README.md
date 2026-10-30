@@ -13,6 +13,8 @@ So usage is:
 - `database.GetTyped[T](db, field, value)`
 - `database.GetAllTyped[T](db, ...)`
 - `database.GetAllWhereTyped[T](db, field, value)`
+- `database.GetAllPagedTyped[T](db, page, pageSize)`
+- `database.GetAllPagedWhereTyped[T](db, field, value, page, pageSize)`
 
 ## Requirements / constraints
 
@@ -109,6 +111,25 @@ var OrderFields = struct {
 
 func loadOpenOrders(db *database.DB) ([]Order, error) {
     return database.GetAllWhereTyped[Order](db, OrderFields.Status, "OPEN")
+}
+```
+
+### `GetAllPagedTyped[T any](db *DB, page, pageSize int) ([]*T, PageInfo, error)`
+### `GetAllPagedWhereTyped[T any](db *DB, field fields.Field, value any, page, pageSize int) ([]*T, PageInfo, error)`
+
+Fetches a single 1-based page of records (optionally filtered by `field == value`) using Storm's `Skip`/`Limit`.
+
+- `page < 1` is treated as page 1; `pageSize < 1` returns an error.
+- A page beyond the last page returns an empty slice (not an error).
+- Paged reads always go to the database (the cache is bypassed) so ordering is stable between pages.
+- The returned `PageInfo` carries `Page`, `PageSize`, `TotalRecords` and `TotalPages`, plus `HasPrevious()`, `HasNext()` and `String()` (e.g. `"Page 1 of 10"`).
+- `database.TotalPages(totalRecords, pageSize)` computes the page count on its own (an empty set is reported as 1 page).
+
+Equivalent untyped methods `(*DB).GetAllPaged(to, page, pageSize)` and `(*DB).GetAllPagedWhere(field, value, to, page, pageSize)` are also available.
+
+```go
+func loadOrderPage(db *database.DB, page int) ([]*Order, database.PageInfo, error) {
+    return database.GetAllPagedWhereTyped[Order](db, OrderFields.Status, "OPEN", page, 25)
 }
 ```
 

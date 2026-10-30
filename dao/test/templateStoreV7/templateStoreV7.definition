@@ -1,0 +1,65 @@
+// TemplateStoreV7.definition
+// Add your entity fields here, these will be used in the generated DAO code.
+// This is a sample structure to illustrate various data types.
+// Modify as needed for your specific entity.
+
+    // Domain specific fields, starts.
+	EntityInt        entities.Int
+	EntityInt64      entities.Int64
+	EntityUInt64     entities.UInt64
+	EntityUInt       entities.UInt
+	EntityInt32      entities.Int32
+	EntityUInt32     entities.UInt32
+	EntityFloat      entities.Float
+	EntityFloat32    entities.Float32
+	EntityFloat64    entities.Float64
+	EntityDecimal    entities.Decimal
+	EntityMoney      entities.Money
+	EntityPercentage entities.Percentage
+	EntityRate       entities.Rate
+	EntityCurrency   entities.Currency
+	EntityBool       entities.Bool
+	EntityStormBool  entities.StormBool
+	EntityDate       entities.Date
+	EntityTime       entities.Time
+	EntityDateTime   entities.DateTime
+	EntityField      entities.Field
+	EntityURI        entities.URI
+	EntityAction     entities.ACTION
+	EntityKey        entities.KEY
+	EntityTable      entities.Table
+    //
+	Name                  string       `validate:"required,max=25,min=5"` // this field will not be indexed
+	Profile               string       `storm:"index"`                    // profile of the trip
+	ProfileKey            string       `storm:"index"`                    // profile of the trip
+	ProfileEnrichment     string       // Used to Display Date            // profile name of the trip
+	StatusKey             string       `storm:"index"`                    // Status key of the trip
+	StatusEnrichment      string       // Only used during the display of records
+	Destination           string       `storm:"index" validate:"required,max=35,min=4"` // Destination of the trip
+	DestinationKey        string       `storm:"index"`                    // Internal Key for Destination
+    DestinationEnrichment string       // Only used during the display of records
+	Notes                 string       `validate:"max=75"`                   // Notes about the trip
+	StartDate             time.Time    // Start Date of the Trip
+	EndDate               time.Time    // End Date of the Trip
+	DisplayStartDate      string       // External Start Date of the Trip
+	DisplayEndDate        string       // External End Date of the Trip
+	DurationInDays        entities.Int // Duration of the Trip in Days
+	MinimumNumberOfItems  entities.Int // Minimum Number of Items
+	Countdown             entities.Int // Days remaining until the trip starts
+	TotalItems            entities.Int // Total number of items for the trip
+	TotalItemsPacked      entities.Int // Total number of items packed for the trip
+	Year                  string       `storm:"index"`                    // Year of the Trip
+	DisplayID             string       ``                                 // Display ID of the Trip
+	SequenceNumber        entities.Int // Sequence Number of the Trip
+	PackingProgress       entities.Int // Packing Progress percentage
+	TripProgress          entities.Int // Trip Progress percentage
+	Completed             entities.Bool // Is the trip completed?
+	StartNotified         entities.Bool // Has the start notification been sent?
+	EndWarned             entities.Bool // Has the end warning been sent?
+	EndNotified           entities.Bool // Has the end notification been sent?
+	LastHost 			  string       `storm:"index"`                    // Last host that modified the record
+		PostTest []string  // For testing post processing hooks	
+		NewTimeStart entities.Time
+		NewDateTimeStart entities.DateTime
+		NewDateStart entities.Date
+		

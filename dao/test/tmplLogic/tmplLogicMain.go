@@ -8,20 +8,20 @@ import (
 
 	"github.com/goforj/godump"
 	"github.com/mt1976/frantic-amphora/dao/audit"
-	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV6"
+	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV7"
 	"github.com/mt1976/frantic-core/logHandler"
 )
 
 // Login logs a user in (creating a record if needed) and updates last login metadata.
-func Login(ctx context.Context, sq string) (*templateStoreV6.TemplateStoreV6, error) {
-	usr := templateStoreV6.New()
+func Login(ctx context.Context, sq string) (*templateStoreV7.TemplateStoreV7, error) {
+	usr := templateStoreV7.New()
 
 	logHandler.Trace.Printf("%v", godump.DumpStr(usr))
 
 	usr, err := Add(ctx, sq)
 	if err != nil {
 		logHandler.Error.Printf("Warning=[%v] User=[%v]", err.Error(), usr.Name)
-		return templateStoreV6.New(), err
+		return templateStoreV7.New(), err
 	}
 	return usr, nil
 
@@ -31,17 +31,17 @@ func Login(ctx context.Context, sq string) (*templateStoreV6.TemplateStoreV6, er
 	// u.LastLogin = time.Now()
 	if err = usr.UpdateWithAction(ctx, audit.LOGIN, fmt.Sprintf("User %v logged in", usr.Name)); err != nil {
 		logHandler.Warning.Printf("Warning=[%v] User=[%v]", err.Error(), usr.Name)
-		return templateStoreV6.New(), err
+		return templateStoreV7.New(), err
 	}
 
 	return usr, nil
 }
 
 // Add creates and persists a new user record based on the current OS user.
-func Add(ctx context.Context, sq string) (*templateStoreV6.TemplateStoreV6, error) {
-	logHandler.Info.Printf("Adding new user to TemplateStoreV6: SQ=%v", sq)
+func Add(ctx context.Context, sq string) (*templateStoreV7.TemplateStoreV7, error) {
+	logHandler.Info.Printf("Adding new user to TemplateStoreV7: SQ=%v", sq)
 
-	newUser := templateStoreV6.New()
+	newUser := templateStoreV7.New()
 	// use the creator to build the new record
 	// _, skip, u, err := Creator(ctx, newUser)
 	// if err != nil {
@@ -60,7 +60,7 @@ func Add(ctx context.Context, sq string) (*templateStoreV6.TemplateStoreV6, erro
 			newUser.Name = currentUser.Username
 		} else {
 			logHandler.Error.Printf("Error retrieving current user: '%v'", err.Error())
-			return templateStoreV6.New(), err
+			return templateStoreV7.New(), err
 		}
 	}
 	newUser.Name = newUser.Name + "_" + sq
@@ -68,11 +68,11 @@ func Add(ctx context.Context, sq string) (*templateStoreV6.TemplateStoreV6, erro
 	newUser.Profile = "Standard"
 	newUser.ProfileKey = "standard"
 	newUser.ProfileEnrichment = "Standard profile with no special requirements"
-	u, err := templateStoreV6.Create(ctx, newUser)
+	u, err := templateStoreV7.Create(ctx, newUser)
 	if err != nil {
 		logHandler.Error.Printf("Error: '%v'", err.Error())
-		return templateStoreV6.New(), err
+		return templateStoreV7.New(), err
 	}
-	logHandler.Info.Printf("New user added to TemplateStoreV6: Name=%v, UID=%v", u.Name, u.Raw)
+	logHandler.Info.Printf("New user added to TemplateStoreV7: Name=%v, UID=%v", u.Name, u.Raw)
 	return u, nil
 }

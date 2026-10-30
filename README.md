@@ -197,6 +197,25 @@ user, err := database.GetTyped[User](db, userStore.Fields.ID, 123)
 users, err := database.GetAllTyped[User](db)
 ```
 
+## Generated entity integration tests
+
+The V7 [definition](dao/test/templateStoreV7/templateStoreV7.definition) includes all
+24 exported entity types. Regenerate after changing its fields:
+
+```sh
+go run ./cmd/dao-gen/main.go -out ./dao/test/templateStoreV7 -pkg templateStoreV7 -type TemplateStoreV7 -table TemplateStoreV7 -namespace main -force
+go test . -run TestGeneratedEntityTypes -count=1 -v
+```
+
+The tests use a temporary database, leaving application data untouched. Each type
+is checked with populated and zero values for persistence, filtered counts, page
+counts, partial last pages, and pages beyond the end. Boolean tests also cover
+explicit false values. The unfiltered page traversal checks for missing or
+duplicate records.
+
+Running `go run main.go` also creates entity samples and logs a result per type
+after the existing paging checks.
+
 ## Documentation
 
 ### Documentation Index

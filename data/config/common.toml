@@ -12,7 +12,7 @@ license= "MIT"
 locale = "en_GB"
 
 [Database]
-version = 12
+version = "7"
 type = "storm"
 host = ""
 port = 0

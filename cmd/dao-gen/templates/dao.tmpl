@@ -151,6 +151,76 @@ func GetAllWhere(field entities.Field, value any) ([]*{{.TypeName}}, error) {
 	return result, nil
 }
 
+// GetAllPaged returns a single page of {{.TypeName}} records along with paging
+// information (e.g. for "Page 1 of 10" displays). Pages are 1-based.
+func GetAllPaged(page, pageSize int) ([]*{{.TypeName}}, database.PageInfo, error) {
+	logHandler.Database.Printf("SELECT %v ALL PAGE %d (size=%d)", tableName, page, pageSize)
+	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
+
+	clock := timing.Start(tableName, "GetAllPaged", fmt.Sprintf("page=%d size=%d", page, pageSize))
+	records, pageInfo, err := database.GetAllPagedTyped[{{.TypeName}}](activeDBConnection, page, pageSize)
+	if err != nil {
+		logHandler.Error.Print(ce.ErrNotFoundWrapper(tableName, err).Error())
+		clock.Stop(0)
+		return nil, database.PageInfo{}, ce.ErrNotFoundWrapper(tableName, err)
+	}
+
+	logHandler.Trace.Printf("Retrieved %v records from %v (%v)", len(records), tableName, pageInfo.String())
+
+	result, err := postGetList(context.Background(), records)
+	if err != nil {
+		clock.Stop(0)
+		return nil, database.PageInfo{}, err
+	}
+	logHandler.Trace.Printf("Post Get Paged Processing completed for %v records", len(result))
+	clock.Stop(len(result))
+	return result, pageInfo, nil
+}
+
+// GetAllPagedWhere returns a single page of records matching a field/value filter,
+// along with paging information (e.g. for "Page 1 of 10" displays). Pages are 1-based.
+func GetAllPagedWhere(field entities.Field, value any, page, pageSize int) ([]*{{.TypeName}}, database.PageInfo, error) {
+	logHandler.Database.Printf("SELECT %v WHERE (%v=%v) PAGE %d (size=%d)", tableName, field.String(), value, page, pageSize)
+	dao.CheckDAOReadyState(tableName, audit.GET, databaseConnectionActive)
+
+	clock := timing.Start(tableName, "GetAllPagedWhere", fmt.Sprintf("%v=%v page=%d size=%d", field, value, page, pageSize))
+	records, pageInfo, err := database.GetAllPagedWhereTyped[{{.TypeName}}](activeDBConnection, field, value, page, pageSize)
+	if err != nil {
+		clock.Stop(0)
+		return nil, database.PageInfo{}, err
+	}
+
+	logHandler.Trace.Printf("Retrieved %v records from %v where %v=%v (%v)", len(records), tableName, field.String(), value, pageInfo.String())
+
+	result, err := postGetList(context.Background(), records)
+	if err != nil {
+		clock.Stop(0)
+		return nil, database.PageInfo{}, err
+	}
+	clock.Stop(len(result))
+	return result, pageInfo, nil
+}
+
+// PageCount returns the total number of pages for all {{.TypeName}} records at the given page size.
+func PageCount(pageSize int) (int, error) {
+	logHandler.Database.Printf("PAGECOUNT %v (size=%d)", tableName, pageSize)
+	count, err := Count()
+	if err != nil {
+		return 0, err
+	}
+	return database.TotalPages(count, pageSize), nil
+}
+
+// PageCountWhere returns the total number of pages for records matching a field/value filter at the given page size.
+func PageCountWhere(field entities.Field, value any, pageSize int) (int, error) {
+	logHandler.Database.Printf("PAGECOUNT %v WHERE (%v=%v) (size=%d)", tableName, field.String(), value, pageSize)
+	count, err := CountWhere(field, value)
+	if err != nil {
+		return 0, err
+	}
+	return database.TotalPages(count, pageSize), nil
+}
+
 // New returns an empty {{.TypeName}} record.
 func New() *{{.TypeName}} {
 	logHandler.Database.Printf("NEW %v", tableName)

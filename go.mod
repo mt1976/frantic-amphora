@@ -1,6 +1,6 @@
 module github.com/mt1976/frantic-amphora
 
-go 1.27.1
+go 1.27
 
 require (
 	github.com/alitto/pond/v2 v2.7.3

@@ -108,6 +108,7 @@ func main() {
 		"lowerFirst":       lowerFirst,
 		"domainFieldNames": func() string { return fieldNames },
 		"domainFieldInits": func() string { return fieldInits },
+		"usesTime":         func() bool { return strings.Contains(domainFields, "time.") },
 	}
 
 	if err := os.MkdirAll(cfg.OutDir, 0o755); err != nil {

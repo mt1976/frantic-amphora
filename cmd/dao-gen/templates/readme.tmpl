@@ -48,6 +48,10 @@ records, err := {{.PackageName}}.GetAllWhere({{.PackageName}}.Fields.SomeField, 
 
 // Count records matching criteria
 count, err := {{.PackageName}}.CountWhere({{.PackageName}}.Fields.Active, true)
+
+// Fetch a single page (1-based) - pageInfo.String() gives "Page 1 of 10"
+records, pageInfo, err := {{.PackageName}}.GetAllPaged(1, 25)
+records, pageInfo, err = {{.PackageName}}.GetAllPagedWhere({{.PackageName}}.Fields.SomeField, value, 2, 25)
 ```
 
 ## Public API
@@ -72,6 +76,10 @@ count, err := {{.PackageName}}.CountWhere({{.PackageName}}.Fields.Active, true)
 - `func GetBy(field entities.Field, value any) (*{{.TypeName}}, error)`
 - `func GetAll() ([]{{.TypeName}}, error)`
 - `func GetAllWhere(field entities.Field, value any) ([]{{.TypeName}}, error)`
+- `func GetAllPaged(page, pageSize int) ([]*{{.TypeName}}, database.PageInfo, error)`
+- `func GetAllPagedWhere(field entities.Field, value any, page, pageSize int) ([]*{{.TypeName}}, database.PageInfo, error)`
+- `func PageCount(pageSize int) (int, error)`
+- `func PageCountWhere(field entities.Field, value any, pageSize int) (int, error)`
 
 ### Mutations
 
