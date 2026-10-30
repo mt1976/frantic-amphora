@@ -507,14 +507,15 @@ func (db *DB) Update(data any) error {
 	return err
 }
 
-func bgUpdate(data any, db *DB) {
-	logHandler.Database.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
-	err := db.connection.Update(data)
-	if err != nil {
-		logHandler.Error.Panicf("[UPDATE] %v [...%v.db] (%.10s) - Error updating DB: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
-		return
-	}
-}
+// DEPRECATED: bgUpdate is a background update function that is no longer used. It updates the database directly without caching.
+//func bgUpdate(data any, db *DB) {
+//	logHandler.Database.Printf("[UPDATE] %v [...%v.db] (%.10s) - Caching Disabled or Not Initialised", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data))
+//	err := db.connection.Update(data)
+//	if err != nil {
+//		logHandler.Error.Panicf("[UPDATE] %v [...%v.db] (%.10s) - Error updating DB: %v", entities.GetStructType(data), db.Name, fmt.Sprintf("%+v", data), err)
+//		return
+//	}
+//}
 
 // Create adds a new record to the database.
 //

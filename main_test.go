@@ -10,7 +10,7 @@ import (
 
 	"github.com/mt1976/frantic-amphora/dao/database"
 	"github.com/mt1976/frantic-amphora/dao/entities"
-	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV7"
+	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV9"
 )
 
 func TestGeneratedEntityTypes(t *testing.T) {
@@ -28,9 +28,9 @@ func TestGeneratedEntityTypes(t *testing.T) {
 		t.Fatal(err)
 	}
 	ctx := context.Background()
-	templateStoreV7.Initialise(ctx, false)
+	templateStoreV9.Initialise(ctx, false)
 	t.Cleanup(func() {
-		connections, err := templateStoreV7.GetDatabaseConnections()()
+		connections, err := templateStoreV9.GetDatabaseConnections()()
 		if err != nil {
 			t.Error(err)
 			return
@@ -67,8 +67,8 @@ func TestGeneratedEntityTypes(t *testing.T) {
 		t.Fatalf("tested %d entity types, want 24", tested)
 	}
 	t.Run("all-pages", func(t *testing.T) {
-		failures := verifyPages("Entity", "ALL", len(records), 4, 2, recordIDs(records), func(page int) ([]*templateStoreV7.TemplateStoreV7, database.PageInfo, error) {
-			return templateStoreV7.GetAllPaged(page, 2)
+		failures := verifyPages("Entity", "ALL", len(records), 4, 2, recordIDs(records), func(page int) ([]*templateStoreV9.TemplateStoreV9, database.PageInfo, error) {
+			return templateStoreV9.GetAllPaged(page, 2)
 		})
 		if failures != 0 {
 			t.Fatalf("unfiltered paging: %d failure(s)", failures)
@@ -82,7 +82,7 @@ func TestGeneratedEntityTypes(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
-		for _, field := range []entities.Field{templateStoreV7.Fields.EntityBool, templateStoreV7.Fields.EntityStormBool} {
+		for _, field := range []entities.Field{templateStoreV9.Fields.EntityBool, templateStoreV9.Fields.EntityStormBool} {
 			t.Run(field.String(), func(t *testing.T) {
 				value := reflect.ValueOf(records[5]).Elem().FieldByName(field.String()).Interface()
 				if err := verifyEntityType(field, value, records[5:]); err != nil {

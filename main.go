@@ -15,7 +15,7 @@ import (
 	"github.com/mt1976/frantic-amphora/dao/audit"
 	"github.com/mt1976/frantic-amphora/dao/database"
 	"github.com/mt1976/frantic-amphora/dao/entities"
-	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV7"
+	"github.com/mt1976/frantic-amphora/dao/test/templateStoreV9"
 	logic "github.com/mt1976/frantic-amphora/dao/test/tmplLogic"
 	"github.com/mt1976/frantic-core/contextHandler"
 	"github.com/mt1976/frantic-core/logHandler"
@@ -59,20 +59,20 @@ func main() {
 	logHandler.Banner("INFO", "START", "Starting DAO Test Application - Phase 1")
 
 	logHandler.Info.Println("Initialize User Store")
-	templateStoreV7.Initialise(ctx, false)
-	templateStoreV7.RegisterCreator(logic.Creator)
-	templateStoreV7.RegisterDuplicateCheck(logic.DuplicateCheck)
-	templateStoreV7.RegisterWorker(logic.JobProcessor)
-	templateStoreV7.RegisterPostCreate(logic.PostCreate)
-	templateStoreV7.RegisterPostUpdate(logic.PostUpdate)
-	templateStoreV7.RegisterPostDelete(logic.PostDelete)
-	templateStoreV7.RegisterCloner(logic.Cloner)
+	templateStoreV9.Initialise(ctx, false)
+	templateStoreV9.RegisterCreator(logic.Creator)
+	templateStoreV9.RegisterDuplicateCheck(logic.DuplicateCheck)
+	templateStoreV9.RegisterWorker(logic.JobProcessor)
+	templateStoreV9.RegisterPostCreate(logic.PostCreate)
+	templateStoreV9.RegisterPostUpdate(logic.PostUpdate)
+	templateStoreV9.RegisterPostDelete(logic.PostDelete)
+	templateStoreV9.RegisterCloner(logic.Cloner)
 
 	// tripStore.Initialise(ctx, false)
 
 	logHandler.Info.Println("Clear Down User Store")
 
-	templateStoreV7.ClearDown(ctx)
+	templateStoreV9.ClearDown(ctx)
 
 	totalElapsed := time.Duration(0)
 	// start := time.Now()
@@ -158,7 +158,7 @@ func test(ctx context.Context, phase string, baselineThings int) string {
 	// //Cache.RegisterHydrator(templateStoreV2.TemplateStore{}, templateStoreV2.CacheHydrator(ctx))
 
 	logHandler.Info.Printf("Phase %v Adding %d Baseline Things to Store", phase, baselineThings)
-	var newRecords []*templateStoreV7.TemplateStoreV7
+	var newRecords []*templateStoreV9.TemplateStoreV9
 	for i := 0; i < baselineThings; i++ {
 		logHandler.Info.Printf("Phase %v Creating Baseline User %v", phase, i+1)
 		newRecord, info := logic.Login(ctx, fmt.Sprintf("%04v", i+1))
@@ -188,7 +188,7 @@ func test(ctx context.Context, phase string, baselineThings int) string {
 
 	////Cache.HydrateForType(templateStoreV2.TemplateStore{})
 
-	setupTemplates, err := templateStoreV7.GetAll()
+	setupTemplates, err := templateStoreV9.GetAll()
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error getting all Things: %v", phase, err)
 	}
@@ -221,7 +221,7 @@ func test(ctx context.Context, phase string, baselineThings int) string {
 	logHandler.Info.Printf("Phase %v Selected User Key: %v %v", phase, uKey, len(newRecords))
 
 	// Read back in the created user with key uKey, and update its LastHost field to "orion+datetime"
-	userRec, getErr := templateStoreV7.GetBy(templateStoreV7.Fields.Key, uKey)
+	userRec, getErr := templateStoreV9.GetBy(templateStoreV9.Fields.Key, uKey)
 	if getErr != nil {
 		logHandler.Error.Printf("Phase %v Error getting user by key %v: %v", phase, uKey, getErr)
 	} else {
@@ -243,26 +243,26 @@ func test(ctx context.Context, phase string, baselineThings int) string {
 	}
 
 	logHandler.Info.Printf("Phase %v Exporting All Things as CSV", phase)
-	err = templateStoreV7.ExportAllToCSV("END" + phase)
+	err = templateStoreV9.ExportAllToCSV("END" + phase)
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error exporting all Things as CSV: %v", phase, err)
 	}
 	logHandler.Info.Printf("Phase %v Exporting All Things as JSON", phase)
 
 	logHandler.Info.Printf("Phase %v Exporting All Things to Defaults", phase)
-	err = templateStoreV7.ExportDefaults()
+	err = templateStoreV9.ExportDefaults()
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error exporting all Things to Defaults: %v", phase, err)
 	}
 
 	logHandler.Info.Printf("Cleardown User Store for Phase %v Imports from Defaults", phase)
-	err = templateStoreV7.ClearDown(ctx)
+	err = templateStoreV9.ClearDown(ctx)
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error cleardown user store: %v", phase, err)
 	}
 
 	// Check its empty before we import
-	templateEntries, err := templateStoreV7.GetAll()
+	templateEntries, err := templateStoreV9.GetAll()
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error getting all Things before import: %v", phase, err)
 	}
@@ -273,20 +273,20 @@ func test(ctx context.Context, phase string, baselineThings int) string {
 		os.Exit(0)
 	}
 
-	err = templateStoreV7.ClearDown(ctx)
+	err = templateStoreV9.ClearDown(ctx)
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error cleardown user store: %v", phase, err)
 	}
 
 	logHandler.Info.Printf("Phase %v Importing All Things from Defaults", phase)
-	err = templateStoreV7.ImportDefaults(ctx)
+	err = templateStoreV9.ImportDefaults(ctx)
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error importing all Things from Defaults: %v", phase, err)
 	}
 	logHandler.Info.Printf("Phase %v Completed Imports from Defaults", phase)
 
 	// Get all Things again to verify count
-	allThings, err := templateStoreV7.GetAll()
+	allThings, err := templateStoreV9.GetAll()
 	if err != nil {
 		logHandler.Error.Printf("Phase %v Error getting all Things after import: %v", phase, err)
 	}
@@ -459,12 +459,12 @@ func pagingTest(ctx context.Context, phase string, extraRecords, pageSize int) i
 		}
 	}
 
-	total, err := templateStoreV7.Count()
+	total, err := templateStoreV9.Count()
 	if err != nil {
 		fail("error counting records: %v", err)
 		return failures
 	}
-	allRecords, err := templateStoreV7.GetAll()
+	allRecords, err := templateStoreV9.GetAll()
 	if err != nil {
 		fail("error getting all records: %v", err)
 		return failures
@@ -476,23 +476,23 @@ func pagingTest(ctx context.Context, phase string, extraRecords, pageSize int) i
 
 	// Unfiltered paging
 	expectedPages := database.TotalPages(total, pageSize)
-	pageCount, err := templateStoreV7.PageCount(pageSize)
+	pageCount, err := templateStoreV9.PageCount(pageSize)
 	if err != nil {
 		fail("PageCount error: %v", err)
 	} else if pageCount != expectedPages {
 		fail("PageCount=%d expected %d", pageCount, expectedPages)
 	}
-	failures += verifyPages(phase, "ALL", total, expectedPages, pageSize, recordIDs(allRecords), func(page int) ([]*templateStoreV7.TemplateStoreV7, database.PageInfo, error) {
-		return templateStoreV7.GetAllPaged(page, pageSize)
+	failures += verifyPages(phase, "ALL", total, expectedPages, pageSize, recordIDs(allRecords), func(page int) ([]*templateStoreV9.TemplateStoreV9, database.PageInfo, error) {
+		return templateStoreV9.GetAllPaged(page, pageSize)
 	})
 
 	// Filtered paging
-	whereTotal, err := templateStoreV7.CountWhere(templateStoreV7.Fields.ProfileKey, premiumKey)
+	whereTotal, err := templateStoreV9.CountWhere(templateStoreV9.Fields.ProfileKey, premiumKey)
 	if err != nil {
 		fail("CountWhere error: %v", err)
 		return failures
 	}
-	whereRecords, err := templateStoreV7.GetAllWhere(templateStoreV7.Fields.ProfileKey, premiumKey)
+	whereRecords, err := templateStoreV9.GetAllWhere(templateStoreV9.Fields.ProfileKey, premiumKey)
 	if err != nil {
 		fail("GetAllWhere error: %v", err)
 		return failures
@@ -501,18 +501,18 @@ func pagingTest(ctx context.Context, phase string, extraRecords, pageSize int) i
 		fail("filtered test needs a subset of records, got %d of %d", whereTotal, total)
 	}
 	expectedWherePages := database.TotalPages(whereTotal, pageSize)
-	wherePageCount, err := templateStoreV7.PageCountWhere(templateStoreV7.Fields.ProfileKey, premiumKey, pageSize)
+	wherePageCount, err := templateStoreV9.PageCountWhere(templateStoreV9.Fields.ProfileKey, premiumKey, pageSize)
 	if err != nil {
 		fail("PageCountWhere error: %v", err)
 	} else if wherePageCount != expectedWherePages {
 		fail("PageCountWhere=%d expected %d", wherePageCount, expectedWherePages)
 	}
-	failures += verifyPages(phase, "WHERE "+premiumKey, whereTotal, expectedWherePages, pageSize, recordIDs(whereRecords), func(page int) ([]*templateStoreV7.TemplateStoreV7, database.PageInfo, error) {
-		return templateStoreV7.GetAllPagedWhere(templateStoreV7.Fields.ProfileKey, premiumKey, page, pageSize)
+	failures += verifyPages(phase, "WHERE "+premiumKey, whereTotal, expectedWherePages, pageSize, recordIDs(whereRecords), func(page int) ([]*templateStoreV9.TemplateStoreV9, database.PageInfo, error) {
+		return templateStoreV9.GetAllPagedWhere(templateStoreV9.Fields.ProfileKey, premiumKey, page, pageSize)
 	})
 
 	// Edge cases
-	beyond, _, err := templateStoreV7.GetAllPaged(expectedPages+5, pageSize)
+	beyond, _, err := templateStoreV9.GetAllPaged(expectedPages+5, pageSize)
 	if err != nil || len(beyond) != 0 {
 		fail("page beyond range returned %d records, err=%v (expected 0, nil)", len(beyond), err)
 	}
@@ -523,7 +523,7 @@ func pagingTest(ctx context.Context, phase string, extraRecords, pageSize int) i
 
 // verifyPages walks every page returned by fetch and checks the page metadata and that
 // the combined pages contain exactly the expected record IDs with no duplicates.
-func verifyPages(phase, label string, total, expectedPages, pageSize int, expectedIDs map[int]bool, fetch func(page int) ([]*templateStoreV7.TemplateStoreV7, database.PageInfo, error)) int {
+func verifyPages(phase, label string, total, expectedPages, pageSize int, expectedIDs map[int]bool, fetch func(page int) ([]*templateStoreV9.TemplateStoreV9, database.PageInfo, error)) int {
 	failures := 0
 	fail := func(format string, args ...any) {
 		failures++
@@ -567,7 +567,7 @@ func verifyPages(phase, label string, total, expectedPages, pageSize int, expect
 	return failures
 }
 
-func recordIDs(records []*templateStoreV7.TemplateStoreV7) map[int]bool {
+func recordIDs(records []*templateStoreV9.TemplateStoreV9) map[int]bool {
 	ids := make(map[int]bool, len(records))
 	for _, r := range records {
 		ids[r.ID] = true
@@ -575,8 +575,8 @@ func recordIDs(records []*templateStoreV7.TemplateStoreV7) map[int]bool {
 	return ids
 }
 
-func entityTypeSample() *templateStoreV7.TemplateStoreV7 {
-	record := templateStoreV7.New()
+func entityTypeSample() *templateStoreV9.TemplateStoreV9 {
+	record := templateStoreV9.New()
 	record.EntityInt.Set(-42)
 	record.EntityInt64 = entities.Int64{Value: "-9223372036854775808"}
 	record.EntityUInt64 = entities.UInt64{Value: "18446744073709551615"}
@@ -605,13 +605,13 @@ func entityTypeSample() *templateStoreV7.TemplateStoreV7 {
 	return record
 }
 
-func createEntityTypeRecords(ctx context.Context) ([]*templateStoreV7.TemplateStoreV7, error) {
-	var records []*templateStoreV7.TemplateStoreV7
+func createEntityTypeRecords(ctx context.Context) ([]*templateStoreV9.TemplateStoreV9, error) {
+	var records []*templateStoreV9.TemplateStoreV9
 	for i := 0; i < 7; i++ {
-		record := templateStoreV7.New()
+		record := templateStoreV9.New()
 		record.Name = fmt.Sprintf("EntityTest_%02d", i)
 		record.Destination = "Entity test destination"
-		record, err := templateStoreV7.Create(ctx, record)
+		record, err := templateStoreV9.Create(ctx, record)
 		if err != nil {
 			return nil, fmt.Errorf("creating entity test record %d: %w", i, err)
 		}
@@ -633,10 +633,10 @@ func createEntityTypeRecords(ctx context.Context) ([]*templateStoreV7.TemplateSt
 	return records, nil
 }
 
-func verifyEntityType(field entities.Field, value any, expected []*templateStoreV7.TemplateStoreV7) error {
+func verifyEntityType(field entities.Field, value any, expected []*templateStoreV9.TemplateStoreV9) error {
 	const pageSize = 2
 	for _, record := range expected {
-		loaded, err := templateStoreV7.GetBy(templateStoreV7.Fields.Key, record.Key)
+		loaded, err := templateStoreV9.GetBy(templateStoreV9.Fields.Key, record.Key)
 		if err != nil {
 			return err
 		}
@@ -645,14 +645,14 @@ func verifyEntityType(field entities.Field, value any, expected []*templateStore
 			return fmt.Errorf("%s round-trip: got %#v, want %#v", field, got, value)
 		}
 	}
-	count, err := templateStoreV7.CountWhere(field, value)
+	count, err := templateStoreV9.CountWhere(field, value)
 	if err != nil {
 		return err
 	}
 	if count != len(expected) {
 		return fmt.Errorf("%s CountWhere=%d, want %d", field, count, len(expected))
 	}
-	pages, err := templateStoreV7.PageCountWhere(field, value, pageSize)
+	pages, err := templateStoreV9.PageCountWhere(field, value, pageSize)
 	if err != nil {
 		return err
 	}
@@ -660,15 +660,15 @@ func verifyEntityType(field entities.Field, value any, expected []*templateStore
 	if pages != expectedPages {
 		return fmt.Errorf("%s PageCountWhere=%d, want %d", field, pages, expectedPages)
 	}
-	all, err := templateStoreV7.GetAllWhere(field, value)
+	all, err := templateStoreV9.GetAllWhere(field, value)
 	if err != nil {
 		return err
 	}
 	if !reflect.DeepEqual(recordIDs(all), recordIDs(expected)) {
 		return fmt.Errorf("%s GetAllWhere returned unexpected record IDs", field)
 	}
-	failures := verifyPages("Entity", field.String(), len(expected), pages, pageSize, recordIDs(expected), func(page int) ([]*templateStoreV7.TemplateStoreV7, database.PageInfo, error) {
-		records, info, err := templateStoreV7.GetAllPagedWhere(field, value, page, pageSize)
+	failures := verifyPages("Entity", field.String(), len(expected), pages, pageSize, recordIDs(expected), func(page int) ([]*templateStoreV9.TemplateStoreV9, database.PageInfo, error) {
+		records, info, err := templateStoreV9.GetAllPagedWhere(field, value, page, pageSize)
 		if err != nil {
 			return nil, info, err
 		}
@@ -683,7 +683,7 @@ func verifyEntityType(field entities.Field, value any, expected []*templateStore
 	if failures != 0 {
 		return fmt.Errorf("%s paging: %d failure(s)", field, failures)
 	}
-	beyond, info, err := templateStoreV7.GetAllPagedWhere(field, value, pages+1, pageSize)
+	beyond, info, err := templateStoreV9.GetAllPagedWhere(field, value, pages+1, pageSize)
 	if err != nil {
 		return err
 	}
